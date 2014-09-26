@@ -63,12 +63,14 @@ namespace LPOA.WPF
                 log.Debug("提交数据成功,启动流程");
             }
 
+            //启动整个工作流
+            LeaveActivity la = new LeaveActivity();
+
+            //启动工作流中的表单提交节点
             IDictionary<string ,object> dc=new Dictionary<string,object>();
             dc.Add("UserId", 10012);
-            //启动工作流
-            LeaveActivity la = new LeaveActivity();
             FormSubmitActivity fa = new WF.Leaves.FormSubmitActivity();
-            fa.Text = "OKAAAA";
+            
             
             int reuslt = WorkflowInvoker.Invoke(new FormSubmitActivity(),dc);
 
