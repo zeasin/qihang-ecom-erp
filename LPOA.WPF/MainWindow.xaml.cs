@@ -1,5 +1,6 @@
 ﻿using LPOA.Model;
 using LPOA.WF;
+using LPOA.WF.Leaves;
 using System;
 using System.Activities;
 using System.Collections.Generic;
@@ -62,10 +63,16 @@ namespace LPOA.WPF
                 log.Debug("提交数据成功,启动流程");
             }
 
+            IDictionary<string ,object> dc=new Dictionary<string,object>();
+            dc.Add("UserId", 10012);
+            //启动工作流
             LeaveActivity la = new LeaveActivity();
-            WorkflowInvoker.Invoke(la);
+            FormSubmitActivity fa = new WF.Leaves.FormSubmitActivity();
+            fa.Text = "OKAAAA";
+            
+            int reuslt = WorkflowInvoker.Invoke(new FormSubmitActivity(),dc);
 
-            MessageBox.Show("申请成功！等待审核！" + entity.StartDate);
+            MessageBox.Show("申请成功！等待审核！" + reuslt.ToString());
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -78,6 +85,12 @@ namespace LPOA.WPF
 
             LeaveList frm = new LeaveList();
             frm.Show();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            dpStart.Text = DateTime.Now.ToShortDateString();
+            dpEnd.Text = DateTime.Now.AddDays(3).ToShortDateString();
         }
     }
 }
