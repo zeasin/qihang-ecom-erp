@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>System.Data.SQLite.Linq</id>
+    <version>1.0.94.1</version>
+    <title>System.Data.SQLite LINQ (x86/x64)</title>
+    <authors>SQLite Development Team</authors>
+    <owners>SQLite Development Team</owners>
+    <licenseUrl>http://www.sqlite.org/copyright.html</licenseUrl>
+    <projectUrl>http://system.data.sqlite.org/</projectUrl>
+    <iconUrl>http://system.data.sqlite.org/images/sqlite128.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Support for LINQ using System.Data.SQLite.</description>
+    <copyright>Public Domain</copyright>
+    <language>en-US</language>
+    <tags>sqlite database ado.net provider interop</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework2.0">
+        <dependency id="System.Data.SQLite.Core" version="1.0.94.0" />
+      </group>
+      <group targetFramework=".NETFramework4.0">
+        <dependency id="System.Data.SQLite.Core" version="1.0.94.0" />
+      </group>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="System.Data.SQLite.Core" version="1.0.94.0" />
+      </group>
+      <group targetFramework=".NETFramework4.5.1">
+        <dependency id="System.Data.SQLite.Core" version="1.0.94.0" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
