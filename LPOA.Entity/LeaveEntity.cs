@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EntityFramework.Extensions;
 
-namespace LPOA.Model
+namespace LPOA.Entity
 {
-    public class Leave
+    public class LeaveEntity
     {
         public long Id { get; set; }
 
         public string Title { get; set; }
 
-        public DateTime? StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public DateTime? EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public string LeaveType { get; set; }
 
@@ -32,5 +30,7 @@ namespace LPOA.Model
         public string Intro { get; set; }
 
         public long State { get; set; }
+
+        public string WorkFlowId { get; set; }
     }
 }
