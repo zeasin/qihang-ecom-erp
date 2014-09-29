@@ -1,6 +1,8 @@
-﻿using LPOA.Model;
+﻿using LPOA.Entity;
+using LPOA.Sqlite;
 using LPOA.WF;
 using LPOA.WF.Leaves;
+using LPOA.WF.Model;
 using System;
 using System.Activities;
 using System.Collections.Generic;
@@ -22,24 +24,25 @@ namespace LPOA.WPF
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class NewLeaveWindow : Window
     {
-        public MainWindow()
+        public NewLeaveWindow()
         {
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           
-            
+            LeavesDAL leaveDAL = new LeavesDAL();
 
 
-            NorthwindContext context = new NorthwindContext();
+            //NorthwindContext context = new NorthwindContext();
+            //LeaveContext context = new LeaveContext();
             //var empList = context.Leaves.OrderBy(c => c.Id).ToList();
 
-            Leave entity = new Leave();
-            entity.Title = "请假";
+            LeaveEntity entity = new LeaveEntity();
+            Guid leaveId = Guid.NewGuid();
+            entity.Title = leaveId.ToString();
             string start = dpStart.Text;
             if (string.IsNullOrEmpty(start) == false) entity.StartDate = DateTime.Parse(start);
             string end = dpEnd.Text;
@@ -51,30 +54,52 @@ namespace LPOA.WPF
             entity.LeaveUser = txtUserName.Text;
             entity.Shangji = txtShangji.Text;
             entity.Zongjingli = txtManager.Text;
+            entity.State = 0;
 
-
-            context.AddEntity(entity);
+            leaveDAL.ExecuteInsert(entity);
 
             System.Diagnostics.Debug.WriteLine("提交数据成功");
             System.Diagnostics.Debug.WriteLine("启动流程");
+
             log4net.ILog log = log4net.LogManager.GetLogger("mylog");
             if (log.IsDebugEnabled)
             {
                 log.Debug("提交数据成功,启动流程");
             }
 
-            //启动整个工作流
+            //leaveContext.AddEntity(new WorkFlowEntity { FlowId = Guid.NewGuid().ToString(), WorkId = leaveId.ToString(), FlowLevel = 0, Intro = "提交请假表单", WorkType = "LEAVE" });
+           
+            //NorthwindContext<WorkFlow> flowContext = new NorthwindContext<WorkFlow>();
+
+           
+            //var list = flowContext.Context.OrderBy(c => c.Id).ToList();
+
+            //wfc.AddEntity(new WorkFlow { Id = Guid.NewGuid(), WorkId = leaveId.ToString(), FlowLevel = 0, Intro = "提交请假表单", WorkType = "LEAVE" });
+
             LeaveActivity la = new LeaveActivity();
 
-            //启动工作流中的表单提交节点
-            IDictionary<string ,object> dc=new Dictionary<string,object>();
-            dc.Add("UserId", 10012);
-            FormSubmitActivity fa = new WF.Leaves.FormSubmitActivity();
-            
-            
-            int reuslt = WorkflowInvoker.Invoke(new FormSubmitActivity(),dc);
+            WFWorker worker = new WFWorker();
+            worker.WFName = "LEAVE";
+            worker.WorkId = leaveId;
+            worker.FlowLevel = 1;
+            //la.Worker = worker;
+            IDictionary<string, object> dict = new Dictionary<string, object>();
+            dict.Add("Worker", worker);
 
-            MessageBox.Show("申请成功！等待审核！" + reuslt.ToString());
+            var result = WorkflowInvoker.Invoke(la,dict);
+
+
+            //启动工作流中的表单提交节点
+            //IDictionary<string ,object> dc=new Dictionary<string,object>();
+            //dc.Add("WorkId", leaveId);
+            //dc.Add("WorkType", "LEAVE");
+            //Guid workFlowId = WorkflowInvoker.Invoke(new FormSubmitActivity(),dc);
+
+            //更新工作流ID到业务
+            //leaveDAL.UpdateWorkFlowId(leaveId, workFlowId);
+
+            MessageBox.Show("申请成功！等待审核！" );
+            this.Close();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -85,7 +110,7 @@ namespace LPOA.WPF
                 log.Debug("提交数据成功,启动流程");
             }
 
-            LeaveList frm = new LeaveList();
+            LeaveAuditListWindow frm = new LeaveAuditListWindow();
             frm.Show();
         }
 
