@@ -54,6 +54,8 @@
     <Compile Include="DALBase.cs" />
     <Compile Include="LeavesDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WFConfigDAL.cs" />
+    <Compile Include="WFConfigEntity.cs" />
     <Compile Include="WorkFlowDAL.cs" />
   </ItemGroup>
   <ItemGroup>

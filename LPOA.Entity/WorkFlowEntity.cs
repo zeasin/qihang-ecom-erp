@@ -12,7 +12,7 @@ namespace LPOA.Entity
         public string FlowName { get; set; }
 
         public string WorkId { get; set; }
-        public string FlowLevel { get; set; }
+        public long FlowLevel { get; set; }
         public string FlowDesc { get; set; }
     }
 }

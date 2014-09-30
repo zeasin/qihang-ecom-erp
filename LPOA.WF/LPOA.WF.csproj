@@ -61,6 +61,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WFActivity.cs" />
     <Compile Include="Leaves\AuditCompleteActivity.cs" />
     <Compile Include="Leaves\FormSubmitActivity.cs" />
     <Compile Include="Leaves\ManagerAuditActivity.cs" />
