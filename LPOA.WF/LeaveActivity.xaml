@@ -2,7 +2,7 @@
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
  xmlns:local="clr-namespace:LPOA.WF.Model"
- xmlns:local1="clr-namespace:LPOA.WF.Leaves"
+ xmlns:local1="clr-namespace:LPOA.WF"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
  xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
@@ -54,151 +54,175 @@
   </TextExpression.ReferencesForImplementation>
   <Flowchart DisplayName="请假审批工作流" sap2010:WorkflowViewState.IdRef="Flowchart_1">
     <Flowchart.StartNode>
-      <FlowDecision x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
-        <FlowDecision.Condition>
-          <mca:CSharpValue x:TypeArguments="x:Boolean">Worker.FlowLevel==0</mca:CSharpValue>
-        </FlowDecision.Condition>
-        <FlowDecision.True>
-          <FlowStep x:Name="__ReferenceID3" sap2010:WorkflowViewState.IdRef="FlowStep_2">
-            <local1:FormSubmitActivity Text="{x:Null}" WorkId="{x:Null}" WorkType="{x:Null}" DisplayName="提交请假申请" sap2010:WorkflowViewState.IdRef="FormSubmitActivity_1" />
+      <FlowStep x:Name="__ReferenceID1" sap2010:WorkflowViewState.IdRef="FlowStep_15">
+        <local1:WFActivity Text="{x:Null}" DisplayName="提交表单" sap2010:WorkflowViewState.IdRef="WFActivity_5">
+          <local1:WFActivity.Result>
+            <OutArgument x:TypeArguments="local:WFWorkResult">
+              <mca:CSharpReference x:TypeArguments="local:WFWorkResult">WorkResult</mca:CSharpReference>
+            </OutArgument>
+          </local1:WFActivity.Result>
+          <local1:WFActivity.Worker>
+            <InArgument x:TypeArguments="local:WFWorker">
+              <mca:CSharpValue x:TypeArguments="local:WFWorker">Worker</mca:CSharpValue>
+            </InArgument>
+          </local1:WFActivity.Worker>
+        </local1:WFActivity>
+        <FlowStep.Next>
+          <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_16">
+            <local1:WFActivity Text="{x:Null}" DisplayName="主管审批" sap2010:WorkflowViewState.IdRef="WFActivity_6">
+              <local1:WFActivity.Result>
+                <OutArgument x:TypeArguments="local:WFWorkResult">
+                  <mca:CSharpReference x:TypeArguments="local:WFWorkResult">WorkResult</mca:CSharpReference>
+                </OutArgument>
+              </local1:WFActivity.Result>
+              <local1:WFActivity.Worker>
+                <InArgument x:TypeArguments="local:WFWorker">
+                  <mca:CSharpValue x:TypeArguments="local:WFWorker">Worker</mca:CSharpValue>
+                </InArgument>
+              </local1:WFActivity.Worker>
+            </local1:WFActivity>
+            <FlowStep.Next>
+              <FlowDecision x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowDecision_3">
+                <FlowDecision.Condition>
+                  <mca:CSharpValue x:TypeArguments="x:Boolean">WorkResult.Result == -1</mca:CSharpValue>
+                </FlowDecision.Condition>
+                <FlowDecision.True>
+                  <FlowStep x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowStep_18">
+                    <local1:WFActivity Text="{x:Null}" DisplayName="经理审批" sap2010:WorkflowViewState.IdRef="WFActivity_7">
+                      <local1:WFActivity.Result>
+                        <OutArgument x:TypeArguments="local:WFWorkResult">
+                          <mca:CSharpReference x:TypeArguments="local:WFWorkResult">WorkResult</mca:CSharpReference>
+                        </OutArgument>
+                      </local1:WFActivity.Result>
+                      <local1:WFActivity.Worker>
+                        <InArgument x:TypeArguments="local:WFWorker">
+                          <mca:CSharpValue x:TypeArguments="local:WFWorker">Worker</mca:CSharpValue>
+                        </InArgument>
+                      </local1:WFActivity.Worker>
+                    </local1:WFActivity>
+                    <FlowStep.Next>
+                      <FlowStep x:Name="__ReferenceID3" sap2010:WorkflowViewState.IdRef="FlowStep_17">
+                        <local1:WFActivity Text="{x:Null}" DisplayName="完成" sap2010:WorkflowViewState.IdRef="WFActivity_8">
+                          <local1:WFActivity.Result>
+                            <OutArgument x:TypeArguments="local:WFWorkResult">
+                              <mca:CSharpReference x:TypeArguments="local:WFWorkResult">WorkResult</mca:CSharpReference>
+                            </OutArgument>
+                          </local1:WFActivity.Result>
+                          <local1:WFActivity.Worker>
+                            <InArgument x:TypeArguments="local:WFWorker">
+                              <mca:CSharpValue x:TypeArguments="local:WFWorker">Worker</mca:CSharpValue>
+                            </InArgument>
+                          </local1:WFActivity.Worker>
+                        </local1:WFActivity>
+                      </FlowStep>
+                    </FlowStep.Next>
+                  </FlowStep>
+                </FlowDecision.True>
+                <FlowDecision.False>
+                  <x:Reference>__ReferenceID0</x:Reference>
+                </FlowDecision.False>
+              </FlowDecision>
+            </FlowStep.Next>
           </FlowStep>
-        </FlowDecision.True>
-        <FlowDecision.False>
-          <FlowStep x:Name="__ReferenceID5" sap2010:WorkflowViewState.IdRef="FlowStep_9">
-            <Flowchart DisplayName="审批流程" sap2010:WorkflowViewState.IdRef="Flowchart_2">
-              <Flowchart.StartNode>
-                <FlowStep x:Name="__ReferenceID1" sap2010:WorkflowViewState.IdRef="FlowStep_8">
-                  <local1:SupervisorAuditActivity FlowId="{x:Null}" Text="{x:Null}" Worker="{x:Null}" sap2010:WorkflowViewState.IdRef="SupervisorAuditActivity_2" />
-                  <FlowStep.Next>
-                    <FlowStep x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowStep_6">
-                      <local1:ManagerAuditActivity Text="{x:Null}" sap2010:WorkflowViewState.IdRef="ManagerAuditActivity_2" />
-                      <FlowStep.Next>
-                        <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_7">
-                          <local1:AuditCompleteActivity Text="{x:Null}" sap2010:WorkflowViewState.IdRef="AuditCompleteActivity_2" />
-                        </FlowStep>
-                      </FlowStep.Next>
-                    </FlowStep>
-                  </FlowStep.Next>
-                </FlowStep>
-              </Flowchart.StartNode>
-              <x:Reference>__ReferenceID0</x:Reference>
-              <x:Reference>__ReferenceID1</x:Reference>
-              <x:Reference>__ReferenceID2</x:Reference>
-            </Flowchart>
-          </FlowStep>
-        </FlowDecision.False>
-      </FlowDecision>
+        </FlowStep.Next>
+      </FlowStep>
     </Flowchart.StartNode>
+    <x:Reference>__ReferenceID1</x:Reference>
+    <x:Reference>__ReferenceID0</x:Reference>
+    <x:Reference>__ReferenceID2</x:Reference>
     <x:Reference>__ReferenceID3</x:Reference>
     <x:Reference>__ReferenceID4</x:Reference>
-    <x:Reference>__ReferenceID5</x:Reference>
-    <sads:DebugSymbol.Symbol>dy9EOlxNeVByb2plY3RcV0ZcTFBPQVxMUE9BLldGXExlYXZlQWN0aXZpdHkueGFtbAc3A2APAgEBOws7XQIBB0QNVxkCAQM/DT+sAQIBAkcTR6UBAgEGShdKfwIBBU0bTYUBAgEE</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>dy9EOlxNeVByb2plY3RcV0ZcTFBPQVxMUE9BLldGXExlYXZlQWN0aXZpdHkueGFtbA43A4gBDwIBAToJRR0CARpIDVMhAgETVxNXaQIBEFsVZikCAQlpGXQtAgECQg9CWQIBHj0PPWkCARtQE1BdAgEXSxNLbQIBFGMbY2UCAQ1eG151AgEKcR9xaQIBBmwfbHkCAQM=</sads:DebugSymbol.Symbol>
   </Flowchart>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="FormSubmitActivity_1" sap:VirtualizedContainerService.HintSize="200,22">
+      <sap2010:ViewStateData Id="WFActivity_5" sap:VirtualizedContainerService.HintSize="200,22">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_2">
+      <sap2010:ViewStateData Id="WFActivity_6" sap:VirtualizedContainerService.HintSize="200,22">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">120,289</av:Point>
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WFActivity_7" sap:VirtualizedContainerService.HintSize="200,22">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WFActivity_8" sap:VirtualizedContainerService.HintSize="200,22">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_17">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">200,539</av:Point>
             <av:Size x:Key="ShapeSize">200,22</av:Size>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="SupervisorAuditActivity_2" sap:VirtualizedContainerService.HintSize="200,22">
+      <sap2010:ViewStateData Id="FlowStep_18">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ManagerAuditActivity_2" sap:VirtualizedContainerService.HintSize="200,22">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="AuditCompleteActivity_2" sap:VirtualizedContainerService.HintSize="200,22">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_7">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">200,349</av:Point>
+            <av:Point x:Key="ShapeLocation">200,459</av:Point>
             <av:Size x:Key="ShapeSize">200,22</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">300,481 300,539</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_6">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">200,229</av:Point>
-            <av:Size x:Key="ShapeSize">200,22</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">300,251 300,349</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_8">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">200,149</av:Point>
-            <av:Size x:Key="ShapeSize">200,22</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">300,171 300,229</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Flowchart_2" sap:VirtualizedContainerService.HintSize="614,636">
+      <sap2010:ViewStateData Id="FlowDecision_3" sap:VirtualizedContainerService.HintSize="70,87">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
-            <av:Size x:Key="ShapeSize">60,75</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,149</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_9">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">370,293.5</av:Point>
-            <av:Size x:Key="ShapeSize">200,53</av:Size>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowDecision_1" sap:VirtualizedContainerService.HintSize="70,87">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <av:Point x:Key="ShapeLocation">265,136.5</av:Point>
+            <av:Point x:Key="ShapeLocation">265,286.5</av:Point>
             <av:Size x:Key="ShapeSize">70,87</av:Size>
-            <av:PointCollection x:Key="TrueConnector">265,180 220,180 220,289</av:PointCollection>
-            <av:PointCollection x:Key="FalseConnector">335,180 470,180 470,293.5</av:PointCollection>
+            <av:PointCollection x:Key="TrueConnector">265,330 170,330 170,470 200,470</av:PointCollection>
+            <av:PointCollection x:Key="FalseConnector">335,330 430,330 430,210 400,210</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="614,647">
+      <sap2010:ViewStateData Id="FlowStep_16">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">200,199</av:Point>
+            <av:Size x:Key="ShapeSize">200,22</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">300,221 300,286.5</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_15">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">200,129</av:Point>
+            <av:Size x:Key="ShapeSize">200,22</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">300,151 300,199</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="664,681">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
             <av:Size x:Key="ShapeSize">60,75</av:Size>
-            <x:Double x:Key="Height">611</x:Double>
-            <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,136.5</av:PointCollection>
+            <x:Double x:Key="Height">645</x:Double>
+            <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,129</av:PointCollection>
+            <x:Double x:Key="Width">650</x:Double>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="LPOA.WF.Activity1_1" sap:VirtualizedContainerService.HintSize="654,727" />
+      <sap2010:ViewStateData Id="LPOA.WF.Activity1_1" sap:VirtualizedContainerService.HintSize="704,761" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

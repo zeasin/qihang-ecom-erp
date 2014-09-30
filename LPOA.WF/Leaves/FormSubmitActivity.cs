@@ -16,6 +16,8 @@ namespace LPOA.WF.Leaves
         public InArgument<Guid> WorkId { get; set; }
         public InArgument<string> WorkType { get; set; }
 
+        
+
         // 如果活动返回值，则从 CodeActivity<TResult>
         // 派生并从 Execute 方法返回该值。
         protected override Guid Execute(CodeActivityContext context)
@@ -24,6 +26,7 @@ namespace LPOA.WF.Leaves
             string text = context.GetValue(this.Text);
             Guid workid = context.GetValue(this.WorkId);
             string work = context.GetValue(this.WorkType);
+            
             log4net.ILog log = log4net.LogManager.GetLogger("workflow");
             if (log.IsDebugEnabled)
             {
@@ -32,7 +35,7 @@ namespace LPOA.WF.Leaves
             Guid flowId= Guid.NewGuid();
             //将流程写入数据库
             //WorkFlowContext wfc = new WorkFlowContext();
-            WorkFlowEntity flowEntity = new WorkFlowEntity { FlowId = flowId.ToString(), WorkId = workid.ToString(), FlowLevel = "0",  FlowDesc = "提交请假表单",  FlowName = work };
+            WorkFlowEntity flowEntity = new WorkFlowEntity { FlowId = flowId.ToString(), WorkId = workid.ToString(), FlowLevel = 0,  FlowDesc = "提交请假表单",  FlowName = work };
             WorkFlowDAL dal = new WorkFlowDAL();
             dal.InsertWorkFlow(flowEntity);
             if (log.IsDebugEnabled)

@@ -17,6 +17,7 @@ using LPOA.WF;
 using LPOA.WF.Leaves;
 using System.Activities;
 using LPOA.Entity;
+using LPOA.WF.Model;
 
 namespace LPOA.WPF
 {
@@ -27,7 +28,7 @@ namespace LPOA.WPF
     {
         public long LeaveId { get; set; }
         public string LoginUser { get; set; }
-
+        private Guid workId { get; set; }
         LeaveEntity leaveEntity;
         public LeaveDetailWindow()
         {
@@ -46,6 +47,7 @@ namespace LPOA.WPF
                 LeavesDAL leaveDAL = new LeavesDAL();
                 leaveEntity = leaveDAL.ExecuteEntity(LeaveId);
 
+                workId = Guid.Parse(leaveEntity.Title);
                 dpStart.Text = leaveEntity.StartDate.ToShortDateString();
                 dpEnd.Text = leaveEntity.EndDate.ToShortDateString();
                 txtUserName.Text = leaveEntity.LeaveUser;
@@ -65,15 +67,31 @@ namespace LPOA.WPF
         private void btnAudit_Click(object sender, RoutedEventArgs e)
         {
 
-            //启动工作流中的表单提交节点
-            IDictionary<string, object> dc = new Dictionary<string, object>();
-            dc.Add("FlowId", leaveEntity.WorkFlowId);
-            dc.Add("Worker", LoginUser);
+            LeaveActivity la = new LeaveActivity();
 
-            SupervisorAuditActivity fa = new SupervisorAuditActivity();
+            WFWorker worker = new WFWorker();
+            worker.WFName = "LEAVE";
+            worker.WorkId = workId;
+            worker.Worker = LoginUser;
+            worker.FlowLevel = 1;
+
+            //la.Worker = worker;
+            IDictionary<string, object> dict = new Dictionary<string, object>();
+            dict.Add("Worker", worker);
+
+            var result = WorkflowInvoker.Invoke(la, dict);
 
 
-            WorkflowInvoker.Invoke(fa);
+
+            ////启动工作流中的表单提交节点
+            //IDictionary<string, object> dc = new Dictionary<string, object>();
+            //dc.Add("FlowId", leaveEntity.WorkFlowId);
+            //dc.Add("Worker", LoginUser);
+
+            //SupervisorAuditActivity fa = new SupervisorAuditActivity();
+
+
+            //WorkflowInvoker.Invoke(fa);
             MessageBox.Show("审批成功");
             this.Close();
         }

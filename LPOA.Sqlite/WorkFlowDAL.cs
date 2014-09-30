@@ -34,9 +34,26 @@ namespace LPOA.Sqlite
             return data;
         }
 
+        /// <summary>
+        /// 查找WorkFlow
+        /// </summary>
+        /// <param name="workid">业务WorkId</param>
+        /// <param name="workName">业务工作流名称</param>
+        /// <returns></returns>
+        public WorkFlowEntity GetWorkFlowEntity(Guid workid, string workName)
+        {
+            var data = DALBase.DAL.WorkFlows.FindBy(FlowName: workName, WorkId: workid.ToString());
+            return data;
+        }
+
         public void InsertWorkFlow(WorkFlowEntity entity)
         {
             DALBase.DAL.WorkFlows.Insert(entity);
+        }
+
+        public void UpdateWorkFlowLevel(Guid FlowId, long level)
+        {
+            DALBase.DAL.WorkFlows.UpdateByFlowId(FlowId: FlowId.ToString(), FlowLevel: level);
         }
 
         public void InsertWorkFlowDetail(WorkFlowDetailEntity entity)

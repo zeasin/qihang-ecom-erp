@@ -81,7 +81,7 @@ namespace LPOA.WPF
             WFWorker worker = new WFWorker();
             worker.WFName = "LEAVE";
             worker.WorkId = leaveId;
-            worker.FlowLevel = 1;
+            worker.FlowLevel =0;
             //la.Worker = worker;
             IDictionary<string, object> dict = new Dictionary<string, object>();
             dict.Add("Worker", worker);
