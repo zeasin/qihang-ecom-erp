@@ -30,18 +30,19 @@ namespace LPOA.WF
             WFWorker worker = context.GetValue(this.Worker);
 
             log4net.ILog log = log4net.LogManager.GetLogger("workflow");
-            //if (log.IsDebugEnabled)
-            //{
+            if (log.IsDebugEnabled)
+            {
                 log.Debug("0启动工作流[" + worker.WorkId.ToString() + "]");
-            //}
+            }
 
 
             //使用Workid查找流程
             WorkFlowDAL flowdal = new WorkFlowDAL();
             WorkFlowEntity working = flowdal.GetWorkFlowEntity(worker.WorkId, worker.WFName);
-            WorkingLevel = working.FlowLevel;
+            
             if (working == null)
             {
+                
                 //提交流程表单
                 if (log.IsDebugEnabled)
                 {
@@ -77,6 +78,7 @@ namespace LPOA.WF
             }
             else
             {
+                WorkingLevel = working.FlowLevel;
                 //流程审核
                 
                 //查询工作流状态Level
