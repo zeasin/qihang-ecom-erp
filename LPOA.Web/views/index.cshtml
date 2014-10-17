@@ -1,0 +1,513 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "layout.cshtml";
+    
+}
+<div class="page-container">
+
+    <!-- BEGIN SIDEBAR -->
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- add "navbar-no-scroll" class to disable the scrolling of the sidebar menu -->
+            <!-- BEGIN SIDEBAR MENU -->
+            <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler hidden-phone">
+                    </div>
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                </li>
+                <li>&nbsp;</li>
+                <li class="start">
+                    <a href="index.html">
+                        <i class="fa fa-home"></i>
+                        <span class="title">个人中心</span>
+                    </a>
+                </li>
+
+
+                <li class="star">
+                    <a href="javascript:;">
+                        <i class="fa fa-cogs"></i>
+                        <span class="title">借款管理</span>
+                        <span class="arrow"></span>
+                    </a>
+
+                    <ul class="sub-menu">
+                        <li><a href="">初审待审核借款</a></li>
+                        <li><a href="">复审待审核借款</a></li>
+                        <li><a href="招标中的借款.html">招标中的借款</a></li>
+                        <li><a href="">满标待审核借款</a></li>
+                        <li><a href="">还款中的借款</a></li>
+                        <li><a href="">已结清的借款</a></li>
+                        <li><a href="">已流标/撤销的借款</a></li>
+                        <li><a href="">未通过的借款</a></li>
+                        <li><a href="">不良借款</a></li>
+                        <li><a href="">已逾期的借款</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="">
+                    <a href="javascript:;">
+                        <i class="fa fa-bookmark-o"></i>
+                        <span class="title">安逸宝管理</span>
+                        <span class="arrow"></span>
+                    </a>
+
+                    <ul class="sub-menu">
+                        <li class=""><a href="安逸宝发布.html">安逸宝发布</a></li>
+                        <li><a href="招标中的安逸宝.html">招标中的安逸宝</a></li>
+                        <li><a href="">返款中的安逸宝</a></li>
+                        <li><a href="">已结清的安逸宝</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="">
+                    <a href="javascript:;">
+                        <i class="fa fa-table"></i>
+                        <span class="title">充值提现</span>
+                        <span class="arrow"></span>
+                    </a>
+
+                    <ul class="sub-menu">
+                        <li><a href="">在线充值记录</a></li>
+                        <li><a href="">手工充值扣费</a></li>
+                        <li><a href="">提现待审核</a></li>
+                        <li><a href="">提现审核通过</a></li>
+                        <li><a href="">提现审核未通过</a></li>
+                        <li><a href="">已提现</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="">
+                    <a href="javascript:;">
+                        <i class="fa fa-briefcase"></i>
+                        <span class="title">统计管理</span>
+                        <span class="arrow"></span>
+                    </a>
+
+                    <ul class="sub-menu">
+                        <li><a href="">充值统计</a></li>
+                        <li><a href="">投资统计</a></li>
+                        <li><a href="">借款统计</a></li>
+                        <li><a href="">网站统计</a></li>
+                        <li><a href="">排行榜</a></li>
+                    </ul>
+                </li>
+
+
+                <li>
+                    <a href="javascript:;">
+                        <i class="fa fa-gift"></i>
+                        <span class="title">用户管理</span>
+                        <span class="arrow"></span>
+                    </a>
+
+                    <ul class="sub-menu">
+                        <li><a href="用户管理.html">用户列表</a></li>
+                        <li><a href="">实名认证管理</a></li>
+                        <li><a href="">手机绑定审核</a></li>
+                    </ul>
+                </li>
+
+
+                <li>
+                    <a class="active" href="javascript:;">
+                        <i class="fa fa-sitemap"></i>
+                        <span class="title">系统设置</span>
+                        <span class="arrow"></span>
+                    </a>
+
+                    <ul class="sub-menu">
+                        <li><a href="#">通知信息模板管理</a></li>
+                        <li><a href="#">业务参数管理</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="active open">
+                    <a href="javascript:;">
+                        <i class="fa fa-folder-open"></i>
+                        <span class="title">信息管理</span>
+                        <span class="selected"></span>
+                        <span class="arrow open"></span>
+                    </a>
+
+                    <ul class="sub-menu">
+                        <li class="active"><a href="公告管理.html">公告管理</a></li>
+                        <li><a href="#">分类管理</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="">
+                    <a href="javascript:;">
+                        <i class="fa fa-user"></i>
+                        <span class="title">管理员管理</span>
+                        <span class="arrow"></span>
+                    </a>
+
+                    <ul class="sub-menu">
+                        <li><a href="">管理员管理</a></li>
+                        <li><a href="">角色权限管理</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN PAGE -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!-- BEGIN STYLE CUSTOMIZER -->
+            <div class="theme-panel hidden-xs hidden-sm">
+                <div class="toggler">
+                </div>
+                <div class="toggler-close">
+                </div>
+                <div class="theme-options">
+                    <div class="theme-option theme-colors clearfix">
+                        <span>
+                            页面主题颜色
+                        </span>
+                        <ul>
+                            <li class="color-black current color-default" data-style="default">
+                            </li>
+                            <li class="color-blue" data-style="blue">
+                            </li>
+                            <li class="color-brown" data-style="brown">
+                            </li>
+                            <li class="color-purple" data-style="purple">
+                            </li>
+                            <li class="color-grey" data-style="grey">
+                            </li>
+                            <li class="color-white color-light" data-style="light">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="theme-option">
+                        <span>
+                            布局
+                        </span>
+                        <select class="layout-option form-control input-small">
+                            <option value="fluid" selected="selected">流动</option>
+                            <option value="boxed">固定</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>
+                            头部
+                        </span>
+                        <select class="header-option form-control input-small">
+                            <option value="fixed" selected="selected">固定</option>
+                            <option value="default">不固定</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>
+                            左边栏导航
+                        </span>
+                        <select class="sidebar-option form-control input-small">
+                            <option value="fixed">固定</option>
+                            <option value="default" selected="selected">不固定</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>
+                            边栏位置
+                        </span>
+                        <select class="sidebar-pos-option form-control input-small">
+                            <option value="left" selected="selected">左</option>
+                            <option value="right">右</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>
+                            底部
+                        </span>
+                        <select class="footer-option form-control input-small">
+                            <option value="fixed">固定</option>
+                            <option value="default" selected="selected">不固定</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- END STYLE CUSTOMIZER -->
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                    <h3 class="page-title">
+                        信息管理 <small>公告管理</small>
+                    </h3>
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="index.html">
+                                首页
+                            </a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="公告管理.html">
+                                公告管理
+                            </a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">
+                                列表
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <!------内容区----->
+            <div class="main">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="">
+                            <div class="search">
+                                <div class="form-group">
+                                    <label class="control-label">标题：</label>
+                                    <input type="text" class="form-control form-control-inline" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">分类：</label>
+                                    <select name="" id="" class="form-control form-control-inline">
+                                        <option value="">-请选择-</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">发布时间：</label>
+                                    <div class="date-control small">
+                                        <div class="input-daterange input-group">
+                                            <input type="text" class="form-control fromdatetime col-md-3" size="16" value="" name="startCreateTime">
+                                            <span class="input-group-addon"> - </span>
+                                            <input type="text" class="form-control todatetime col-md-3" size="16" value="" name="endCreateTime">
+                                        </div>
+                                    </div>
+                                    <span class="actions">
+                                        <input class="btn blue" type="submit" value="搜索" />
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-right">
+                            <a href="发布公告announcement.html" class="btn blue">发布公告</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-hover zqy-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 70px;">编号</th>
+                                    <th>公告标题</th>
+                                    <th style="width: 95px;">所属分类</th>
+                                    <th style="width: 95px;">发布人</th>
+                                    <th style="width: 150px;">发布时间</th>
+                                    <th style="width: 100px;">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>10</td>
+                                    <td>
+                                        <a href="" target="_blank">有钱贷隆重上线，注册送好礼！</a><span class="label label-success">置顶</span>
+                                    </td>
+                                    <td>公告</td>
+                                    <td>张三</td>
+                                    <td>2014-10-10 12:22</td>
+                                    <td>
+                                        <a class="btn btn-xs" href="">编辑</a>
+                                        <a class="btn btn-xs js-deleteNotice" href="">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>
+                                        <a href="" target="_blank">有钱贷隆重上线，注册送好礼！</a><span class="label label-success">置顶</span>
+                                    </td>
+                                    <td>公告</td>
+                                    <td>张三</td>
+                                    <td>2014-10-10 12:22</td>
+                                    <td>
+                                        <a class="btn btn-xs" href="">编辑</a>
+                                        <a class="btn btn-xs js-deleteNotice" href="">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>
+                                        <a href="" target="_blank">有钱贷隆重上线，注册送好礼！</a><span class="label label-success">置顶</span>
+                                    </td>
+                                    <td>公告</td>
+                                    <td>张三</td>
+                                    <td>2014-10-10 12:22</td>
+                                    <td>
+                                        <a class="btn btn-xs" href="">编辑</a>
+                                        <a class="btn btn-xs js-deleteNotice" href="">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>
+                                        <a href="" target="_blank">有钱贷隆重上线，注册送好礼！</a>
+                                    </td>
+                                    <td>公告</td>
+                                    <td>张三</td>
+                                    <td>2014-10-10 12:22</td>
+                                    <td>
+                                        <a class="btn btn-xs" href="">编辑</a>
+                                        <a class="btn btn-xs js-deleteNotice" href="">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>
+                                        <a href="" target="_blank">有钱贷隆重上线，注册送好礼！</a>
+                                    </td>
+                                    <td>公告</td>
+                                    <td>张三</td>
+                                    <td>2014-10-10 12:22</td>
+                                    <td>
+                                        <a class="btn btn-xs" href="">编辑</a>
+                                        <a class="btn btn-xs js-deleteNotice" href="">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        <a href="" target="_blank">有钱贷隆重上线，注册送好礼！</a>
+                                    </td>
+                                    <td>公告</td>
+                                    <td>张三</td>
+                                    <td>2014-10-10 12:22</td>
+                                    <td>
+                                        <a class="btn btn-xs" href="">编辑</a>
+                                        <a class="btn btn-xs js-deleteNotice" href="">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        <a href="" target="_blank">有钱贷隆重上线，注册送好礼！</a>
+                                    </td>
+                                    <td>公告</td>
+                                    <td>张三</td>
+                                    <td>2014-10-10 12:22</td>
+                                    <td>
+                                        <a class="btn btn-xs" href="">编辑</a>
+                                        <a class="btn btn-xs js-deleteNotice" href="">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <a href="" target="_blank">有钱贷隆重上线，注册送好礼！</a>
+                                    </td>
+                                    <td>公告</td>
+                                    <td>张三</td>
+                                    <td>2014-10-10 12:22</td>
+                                    <td>
+                                        <a class="btn btn-xs" href="">编辑</a>
+                                        <a class="btn btn-xs js-deleteNotice" href="">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <a href="" target="_blank">有钱贷隆重上线，注册送好礼！</a>
+                                    </td>
+                                    <td>公告</td>
+                                    <td>张三</td>
+                                    <td>2014-10-10 12:22</td>
+                                    <td>
+                                        <a class="btn btn-xs" href="">编辑</a>
+                                        <a class="btn btn-xs js-deleteNotice" href="">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <a href="" target="_blank">有钱贷隆重上线，注册送好礼！</a>
+                                    </td>
+                                    <td>公告</td>
+                                    <td>张三</td>
+                                    <td>2014-10-10 12:22</td>
+                                    <td>
+                                        <a class="btn btn-xs" href="">编辑</a>
+                                        <a class="btn btn-xs js-deleteNotice" href="">删除</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <ul class="pagination">
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        1
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        2
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        3
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        4
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        5
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        6
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!------[end]内容区----->
+
+
+        </div>
+    </div>
+</div>

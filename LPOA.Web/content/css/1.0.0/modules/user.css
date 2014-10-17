@@ -1,0 +1,48 @@
+/* 用户信息 */
+.userCenterBar_top_wai { margin-bottom:15px;}
+.userCenterBar_top { width:140px; margin:0 auto; padding-bottom:8px; overflow:hidden;}
+.userCenterBar_user { margin:10px 0 15px 0;}
+.userCenterBar_user span { float:left; display:inline-block; vertical-align:middle;}
+.userCenterBar_user_img { width:62px; height:62px; overflow:hidden;}
+.userCenterBar_user_name { font-size:16px; width:68px; line-height:62px; margin-left:10px; overflow:hidden; white-space:nowrap;}
+.userCenterBar_certification { width:148px; margin-bottom:13px; list-style: none;padding: 0;}
+.userCenterBar_certification li { float:left; width:29px; height:30px; background:url(../img/icons/userCenter.png) no-repeat; margin-right:8px;}
+.userCenterBar_certification .li01 { background-position:0 0;}
+.userCenterBar_certification .li02 { background-position:-36px 0;}
+.userCenterBar_certification .li03 { background-position:-72px 0;}
+.userCenterBar_certification .li04 { background-position:-108px 0;}
+
+.userCenterBar_certification .li01_on { background-position:0 -40px;}
+.userCenterBar_certification .li02_on { background-position:-36px -40px;}
+.userCenterBar_certification .li03_on { background-position:-72px -40px;}
+.userCenterBar_certification .li04_on { background-position:-108px -40px;}
+
+/* 进度条，安全等级 */
+.userCenterBar_bar { width:100%; margin-bottom:10px;}
+.userCenterBar_show { font-size:12px;}
+.userCenterBar_show_left { float:left;}
+.userCenterBar_show_left span { color:#ff6815;}
+.userCenterBar_show_a { float:right;}
+.userCenterBar_show_a:hover { text-decoration:underline;}
+
+
+.userImgColmn{
+    width: 200px;
+    float: left;
+    margin-top: 5px;
+}
+.baseInfoColmn{
+    margin-left: 220px;
+    margin-top:15px;
+}
+.imgBox{
+    border: 1px solid #DDDDDD;
+    min-width: 420px;
+    overflow: hidden;
+    text-align: center;
+}
+.imgBox img{
+    margin: 5px;
+    width: 400px;
+    height: 230px;
+}

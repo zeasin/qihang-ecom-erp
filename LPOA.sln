@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPOA.Sqlite", "LPOA.Sqlite\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPOA.Entity", "LPOA.Entity\LPOA.Entity.csproj", "{139426AF-AB8D-4234-BD57-166B8C003E9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LPOA.Web", "LPOA.Web\LPOA.Web.csproj", "{0EA43F89-0536-4691-B108-7392E49D2C48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{139426AF-AB8D-4234-BD57-166B8C003E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{139426AF-AB8D-4234-BD57-166B8C003E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{139426AF-AB8D-4234-BD57-166B8C003E9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EA43F89-0536-4691-B108-7392E49D2C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EA43F89-0536-4691-B108-7392E49D2C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EA43F89-0536-4691-B108-7392E49D2C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EA43F89-0536-4691-B108-7392E49D2C48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
