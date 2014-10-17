@@ -1,16 +1,17 @@
 #LP.OA
 
-LP.OAÊÇÒ»¸ö»ùÓÚWF¹¤×÷Á÷¿ª·¢µÄÒ»¸ö¼òÒ×OAÏµÍ³£¬±¾ÏîÄ¿µÄÖ÷Ö¼ÊÇWF¹¤×÷Á÷ÒýÇæ¡£
+LP.OAæ˜¯ä¸€ä¸ªåŸºäºŽWFå·¥ä½œæµå¼€å‘çš„ä¸€ä¸ªç®€æ˜“OAç³»ç»Ÿï¼Œæœ¬é¡¹ç›®çš„ä¸»æ—¨æ˜¯WFå·¥ä½œæµå¼•æ“Žã€‚
 
-¸ÃÏîÄ¿²ÉÓÃÁËÒÔÏÂ¼¸¸ö¼¼Êõµã£º 
+è¯¥é¡¹ç›®é‡‡ç”¨äº†ä»¥ä¸‹å‡ ä¸ªæŠ€æœ¯ç‚¹ï¼š 
 
-1¡¢WWF¹¤×÷Á÷ <br/>
-2¡¢WPF 
+1ã€WWFå·¥ä½œæµ <br/>
 
-3¡¢Simple.Data£¨Ò»¸ö¼òµ¥Ç¿¾¢µÄÇáÁ¿¼¶ORM£© 
+2ã€Nancyï¼ˆä¸€ä¸ªå¼€æºc# Webæ¡†æž¶ï¼Œå®Œå…¨ä¸éœ€è¦System.Webï¼‰
 
-4¡¢Sqlite 
+3ã€Simple.Dataï¼ˆä¸€ä¸ªç®€å•å¼ºåŠ²çš„è½»é‡çº§ORMï¼‰ 
 
-5¡¢log4net 
+4ã€Sqlite 
 
-¹¤×÷Á÷ÌÖÂÛQQÈº60235114£¬»¶Ó­´ó¼ÒÒ»Æð¼ÓÈë½»Á÷¡£
+5ã€log4net 
+
+å·¥ä½œæµè®¨è®ºQQç¾¤60235114ï¼Œæ¬¢è¿Žå¤§å®¶ä¸€èµ·åŠ å…¥äº¤æµã€‚
