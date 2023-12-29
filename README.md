@@ -8,7 +8,7 @@
 + Java 17
 
 ### 2、存储栈
-+ 支持H2、MySQL8.x，开发采用H2数据库
++ H2(部署支持MySQL8)
 + minio文件存储
 + Redis缓存
 
@@ -18,7 +18,6 @@
 
 ### 4、其他
 + quartz定时任务
-+ flowable流程
 
 ## 二、功能模块
 ### 1、供应链管理ISCM
