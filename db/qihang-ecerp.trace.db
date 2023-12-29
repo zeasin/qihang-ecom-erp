@@ -3582,3 +3582,890 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: D:/dev/projects/
 	at org.h2.mvstore.FileStore.open(FileStore.java:163)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
 	... 28 more
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE `scm_supplier`  (\000d\000a  `id` bigint(0) NOT NULL AUTO_INCREMENT,\000d\000a  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci [*]DEFAULT NULL COMMENT '供应商名称',\000d\000a  `number` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '供应商编码',\000d\000a  `taxRate` double DEFAULT 0 COMMENT '税率',\000d\000a  `amount` double DEFAULT 0 COMMENT '期初应付款',\000d\000a  `periodMoney` double DEFAULT 0 COMMENT '期初预付款',\000d\000a  `difMoney` double DEFAULT 0 COMMENT '初期往来余额',\000d\000a  `beginDate` date DEFAULT NULL COMMENT '余额日期',\000d\000a  `remark` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '备注',\000d\000a  `place` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '职位',\000d\000a  `linkMan` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '联系人',\000d\000a  `contact` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '联系方式',\000d\000a  `province` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '省',\000d\000a  `city` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '市',\000d\000a  `county` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '区县',\000d\000a  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '收货地址详情',\000d\000a  `pinYin` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '',\000d\000a  `disable` tinyint(1) DEFAULT 0 COMMENT '0启用   1禁用',\000d\000a  `isDelete` tinyint(1) DEFAULT 0 COMMENT '0正常 1删除',\000d\000a  `purchaserName` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '分管采购员',\000d\000a  `createTime` datetime(0) DEFAULT NULL COMMENT '创建时间',\000d\000a  PRIMARY KEY (`id`) USING BTREE,\000d\000a  INDEX `id`(`id`) USING BTREE\000d\000a) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic"; expected "COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE `scm_supplier`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '供应商名称',
+  `number` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '供应商编码',
+  `taxRate` double DEFAULT 0 COMMENT '税率',
+  `amount` double DEFAULT 0 COMMENT '期初应付款',
+  `periodMoney` double DEFAULT 0 COMMENT '期初预付款',
+  `difMoney` double DEFAULT 0 COMMENT '初期往来余额',
+  `beginDate` date DEFAULT NULL COMMENT '余额日期',
+  `remark` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '备注',
+  `place` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '职位',
+  `linkMan` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '联系人',
+  `contact` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '' COMMENT '联系方式',
+  `province` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '省',
+  `city` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '市',
+  `county` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '区县',
+  `address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '收货地址详情',
+  `pinYin` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '',
+  `disable` tinyint(1) DEFAULT 0 COMMENT '0启用   1禁用',
+  `isDelete` tinyint(1) DEFAULT 0 COMMENT '0正常 1删除',
+  `purchaserName` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '分管采购员',
+  `createTime` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `id`(`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic [42001-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+-- ----------------------------
+-- Records of scm_supplier
+-- ----------------------------
+INSERT INTO `scm_supplier` VALUES (1, '自营仓库', 'A0001', 0, 0, 0, 0, NULL, '', '', NULL, '15000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (13, '可可家一号店', '6972501884875', 0, 0, 0, 0, NULL, '', '', NULL, '15815252000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (14, '衫人家', '6972501884876', 0, 0, 0, 0, NULL, '', '', NULL, '15815252000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (15, '依依', 'ZB001', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (16, '念念', 'ZB002', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (17, '华衣服饰', 'ZB003', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (18, '小颖家', 'ZB004', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (19, '森庄农品旗舰店', 'TM-SZNPQJD', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (20, '小仙', 'XFZ001', 0, 0, 0, 0, NULL, '', '', NULL, '18516258530', '上海', '上海市', '松江区', '上海市松江区中山街道松江万达广场一号楼417', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (21, '岳鑫', '', 0, 0, 0, 0, NULL, '', '', NULL, '15081033273', '河北省', '邯郸市', '黄粱梦镇', '河北省 邯郸市 丛台区 黄粱梦镇黄粱梦村', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (22, '三夫食品专营店', 'SFSP', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (23, '安琪酵母旗舰店', 'ANQIJM', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (24, '慈溪市观海卫滕洋电器厂', '1688', 0, 0, 0, 0, NULL, '', '', NULL, '13000001111', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (25, '小熊驾到旗舰店', 'XXJD', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (26, '韩牛服饰', 'HN', 0, 0, 0, 0, NULL, '', '', NULL, '13249571426', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (27, '深圳市罗湖区晨蝶衣服装厂', 'CDYFZC', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (28, '广州衣菲妮服装厂', 'YIFEINI', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (29, '中山欧熙妮服饰有限公司', 'ZSOXNFS', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (30, '零零伊', NULL, 0, 0, 0, 0, NULL, '', '抖音', NULL, 'fsd1027', NULL, NULL, NULL, '', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (31, '中山市金客隆服饰有限公司', 'JKL', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (32, '广州柚柚子服饰商行', 'GZYYZ', 0, 0, 0, 0, NULL, '', '', NULL, '18557527708', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:50:12 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (33, '中山裤豪', 'ZSKH', 0, 0, 0, 0, NULL, '档口微信18928102400陈小姐工厂微信18022115438何超贤 ', '', NULL, '18928102400', NULL, NULL, NULL, '中山市沙溪镇水牛城三区二楼35-38卡', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE `scm_supplier`  (\000d\000a  `id` bigint(0) NOT NULL AUTO_INCREMENT,\000d\000a  `name` varchar(50)  DEFAULT NULL COMMENT '供应商名称',\000d\000a  `number` varchar(18)  DEFAULT NULL COMMENT '供应商编码',\000d\000a  `taxRate` double DEFAULT 0 COMMENT '税率',\000d\000a  `amount` double DEFAULT 0 COMMENT '期初应付款',\000d\000a  `periodMoney` double DEFAULT 0 COMMENT '期初预付款',\000d\000a  `difMoney` double DEFAULT 0 COMMENT '初期往来余额',\000d\000a  `beginDate` date DEFAULT NULL COMMENT '余额日期',\000d\000a  `remark` varchar(100)  DEFAULT '' COMMENT '备注',\000d\000a  `place` varchar(100)  DEFAULT '' COMMENT '职位',\000d\000a  `linkMan` varchar(10)  DEFAULT NULL COMMENT '联系人',\000d\000a  `contact` varchar(15)  DEFAULT '' COMMENT '联系方式',\000d\000a  `province` varchar(20)  DEFAULT NULL COMMENT '省',\000d\000a  `city` varchar(20)  DEFAULT NULL COMMENT '市',\000d\000a  `county` varchar(20)  DEFAULT NULL COMMENT '区县',\000d\000a  `address` varchar(100)  DEFAULT NULL COMMENT '收货地址详情',\000d\000a  `pinYin` varchar(50)  DEFAULT '',\000d\000a  `disable` tinyint(1) DEFAULT 0 COMMENT '0启用   1禁用',\000d\000a  `isDelete` tinyint(1) DEFAULT 0 COMMENT '0正常 1删除',\000d\000a  `purchaserName` varchar(50)  DEFAULT NULL COMMENT '分管采购员',\000d\000a  `createTime` datetime(0) DEFAULT NULL COMMENT '创建时间',\000d\000a  PRIMARY KEY (`id`),\000d\000a  INDEX `id`(`id`)\000d\000a) \000d\000a\000d\000a-- ----------------------------\000d\000a-- Records of scm_supplier\000d\000a-- ----------------------------\000d\000a[*]INSERT INTO `scm_supplier` VALUES (1, '自营仓库', 'A0001', 0, 0, 0, 0, NULL, '', '', NULL, '15000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp())"; SQL statement:
+CREATE TABLE `scm_supplier`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50)  DEFAULT NULL COMMENT '供应商名称',
+  `number` varchar(18)  DEFAULT NULL COMMENT '供应商编码',
+  `taxRate` double DEFAULT 0 COMMENT '税率',
+  `amount` double DEFAULT 0 COMMENT '期初应付款',
+  `periodMoney` double DEFAULT 0 COMMENT '期初预付款',
+  `difMoney` double DEFAULT 0 COMMENT '初期往来余额',
+  `beginDate` date DEFAULT NULL COMMENT '余额日期',
+  `remark` varchar(100)  DEFAULT '' COMMENT '备注',
+  `place` varchar(100)  DEFAULT '' COMMENT '职位',
+  `linkMan` varchar(10)  DEFAULT NULL COMMENT '联系人',
+  `contact` varchar(15)  DEFAULT '' COMMENT '联系方式',
+  `province` varchar(20)  DEFAULT NULL COMMENT '省',
+  `city` varchar(20)  DEFAULT NULL COMMENT '市',
+  `county` varchar(20)  DEFAULT NULL COMMENT '区县',
+  `address` varchar(100)  DEFAULT NULL COMMENT '收货地址详情',
+  `pinYin` varchar(50)  DEFAULT '',
+  `disable` tinyint(1) DEFAULT 0 COMMENT '0启用   1禁用',
+  `isDelete` tinyint(1) DEFAULT 0 COMMENT '0正常 1删除',
+  `purchaserName` varchar(50)  DEFAULT NULL COMMENT '分管采购员',
+  `createTime` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  INDEX `id`(`id`)
+) 
+
+-- ----------------------------
+-- Records of scm_supplier
+-- ----------------------------
+INSERT INTO `scm_supplier` VALUES (1, '自营仓库', 'A0001', 0, 0, 0, 0, NULL, '', '', NULL, '15000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42000-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (13, '可可家一号店', '6972501884875', 0, 0, 0, 0, NULL, '', '', NULL, '15815252000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (14, '衫人家', '6972501884876', 0, 0, 0, 0, NULL, '', '', NULL, '15815252000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (15, '依依', 'ZB001', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (16, '念念', 'ZB002', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (17, '华衣服饰', 'ZB003', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (18, '小颖家', 'ZB004', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (19, '森庄农品旗舰店', 'TM-SZNPQJD', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (20, '小仙', 'XFZ001', 0, 0, 0, 0, NULL, '', '', NULL, '18516258530', '上海', '上海市', '松江区', '上海市松江区中山街道松江万达广场一号楼417', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (21, '岳鑫', '', 0, 0, 0, 0, NULL, '', '', NULL, '15081033273', '河北省', '邯郸市', '黄粱梦镇', '河北省 邯郸市 丛台区 黄粱梦镇黄粱梦村', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (22, '三夫食品专营店', 'SFSP', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (23, '安琪酵母旗舰店', 'ANQIJM', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (24, '慈溪市观海卫滕洋电器厂', '1688', 0, 0, 0, 0, NULL, '', '', NULL, '13000001111', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (25, '小熊驾到旗舰店', 'XXJD', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (26, '韩牛服饰', 'HN', 0, 0, 0, 0, NULL, '', '', NULL, '13249571426', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (27, '深圳市罗湖区晨蝶衣服装厂', 'CDYFZC', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (28, '广州衣菲妮服装厂', 'YIFEINI', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (29, '中山欧熙妮服饰有限公司', 'ZSOXNFS', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (30, '零零伊', NULL, 0, 0, 0, 0, NULL, '', '抖音', NULL, 'fsd1027', NULL, NULL, NULL, '', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (31, '中山市金客隆服饰有限公司', 'JKL', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (32, '广州柚柚子服饰商行', 'GZYYZ', 0, 0, 0, 0, NULL, '', '', NULL, '18557527708', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:51:55 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (33, '中山裤豪', 'ZSKH', 0, 0, 0, 0, NULL, '档口微信18928102400陈小姐工厂微信18022115438何超贤 ', '', NULL, '18928102400', NULL, NULL, NULL, '中山市沙溪镇水牛城三区二楼35-38卡', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE `scm_supplier`  (\000d\000a  `id` bigint(0) NOT NULL,\000d\000a  `name` varchar(50)  DEFAULT NULL COMMENT '供应商名称',\000d\000a  `number` varchar(18)  DEFAULT NULL COMMENT '供应商编码',\000d\000a  `taxRate` double DEFAULT 0 COMMENT '税率',\000d\000a  `amount` double DEFAULT 0 COMMENT '期初应付款',\000d\000a  `periodMoney` double DEFAULT 0 COMMENT '期初预付款',\000d\000a  `difMoney` double DEFAULT 0 COMMENT '初期往来余额',\000d\000a  `beginDate` date DEFAULT NULL COMMENT '余额日期',\000d\000a  `remark` varchar(100)  DEFAULT '' COMMENT '备注',\000d\000a  `place` varchar(100)  DEFAULT '' COMMENT '职位',\000d\000a  `linkMan` varchar(10)  DEFAULT NULL COMMENT '联系人',\000d\000a  `contact` varchar(15)  DEFAULT '' COMMENT '联系方式',\000d\000a  `province` varchar(20)  DEFAULT NULL COMMENT '省',\000d\000a  `city` varchar(20)  DEFAULT NULL COMMENT '市',\000d\000a  `county` varchar(20)  DEFAULT NULL COMMENT '区县',\000d\000a  `address` varchar(100)  DEFAULT NULL COMMENT '收货地址详情',\000d\000a  `pinYin` varchar(50)  DEFAULT '',\000d\000a  `disable` tinyint(1) DEFAULT 0 COMMENT '0启用   1禁用',\000d\000a  `isDelete` tinyint(1) DEFAULT 0 COMMENT '0正常 1删除',\000d\000a  `purchaserName` varchar(50)  DEFAULT NULL COMMENT '分管采购员',\000d\000a  `createTime` datetime(0) DEFAULT NULL COMMENT '创建时间',\000d\000a  PRIMARY KEY (`id`),\000d\000a  INDEX `id`(`id`)\000d\000a) \000d\000a\000d\000a-- ----------------------------\000d\000a-- Records of scm_supplier\000d\000a-- ----------------------------\000d\000a[*]INSERT INTO `scm_supplier` VALUES (1, '自营仓库', 'A0001', 0, 0, 0, 0, NULL, '', '', NULL, '15000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp())"; SQL statement:
+CREATE TABLE `scm_supplier`  (
+  `id` bigint(0) NOT NULL,
+  `name` varchar(50)  DEFAULT NULL COMMENT '供应商名称',
+  `number` varchar(18)  DEFAULT NULL COMMENT '供应商编码',
+  `taxRate` double DEFAULT 0 COMMENT '税率',
+  `amount` double DEFAULT 0 COMMENT '期初应付款',
+  `periodMoney` double DEFAULT 0 COMMENT '期初预付款',
+  `difMoney` double DEFAULT 0 COMMENT '初期往来余额',
+  `beginDate` date DEFAULT NULL COMMENT '余额日期',
+  `remark` varchar(100)  DEFAULT '' COMMENT '备注',
+  `place` varchar(100)  DEFAULT '' COMMENT '职位',
+  `linkMan` varchar(10)  DEFAULT NULL COMMENT '联系人',
+  `contact` varchar(15)  DEFAULT '' COMMENT '联系方式',
+  `province` varchar(20)  DEFAULT NULL COMMENT '省',
+  `city` varchar(20)  DEFAULT NULL COMMENT '市',
+  `county` varchar(20)  DEFAULT NULL COMMENT '区县',
+  `address` varchar(100)  DEFAULT NULL COMMENT '收货地址详情',
+  `pinYin` varchar(50)  DEFAULT '',
+  `disable` tinyint(1) DEFAULT 0 COMMENT '0启用   1禁用',
+  `isDelete` tinyint(1) DEFAULT 0 COMMENT '0正常 1删除',
+  `purchaserName` varchar(50)  DEFAULT NULL COMMENT '分管采购员',
+  `createTime` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  INDEX `id`(`id`)
+) 
+
+-- ----------------------------
+-- Records of scm_supplier
+-- ----------------------------
+INSERT INTO `scm_supplier` VALUES (1, '自营仓库', 'A0001', 0, 0, 0, 0, NULL, '', '', NULL, '15000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42000-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (13, '可可家一号店', '6972501884875', 0, 0, 0, 0, NULL, '', '', NULL, '15815252000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (14, '衫人家', '6972501884876', 0, 0, 0, 0, NULL, '', '', NULL, '15815252000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (15, '依依', 'ZB001', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (16, '念念', 'ZB002', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (17, '华衣服饰', 'ZB003', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (18, '小颖家', 'ZB004', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (19, '森庄农品旗舰店', 'TM-SZNPQJD', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (20, '小仙', 'XFZ001', 0, 0, 0, 0, NULL, '', '', NULL, '18516258530', '上海', '上海市', '松江区', '上海市松江区中山街道松江万达广场一号楼417', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (21, '岳鑫', '', 0, 0, 0, 0, NULL, '', '', NULL, '15081033273', '河北省', '邯郸市', '黄粱梦镇', '河北省 邯郸市 丛台区 黄粱梦镇黄粱梦村', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (22, '三夫食品专营店', 'SFSP', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (23, '安琪酵母旗舰店', 'ANQIJM', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (24, '慈溪市观海卫滕洋电器厂', '1688', 0, 0, 0, 0, NULL, '', '', NULL, '13000001111', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (25, '小熊驾到旗舰店', 'XXJD', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (26, '韩牛服饰', 'HN', 0, 0, 0, 0, NULL, '', '', NULL, '13249571426', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (27, '深圳市罗湖区晨蝶衣服装厂', 'CDYFZC', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (28, '广州衣菲妮服装厂', 'YIFEINI', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (29, '中山欧熙妮服饰有限公司', 'ZSOXNFS', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (30, '零零伊', NULL, 0, 0, 0, 0, NULL, '', '抖音', NULL, 'fsd1027', NULL, NULL, NULL, '', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (31, '中山市金客隆服饰有限公司', 'JKL', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (32, '广州柚柚子服饰商行', 'GZYYZ', 0, 0, 0, 0, NULL, '', '', NULL, '18557527708', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:52:33 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (33, '中山裤豪', 'ZSKH', 0, 0, 0, 0, NULL, '档口微信18928102400陈小姐工厂微信18022115438何超贤 ', '', NULL, '18928102400', NULL, NULL, NULL, '中山市沙溪镇水牛城三区二楼35-38卡', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE `scm_supplier`  (\000d\000a  `id` bigint(0) NOT NULL AUTO_INCREMENT,\000d\000a  `name` varchar(50)  DEFAULT NULL COMMENT '供应商名称',\000d\000a  `number` varchar(18)  DEFAULT NULL COMMENT '供应商编码',\000d\000a  `taxRate` double DEFAULT 0 COMMENT '税率',\000d\000a  `amount` double DEFAULT 0 COMMENT '期初应付款',\000d\000a  `periodMoney` double DEFAULT 0 COMMENT '期初预付款',\000d\000a  `difMoney` double DEFAULT 0 COMMENT '初期往来余额',\000d\000a  `beginDate` date DEFAULT NULL COMMENT '余额日期',\000d\000a  `remark` varchar(100)  DEFAULT '' COMMENT '备注',\000d\000a  `place` varchar(100)  DEFAULT '' COMMENT '职位',\000d\000a  `linkMan` varchar(10)  DEFAULT NULL COMMENT '联系人',\000d\000a  `contact` varchar(15)  DEFAULT '' COMMENT '联系方式',\000d\000a  `province` varchar(20)  DEFAULT NULL COMMENT '省',\000d\000a  `city` varchar(20)  DEFAULT NULL COMMENT '市',\000d\000a  `county` varchar(20)  DEFAULT NULL COMMENT '区县',\000d\000a  `address` varchar(100)  DEFAULT NULL COMMENT '收货地址详情',\000d\000a  `pinYin` varchar(50)  DEFAULT '',\000d\000a  `disable` tinyint(1) DEFAULT 0 COMMENT '0启用   1禁用',\000d\000a  `isDelete` tinyint(1) DEFAULT 0 COMMENT '0正常 1删除',\000d\000a  `purchaserName` varchar(50)  DEFAULT NULL COMMENT '分管采购员',\000d\000a  `createTime` datetime(0) DEFAULT NULL COMMENT '创建时间',\000d\000a  PRIMARY KEY (`id`),\000d\000a  INDEX `id`(`id`)\000d\000a) \000d\000a\000d\000a-- ----------------------------\000d\000a-- Records of scm_supplier\000d\000a-- ----------------------------\000d\000a[*]INSERT INTO `scm_supplier` VALUES (1, '自营仓库', 'A0001', 0, 0, 0, 0, NULL, '', '', NULL, '15000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp())"; SQL statement:
+CREATE TABLE `scm_supplier`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50)  DEFAULT NULL COMMENT '供应商名称',
+  `number` varchar(18)  DEFAULT NULL COMMENT '供应商编码',
+  `taxRate` double DEFAULT 0 COMMENT '税率',
+  `amount` double DEFAULT 0 COMMENT '期初应付款',
+  `periodMoney` double DEFAULT 0 COMMENT '期初预付款',
+  `difMoney` double DEFAULT 0 COMMENT '初期往来余额',
+  `beginDate` date DEFAULT NULL COMMENT '余额日期',
+  `remark` varchar(100)  DEFAULT '' COMMENT '备注',
+  `place` varchar(100)  DEFAULT '' COMMENT '职位',
+  `linkMan` varchar(10)  DEFAULT NULL COMMENT '联系人',
+  `contact` varchar(15)  DEFAULT '' COMMENT '联系方式',
+  `province` varchar(20)  DEFAULT NULL COMMENT '省',
+  `city` varchar(20)  DEFAULT NULL COMMENT '市',
+  `county` varchar(20)  DEFAULT NULL COMMENT '区县',
+  `address` varchar(100)  DEFAULT NULL COMMENT '收货地址详情',
+  `pinYin` varchar(50)  DEFAULT '',
+  `disable` tinyint(1) DEFAULT 0 COMMENT '0启用   1禁用',
+  `isDelete` tinyint(1) DEFAULT 0 COMMENT '0正常 1删除',
+  `purchaserName` varchar(50)  DEFAULT NULL COMMENT '分管采购员',
+  `createTime` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  INDEX `id`(`id`)
+) 
+
+-- ----------------------------
+-- Records of scm_supplier
+-- ----------------------------
+INSERT INTO `scm_supplier` VALUES (1, '自营仓库', 'A0001', 0, 0, 0, 0, NULL, '', '', NULL, '15000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42000-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (13, '可可家一号店', '6972501884875', 0, 0, 0, 0, NULL, '', '', NULL, '15815252000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (14, '衫人家', '6972501884876', 0, 0, 0, 0, NULL, '', '', NULL, '15815252000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (15, '依依', 'ZB001', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (16, '念念', 'ZB002', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (17, '华衣服饰', 'ZB003', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (18, '小颖家', 'ZB004', 0, 0, 0, 0, NULL, '', '', NULL, '13000000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (19, '森庄农品旗舰店', 'TM-SZNPQJD', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (20, '小仙', 'XFZ001', 0, 0, 0, 0, NULL, '', '', NULL, '18516258530', '上海', '上海市', '松江区', '上海市松江区中山街道松江万达广场一号楼417', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (21, '岳鑫', '', 0, 0, 0, 0, NULL, '', '', NULL, '15081033273', '河北省', '邯郸市', '黄粱梦镇', '河北省 邯郸市 丛台区 黄粱梦镇黄粱梦村', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (22, '三夫食品专营店', 'SFSP', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (23, '安琪酵母旗舰店', 'ANQIJM', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (24, '慈溪市观海卫滕洋电器厂', '1688', 0, 0, 0, 0, NULL, '', '', NULL, '13000001111', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (25, '小熊驾到旗舰店', 'XXJD', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (26, '韩牛服饰', 'HN', 0, 0, 0, 0, NULL, '', '', NULL, '13249571426', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (27, '深圳市罗湖区晨蝶衣服装厂', 'CDYFZC', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (28, '广州衣菲妮服装厂', 'YIFEINI', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 1, 1, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (29, '中山欧熙妮服饰有限公司', 'ZSOXNFS', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (30, '零零伊', 'AA001', 0, 0, 0, 0, NULL, '', '抖音', NULL, 'fsd1027', NULL, NULL, NULL, '', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (31, '中山市金客隆服饰有限公司', 'JKL', 0, 0, 0, 0, NULL, '', '', NULL, '13600000000', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (32, '广州柚柚子服饰商行', 'GZYYZ', 0, 0, 0, 0, NULL, '', '', NULL, '18557527708', NULL, NULL, NULL, NULL, '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:54:24 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SCM_SUPPLIER" not found; SQL statement:
+INSERT INTO `scm_supplier` VALUES (33, '中山裤豪', 'ZSKH', 0, 0, 0, 0, NULL, '档口微信18928102400陈小姐工厂微信18022115438何超贤 ', '', NULL, '18928102400', NULL, NULL, NULL, '中山市沙溪镇水牛城三区二楼35-38卡', '', 0, 0, NULL, current_timestamp()) [42102-214]
+2023-12-29 10:56:06 jdbc[12]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-214]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:190)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:132)
+	at org.h2.Driver.connect(Driver.java:59)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:118)
+	at com.alibaba.druid.filter.stat.StatFilter.connection_connect(StatFilter.java:232)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:112)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1703)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1786)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2910)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection was not closed by the application and is garbage collected [90018-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:678)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	... 12 more
+2023-12-29 10:56:06 jdbc[12]: null
+org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-214]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:190)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:132)
+	at org.h2.Driver.connect(Driver.java:59)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:118)
+	at com.alibaba.druid.filter.stat.StatFilter.connection_connect(StatFilter.java:232)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:112)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1703)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1786)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2910)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection was not closed by the application and is garbage collected [90018-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:678)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	... 12 more
+2023-12-29 10:56:17 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TABLE_COMMENT" not found; SQL statement:
+select count(0) from ( 
+select table_name, table_comment, create_time, update_time from information_schema.tables
+		where table_schema = (select database())
+		AND table_name NOT LIKE 'qrtz_%' AND table_name NOT LIKE 'gen_%'
+		AND table_name NOT IN (select table_name from gen_table)
+		 
+		 
+		 
+		 
+        order by create_time desc
+ ) tmp_count [42122-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.query.Select.optimizeExpressionsAndPreserveAliases(Select.java:1285)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1167)
+	at org.h2.table.DerivedTable.<init>(DerivedTable.java:41)
+	at org.h2.command.query.Query.toTable(Query.java:1004)
+	at org.h2.command.Parser.readDerivedTableWithCorrelation(Parser.java:1918)
+	at org.h2.command.Parser.readTablePrimary(Parser.java:1795)
+	at org.h2.command.Parser.readTableReference(Parser.java:2334)
+	at org.h2.command.Parser.parseSelectFromPart(Parser.java:2772)
+	at org.h2.command.Parser.parseSelect(Parser.java:2878)
+	at org.h2.command.Parser.parseQueryPrimary(Parser.java:2762)
+	at org.h2.command.Parser.parseQueryTerm(Parser.java:2633)
+	at org.h2.command.Parser.parseQueryExpressionBody(Parser.java:2612)
+	at org.h2.command.Parser.parseQueryExpressionBodyAndEndOfQuery(Parser.java:2605)
+	at org.h2.command.Parser.parseQueryExpression(Parser.java:2598)
+	at org.h2.command.Parser.parseQuery(Parser.java:2567)
+	at org.h2.command.Parser.parsePrepared(Parser.java:724)
+	at org.h2.command.Parser.parse(Parser.java:689)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:92)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:288)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:535)
+	at com.alibaba.druid.filter.FilterAdapter.connection_prepareStatement(FilterAdapter.java:908)
+	at com.alibaba.druid.filter.FilterEventAdapter.connection_prepareStatement(FilterEventAdapter.java:116)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:531)
+	at com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl.prepareStatement(ConnectionProxyImpl.java:326)
+	at com.alibaba.druid.pool.DruidPooledConnection.prepareStatement(DruidPooledConnection.java:362)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.logging.jdbc.ConnectionLogger.invoke(ConnectionLogger.java:55)
+	at jdk.proxy3/jdk.proxy3.$Proxy106.prepareStatement(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.instantiateStatement(PreparedStatementHandler.java:86)
+	at org.apache.ibatis.executor.statement.BaseStatementHandler.prepare(BaseStatementHandler.java:88)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.prepare(RoutingStatementHandler.java:59)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Invocation.proceed(Invocation.java:49)
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:106)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62)
+	at jdk.proxy2/jdk.proxy2.$Proxy105.prepare(Unknown Source)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:87)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:81)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62)
+	at jdk.proxy2/jdk.proxy2.$Proxy104.query(Unknown Source)
+	at com.github.pagehelper.util.ExecutorUtil.executeAutoCount(ExecutorUtil.java:169)
+	at com.github.pagehelper.PageInterceptor.count(PageInterceptor.java:197)
+	at com.github.pagehelper.PageInterceptor.intercept(PageInterceptor.java:140)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62)
+	at jdk.proxy2/jdk.proxy2.$Proxy104.query(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:151)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:145)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	at jdk.proxy2/jdk.proxy2.$Proxy97.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:224)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:166)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:77)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy166.selectDbTableList(Unknown Source)
+	at com.zhijian.generator.service.GenTableServiceImpl.selectDbTableList(GenTableServiceImpl.java:92)
+	at com.zhijian.generator.controller.GenController.dataList(GenController.java:83)
+	at com.zhijian.generator.controller.GenController$$FastClassBySpringCGLIB$$aa861989.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor.invoke(MethodSecurityInterceptor.java:61)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.zhijian.generator.controller.GenController$$EnhancerBySpringCGLIB$$b3408774.dataList(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1070)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:497)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:584)
+	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:74)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:129)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:111)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:111)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at com.zhijian.common.filter.RepeatableFilter.doFilter(RepeatableFilter.java:39)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:114)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:337)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at com.zhijian.core.security.filter.JwtAuthenticationTokenFilter.doFilterInternal(JwtAuthenticationTokenFilter.java:43)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at com.zhijian.common.filter.XssFilter.doFilter(XssFilter.java:51)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at io.undertow.servlet.handlers.FilterHandler.handleRequest(FilterHandler.java:84)
+	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:62)
+	at io.undertow.servlet.handlers.ServletChain$1.handleRequest(ServletChain.java:68)
+	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36)
+	at io.undertow.servlet.handlers.RedirectDirHandler.handleRequest(RedirectDirHandler.java:68)
+	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:117)
+	at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:57)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:46)
+	at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:64)
+	at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:60)
+	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:77)
+	at io.undertow.security.handlers.AbstractSecurityContextAssociationHandler.handleRequest(AbstractSecurityContextAssociationHandler.java:43)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.SendErrorPageHandler.handleRequest(SendErrorPageHandler.java:52)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:275)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$100(ServletInitialHandler.java:79)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:134)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:131)
+	at io.undertow.servlet.core.ServletRequestContextThreadSetupAction$1.call(ServletRequestContextThreadSetupAction.java:48)
+	at io.undertow.servlet.core.ContextClassLoaderSetupAction$1.call(ContextClassLoaderSetupAction.java:43)
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:255)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:79)
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:100)
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:387)
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:852)
+	at org.jboss.threads.ContextClassLoaderSavingRunnable.run(ContextClassLoaderSavingRunnable.java:35)
+	at org.jboss.threads.EnhancedQueueExecutor.safeRun(EnhancedQueueExecutor.java:2019)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.doRunTask(EnhancedQueueExecutor.java:1558)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1449)
+	at org.xnio.XnioWorker$WorkerThreadFactory$1$1.run(XnioWorker.java:1282)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-12-29 11:25:05 jdbc[7]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TABLE_COMMENT" not found; SQL statement:
+select count(0) from ( 
+select table_name, table_comment, create_time, update_time from information_schema.tables
+		where table_schema = (select database())
+		AND table_name NOT LIKE 'qrtz_%' AND table_name NOT LIKE 'gen_%'
+		AND table_name NOT IN (select table_name from gen_table)
+		 
+		 
+		 
+		 
+        order by create_time desc
+ ) tmp_count [42122-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.command.query.Select.optimizeExpressionsAndPreserveAliases(Select.java:1285)
+	at org.h2.command.query.Select.prepareExpressions(Select.java:1167)
+	at org.h2.table.DerivedTable.<init>(DerivedTable.java:41)
+	at org.h2.command.query.Query.toTable(Query.java:1004)
+	at org.h2.command.Parser.readDerivedTableWithCorrelation(Parser.java:1918)
+	at org.h2.command.Parser.readTablePrimary(Parser.java:1795)
+	at org.h2.command.Parser.readTableReference(Parser.java:2334)
+	at org.h2.command.Parser.parseSelectFromPart(Parser.java:2772)
+	at org.h2.command.Parser.parseSelect(Parser.java:2878)
+	at org.h2.command.Parser.parseQueryPrimary(Parser.java:2762)
+	at org.h2.command.Parser.parseQueryTerm(Parser.java:2633)
+	at org.h2.command.Parser.parseQueryExpressionBody(Parser.java:2612)
+	at org.h2.command.Parser.parseQueryExpressionBodyAndEndOfQuery(Parser.java:2605)
+	at org.h2.command.Parser.parseQueryExpression(Parser.java:2598)
+	at org.h2.command.Parser.parseQuery(Parser.java:2567)
+	at org.h2.command.Parser.parsePrepared(Parser.java:724)
+	at org.h2.command.Parser.parse(Parser.java:689)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:92)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:288)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:535)
+	at com.alibaba.druid.filter.FilterAdapter.connection_prepareStatement(FilterAdapter.java:908)
+	at com.alibaba.druid.filter.FilterEventAdapter.connection_prepareStatement(FilterEventAdapter.java:116)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:531)
+	at com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl.prepareStatement(ConnectionProxyImpl.java:326)
+	at com.alibaba.druid.pool.DruidPooledConnection.prepareStatement(DruidPooledConnection.java:362)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.logging.jdbc.ConnectionLogger.invoke(ConnectionLogger.java:55)
+	at jdk.proxy3/jdk.proxy3.$Proxy109.prepareStatement(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.instantiateStatement(PreparedStatementHandler.java:86)
+	at org.apache.ibatis.executor.statement.BaseStatementHandler.prepare(BaseStatementHandler.java:88)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.prepare(RoutingStatementHandler.java:59)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Invocation.proceed(Invocation.java:49)
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:106)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62)
+	at jdk.proxy2/jdk.proxy2.$Proxy108.prepare(Unknown Source)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:87)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:81)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62)
+	at jdk.proxy2/jdk.proxy2.$Proxy107.query(Unknown Source)
+	at com.github.pagehelper.util.ExecutorUtil.executeAutoCount(ExecutorUtil.java:169)
+	at com.github.pagehelper.PageInterceptor.count(PageInterceptor.java:197)
+	at com.github.pagehelper.PageInterceptor.intercept(PageInterceptor.java:140)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62)
+	at jdk.proxy2/jdk.proxy2.$Proxy107.query(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:151)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:145)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	at jdk.proxy2/jdk.proxy2.$Proxy97.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:224)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:166)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:77)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy167.selectDbTableList(Unknown Source)
+	at com.zhijian.generator.service.GenTableServiceImpl.selectDbTableList(GenTableServiceImpl.java:92)
+	at com.zhijian.generator.controller.GenController.dataList(GenController.java:83)
+	at com.zhijian.generator.controller.GenController$$FastClassBySpringCGLIB$$aa861989.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor.invoke(MethodSecurityInterceptor.java:61)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.zhijian.generator.controller.GenController$$EnhancerBySpringCGLIB$$9730e1d.dataList(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1070)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:497)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:584)
+	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:74)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:129)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:111)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:111)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at com.zhijian.common.filter.RepeatableFilter.doFilter(RepeatableFilter.java:39)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:114)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:337)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at com.zhijian.core.security.filter.JwtAuthenticationTokenFilter.doFilterInternal(JwtAuthenticationTokenFilter.java:43)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at com.zhijian.common.filter.XssFilter.doFilter(XssFilter.java:51)
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:61)
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:131)
+	at io.undertow.servlet.handlers.FilterHandler.handleRequest(FilterHandler.java:84)
+	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:62)
+	at io.undertow.servlet.handlers.ServletChain$1.handleRequest(ServletChain.java:68)
+	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36)
+	at io.undertow.servlet.handlers.RedirectDirHandler.handleRequest(RedirectDirHandler.java:68)
+	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:117)
+	at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:57)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:46)
+	at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:64)
+	at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:60)
+	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:77)
+	at io.undertow.security.handlers.AbstractSecurityContextAssociationHandler.handleRequest(AbstractSecurityContextAssociationHandler.java:43)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.SendErrorPageHandler.handleRequest(SendErrorPageHandler.java:52)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:275)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$100(ServletInitialHandler.java:79)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:134)
+	at io.undertow.servlet.handlers.ServletInitialHandler$2.call(ServletInitialHandler.java:131)
+	at io.undertow.servlet.core.ServletRequestContextThreadSetupAction$1.call(ServletRequestContextThreadSetupAction.java:48)
+	at io.undertow.servlet.core.ContextClassLoaderSetupAction$1.call(ContextClassLoaderSetupAction.java:43)
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:255)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:79)
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:100)
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:387)
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:852)
+	at org.jboss.threads.ContextClassLoaderSavingRunnable.run(ContextClassLoaderSavingRunnable.java:35)
+	at org.jboss.threads.EnhancedQueueExecutor.safeRun(EnhancedQueueExecutor.java:2019)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.doRunTask(EnhancedQueueExecutor.java:1558)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1449)
+	at org.xnio.XnioWorker$WorkerThreadFactory$1$1.run(XnioWorker.java:1282)
+	at java.base/java.lang.Thread.run(Thread.java:833)
