@@ -1,13 +1,28 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="供应商id" prop="contactId">
-        <el-input
+      <el-form-item label="供应商" prop="contactId">
+        <el-select
+          v-model="queryParams.contactId"
+          filterable
+          remote
+          reserve-keyword
+          placeholder="请输入供应商名称"
+          :remote-method="searchSupplier"
+          :loading="supplierLoading">
+          <el-option
+            v-for="item in supplierList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id">
+          </el-option>  
+        </el-select>
+        <!-- <el-input
           v-model="queryParams.contactId"
           placeholder="请输入供应商id"
           clearable
           @keyup.enter.native="handleQuery"
-        />
+        /> -->
       </el-form-item>
       <el-form-item label="订单编号" prop="orderNo">
         <el-input
@@ -25,70 +40,7 @@
           placeholder="请选择订单日期">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="订单创建时间" prop="orderTime">
-        <el-input
-          v-model="queryParams.orderTime"
-          placeholder="请输入订单创建时间"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="订单总金额" prop="orderAmount">
-        <el-input
-          v-model="queryParams.orderAmount"
-          placeholder="请输入订单总金额"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="采购单审核人" prop="auditUser">
-        <el-input
-          v-model="queryParams.auditUser"
-          placeholder="请输入采购单审核人"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="审核时间" prop="auditTime">
-        <el-input
-          v-model="queryParams.auditTime"
-          placeholder="请输入审核时间"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="供应商确认时间" prop="supplierConfirmTime">
-        <el-date-picker clearable
-          v-model="queryParams.supplierConfirmTime"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择供应商确认时间">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="供应商发货时间" prop="supplierDeliveryTime">
-        <el-date-picker clearable
-          v-model="queryParams.supplierDeliveryTime"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择供应商发货时间">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="收货时间" prop="receivedTime">
-        <el-date-picker clearable
-          v-model="queryParams.receivedTime"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择收货时间">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="入库时间" prop="stockInTime">
-        <el-date-picker clearable
-          v-model="queryParams.stockInTime"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择入库时间">
-        </el-date-picker>
-      </el-form-item>
+      
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -108,28 +60,6 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="success"
-          plain
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['purchase:purchaseOrder:edit']"
-        >修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['purchase:purchaseOrder:remove']"
-        >删除</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
           type="warning"
           plain
           icon="el-icon-download"
@@ -143,19 +73,19 @@
 
     <el-table v-loading="loading" :data="purchaseOrderList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="${comment}" align="center" prop="id" />
-      <el-table-column label="供应商id" align="center" prop="contactId" />
+      <el-table-column label="ID" align="center" prop="id" />
+      <el-table-column label="供应商" align="center" prop="contactId" />
       <el-table-column label="订单编号" align="center" prop="orderNo" />
       <el-table-column label="订单日期" align="center" prop="orderDate" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.orderDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="订单创建时间" align="center" prop="orderTime" />
+
       <el-table-column label="订单总金额" align="center" prop="orderAmount" />
       <el-table-column label="备注" align="center" prop="remark" />
-      <el-table-column label="订单状态 0待审核1已审核101供应商已确认102供应商已发货200已入库" align="center" prop="status" />
-      <el-table-column label="采购单审核人" align="center" prop="auditUser" />
+      <el-table-column label="状态" align="center" prop="status" />
+      <el-table-column label="审核人" align="center" prop="auditUser" />
       <el-table-column label="审核时间" align="center" prop="auditTime" />
       <el-table-column label="供应商确认时间" align="center" prop="supplierConfirmTime" width="180">
         <template slot-scope="scope">
@@ -179,20 +109,42 @@
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
+          <el-col :span="24">
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
+            icon="el-icon-circle-check"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['purchase:purchaseOrder:edit']"
-          >修改</el-button>
+          >审核</el-button>
+        </el-col>
+        <el-col :span="24">
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['purchase:purchaseOrder:remove']"
-          >删除</el-button>
+            icon="el-icon-finished"
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['purchase:purchaseOrder:edit']"
+          >生成合同</el-button>
+        </el-col>
+        <el-col :span="24">
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-finished"
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['purchase:purchaseOrder:edit']"
+          >供应商确认</el-button>
+        </el-col>
+        <el-col :span="24">
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-finished"
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['purchase:purchaseOrder:edit']"
+          >供应商发货</el-button>
+        </el-col>
         </template>
       </el-table-column>
     </el-table>
@@ -280,7 +232,7 @@
 
 <script>
 import { listPurchaseOrder, getPurchaseOrder, delPurchaseOrder, addPurchaseOrder, updatePurchaseOrder } from "@/api/purchase/purchaseOrder";
-
+import { listSupplier} from "@/api/scm/supplier";
 export default {
   name: "PurchaseOrder",
   data() {
@@ -324,13 +276,25 @@ export default {
       form: {},
       // 表单校验
       rules: {
-      }
+      },
+      supplierLoading:false,
+      supplierList:[]
     };
   },
   created() {
     this.getList();
   },
   methods: {
+    searchSupplier(query){
+      this.supplierLoading = true;
+      const qw = {
+        name:query
+      }
+      listSupplier(qw).then(response => {
+        this.supplierList = response.rows;
+        this.supplierLoading = false;
+      });
+    },
     /** 查询采购订单列表 */
     getList() {
       this.loading = true;
@@ -391,16 +355,7 @@ export default {
       this.open = true;
       this.title = "添加采购订单";
     },
-    /** 修改按钮操作 */
-    handleUpdate(row) {
-      this.reset();
-      const id = row.id || this.ids
-      getPurchaseOrder(id).then(response => {
-        this.form = response.data;
-        this.open = true;
-        this.title = "修改采购订单";
-      });
-    },
+
     /** 提交按钮 */
     submitForm() {
       this.$refs["form"].validate(valid => {
@@ -420,16 +375,6 @@ export default {
           }
         }
       });
-    },
-    /** 删除按钮操作 */
-    handleDelete(row) {
-      const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除采购订单编号为"' + ids + '"的数据项？').then(function() {
-        return delPurchaseOrder(ids);
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
     },
     /** 导出按钮操作 */
     handleExport() {
