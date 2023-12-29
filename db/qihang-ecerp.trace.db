@@ -4667,3 +4667,26 @@ CREATE TABLE `erp_goods`  (
 	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1449)
 	at org.xnio.XnioWorker$WorkerThreadFactory$1$1.run(XnioWorker.java:1282)
 	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-12-29 17:46:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE `scm_purchase_order`  (\000d\000a  `id` bigint(0) NOT NULL AUTO_INCREMENT,\000d\000a  `contact_id` bigint(0) DEFAULT NULL COMMENT '供应商id',\000d\000a  `order_no` varchar(30)  DEFAULT '' COMMENT '订单编号',\000d\000a  `order_date` date DEFAULT NULL COMMENT '订单日期',\000d\000a  `order_time` bigint(0) DEFAULT NULL COMMENT '订单创建时间',\000d\000a  `order_amount` decimal(10, 2) DEFAULT NULL COMMENT '订单总金额',\000d\000a  `remark` varchar(255)  DEFAULT NULL COMMENT '备注',\000d\000a  `status` tinyint(1) DEFAULT 0 COMMENT '订单状态 0待审核1已审核101供应商已确认102供应商已发货200已入库',\000d\000a  `audit_user` varchar(50)  DEFAULT '' COMMENT '采购单审核人',\000d\000a  `audit_time` bigint(0) DEFAULT 0 COMMENT '审核时间',\000d\000a  `supplier_confirm_time` datetime(0) DEFAULT NULL COMMENT '供应商确认时间',\000d\000a  `supplier_delivery_time` datetime(0) DEFAULT NULL COMMENT '供应商发货时间',\000d\000a  `received_time` datetime(0) DEFAULT NULL COMMENT '收货时间',\000d\000a  `stock_in_time` datetime(0) DEFAULT NULL COMMENT '入库时间',\000d\000a  `create_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci [*]DEFAULT NULL COMMENT '创建人',\000d\000a  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',\000d\000a  `update_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '更新人',\000d\000a  `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间',\000d\000a  PRIMARY KEY (`id`) \000d\000a)"; expected "COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, NULL, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE `scm_purchase_order`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT,
+  `contact_id` bigint(0) DEFAULT NULL COMMENT '供应商id',
+  `order_no` varchar(30)  DEFAULT '' COMMENT '订单编号',
+  `order_date` date DEFAULT NULL COMMENT '订单日期',
+  `order_time` bigint(0) DEFAULT NULL COMMENT '订单创建时间',
+  `order_amount` decimal(10, 2) DEFAULT NULL COMMENT '订单总金额',
+  `remark` varchar(255)  DEFAULT NULL COMMENT '备注',
+  `status` tinyint(1) DEFAULT 0 COMMENT '订单状态 0待审核1已审核101供应商已确认102供应商已发货200已入库',
+  `audit_user` varchar(50)  DEFAULT '' COMMENT '采购单审核人',
+  `audit_time` bigint(0) DEFAULT 0 COMMENT '审核时间',
+  `supplier_confirm_time` datetime(0) DEFAULT NULL COMMENT '供应商确认时间',
+  `supplier_delivery_time` datetime(0) DEFAULT NULL COMMENT '供应商发货时间',
+  `received_time` datetime(0) DEFAULT NULL COMMENT '收货时间',
+  `stock_in_time` datetime(0) DEFAULT NULL COMMENT '入库时间',
+  `create_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) 
+) [42001-214]
