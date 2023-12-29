@@ -4469,3 +4469,33 @@ select table_name, table_comment, create_time, update_time from information_sche
 	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1449)
 	at org.xnio.XnioWorker$WorkerThreadFactory$1$1.run(XnioWorker.java:1282)
 	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-12-29 13:54:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE `erp_goods_brand`  (\000d\000a  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键ID',\000d\000a  `name` varchar(50)  NOT NULL COMMENT '品牌名',\000d\000a  `status` int(0) DEFAULT NULL COMMENT '状态',\000d\000a  `create_by` varchar(20)  DEFAULT NULL,\000d\000a  `create_time` datetime(0) DEFAULT NULL,\000d\000a  `update_by` varchar(20)  DEFAULT NULL,\000d\000a  `update_time` datetime(0) DEFAULT NULL,\000d\000a  PRIMARY KEY (`id`)\000d\000a)\000d\000a\000d\000a-- ----------------------------\000d\000a-- Records of erp_goods_brand\000d\000a-- ----------------------------\000d\000a[*]INSERT INTO `erp_goods_brand` VALUES (1, '梦小妮', 1, 'admin', '2023-12-29 13:44:29', 'admin', '2023-12-29 13:44:29')"; SQL statement:
+CREATE TABLE `erp_goods_brand`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `name` varchar(50)  NOT NULL COMMENT '品牌名',
+  `status` int(0) DEFAULT NULL COMMENT '状态',
+  `create_by` varchar(20)  DEFAULT NULL,
+  `create_time` datetime(0) DEFAULT NULL,
+  `update_by` varchar(20)  DEFAULT NULL,
+  `update_time` datetime(0) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
+
+-- ----------------------------
+-- Records of erp_goods_brand
+-- ----------------------------
+INSERT INTO `erp_goods_brand` VALUES (1, '梦小妮', 1, 'admin', '2023-12-29 13:44:29', 'admin', '2023-12-29 13:44:29') [42000-214]
+2023-12-29 13:54:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ERP_GOODS_BRAND" not found; SQL statement:
+INSERT INTO `erp_goods_brand` VALUES (1, '梦小妮', 1, 'admin', '2023-12-29 13:44:29', 'admin', '2023-12-29 13:44:29') [42102-214]
+2023-12-29 14:48:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE `erp_goods_category_attribute`  (\000d\000a  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键id',\000d\000a  `category_id` int(0) NOT NULL,\000d\000a  `type` int(0) NOT NULL DEFAULT 0 COMMENT '类型：0属性1规格',\000d\000a  `title` varchar(45)  DEFAULT NULL COMMENT '\\'属性名[*]\\'',\000d\000a  `code` char(5)  DEFAULT NULL COMMENT '固定值color颜色size尺码style款式',\000d\000a  PRIMARY KEY (`id`) \000d\000a)"; SQL statement:
+CREATE TABLE `erp_goods_category_attribute`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `category_id` int(0) NOT NULL,
+  `type` int(0) NOT NULL DEFAULT 0 COMMENT '类型：0属性1规格',
+  `title` varchar(45)  DEFAULT NULL COMMENT '\'属性名\'',
+  `code` char(5)  DEFAULT NULL COMMENT '固定值color颜色size尺码style款式',
+  PRIMARY KEY (`id`) 
+) [42000-214]
