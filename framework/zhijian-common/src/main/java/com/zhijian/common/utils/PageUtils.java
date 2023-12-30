@@ -17,12 +17,28 @@ public class PageUtils extends PageHelper
      */
     public static void startPage()
     {
+//        PageDomain pageDomain = TableSupport.buildPageRequest();
+//        Integer pageNum = pageDomain.getPageNum();
+//        Integer pageSize = pageDomain.getPageSize();
+//        String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
+//        if(StringUtils.isEmpty(orderBy)){
+//            orderBy = " ID DESC ";
+//        }
+//        Boolean reasonable = pageDomain.getReasonable();
+//        PageHelper.startPage(pageNum, pageSize, orderBy).setReasonable(reasonable);
+        startPage(true);
+    }
+
+    public static void startPage(boolean isIdDesc)
+    {
         PageDomain pageDomain = TableSupport.buildPageRequest();
         Integer pageNum = pageDomain.getPageNum();
         Integer pageSize = pageDomain.getPageSize();
         String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
-        if(StringUtils.isEmpty(orderBy)){
-            orderBy = " ID DESC ";
+        if(isIdDesc) {
+            if (StringUtils.isEmpty(orderBy)) {
+                orderBy = " ID DESC ";
+            }
         }
         Boolean reasonable = pageDomain.getReasonable();
         PageHelper.startPage(pageNum, pageSize, orderBy).setReasonable(reasonable);

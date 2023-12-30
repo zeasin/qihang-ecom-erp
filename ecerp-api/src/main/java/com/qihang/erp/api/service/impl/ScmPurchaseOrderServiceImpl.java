@@ -5,10 +5,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.qihang.erp.api.domain.ScmPurchaseOrderCost;
 import com.qihang.erp.api.domain.ScmPurchaseOrderItem;
+import com.qihang.erp.api.domain.ScmPurchaseOrderShip;
 import com.qihang.erp.api.domain.bo.PurchaseOrderAddBo;
 import com.qihang.erp.api.domain.bo.PurchaseOrderOptionBo;
+import com.qihang.erp.api.mapper.ScmPurchaseOrderCostMapper;
 import com.qihang.erp.api.mapper.ScmPurchaseOrderItemMapper;
+import com.qihang.erp.api.mapper.ScmPurchaseOrderShipMapper;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +34,10 @@ public class ScmPurchaseOrderServiceImpl implements IScmPurchaseOrderService
     private ScmPurchaseOrderMapper scmPurchaseOrderMapper;
     @Autowired
     private ScmPurchaseOrderItemMapper scmPurchaseOrderItemMapper;
+    @Autowired
+    private ScmPurchaseOrderCostMapper costMapper;
+    @Autowired
+    private ScmPurchaseOrderShipMapper shipMapper;
 
     /**
      * 查询采购订单
@@ -110,15 +118,16 @@ public class ScmPurchaseOrderServiceImpl implements IScmPurchaseOrderService
     public int updateScmPurchaseOrder(PurchaseOrderOptionBo bo)
     {
         ScmPurchaseOrder order = scmPurchaseOrderMapper.selectScmPurchaseOrderById(bo.getId());
+        if(order == null) return -1;
 
 
         if(bo.getOptionType().equals("audit")){
-            if(order!=null && order.getStatus().intValue() !=0){
+            if(order.getStatus() !=0){
                 // 状态不是待审核的
                 return -1;
             }
             ScmPurchaseOrder scmPurchaseOrder = new ScmPurchaseOrder();
-            scmPurchaseOrder.setId(bo.getId());
+            scmPurchaseOrder.setId(order.getId());
             scmPurchaseOrder.setUpdateBy(bo.getUpdateBy());
             scmPurchaseOrder.setUpdateTime(DateUtils.getNowDate());
             scmPurchaseOrder.setAuditUser(bo.getAuditUser());
@@ -127,35 +136,65 @@ public class ScmPurchaseOrderServiceImpl implements IScmPurchaseOrderService
             scmPurchaseOrder.setStatus(1);
             return scmPurchaseOrderMapper.updateScmPurchaseOrder(scmPurchaseOrder);
         }else if (bo.getOptionType().equals("confirm")) {
-            if(order!=null && order.getStatus().intValue() !=1){
+            if(order.getStatus() !=1){
                 // 状态不是已审核的不能发货
                 return -1;
             }
             // 生成费用信息
+            ScmPurchaseOrderCost cost = new ScmPurchaseOrderCost();
+            cost.setId(order.getId());
+            cost.setOrderAmount(order.getOrderAmount());
+            cost.setActualAmount(bo.getTotalAmount());
+            cost.setFreight(BigDecimal.ZERO);
+            cost.setConfirmUser(bo.getConfirmUser());
+            cost.setConfirmTime(new Date());
+            cost.setCreateBy(bo.getUpdateBy());
+            cost.setPayAmount(BigDecimal.ZERO);
+            cost.setPayCount(0L);
+            cost.setStatus(0L);
+            costMapper.insertScmPurchaseOrderCost(cost);
 
-
+            // 更新主表
             ScmPurchaseOrder scmPurchaseOrder = new ScmPurchaseOrder();
-            scmPurchaseOrder.setId(bo.getId());
+            scmPurchaseOrder.setId(order.getId());
             scmPurchaseOrder.setUpdateBy(bo.getUpdateBy());
             scmPurchaseOrder.setUpdateTime(DateUtils.getNowDate());
             scmPurchaseOrder.setStatus(101);
+            scmPurchaseOrder.setSupplierConfirmTime(new Date());
+            scmPurchaseOrderMapper.updateScmPurchaseOrder(scmPurchaseOrder);
         }
         else if (bo.getOptionType().equals("SupplierShip")) {
-            if(order!=null && order.getStatus().intValue() !=101){
+            if(order.getStatus() !=101){
                 // 状态不是已确认的不能发货
                 return -1;
             }
             // 生成物流信息
+            ScmPurchaseOrderShip ship = new ScmPurchaseOrderShip();
+            ship.setId(order.getId());
+            ship.setShipCompany(bo.getShipCompany());
+            ship.setShipNo(bo.getShipNo());
+            ship.setFreight(bo.getShipCost());
+            ship.setShipTime(bo.getSupplierDeliveryTime());
+            ship.setCreateBy(bo.getUpdateBy());
+            ship.setCreateTime(new Date());
+            ship.setStatus(0L);
+            ship.setBackCount(0L);
+            ship.setStockInCount(0L);
+            shipMapper.insertScmPurchaseOrderShip(ship);
+            // 更新费用表
+            ScmPurchaseOrderCost cost = new ScmPurchaseOrderCost();
+            cost.setId(order.getId());
+            cost.setFreight(bo.getShipCost());
+            costMapper.updateScmPurchaseOrderCost(cost);
 
-
-
-
+            // 更新主表
             ScmPurchaseOrder scmPurchaseOrder = new ScmPurchaseOrder();
-            scmPurchaseOrder.setId(bo.getId());
+            scmPurchaseOrder.setId(order.getId());
             scmPurchaseOrder.setUpdateBy(bo.getUpdateBy());
             scmPurchaseOrder.setUpdateTime(DateUtils.getNowDate());
             scmPurchaseOrder.setStatus(102);
-//            scmPurchaseOrder.set
+            scmPurchaseOrder.setSupplierDeliveryTime(new Date());
+            scmPurchaseOrderMapper.updateScmPurchaseOrder(scmPurchaseOrder);
         }
         return 1;
     }

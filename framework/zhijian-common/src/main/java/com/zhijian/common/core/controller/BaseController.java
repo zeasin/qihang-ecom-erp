@@ -55,6 +55,10 @@ public class BaseController
     {
         PageUtils.startPage();
     }
+    protected void startPage(boolean isIdDesc)
+    {
+        PageUtils.startPage(isIdDesc);
+    }
 
     /**
      * 设置请求排序数据
