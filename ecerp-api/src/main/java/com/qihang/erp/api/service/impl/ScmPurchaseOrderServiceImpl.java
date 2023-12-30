@@ -4,6 +4,9 @@ import java.beans.Transient;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 import com.qihang.erp.api.domain.ScmPurchaseOrderCost;
 import com.qihang.erp.api.domain.ScmPurchaseOrderItem;
@@ -140,9 +143,20 @@ public class ScmPurchaseOrderServiceImpl implements IScmPurchaseOrderService
                 // 状态不是已审核的不能发货
                 return -1;
             }
+            // 查询数据
+            ScmPurchaseOrderItem oi = new ScmPurchaseOrderItem();
+            oi.setOrderId(order.getId());
+            List<ScmPurchaseOrderItem> items = scmPurchaseOrderItemMapper.selectScmPurchaseOrderItemList(oi);
+            Map<Long, List<ScmPurchaseOrderItem>> goodsGroup = items.stream().collect(Collectors.groupingBy(x -> x.getGoodsId()));
+            Long total = items.stream().mapToLong(ScmPurchaseOrderItem::getQuantity).sum();
             // 生成费用信息
             ScmPurchaseOrderCost cost = new ScmPurchaseOrderCost();
             cost.setId(order.getId());
+            cost.setOrderNo(order.getOrderNo());
+            cost.setOrderDate(order.getOrderDate());
+            cost.setOrderGoodsUnit(goodsGroup.size());
+            cost.setOrderSpecUnit(items.size());
+            cost.setOrderSpecUnitTotal(total);
             cost.setOrderAmount(order.getOrderAmount());
             cost.setActualAmount(bo.getTotalAmount());
             cost.setFreight(BigDecimal.ZERO);
@@ -168,9 +182,21 @@ public class ScmPurchaseOrderServiceImpl implements IScmPurchaseOrderService
                 // 状态不是已确认的不能发货
                 return -1;
             }
+            // 查询数据
+            ScmPurchaseOrderItem oi = new ScmPurchaseOrderItem();
+            oi.setOrderId(order.getId());
+            List<ScmPurchaseOrderItem> items = scmPurchaseOrderItemMapper.selectScmPurchaseOrderItemList(oi);
+            Map<Long, List<ScmPurchaseOrderItem>> goodsGroup = items.stream().collect(Collectors.groupingBy(x -> x.getGoodsId()));
+            Long total = items.stream().mapToLong(ScmPurchaseOrderItem::getQuantity).sum();
+
             // 生成物流信息
             ScmPurchaseOrderShip ship = new ScmPurchaseOrderShip();
             ship.setId(order.getId());
+            ship.setOrderNo(order.getOrderNo());
+            ship.setOrderDate(order.getOrderDate());
+            ship.setOrderGoodsUnit(goodsGroup.size());
+            ship.setOrderSpecUnit(items.size());
+            ship.setOrderSpecUnitTotal(total);
             ship.setShipCompany(bo.getShipCompany());
             ship.setShipNo(bo.getShipNo());
             ship.setFreight(bo.getShipCost());

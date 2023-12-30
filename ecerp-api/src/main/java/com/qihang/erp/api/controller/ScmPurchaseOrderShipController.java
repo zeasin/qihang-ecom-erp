@@ -70,17 +70,6 @@ public class ScmPurchaseOrderShipController extends BaseController
     }
 
     /**
-     * 新增采购订单物流
-     */
-    @PreAuthorize("@ss.hasPermi('purchase:PurchaseOrderShip:add')")
-    @Log(title = "采购订单物流", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody ScmPurchaseOrderShip scmPurchaseOrderShip)
-    {
-        return toAjax(scmPurchaseOrderShipService.insertScmPurchaseOrderShip(scmPurchaseOrderShip));
-    }
-
-    /**
      * 修改采购订单物流
      */
     @PreAuthorize("@ss.hasPermi('purchase:PurchaseOrderShip:edit')")
@@ -91,14 +80,4 @@ public class ScmPurchaseOrderShipController extends BaseController
         return toAjax(scmPurchaseOrderShipService.updateScmPurchaseOrderShip(scmPurchaseOrderShip));
     }
 
-    /**
-     * 删除采购订单物流
-     */
-    @PreAuthorize("@ss.hasPermi('purchase:PurchaseOrderShip:remove')")
-    @Log(title = "采购订单物流", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(scmPurchaseOrderShipService.deleteScmPurchaseOrderShipByIds(ids));
-    }
 }

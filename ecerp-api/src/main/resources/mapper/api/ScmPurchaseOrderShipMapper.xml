@@ -18,10 +18,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="stockInCount"    column="stock_in_count"    />
         <result property="updateBy"    column="update_by"    />
         <result property="updateTime"    column="update_time"    />
+        <result property="orderDate"    column="order_date"    />
+        <result property="orderNo"    column="order_no"    />
+        <result property="orderSpecUnit"    column="order_spec_unit"    />
+        <result property="orderGoodsUnit"    column="order_goods_unit"    />
+        <result property="orderSpecUnitTotal"    column="order_spec_unit_total"    />
     </resultMap>
 
     <sql id="selectScmPurchaseOrderShipVo">
-        select id, ship_company, ship_no, freight, ship_time, create_by, create_time, status, remark, back_count, stock_in_count, update_by, update_time from scm_purchase_order_ship
+        select id, ship_company, ship_no, freight, ship_time, create_by, create_time, status, remark, back_count, stock_in_count, update_by, update_time, order_date, order_no, order_spec_unit, order_goods_unit, order_spec_unit_total from scm_purchase_order_ship
     </sql>
 
     <select id="selectScmPurchaseOrderShipList" parameterType="ScmPurchaseOrderShip" resultMap="ScmPurchaseOrderShipResult">
@@ -34,6 +39,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="status != null "> and status = #{status}</if>
             <if test="backCount != null "> and back_count = #{backCount}</if>
             <if test="stockInCount != null "> and stock_in_count = #{stockInCount}</if>
+            <if test="orderDate != null "> and order_date = #{orderDate}</if>
+            <if test="orderNo != null  and orderNo != ''"> and order_no = #{orderNo}</if>
+            <if test="orderSpecUnit != null "> and order_spec_unit = #{orderSpecUnit}</if>
+            <if test="orderGoodsUnit != null "> and order_goods_unit = #{orderGoodsUnit}</if>
+            <if test="orderSpecUnitTotal != null "> and order_spec_unit_total = #{orderSpecUnitTotal}</if>
         </where>
     </select>
     
@@ -58,6 +68,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stockInCount != null">stock_in_count,</if>
             <if test="updateBy != null">update_by,</if>
             <if test="updateTime != null">update_time,</if>
+            <if test="orderDate != null">order_date,</if>
+            <if test="orderNo != null">order_no,</if>
+            <if test="orderSpecUnit != null">order_spec_unit,</if>
+            <if test="orderGoodsUnit != null">order_goods_unit,</if>
+            <if test="orderSpecUnitTotal != null">order_spec_unit_total,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">#{id},</if>
@@ -73,6 +88,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stockInCount != null">#{stockInCount},</if>
             <if test="updateBy != null">#{updateBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
+            <if test="orderDate != null">#{orderDate},</if>
+            <if test="orderNo != null">#{orderNo},</if>
+            <if test="orderSpecUnit != null">#{orderSpecUnit},</if>
+            <if test="orderGoodsUnit != null">#{orderGoodsUnit},</if>
+            <if test="orderSpecUnitTotal != null">#{orderSpecUnitTotal},</if>
          </trim>
     </insert>
 
@@ -91,6 +111,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stockInCount != null">stock_in_count = #{stockInCount},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="orderDate != null">order_date = #{orderDate},</if>
+            <if test="orderNo != null">order_no = #{orderNo},</if>
+            <if test="orderSpecUnit != null">order_spec_unit = #{orderSpecUnit},</if>
+            <if test="orderGoodsUnit != null">order_goods_unit = #{orderGoodsUnit},</if>
+            <if test="orderSpecUnitTotal != null">order_spec_unit_total = #{orderSpecUnitTotal},</if>
         </trim>
         where id = #{id}
     </update>
