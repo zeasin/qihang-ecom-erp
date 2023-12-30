@@ -84,14 +84,19 @@
 
       <el-table-column label="订单总金额" align="center" prop="orderAmount" />
       <el-table-column label="备注" align="center" prop="remark" />
-      <el-table-column label="状态" align="center" prop="status" />
-      <el-table-column label="审核人" align="center" prop="auditUser" />
-      <el-table-column label="审核时间" align="center" prop="auditTime" />
-      <el-table-column label="供应商确认时间" align="center" prop="supplierConfirmTime" width="180">
+      <el-table-column label="状态" align="center" prop="status" >
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.supplierConfirmTime, '{y}-{m}-{d}') }}</span>
+          <el-tag type="info" v-if="scope.row.status === 0">待审核</el-tag>
+          <el-tag type="success" v-if="scope.row.status === 1">已审核</el-tag>
         </template>
       </el-table-column>
+      <el-table-column label="审核人" align="center" prop="auditUser" />
+      <el-table-column label="审核时间" align="center" prop="auditTime" >
+        <template slot-scope="scope">
+          {{ dateToString(scope.row.auditTime) }}
+        </template>
+        </el-table-column>
+
       <el-table-column label="供应商发货时间" align="center" prop="supplierDeliveryTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.supplierDeliveryTime, '{y}-{m}-{d}') }}</span>
@@ -109,39 +114,41 @@
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
+          <!-- <el-col :span="24">
+            <el-button
+              size="mini"
+              type="text"
+              icon="el-icon-view"
+              @click="handleDetail(scope.row)"
+            >详情</el-button>
+          </el-col> -->
           <el-col :span="24">
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-circle-check"
-            @click="handleUpdateStatus(scope.row)"
-            v-hasPermi="['purchase:purchaseOrder:edit']"
-          >审核</el-button>
-        </el-col>
+            <el-button
+              v-if="scope.row.status === 0"
+              size="mini"
+              type="text"
+              icon="el-icon-circle-check"
+              @click="handleUpdateStatus(scope.row,'audit')"
+              v-hasPermi="['purchase:purchaseOrder:edit']"
+            >审核</el-button>
+          </el-col>
+            <el-col :span="24">
+            <el-button
+            v-if="scope.row.status === 1"
+              size="mini"
+              type="text"
+              icon="el-icon-finished"
+              @click="handleUpdateStatus(scope.row,'confirm')"
+              v-hasPermi="['purchase:purchaseOrder:edit']"
+            >采购确认</el-button>
+          </el-col>
         <el-col :span="24">
           <el-button
+          v-if="scope.row.status === 101"
             size="mini"
             type="text"
             icon="el-icon-finished"
-            @click="handleUpdateStatus(scope.row)"
-            v-hasPermi="['purchase:purchaseOrder:edit']"
-          >生成合同</el-button>
-        </el-col>
-        <el-col :span="24">
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-finished"
-            @click="handleUpdateStatus(scope.row)"
-            v-hasPermi="['purchase:purchaseOrder:edit']"
-          >供应商确认</el-button>
-        </el-col>
-        <el-col :span="24">
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-finished"
-            @click="handleUpdateStatus(scope.row)"
+            @click="handleUpdateStatus(scope.row,'SupplierShip')"
             v-hasPermi="['purchase:purchaseOrder:edit']"
           >供应商发货</el-button>
         </el-col>
@@ -159,43 +166,37 @@
 
     <!-- 添加或修改采购订单对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="138px">
 
         <el-form-item label="订单编号" prop="orderNo">
-          <el-input v-model="form.orderNo" placeholder="请输入订单编号" />
+          <el-input v-model="form.orderNo" disabled placeholder="请输入订单编号" />
         </el-form-item>
         <el-form-item label="订单日期" prop="orderDate">
           <el-date-picker clearable
             v-model="form.orderDate"
             type="date"
+            disabled
             value-format="yyyy-MM-dd"
             placeholder="请选择订单日期">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="订单创建时间" prop="orderTime">
-          <el-input v-model="form.orderTime" placeholder="请输入订单创建时间" />
+          <el-input v-model="form.orderTime" disabled placeholder="请输入订单创建时间" />
         </el-form-item>
         <el-form-item label="订单总金额" prop="orderAmount">
-          <el-input v-model="form.orderAmount" placeholder="请输入订单总金额" />
+          <el-input v-model="form.orderAmount" disabled placeholder="请输入订单总金额" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" placeholder="请输入备注" />
+          <el-input v-model="form.remark" placeholder="请输入备注" :disabled=" form.optionType !== 'audit' " />
         </el-form-item>
         <el-form-item label="采购单审核人" prop="auditUser">
-          <el-input v-model="form.auditUser" placeholder="请输入采购单审核人" />
+          <el-input v-model="form.auditUser" placeholder="请输入采购单审核人" :disabled=" form.optionType !== 'audit' " />
         </el-form-item>
-        <el-form-item label="审核时间" prop="auditTime">
-          <el-input v-model="form.auditTime" placeholder="请输入审核时间" />
+        <el-form-item label="审核时间" prop="auditTime" v-if="form.optionType !== 'audit'">
+          <el-input v-model="form.auditTime" placeholder="请输入审核时间" :disabled=" form.optionType !== 'audit' " />
         </el-form-item>
-        <el-form-item label="供应商确认时间" prop="supplierConfirmTime">
-          <el-date-picker clearable
-            v-model="form.supplierConfirmTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择供应商确认时间">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="供应商发货时间" prop="supplierDeliveryTime">
+        
+        <el-form-item label="供应商发货时间" prop="supplierDeliveryTime" v-if="form.optionType === 'SupplierShip'">
           <el-date-picker clearable
             v-model="form.supplierDeliveryTime"
             type="date"
@@ -203,21 +204,20 @@
             placeholder="请选择供应商发货时间">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="收货时间" prop="receivedTime">
-          <el-date-picker clearable
-            v-model="form.receivedTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择收货时间">
-          </el-date-picker>
+        <el-form-item label="物流公司"  v-if="form.optionType === 'SupplierShip'">
+          <el-input v-model="form.shipCompany" placeholder="请输入物流公司" />
         </el-form-item>
-        <el-form-item label="入库时间" prop="stockInTime">
-          <el-date-picker clearable
-            v-model="form.stockInTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择入库时间">
-          </el-date-picker>
+        <el-form-item label="物流单号" v-if="form.optionType === 'SupplierShip'">
+          <el-input v-model="form.shipNo" placeholder="请输入物流公司" />
+        </el-form-item>
+        <el-form-item label="物流费用" v-if="form.optionType === 'SupplierShip'">
+          <el-input type="number" v-model.number="form.shipCost" placeholder="请输入物流费用" />
+        </el-form-item>
+        <el-form-item label="采购金额(不含运费)" v-if="form.optionType !== 'audit'">
+          <el-input type="number" v-model.number="form.totalAmount" placeholder="请输入采购金额(不含运费)" />
+        </el-form-item>
+        <el-form-item label="采购单确认人" v-if="form.optionType === 'confirm'">
+          <el-input v-model="form.confirmUser" placeholder="请输入采购单确认人" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -264,14 +264,20 @@ export default {
         orderAmount: null,
         status: null,
         auditUser: null,
-        auditTime: null,
-        supplierConfirmTime: null,
-        supplierDeliveryTime: null,
-        receivedTime: null,
-        stockInTime: null,
+        auditTime: null
       },
       // 表单参数
-      form: {},
+      form: {
+        id:null,
+        orderNo:null,
+        optionType:null,
+        auditUser:null,
+        remark:null,
+        orderAmount:null,
+        shipCost:null,
+        totalAmount:null
+      },
+      
       // 表单校验
       rules: {
       },
@@ -283,6 +289,13 @@ export default {
     this.getList();
   },
   methods: {
+    amountChange(nv){
+      this.form.totalAmount = parseFloat(this.form.orderAmount)+parseFloat(this.form.shipCost)
+    },
+    dateToString(timespan){
+      var date = new Date(timespan * 1000);
+        return date.toLocaleString();
+    },
     searchSupplier(query){
       this.supplierLoading = true;
       const qw = {
@@ -301,6 +314,10 @@ export default {
         this.total = response.total;
         this.loading = false;
       });
+    },
+    // 详情
+    handleDetail(row){
+      this.$router.push('/scm/purchase/order/detail');
     },
     // 取消按钮
     cancel() {
@@ -351,27 +368,95 @@ export default {
     handleAdd() {
       this.$router.push('/scm/purchase/order/create');
     },
-    handleUpdateStatus(){
+    handleUpdateStatus(row,optionType){
+      this.form.id = row.id
+      this.form.orderNo = row.orderNo
+      this.form.orderDate = row.orderDate
+      var date = new Date(row.orderTime * 1000);
+      this.form.orderTime = date.toLocaleString();
+      this.form.orderAmount = row.orderAmount
+      this.form.remark = row.remark
+
+      this.form.auditUser = row.auditUser
+      this.form.auditTime = this.dateToString(row.auditTime)
+      
       this.open = true;
-      this.title = "操作采购订单";
+
+      if ('audit' === optionType){
+        this.form.optionType = 'audit'
+        
+        
+        this.title = "审核采购订单";
+      }else if (optionType === 'SupplierShip'){
+        this.form.optionType = 'SupplierShip'
+        
+        this.title = "供应商发货";
+      }
+      else if (optionType === 'confirm'){
+        this.form.optionType = 'confirm'
+        this.form.totalAmount = row.orderAmount
+        this.title = "采购确认";
+      }
     },
     /** 提交按钮 */
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.id != null) {
-            updatePurchaseOrder(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
-              this.open = false;
-              this.getList();
-            });
-          } else {
-            addPurchaseOrder(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
-              this.open = false;
-              this.getList();
-            });
+          if(this.form.optionType === 'audit'){
+            if(!this.form.auditUser){
+              this.$message.error("请填写审核人")
+              return
+            }
+          }else if(this.form.optionType === 'SupplierShip'){
+            if(!this.form.supplierDeliveryTime){
+              this.$message.error("请填写供应商发货日期")
+              return
+            }
+            if(!this.form.shipCompany){
+              this.$message.error("请填写供应商发货物流公司")
+              return
+            }
+            if(!this.form.shipNo){
+              this.$message.error("请填写供应商发货物流单号")
+              return
+            }
+            if(!this.form.shipCost){
+              this.$message.error("请填写供应商发货物流费用")
+              return
+            }
+            
+          }else if(this.form.optionType === 'confirm'){
+            if(!this.form.totalAmount){
+              this.$message.error("请填写采购实际金额")
+              return
+            }
+            if(!this.form.confirmUser){
+              this.$message.error("请填写采购单确认人")
+              return
+            }
+            
           }
+
+          updatePurchaseOrder(this.form).then(response => {
+            if(this.form.optionType === 'audit'){
+              if(response.code===0){
+                this.$message.error("审核失败！"+ response.msg)
+              }
+              else if(response.code === 200) {
+                this.$modal.msgSuccess("审核成功");
+                this.open = false;
+                this.getList();
+              }else{
+                this.$message.error("失败！"+ response.msg)
+              }
+            }else if(this.form.optionType === 'SupplierShip'){
+              console.log('=====发货结果======',response)
+            }
+            else if(this.form.optionType === 'confirm'){
+              console.log('=====发货结果======',response)
+            }
+            
+          });
         }
       });
     },

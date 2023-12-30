@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.qihang.erp.api.domain.ScmPurchaseOrderItem;
 import com.qihang.erp.api.domain.bo.PurchaseOrderAddBo;
+import com.qihang.erp.api.domain.bo.PurchaseOrderOptionBo;
 import com.qihang.erp.api.mapper.ScmPurchaseOrderItemMapper;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class ScmPurchaseOrderServiceImpl implements IScmPurchaseOrderService
     /**
      * 新增采购订单
      * 
-     * @param scmPurchaseOrder 采购订单
+     * @param PurchaseOrderAddBo 采购订单
      * @return 结果
      */
     @Transactional
@@ -101,14 +102,62 @@ public class ScmPurchaseOrderServiceImpl implements IScmPurchaseOrderService
     /**
      * 修改采购订单
      * 
-     * @param scmPurchaseOrder 采购订单
+     * @param PurchaseOrderOptionBo 采购订单
      * @return 结果
      */
+    @Transactional
     @Override
-    public int updateScmPurchaseOrder(ScmPurchaseOrder scmPurchaseOrder)
+    public int updateScmPurchaseOrder(PurchaseOrderOptionBo bo)
     {
-        scmPurchaseOrder.setUpdateTime(DateUtils.getNowDate());
-        return scmPurchaseOrderMapper.updateScmPurchaseOrder(scmPurchaseOrder);
+        ScmPurchaseOrder order = scmPurchaseOrderMapper.selectScmPurchaseOrderById(bo.getId());
+
+
+        if(bo.getOptionType().equals("audit")){
+            if(order!=null && order.getStatus().intValue() !=0){
+                // 状态不是待审核的
+                return -1;
+            }
+            ScmPurchaseOrder scmPurchaseOrder = new ScmPurchaseOrder();
+            scmPurchaseOrder.setId(bo.getId());
+            scmPurchaseOrder.setUpdateBy(bo.getUpdateBy());
+            scmPurchaseOrder.setUpdateTime(DateUtils.getNowDate());
+            scmPurchaseOrder.setAuditUser(bo.getAuditUser());
+            scmPurchaseOrder.setAuditTime(System.currentTimeMillis()/1000);
+            scmPurchaseOrder.setRemark(bo.getRemark());
+            scmPurchaseOrder.setStatus(1);
+            return scmPurchaseOrderMapper.updateScmPurchaseOrder(scmPurchaseOrder);
+        }else if (bo.getOptionType().equals("confirm")) {
+            if(order!=null && order.getStatus().intValue() !=1){
+                // 状态不是已审核的不能发货
+                return -1;
+            }
+            // 生成费用信息
+
+
+            ScmPurchaseOrder scmPurchaseOrder = new ScmPurchaseOrder();
+            scmPurchaseOrder.setId(bo.getId());
+            scmPurchaseOrder.setUpdateBy(bo.getUpdateBy());
+            scmPurchaseOrder.setUpdateTime(DateUtils.getNowDate());
+            scmPurchaseOrder.setStatus(101);
+        }
+        else if (bo.getOptionType().equals("SupplierShip")) {
+            if(order!=null && order.getStatus().intValue() !=101){
+                // 状态不是已确认的不能发货
+                return -1;
+            }
+            // 生成物流信息
+
+
+
+
+            ScmPurchaseOrder scmPurchaseOrder = new ScmPurchaseOrder();
+            scmPurchaseOrder.setId(bo.getId());
+            scmPurchaseOrder.setUpdateBy(bo.getUpdateBy());
+            scmPurchaseOrder.setUpdateTime(DateUtils.getNowDate());
+            scmPurchaseOrder.setStatus(102);
+//            scmPurchaseOrder.set
+        }
+        return 1;
     }
 
     /**
