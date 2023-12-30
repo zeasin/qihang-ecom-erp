@@ -33,7 +33,7 @@ public class ScmPurchaseOrderItem extends BaseEntity
 
     /** 购货金额 */
     @Excel(name = "购货金额")
-    private Long amount;
+    private Double amount;
 
     /** 订单日期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -86,7 +86,7 @@ public class ScmPurchaseOrderItem extends BaseEntity
 
     /** 状态（同billStatus）0待审核1正常2已作废3已入库 */
     @Excel(name = "状态", readConverterExp = "同=billStatus")
-    private Long status;
+    private Integer status;
 
     public void setId(Long id) 
     {
@@ -124,12 +124,12 @@ public class ScmPurchaseOrderItem extends BaseEntity
     {
         return transType;
     }
-    public void setAmount(Long amount) 
+    public void setAmount(Double amount)
     {
         this.amount = amount;
     }
 
-    public Long getAmount() 
+    public Double getAmount()
     {
         return amount;
     }
@@ -241,12 +241,12 @@ public class ScmPurchaseOrderItem extends BaseEntity
     {
         return isDelete;
     }
-    public void setStatus(Long status) 
+    public void setStatus(Integer status)
     {
         this.status = status;
     }
 
-    public Long getStatus() 
+    public Integer getStatus()
     {
         return status;
     }

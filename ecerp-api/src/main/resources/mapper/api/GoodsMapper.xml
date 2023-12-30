@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qihang.erp.api.mapper.GoodsMapper">
     
-    <resultMap type="Goods" id="GoodsResult">
+    <resultMap type="com.qihang.erp.api.domain.Goods" id="GoodsResult">
         <result property="id"    column="id"    />
         <result property="name"    column="name"    />
         <result property="image"    column="image"    />
@@ -41,6 +41,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
         <result property="updateTime"    column="update_time"    />
+    </resultMap>
+    <resultMap type="com.qihang.erp.api.domain.vo.GoodsSpecListVo" id="GoodsSpecListVoResult">
+        <result property="id"    column="id"    />
+        <result property="goodsId"    column="goods_id"    />
+        <result property="name"    column="name"    />
+        <result property="number"    column="number"    />
+        <result property="specNum"    column="spec_num"    />
+        <result property="colorValue"    column="color_value"    />
+        <result property="colorImage"    column="color_image"    />
+        <result property="sizeValue"    column="size_value"    />
+        <result property="styleValue"    column="style_value"    />
+        <result property="purPrice"    column="pur_price"    />
     </resultMap>
 
     <sql id="selectGoodsVo">
@@ -86,6 +98,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectGoodsById" parameterType="Long" resultMap="GoodsResult">
         <include refid="selectGoodsVo"/>
         where id = #{id}
+    </select>
+
+    <select id="searchGoodsSpec" parameterType="com.qihang.erp.api.domain.vo.GoodsSpecListVo" resultMap="GoodsSpecListVoResult">
+        SELECT spec.id,spec.goods_id,g.number,g.`name`,spec.spec_num,spec.color_value,spec.color_image,spec.size_value,spec.style_value,spec.pur_price
+        FROM `erp_goods_spec` as spec
+        LEFT JOIN erp_goods as g on g.id = spec.goods_id
+        <where>
+            <if test="keyword != null  and keyword != ''">
+                and
+                (
+                    g.name like concat('%', #{keyword}, '%')
+                    or g.number like concat(#{keyword}, '%')
+                    or spec.spec_num like concat(#{keyword}, '%')
+                )
+            </if>
+        </where>
     </select>
         
     <insert id="insertGoods" parameterType="Goods" useGeneratedKeys="true" keyProperty="id">

@@ -1,6 +1,8 @@
 package com.qihang.erp.api.service.impl;
 
 import java.util.List;
+
+import com.qihang.erp.api.domain.vo.GoodsSpecListVo;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,5 +94,10 @@ public class GoodsServiceImpl implements IGoodsService
     public int deleteGoodsById(Long id)
     {
         return goodsMapper.deleteGoodsById(id);
+    }
+
+    @Override
+    public List<GoodsSpecListVo> searchGoodsSpec(String keyword) {
+        return goodsMapper.searchGoodsSpec(keyword);
     }
 }

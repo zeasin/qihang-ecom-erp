@@ -2,6 +2,7 @@ package com.qihang.erp.api.mapper;
 
 import java.util.List;
 import com.qihang.erp.api.domain.Goods;
+import com.qihang.erp.api.domain.vo.GoodsSpecListVo;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -60,4 +61,6 @@ public interface GoodsMapper
      * @return 结果
      */
     public int deleteGoodsByIds(Long[] ids);
+
+    List<GoodsSpecListVo> searchGoodsSpec(String keyword);
 }

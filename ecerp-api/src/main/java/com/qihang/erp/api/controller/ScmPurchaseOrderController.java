@@ -2,6 +2,8 @@ package com.qihang.erp.api.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.qihang.erp.api.domain.bo.PurchaseOrderAddBo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,9 +77,10 @@ public class ScmPurchaseOrderController extends BaseController
     @PreAuthorize("@ss.hasPermi('purchase:purchaseOrder:add')")
     @Log(title = "采购订单", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody ScmPurchaseOrder scmPurchaseOrder)
+    public AjaxResult add(@RequestBody PurchaseOrderAddBo addBo)
     {
-        return toAjax(scmPurchaseOrderService.insertScmPurchaseOrder(scmPurchaseOrder));
+        addBo.setCreateBy(getUsername());
+        return toAjax(scmPurchaseOrderService.insertScmPurchaseOrder(addBo));
     }
 
     /**

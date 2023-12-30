@@ -2,6 +2,8 @@ package com.qihang.erp.api.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.qihang.erp.api.domain.vo.GoodsSpecListVo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +35,18 @@ public class GoodsController extends BaseController
 {
     @Autowired
     private IGoodsService goodsService;
+
+    /**
+     * 搜索商品SKU
+     * 条件：商品编码、SKU、商品名称
+     */
+    @GetMapping("/searchSku")
+    public TableDataInfo searchSkuBy(String keyword)
+    {
+        startPage();
+        List<GoodsSpecListVo> list = goodsService.searchGoodsSpec(keyword);
+        return getDataTable(list);
+    }
 
     /**
      * 查询商品管理列表

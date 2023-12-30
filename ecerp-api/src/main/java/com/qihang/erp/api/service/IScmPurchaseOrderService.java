@@ -2,6 +2,7 @@ package com.qihang.erp.api.service;
 
 import java.util.List;
 import com.qihang.erp.api.domain.ScmPurchaseOrder;
+import com.qihang.erp.api.domain.bo.PurchaseOrderAddBo;
 
 /**
  * 采购订单Service接口
@@ -33,7 +34,7 @@ public interface IScmPurchaseOrderService
      * @param scmPurchaseOrder 采购订单
      * @return 结果
      */
-    public int insertScmPurchaseOrder(ScmPurchaseOrder scmPurchaseOrder);
+    public int insertScmPurchaseOrder(PurchaseOrderAddBo addBo);
 
     /**
      * 修改采购订单

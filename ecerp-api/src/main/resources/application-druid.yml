@@ -7,7 +7,7 @@ spring:
 #        username: root
 #        password: Andy_123
         driverClassName: org.h2.Driver
-        url:    # 数据库
+        url: jdbc:h2:file:.\db\qihang-ecerp;MODE=MYSQL
         username: qihang
         password: Andy_123
         druid:

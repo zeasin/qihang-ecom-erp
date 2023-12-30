@@ -9,6 +9,15 @@ export function listGoods(query) {
   })
 }
 
+// 查询商品规格列表
+export function searchSku(query) {
+  return request({
+    url: '/goods/goods/searchSku',
+    method: 'get',
+    params: query
+  })
+}
+
 // 查询商品管理详细
 export function getGoods(id) {
   return request({
