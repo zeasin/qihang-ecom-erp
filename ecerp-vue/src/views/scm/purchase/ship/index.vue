@@ -1,31 +1,16 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="物流公司" prop="shipCompany">
+    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="128px">
+      
+      <el-form-item label="采购订单编号" prop="orderNo">
         <el-input
-          v-model="queryParams.shipCompany"
-          placeholder="请输入物流公司" 
+          v-model="queryParams.orderNo"
+          placeholder="请输入采购订单编号"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="物流单号" prop="shipNo">
-        <el-input
-          v-model="queryParams.shipNo"
-          placeholder="请输入物流单号"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="运费" prop="freight">
-        <el-input
-          v-model="queryParams.freight"
-          placeholder="请输入运费"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="运送时间" prop="shipTime">
+      <el-form-item label="供应商发货时间" prop="shipTime">
         <el-date-picker clearable
           v-model="queryParams.shipTime"
           type="date"
@@ -33,22 +18,8 @@
           placeholder="请选择运送时间">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="退回数量" prop="backCount">
-        <el-input
-          v-model="queryParams.backCount"
-          placeholder="请输入退回数量"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="入库数量" prop="stockInCount">
-        <el-input
-          v-model="queryParams.stockInCount"
-          placeholder="请输入入库数量"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+
+     
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -56,16 +27,7 @@
     </el-form>
 
     <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="el-icon-plus"
-          size="mini"
-          @click="handleAdd"
-          v-hasPermi="['purchase:PurchaseOrderShip:add']"
-        >新增</el-button>
-      </el-col>
+
       <el-col :span="1.5">
         <el-button
           type="success"
@@ -75,18 +37,7 @@
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['purchase:PurchaseOrderShip:edit']"
-        >修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['purchase:PurchaseOrderShip:remove']"
-        >删除</el-button>
+        >确认收货</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -116,6 +67,15 @@
       <el-table-column label="说明" align="center" prop="remark" />
       <el-table-column label="退回数量" align="center" prop="backCount" />
       <el-table-column label="入库数量" align="center" prop="stockInCount" />
+      <el-table-column label="采购订单日期" align="center" prop="orderDate" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.orderDate, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="采购订单编号" align="center" prop="orderNo" />
+      <el-table-column label="采购订单商品规格数" align="center" prop="orderSpecUnit" />
+      <el-table-column label="采购订单商品数" align="center" prop="orderGoodsUnit" />
+      <el-table-column label="采购订单总件数" align="center" prop="orderSpecUnitTotal" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -124,14 +84,14 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['purchase:PurchaseOrderShip:edit']"
-          >修改</el-button>
+          >确认收货</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['purchase:PurchaseOrderShip:remove']"
-          >删除</el-button>
+          >入库</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -172,6 +132,26 @@
         </el-form-item>
         <el-form-item label="入库数量" prop="stockInCount">
           <el-input v-model="form.stockInCount" placeholder="请输入入库数量" />
+        </el-form-item>
+        <el-form-item label="采购订单日期" prop="orderDate">
+          <el-date-picker clearable
+            v-model="form.orderDate"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择采购订单日期">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="采购订单编号" prop="orderNo">
+          <el-input v-model="form.orderNo" placeholder="请输入采购订单编号" />
+        </el-form-item>
+        <el-form-item label="采购订单商品规格数" prop="orderSpecUnit">
+          <el-input v-model="form.orderSpecUnit" placeholder="请输入采购订单商品规格数" />
+        </el-form-item>
+        <el-form-item label="采购订单商品数" prop="orderGoodsUnit">
+          <el-input v-model="form.orderGoodsUnit" placeholder="请输入采购订单商品数" />
+        </el-form-item>
+        <el-form-item label="采购订单总件数" prop="orderSpecUnitTotal">
+          <el-input v-model="form.orderSpecUnitTotal" placeholder="请输入采购订单总件数" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -218,6 +198,11 @@ export default {
         status: null,
         backCount: null,
         stockInCount: null,
+        orderDate: null,
+        orderNo: null,
+        orderSpecUnit: null,
+        orderGoodsUnit: null,
+        orderSpecUnitTotal: null
       },
       // 表单参数
       form: {},
@@ -259,7 +244,12 @@ export default {
         backCount: null,
         stockInCount: null,
         updateBy: null,
-        updateTime: null
+        updateTime: null,
+        orderDate: null,
+        orderNo: null,
+        orderSpecUnit: null,
+        orderGoodsUnit: null,
+        orderSpecUnitTotal: null
       };
       this.resetForm("form");
     },
@@ -278,12 +268,6 @@ export default {
       this.ids = selection.map(item => item.id)
       this.single = selection.length!==1
       this.multiple = !selection.length
-    },
-    /** 新增按钮操作 */
-    handleAdd() {
-      this.reset();
-      this.open = true;
-      this.title = "添加采购订单物流";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
@@ -314,16 +298,6 @@ export default {
           }
         }
       });
-    },
-    /** 删除按钮操作 */
-    handleDelete(row) {
-      const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除采购订单物流编号为"' + ids + '"的数据项？').then(function() {
-        return delPurchaseOrderShip(ids);
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
     },
     /** 导出按钮操作 */
     handleExport() {

@@ -1,38 +1,16 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="采购单金额" prop="orderAmount">
+    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="108px">
+      
+      <el-form-item label="采购订单编号" prop="orderNo">
         <el-input
-          v-model="queryParams.orderAmount"
-          placeholder="请输入采购单金额"
+          v-model="queryParams.orderNo"
+          placeholder="请输入采购订单编号"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="实际金额" prop="actualAmount">
-        <el-input
-          v-model="queryParams.actualAmount"
-          placeholder="请输入实际金额"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="运费" prop="freight">
-        <el-input
-          v-model="queryParams.freight"
-          placeholder="请输入运费"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="确认人" prop="confirmUser">
-        <el-input
-          v-model="queryParams.confirmUser"
-          placeholder="请输入确认人"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+      
       <el-form-item label="确认时间" prop="confirmTime">
         <el-date-picker clearable
           v-model="queryParams.confirmTime"
@@ -41,14 +19,7 @@
           placeholder="请选择确认时间">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="已支付金额" prop="payAmount">
-        <el-input
-          v-model="queryParams.payAmount"
-          placeholder="请输入已支付金额"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+      
       <el-form-item label="支付时间" prop="payTime">
         <el-date-picker clearable
           v-model="queryParams.payTime"
@@ -57,14 +28,7 @@
           placeholder="请选择支付时间">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="支付次数" prop="payCount">
-        <el-input
-          v-model="queryParams.payCount"
-          placeholder="请输入支付次数"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+     
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -74,53 +38,30 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-          type="primary"
-          plain
-          icon="el-icon-plus"
-          size="mini"
-          @click="handleAdd"
-          v-hasPermi="['purchase:purchaseOrderCost:add']"
-        >新增</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['purchase:purchaseOrderCost:edit']"
-        >修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['purchase:purchaseOrderCost:remove']"
-        >删除</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
           type="warning"
           plain
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['purchase:purchaseOrderCost:export']"
+          v-hasPermi="['purchase:PurchaseOrderCost:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="purchaseOrderCostList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="PurchaseOrderCostList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="采购单ID" align="center" prop="id" />
       <el-table-column label="采购单金额" align="center" prop="orderAmount" />
+      <el-table-column label="采购订单日期" align="center" prop="orderDate" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.orderDate, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="采购订单编号" align="center" prop="orderNo" />
+      <el-table-column label="采购订单商品规格数" align="center" prop="orderSpecUnit" />
+      <el-table-column label="采购订单商品数" align="center" prop="orderGoodsUnit" />
+      <el-table-column label="采购订单总件数" align="center" prop="orderSpecUnitTotal" />
       <el-table-column label="实际金额" align="center" prop="actualAmount" />
       <el-table-column label="运费" align="center" prop="freight" />
       <el-table-column label="确认人" align="center" prop="confirmUser" />
@@ -145,15 +86,9 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['purchase:purchaseOrderCost:edit']"
-          >修改</el-button>
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['purchase:purchaseOrderCost:remove']"
-          >删除</el-button>
+            v-hasPermi="['purchase:PurchaseOrderCost:edit']"
+          >付款</el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -166,11 +101,31 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改采购订单费用确认对话框 -->
+    <!-- 添加或修改采购订单费用对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="采购单金额" prop="orderAmount">
           <el-input v-model="form.orderAmount" placeholder="请输入采购单金额" />
+        </el-form-item>
+        <el-form-item label="采购订单日期" prop="orderDate">
+          <el-date-picker clearable
+            v-model="form.orderDate"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择采购订单日期">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="采购订单编号" prop="orderNo">
+          <el-input v-model="form.orderNo" placeholder="请输入采购订单编号" />
+        </el-form-item>
+        <el-form-item label="采购订单商品规格数" prop="orderSpecUnit">
+          <el-input v-model="form.orderSpecUnit" placeholder="请输入采购订单商品规格数" />
+        </el-form-item>
+        <el-form-item label="采购订单商品数" prop="orderGoodsUnit">
+          <el-input v-model="form.orderGoodsUnit" placeholder="请输入采购订单商品数" />
+        </el-form-item>
+        <el-form-item label="采购订单总件数" prop="orderSpecUnitTotal">
+          <el-input v-model="form.orderSpecUnitTotal" placeholder="请输入采购订单总件数" />
         </el-form-item>
         <el-form-item label="实际金额" prop="actualAmount">
           <el-input v-model="form.actualAmount" placeholder="请输入实际金额" />
@@ -234,8 +189,8 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 采购订单费用确认表格数据
-      purchaseOrderCostList: [],
+      // 采购订单费用表格数据
+      PurchaseOrderCostList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -245,6 +200,11 @@ export default {
         pageNum: 1,
         pageSize: 10,
         orderAmount: null,
+        orderDate: null,
+        orderNo: null,
+        orderSpecUnit: null,
+        orderGoodsUnit: null,
+        orderSpecUnitTotal: null,
         actualAmount: null,
         freight: null,
         confirmUser: null,
@@ -265,11 +225,11 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询采购订单费用确认列表 */
+    /** 查询采购订单费用列表 */
     getList() {
       this.loading = true;
       listPurchaseOrderCost(this.queryParams).then(response => {
-        this.purchaseOrderCostList = response.rows;
+        this.PurchaseOrderCostList = response.rows;
         this.total = response.total;
         this.loading = false;
       });
@@ -284,6 +244,11 @@ export default {
       this.form = {
         id: null,
         orderAmount: null,
+        orderDate: null,
+        orderNo: null,
+        orderSpecUnit: null,
+        orderGoodsUnit: null,
+        orderSpecUnitTotal: null,
         actualAmount: null,
         freight: null,
         confirmUser: null,
@@ -315,12 +280,6 @@ export default {
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
-    /** 新增按钮操作 */
-    handleAdd() {
-      this.reset();
-      this.open = true;
-      this.title = "添加采购订单费用确认";
-    },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
@@ -328,7 +287,7 @@ export default {
       getPurchaseOrderCost(id).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改采购订单费用确认";
+        this.title = "修改采购订单费用";
       });
     },
     /** 提交按钮 */
@@ -351,21 +310,11 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
-    handleDelete(row) {
-      const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除采购订单费用确认编号为"' + ids + '"的数据项？').then(function() {
-        return delPurchaseOrderCost(ids);
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
-    },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('purchase/purchaseOrderCost/export', {
+      this.download('purchase/PurchaseOrderCost/export', {
         ...this.queryParams
-      }, `purchaseOrderCost_${new Date().getTime()}.xlsx`)
+      }, `PurchaseOrderCost_${new Date().getTime()}.xlsx`)
     }
   }
 };

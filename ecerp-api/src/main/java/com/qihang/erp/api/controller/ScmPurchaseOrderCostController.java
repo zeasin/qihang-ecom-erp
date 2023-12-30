@@ -69,16 +69,7 @@ public class ScmPurchaseOrderCostController extends BaseController
         return success(scmPurchaseOrderCostService.selectScmPurchaseOrderCostById(id));
     }
 
-    /**
-     * 新增采购订单费用确认
-     */
-    @PreAuthorize("@ss.hasPermi('purchase:purchaseOrderCost:add')")
-    @Log(title = "采购订单费用确认", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody ScmPurchaseOrderCost scmPurchaseOrderCost)
-    {
-        return toAjax(scmPurchaseOrderCostService.insertScmPurchaseOrderCost(scmPurchaseOrderCost));
-    }
+
 
     /**
      * 修改采购订单费用确认
@@ -91,14 +82,5 @@ public class ScmPurchaseOrderCostController extends BaseController
         return toAjax(scmPurchaseOrderCostService.updateScmPurchaseOrderCost(scmPurchaseOrderCost));
     }
 
-    /**
-     * 删除采购订单费用确认
-     */
-    @PreAuthorize("@ss.hasPermi('purchase:purchaseOrderCost:remove')")
-    @Log(title = "采购订单费用确认", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(scmPurchaseOrderCostService.deleteScmPurchaseOrderCostByIds(ids));
-    }
+
 }

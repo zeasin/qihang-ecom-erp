@@ -7,6 +7,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="ScmPurchaseOrderCost" id="ScmPurchaseOrderCostResult">
         <result property="id"    column="id"    />
         <result property="orderAmount"    column="order_amount"    />
+        <result property="orderDate"    column="order_date"    />
+        <result property="orderNo"    column="order_no"    />
+        <result property="orderSpecUnit"    column="order_spec_unit"    />
+        <result property="orderGoodsUnit"    column="order_goods_unit"    />
+        <result property="orderSpecUnitTotal"    column="order_spec_unit_total"    />
         <result property="actualAmount"    column="actual_amount"    />
         <result property="freight"    column="freight"    />
         <result property="confirmUser"    column="confirm_user"    />
@@ -22,13 +27,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectScmPurchaseOrderCostVo">
-        select id, order_amount, actual_amount, freight, confirm_user, confirm_time, create_by, pay_amount, pay_time, pay_count, remark, status, update_by, update_time from scm_purchase_order_cost
+        select id, order_amount, order_date, order_no, order_spec_unit, order_goods_unit, order_spec_unit_total, actual_amount, freight, confirm_user, confirm_time, create_by, pay_amount, pay_time, pay_count, remark, status, update_by, update_time from scm_purchase_order_cost
     </sql>
 
     <select id="selectScmPurchaseOrderCostList" parameterType="ScmPurchaseOrderCost" resultMap="ScmPurchaseOrderCostResult">
         <include refid="selectScmPurchaseOrderCostVo"/>
         <where>  
             <if test="orderAmount != null "> and order_amount = #{orderAmount}</if>
+            <if test="orderDate != null "> and order_date = #{orderDate}</if>
+            <if test="orderNo != null  and orderNo != ''"> and order_no = #{orderNo}</if>
+            <if test="orderSpecUnit != null "> and order_spec_unit = #{orderSpecUnit}</if>
+            <if test="orderGoodsUnit != null "> and order_goods_unit = #{orderGoodsUnit}</if>
+            <if test="orderSpecUnitTotal != null "> and order_spec_unit_total = #{orderSpecUnitTotal}</if>
             <if test="actualAmount != null "> and actual_amount = #{actualAmount}</if>
             <if test="freight != null "> and freight = #{freight}</if>
             <if test="confirmUser != null  and confirmUser != ''"> and confirm_user = #{confirmUser}</if>
@@ -50,6 +60,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">id,</if>
             <if test="orderAmount != null">order_amount,</if>
+            <if test="orderDate != null">order_date,</if>
+            <if test="orderNo != null">order_no,</if>
+            <if test="orderSpecUnit != null">order_spec_unit,</if>
+            <if test="orderGoodsUnit != null">order_goods_unit,</if>
+            <if test="orderSpecUnitTotal != null">order_spec_unit_total,</if>
             <if test="actualAmount != null">actual_amount,</if>
             <if test="freight != null">freight,</if>
             <if test="confirmUser != null">confirm_user,</if>
@@ -66,6 +81,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">#{id},</if>
             <if test="orderAmount != null">#{orderAmount},</if>
+            <if test="orderDate != null">#{orderDate},</if>
+            <if test="orderNo != null">#{orderNo},</if>
+            <if test="orderSpecUnit != null">#{orderSpecUnit},</if>
+            <if test="orderGoodsUnit != null">#{orderGoodsUnit},</if>
+            <if test="orderSpecUnitTotal != null">#{orderSpecUnitTotal},</if>
             <if test="actualAmount != null">#{actualAmount},</if>
             <if test="freight != null">#{freight},</if>
             <if test="confirmUser != null">#{confirmUser},</if>
@@ -85,6 +105,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update scm_purchase_order_cost
         <trim prefix="SET" suffixOverrides=",">
             <if test="orderAmount != null">order_amount = #{orderAmount},</if>
+            <if test="orderDate != null">order_date = #{orderDate},</if>
+            <if test="orderNo != null">order_no = #{orderNo},</if>
+            <if test="orderSpecUnit != null">order_spec_unit = #{orderSpecUnit},</if>
+            <if test="orderGoodsUnit != null">order_goods_unit = #{orderGoodsUnit},</if>
+            <if test="orderSpecUnitTotal != null">order_spec_unit_total = #{orderSpecUnitTotal},</if>
             <if test="actualAmount != null">actual_amount = #{actualAmount},</if>
             <if test="freight != null">freight = #{freight},</if>
             <if test="confirmUser != null">confirm_user = #{confirmUser},</if>

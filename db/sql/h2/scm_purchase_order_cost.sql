@@ -5,6 +5,11 @@ DROP TABLE IF EXISTS `scm_purchase_order_cost`;
 CREATE TABLE `scm_purchase_order_cost`  (
   `id` bigint NOT NULL COMMENT '采购单ID（主键）',
   `order_amount` decimal(10, 2) NULL DEFAULT NULL COMMENT '采购单金额',
+  `order_date` date NULL DEFAULT NULL COMMENT '采购订单日期',
+  `order_no` varchar(50)  NULL DEFAULT NULL COMMENT '采购订单编号',
+  `order_spec_unit` int NULL DEFAULT NULL COMMENT '采购订单商品规格数',
+  `order_goods_unit` int NULL DEFAULT NULL COMMENT '采购订单商品数',
+  `order_spec_unit_total` int NULL DEFAULT NULL COMMENT '采购订单总件数',
   `actual_amount` decimal(10, 2) NULL DEFAULT NULL COMMENT '实际金额',
   `freight` decimal(6, 2) NULL DEFAULT NULL COMMENT '运费',
   `confirm_user` varchar(25)  NULL DEFAULT NULL COMMENT '确认人',
@@ -38,5 +43,12 @@ CREATE TABLE `scm_purchase_order_ship`  (
   `stock_in_count` int NULL DEFAULT NULL COMMENT '入库数量',
   `update_by` varchar(20)  NULL DEFAULT NULL COMMENT '更新人',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `order_date` date NULL DEFAULT NULL COMMENT '采购订单日期',
+  `order_no` varchar(50)  NULL DEFAULT NULL COMMENT '采购订单编号',
+  `order_spec_unit` int NULL DEFAULT NULL COMMENT '采购订单商品规格数',
+  `order_goods_unit` int NULL DEFAULT NULL COMMENT '采购订单商品数',
+  `order_spec_unit_total` int NULL DEFAULT NULL COMMENT '采购订单总件数',
   PRIMARY KEY (`id`) 
 ) 
+
+

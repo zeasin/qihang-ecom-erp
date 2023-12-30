@@ -10,7 +10,7 @@ import com.zhijian.common.core.domain.BaseEntity;
  * 采购订单物流对象 scm_purchase_order_ship
  * 
  * @author qihang
- * @date 2023-12-30
+ * @date 2023-12-31
  */
 public class ScmPurchaseOrderShip extends BaseEntity
 {
@@ -47,6 +47,27 @@ public class ScmPurchaseOrderShip extends BaseEntity
     /** 入库数量 */
     @Excel(name = "入库数量")
     private Long stockInCount;
+
+    /** 采购订单日期 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "采购订单日期", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date orderDate;
+
+    /** 采购订单编号 */
+    @Excel(name = "采购订单编号")
+    private String orderNo;
+
+    /** 采购订单商品规格数 */
+    @Excel(name = "采购订单商品规格数")
+    private Integer orderSpecUnit;
+
+    /** 采购订单商品数 */
+    @Excel(name = "采购订单商品数")
+    private Integer orderGoodsUnit;
+
+    /** 采购订单总件数 */
+    @Excel(name = "采购订单总件数")
+    private Long orderSpecUnitTotal;
 
     public void setId(Long id) 
     {
@@ -119,6 +140,51 @@ public class ScmPurchaseOrderShip extends BaseEntity
     public Long getStockInCount() 
     {
         return stockInCount;
+    }
+    public void setOrderDate(Date orderDate) 
+    {
+        this.orderDate = orderDate;
+    }
+
+    public Date getOrderDate() 
+    {
+        return orderDate;
+    }
+    public void setOrderNo(String orderNo) 
+    {
+        this.orderNo = orderNo;
+    }
+
+    public String getOrderNo() 
+    {
+        return orderNo;
+    }
+    public void setOrderSpecUnit(Integer orderSpecUnit)
+    {
+        this.orderSpecUnit = orderSpecUnit;
+    }
+
+    public Integer getOrderSpecUnit()
+    {
+        return orderSpecUnit;
+    }
+    public void setOrderGoodsUnit(Integer orderGoodsUnit)
+    {
+        this.orderGoodsUnit = orderGoodsUnit;
+    }
+
+    public Integer getOrderGoodsUnit()
+    {
+        return orderGoodsUnit;
+    }
+    public void setOrderSpecUnitTotal(Long orderSpecUnitTotal) 
+    {
+        this.orderSpecUnitTotal = orderSpecUnitTotal;
+    }
+
+    public Long getOrderSpecUnitTotal() 
+    {
+        return orderSpecUnitTotal;
     }
 
 }
