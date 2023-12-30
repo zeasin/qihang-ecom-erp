@@ -4,6 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.qihang.erp.api.domain.bo.PurchaseOrderAddBo;
+import com.qihang.erp.api.domain.bo.PurchaseOrderOptionBo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -89,9 +90,16 @@ public class ScmPurchaseOrderController extends BaseController
     @PreAuthorize("@ss.hasPermi('purchase:purchaseOrder:edit')")
     @Log(title = "采购订单", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody ScmPurchaseOrder scmPurchaseOrder)
+    public AjaxResult edit(@RequestBody PurchaseOrderOptionBo scmPurchaseOrder)
     {
-        return toAjax(scmPurchaseOrderService.updateScmPurchaseOrder(scmPurchaseOrder));
+        scmPurchaseOrder.setUpdateBy(getUsername());
+        int result = scmPurchaseOrderService.updateScmPurchaseOrder(scmPurchaseOrder);
+        if(result == -1){
+            return new AjaxResult(0,"状态不正确");
+        }else{
+            return toAjax(result);
+        }
+
     }
 
     /**
