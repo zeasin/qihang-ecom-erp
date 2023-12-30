@@ -88,6 +88,8 @@
         <template slot-scope="scope">
           <el-tag type="info" v-if="scope.row.status === 0">待审核</el-tag>
           <el-tag type="success" v-if="scope.row.status === 1">已审核</el-tag>
+          <el-tag type="warning" v-if="scope.row.status === 101">已确认待供应商发货</el-tag>
+          <el-tag v-if="scope.row.status === 102">供应商已发货</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="审核人" align="center" prop="auditUser" />
@@ -213,7 +215,7 @@
         <el-form-item label="物流费用" v-if="form.optionType === 'SupplierShip'">
           <el-input type="number" v-model.number="form.shipCost" placeholder="请输入物流费用" />
         </el-form-item>
-        <el-form-item label="采购金额(不含运费)" v-if="form.optionType !== 'audit'">
+        <el-form-item label="采购金额(不含运费)" v-if="form.optionType === 'confirm'">
           <el-input type="number" v-model.number="form.totalAmount" placeholder="请输入采购金额(不含运费)" />
         </el-form-item>
         <el-form-item label="采购单确认人" v-if="form.optionType === 'confirm'">
@@ -451,9 +453,23 @@ export default {
               }
             }else if(this.form.optionType === 'SupplierShip'){
               console.log('=====发货结果======',response)
+              if(response.code === 200) {
+                this.$modal.msgSuccess("发货成功");
+                this.open = false;
+                this.getList();
+              }else{
+                this.$message.error("发货失败！"+ response.msg)
+              }
             }
             else if(this.form.optionType === 'confirm'){
-              console.log('=====发货结果======',response)
+              console.log('=====确认结果======',response)
+              if(response.code === 200) {
+                this.$modal.msgSuccess("确认成功");
+                this.open = false;
+                this.getList();
+              }else{
+                this.$message.error("确认失败！"+ response.msg)
+              }
             }
             
           });
