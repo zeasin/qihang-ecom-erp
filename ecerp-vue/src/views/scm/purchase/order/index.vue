@@ -56,7 +56,7 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['purchase:purchaseOrder:add']"
-        >新增</el-button>
+        >创建采购订单</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -114,7 +114,7 @@
             size="mini"
             type="text"
             icon="el-icon-circle-check"
-            @click="handleUpdate(scope.row)"
+            @click="handleUpdateStatus(scope.row)"
             v-hasPermi="['purchase:purchaseOrder:edit']"
           >审核</el-button>
         </el-col>
@@ -123,7 +123,7 @@
             size="mini"
             type="text"
             icon="el-icon-finished"
-            @click="handleUpdate(scope.row)"
+            @click="handleUpdateStatus(scope.row)"
             v-hasPermi="['purchase:purchaseOrder:edit']"
           >生成合同</el-button>
         </el-col>
@@ -132,7 +132,7 @@
             size="mini"
             type="text"
             icon="el-icon-finished"
-            @click="handleUpdate(scope.row)"
+            @click="handleUpdateStatus(scope.row)"
             v-hasPermi="['purchase:purchaseOrder:edit']"
           >供应商确认</el-button>
         </el-col>
@@ -141,7 +141,7 @@
             size="mini"
             type="text"
             icon="el-icon-finished"
-            @click="handleUpdate(scope.row)"
+            @click="handleUpdateStatus(scope.row)"
             v-hasPermi="['purchase:purchaseOrder:edit']"
           >供应商发货</el-button>
         </el-col>
@@ -160,9 +160,7 @@
     <!-- 添加或修改采购订单对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="供应商id" prop="contactId">
-          <el-input v-model="form.contactId" placeholder="请输入供应商id" />
-        </el-form-item>
+
         <el-form-item label="订单编号" prop="orderNo">
           <el-input v-model="form.orderNo" placeholder="请输入订单编号" />
         </el-form-item>
@@ -351,11 +349,12 @@ export default {
     },
     /** 新增按钮操作 */
     handleAdd() {
-      this.reset();
-      this.open = true;
-      this.title = "添加采购订单";
+      this.$router.push('/scm/purchase/order/create');
     },
-
+    handleUpdateStatus(){
+      this.open = true;
+      this.title = "操作采购订单";
+    },
     /** 提交按钮 */
     submitForm() {
       this.$refs["form"].validate(valid => {

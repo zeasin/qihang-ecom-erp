@@ -2,6 +2,7 @@ package com.qihang.erp.api.service;
 
 import java.util.List;
 import com.qihang.erp.api.domain.Goods;
+import com.qihang.erp.api.domain.vo.GoodsSpecListVo;
 
 /**
  * 商品管理Service接口
@@ -58,4 +59,6 @@ public interface IGoodsService
      * @return 结果
      */
     public int deleteGoodsById(Long id);
+
+    List<GoodsSpecListVo> searchGoodsSpec(String keyword);
 }

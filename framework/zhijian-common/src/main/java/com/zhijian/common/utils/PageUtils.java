@@ -21,6 +21,9 @@ public class PageUtils extends PageHelper
         Integer pageNum = pageDomain.getPageNum();
         Integer pageSize = pageDomain.getPageSize();
         String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
+        if(StringUtils.isEmpty(orderBy)){
+            orderBy = " ID DESC ";
+        }
         Boolean reasonable = pageDomain.getReasonable();
         PageHelper.startPage(pageNum, pageSize, orderBy).setReasonable(reasonable);
     }
