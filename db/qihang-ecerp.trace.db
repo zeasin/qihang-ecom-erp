@@ -5781,3 +5781,28 @@ Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Wrong user name
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:510)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
 	... 122 more
+2023-12-31 21:16:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE `s_shop_order_item`  (\000d\000a  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id，自增',\000d\000a  `order_id` bigint NOT NULL COMMENT '订单ID',\000d\000a  `goods_id` bigint NOT NULL DEFAULT 0 COMMENT 'erp系统商品id',\000d\000a  `spec_id` bigint NOT NULL DEFAULT 0 COMMENT 'erp系统商品规格id',\000d\000a  `goods_title` varchar(100)  NULL DEFAULT NULL COMMENT '商品标题',\000d\000a  `goods_img` varchar(300)  NULL DEFAULT NULL COMMENT '商品图片',\000d\000a  `goods_num` varchar(35)  NULL DEFAULT NULL COMMENT '商品编码',\000d\000a  `goods_spec` varchar(50)  NULL DEFAULT NULL COMMENT '商品规格',\000d\000a  `spec_num` varchar(35)  NULL DEFAULT NULL COMMENT '商品规格编码',\000d\000a  `goods_price` double NOT NULL COMMENT '商品单价',\000d\000a  `item_amount` double NULL DEFAULT NULL COMMENT '子订单金额',\000d\000a  `quantity` int NOT NULL COMMENT '商品数量',\000d\000a  `remark` varchar(500)  NULL DEFAULT NULL,\000d\000a  `is_gift` tinyint NOT NULL DEFAULT 0 COMMENT '是否赠品0否1是',\000d\000a  `refund_count` int NULL DEFAULT 0 COMMENT '已退货数量',\000d\000a  `refund_status` int NULL DEFAULT NULL COMMENT '售后状态 1：无售后或售后关闭，2：售后处理中，3：退款中，4： 退款成功 ',\000d\000a  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',\000d\000a  `create_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL [*]DEFAULT NULL COMMENT '创建人',\000d\000a  `update_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',\000d\000a  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',\000d\000a  PRIMARY KEY (`id`) \000d\000a)"; expected "CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, CHECK, REFERENCES, AUTO_INCREMENT, ,, )"; SQL statement:
+CREATE TABLE `s_shop_order_item`  (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id，自增',
+  `order_id` bigint NOT NULL COMMENT '订单ID',
+  `goods_id` bigint NOT NULL DEFAULT 0 COMMENT 'erp系统商品id',
+  `spec_id` bigint NOT NULL DEFAULT 0 COMMENT 'erp系统商品规格id',
+  `goods_title` varchar(100)  NULL DEFAULT NULL COMMENT '商品标题',
+  `goods_img` varchar(300)  NULL DEFAULT NULL COMMENT '商品图片',
+  `goods_num` varchar(35)  NULL DEFAULT NULL COMMENT '商品编码',
+  `goods_spec` varchar(50)  NULL DEFAULT NULL COMMENT '商品规格',
+  `spec_num` varchar(35)  NULL DEFAULT NULL COMMENT '商品规格编码',
+  `goods_price` double NOT NULL COMMENT '商品单价',
+  `item_amount` double NULL DEFAULT NULL COMMENT '子订单金额',
+  `quantity` int NOT NULL COMMENT '商品数量',
+  `remark` varchar(500)  NULL DEFAULT NULL,
+  `is_gift` tinyint NOT NULL DEFAULT 0 COMMENT '是否赠品0否1是',
+  `refund_count` int NULL DEFAULT 0 COMMENT '已退货数量',
+  `refund_status` int NULL DEFAULT NULL COMMENT '售后状态 1：无售后或售后关闭，2：售后处理中，3：退款中，4： 退款成功 ',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) 
+) [42001-214]
