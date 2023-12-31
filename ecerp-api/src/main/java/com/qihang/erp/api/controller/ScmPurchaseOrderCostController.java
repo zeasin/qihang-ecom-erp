@@ -79,6 +79,7 @@ public class ScmPurchaseOrderCostController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody ScmPurchaseOrderCost scmPurchaseOrderCost)
     {
+        scmPurchaseOrderCost.setUpdateBy(getUsername());
         return toAjax(scmPurchaseOrderCostService.updateScmPurchaseOrderCost(scmPurchaseOrderCost));
     }
 

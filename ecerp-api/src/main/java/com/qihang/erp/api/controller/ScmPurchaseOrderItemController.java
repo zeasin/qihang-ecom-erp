@@ -46,59 +46,5 @@ public class ScmPurchaseOrderItemController extends BaseController
         return getDataTable(list);
     }
 
-    /**
-     * 导出采购订单明细列表
-     */
-    @PreAuthorize("@ss.hasPermi('purchase:purchaseOrderItem:export')")
-    @Log(title = "采购订单明细", businessType = BusinessType.EXPORT)
-    @PostMapping("/export")
-    public void export(HttpServletResponse response, ScmPurchaseOrderItem scmPurchaseOrderItem)
-    {
-        List<ScmPurchaseOrderItem> list = scmPurchaseOrderItemService.selectScmPurchaseOrderItemList(scmPurchaseOrderItem);
-        ExcelUtil<ScmPurchaseOrderItem> util = new ExcelUtil<ScmPurchaseOrderItem>(ScmPurchaseOrderItem.class);
-        util.exportExcel(response, list, "采购订单明细数据");
-    }
 
-    /**
-     * 获取采购订单明细详细信息
-     */
-    @PreAuthorize("@ss.hasPermi('purchase:purchaseOrderItem:query')")
-    @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
-    {
-        return success(scmPurchaseOrderItemService.selectScmPurchaseOrderItemById(id));
-    }
-
-    /**
-     * 新增采购订单明细
-     */
-    @PreAuthorize("@ss.hasPermi('purchase:purchaseOrderItem:add')")
-    @Log(title = "采购订单明细", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody ScmPurchaseOrderItem scmPurchaseOrderItem)
-    {
-        return toAjax(scmPurchaseOrderItemService.insertScmPurchaseOrderItem(scmPurchaseOrderItem));
-    }
-
-    /**
-     * 修改采购订单明细
-     */
-    @PreAuthorize("@ss.hasPermi('purchase:purchaseOrderItem:edit')")
-    @Log(title = "采购订单明细", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody ScmPurchaseOrderItem scmPurchaseOrderItem)
-    {
-        return toAjax(scmPurchaseOrderItemService.updateScmPurchaseOrderItem(scmPurchaseOrderItem));
-    }
-
-    /**
-     * 删除采购订单明细
-     */
-    @PreAuthorize("@ss.hasPermi('purchase:purchaseOrderItem:remove')")
-    @Log(title = "采购订单明细", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(scmPurchaseOrderItemService.deleteScmPurchaseOrderItemByIds(ids));
-    }
 }

@@ -2,6 +2,8 @@ package com.qihang.erp.api.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.qihang.erp.api.domain.bo.PurchaseOrderStockInBo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,14 +72,33 @@ public class ScmPurchaseOrderShipController extends BaseController
     }
 
     /**
-     * 修改采购订单物流
+     * 确认收货
      */
     @PreAuthorize("@ss.hasPermi('purchase:PurchaseOrderShip:edit')")
     @Log(title = "采购订单物流", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody ScmPurchaseOrderShip scmPurchaseOrderShip)
+    public AjaxResult confirmReceipt(@RequestBody ScmPurchaseOrderShip scmPurchaseOrderShip)
     {
+        scmPurchaseOrderShip.setUpdateBy(getUsername());
         return toAjax(scmPurchaseOrderShipService.updateScmPurchaseOrderShip(scmPurchaseOrderShip));
     }
+
+    @Log(title = "采购订单物流", businessType = BusinessType.UPDATE)
+    @PostMapping("/createStockInEntry")
+    public AjaxResult createStockInEntry(@RequestBody PurchaseOrderStockInBo bo)
+    {
+        bo.setCreateBy(getUsername());
+        int result = scmPurchaseOrderShipService.createStockInEntry(bo);
+        if(result == -1) return new AjaxResult(404,"采购物流不存在");
+        else if (result == -2) return new AjaxResult(501,"未确认收货不允许操作");
+        else if (result == -3) {
+            return new AjaxResult(502,"已处理过了请勿重复操作");
+        } else if (result == -4) {
+            return new AjaxResult(503,"状态不正确不能操作");
+        } else if (result == 1) {
+            return toAjax(1);
+        }else return toAjax(result);
+    }
+
 
 }

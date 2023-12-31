@@ -105,6 +105,12 @@ public class ScmPurchaseOrderServiceImpl implements IScmPurchaseOrderService
             orderItem.setSpecNum(item.getSpecNum());
             orderItem.setStatus(0);
             orderItem.setTransType("Purchase");
+            orderItem.setGoodsName(item.getName());
+            orderItem.setColorValue(item.getColorValue());
+            orderItem.setColorImage(item.getColorImage());
+            orderItem.setSizeValue(item.getSizeValue());
+            orderItem.setStyleValue(item.getStyleValue());
+
             scmPurchaseOrderItemMapper.insertScmPurchaseOrderItem(orderItem);
         }
         return 1;

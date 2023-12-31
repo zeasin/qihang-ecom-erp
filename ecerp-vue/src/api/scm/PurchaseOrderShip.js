@@ -26,6 +26,16 @@ export function addPurchaseOrderShip(data) {
   })
 }
 
+//创建入库单
+export function createStockInEntry(data) {
+  return request({
+    url: '/purchase/PurchaseOrderShip/createStockInEntry',
+    method: 'post',
+    data: data
+  })
+}
+
+
 // 修改采购订单物流
 export function updatePurchaseOrderShip(data) {
   return request({

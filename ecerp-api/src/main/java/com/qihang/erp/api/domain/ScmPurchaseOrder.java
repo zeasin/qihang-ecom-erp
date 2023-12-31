@@ -2,6 +2,8 @@ package com.qihang.erp.api.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zhijian.common.annotation.Excel;
 import com.zhijian.common.core.domain.BaseEntity;
@@ -22,6 +24,8 @@ public class ScmPurchaseOrder extends BaseEntity
     /** 供应商id */
     @Excel(name = "供应商id")
     private Long contactId;
+    @TableField(exist = false)
+    private String supplier;
 
     /** 订单编号 */
     @Excel(name = "订单编号")
@@ -72,7 +76,15 @@ public class ScmPurchaseOrder extends BaseEntity
     @Excel(name = "入库时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date stockInTime;
 
-    public void setId(Long id) 
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }
