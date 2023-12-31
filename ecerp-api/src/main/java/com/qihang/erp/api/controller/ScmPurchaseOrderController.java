@@ -69,7 +69,8 @@ public class ScmPurchaseOrderController extends BaseController
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
-        return success(scmPurchaseOrderService.selectScmPurchaseOrderById(id));
+        ScmPurchaseOrder order = scmPurchaseOrderService.selectScmPurchaseOrderById(id);
+        return success(order);
     }
 
     /**

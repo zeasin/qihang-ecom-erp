@@ -65,7 +65,9 @@ public class ScmPurchaseOrderCostServiceImpl implements IScmPurchaseOrderCostSer
     @Override
     public int updateScmPurchaseOrderCost(ScmPurchaseOrderCost scmPurchaseOrderCost)
     {
+        scmPurchaseOrderCost.setUpdateBy(scmPurchaseOrderCost.getUpdateBy());
         scmPurchaseOrderCost.setUpdateTime(DateUtils.getNowDate());
+
         return scmPurchaseOrderCostMapper.updateScmPurchaseOrderCost(scmPurchaseOrderCost);
     }
 

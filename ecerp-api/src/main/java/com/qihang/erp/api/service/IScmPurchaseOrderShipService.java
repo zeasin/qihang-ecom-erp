@@ -2,6 +2,7 @@ package com.qihang.erp.api.service;
 
 import java.util.List;
 import com.qihang.erp.api.domain.ScmPurchaseOrderShip;
+import com.qihang.erp.api.domain.bo.PurchaseOrderStockInBo;
 
 /**
  * 采购订单物流Service接口
@@ -42,6 +43,7 @@ public interface IScmPurchaseOrderShipService
      * @return 结果
      */
     public int updateScmPurchaseOrderShip(ScmPurchaseOrderShip scmPurchaseOrderShip);
+    public int createStockInEntry(PurchaseOrderStockInBo bo);
 
     /**
      * 批量删除采购订单物流

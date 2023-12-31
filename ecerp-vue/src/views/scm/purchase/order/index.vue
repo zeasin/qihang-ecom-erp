@@ -116,14 +116,14 @@
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <!-- <el-col :span="24">
+          <el-col :span="24">
             <el-button
               size="mini"
               type="text"
               icon="el-icon-view"
               @click="handleDetail(scope.row)"
             >详情</el-button>
-          </el-col> -->
+          </el-col>
           <el-col :span="24">
             <el-button
               v-if="scope.row.status === 0"
@@ -296,7 +296,7 @@ export default {
     },
     dateToString(timespan){
       var date = new Date(timespan * 1000);
-        return date.toLocaleString();
+      return date.toLocaleString();
     },
     searchSupplier(query){
       this.supplierLoading = true;
@@ -319,7 +319,8 @@ export default {
     },
     // 详情
     handleDetail(row){
-      this.$router.push('/scm/purchase/order/detail');
+      // this.$router.push('/scm/purchase/order/detail',{id:row.id});
+      this.$router.push({path :"/scm/purchase/order/detail", query: { id: row.id }});
     },
     // 取消按钮
     cancel() {

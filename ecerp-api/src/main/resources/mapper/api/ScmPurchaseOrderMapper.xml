@@ -28,6 +28,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <sql id="selectScmPurchaseOrderVo">
         select id, contact_id, order_no, order_date, order_time, order_amount, remark, status, audit_user, audit_time, supplier_confirm_time, supplier_delivery_time, received_time, stock_in_time, create_by, create_time, update_by, update_time from scm_purchase_order
     </sql>
+    <sql id="selectScmPurchaseOrderVo1">
+                select
+                pur.id, pur.contact_id, pur.order_no, pur.order_date, pur.order_time, pur.order_amount, pur.remark, pur.status, pur.audit_user, pur.audit_time, pur.supplier_confirm_time, pur.supplier_delivery_time, pur.received_time,
+                pur.stock_in_time, pur.create_by, pur.create_time, pur.update_by, pur.update_time
+                ,sup.name as supplier
+                from scm_purchase_order as pur
+                left join scm_supplier as sup on sup.ID = pur.contact_id
+    </sql>
 
     <select id="selectScmPurchaseOrderList" parameterType="ScmPurchaseOrder" resultMap="ScmPurchaseOrderResult">
         <include refid="selectScmPurchaseOrderVo"/>
@@ -48,8 +56,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="selectScmPurchaseOrderById" parameterType="Long" resultMap="ScmPurchaseOrderResult">
-        <include refid="selectScmPurchaseOrderVo"/>
-        where id = #{id}
+        <include refid="selectScmPurchaseOrderVo1"/>
+
+        where pur.id = #{id}
     </select>
         
     <insert id="insertScmPurchaseOrder" parameterType="ScmPurchaseOrder" useGeneratedKeys="true" keyProperty="id">

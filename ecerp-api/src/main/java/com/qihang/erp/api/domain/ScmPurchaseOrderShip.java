@@ -36,6 +36,25 @@ public class ScmPurchaseOrderShip extends BaseEntity
     @Excel(name = "运送时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date shipTime;
 
+    private Date receiptTime;
+    private Date stockInTime;
+
+    public Date getReceiptTime() {
+        return receiptTime;
+    }
+
+    public void setReceiptTime(Date receiptTime) {
+        this.receiptTime = receiptTime;
+    }
+
+    public Date getStockInTime() {
+        return stockInTime;
+    }
+
+    public void setStockInTime(Date stockInTime) {
+        this.stockInTime = stockInTime;
+    }
+
     /** 状态（0未收货1已收货2已入库） */
     @Excel(name = "状态", readConverterExp = "0=未收货1已收货2已入库")
     private Long status;

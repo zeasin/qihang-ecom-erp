@@ -12,6 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="shipTime"    column="ship_time"    />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
+        <result property="receiptTime"    column="receipt_time"    />
+        <result property="stockInTime"    column="stock_in_time"    />
         <result property="status"    column="status"    />
         <result property="remark"    column="remark"    />
         <result property="backCount"    column="back_count"    />
@@ -26,7 +28,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectScmPurchaseOrderShipVo">
-        select id, ship_company, ship_no, freight, ship_time, create_by, create_time, status, remark, back_count, stock_in_count, update_by, update_time, order_date, order_no, order_spec_unit, order_goods_unit, order_spec_unit_total from scm_purchase_order_ship
+        select id, ship_company, ship_no, freight, ship_time, create_by, create_time, status, remark, back_count, stock_in_count, update_by, update_time,
+        order_date, order_no, order_spec_unit, order_goods_unit, order_spec_unit_total,receipt_time,stock_in_time
+        from scm_purchase_order_ship
     </sql>
 
     <select id="selectScmPurchaseOrderShipList" parameterType="ScmPurchaseOrderShip" resultMap="ScmPurchaseOrderShipResult">
@@ -60,6 +64,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shipNo != null">ship_no,</if>
             <if test="freight != null">freight,</if>
             <if test="shipTime != null">ship_time,</if>
+            <if test="receiptTime != null">receipt_time,</if>
+            <if test="stockInTime != null">stock_in_time,</if>
             <if test="createBy != null">create_by,</if>
             <if test="createTime != null">create_time,</if>
             <if test="status != null">status,</if>
@@ -103,6 +109,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shipNo != null">ship_no = #{shipNo},</if>
             <if test="freight != null">freight = #{freight},</if>
             <if test="shipTime != null">ship_time = #{shipTime},</if>
+            <if test="receiptTime != null">receipt_time = #{receiptTime},</if>
+            <if test="stockInTime != null">stock_in_time = #{stockInTime},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="status != null">status = #{status},</if>

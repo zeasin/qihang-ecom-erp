@@ -56,6 +56,13 @@ public class ScmPurchaseOrderItem extends BaseEntity
     @Excel(name = "商品规格编码")
     private String specNum;
 
+    private String goodsName;
+    private String colorValue;
+    private String colorImage;
+    private String sizeValue;
+    private String styleValue;
+
+
     /** 单价 */
     @Excel(name = "单价")
     private BigDecimal price;
@@ -88,7 +95,47 @@ public class ScmPurchaseOrderItem extends BaseEntity
     @Excel(name = "状态", readConverterExp = "同=billStatus")
     private Integer status;
 
-    public void setId(Long id) 
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    public String getColorValue() {
+        return colorValue;
+    }
+
+    public void setColorValue(String colorValue) {
+        this.colorValue = colorValue;
+    }
+
+    public String getColorImage() {
+        return colorImage;
+    }
+
+    public void setColorImage(String colorImage) {
+        this.colorImage = colorImage;
+    }
+
+    public String getSizeValue() {
+        return sizeValue;
+    }
+
+    public void setSizeValue(String sizeValue) {
+        this.sizeValue = sizeValue;
+    }
+
+    public String getStyleValue() {
+        return styleValue;
+    }
+
+    public void setStyleValue(String styleValue) {
+        this.styleValue = styleValue;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }
