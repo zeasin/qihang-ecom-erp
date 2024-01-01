@@ -1,5 +1,6 @@
 package com.qihang.erp.api.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,14 @@ public class ShopOrderServiceImpl implements IShopOrderService
     @Override
     public int insertShopOrder(ShopOrder shopOrder)
     {
+        if(shopOrder.getItemList() == null || shopOrder.getItemList().size() == 0) return -1;
+        shopOrder.setOrderStatus(1L);
+        shopOrder.setRefundStatus(1L);
+        if(shopOrder.getPostage() == null)shopOrder.setPostage(0L);
+        if(shopOrder.getDiscountAmount() == null)shopOrder.setDiscountAmount(0L);
+        if(shopOrder.getPayAmount() == null)shopOrder.setPayAmount(0L);
+        if(shopOrder.getAuditStatus() == null) shopOrder.setAuditStatus(1L);
+        shopOrder.setCreateBy(shopOrder.getCreateBy());
         shopOrder.setCreateTime(DateUtils.getNowDate());
         int rows = shopOrderMapper.insertShopOrder(shopOrder);
         insertSShopOrderItem(shopOrder);
@@ -74,6 +83,7 @@ public class ShopOrderServiceImpl implements IShopOrderService
     @Override
     public int updateShopOrder(ShopOrder shopOrder)
     {
+        if(shopOrder.getItemList() == null || shopOrder.getItemList().size() == 0) return -1;
         shopOrder.setUpdateTime(DateUtils.getNowDate());
         shopOrderMapper.deleteSShopOrderItemByOrderId(shopOrder.getId());
         insertSShopOrderItem(shopOrder);
@@ -115,7 +125,7 @@ public class ShopOrderServiceImpl implements IShopOrderService
      */
     public void insertSShopOrderItem(ShopOrder shopOrder)
     {
-        List<SShopOrderItem> sShopOrderItemList = shopOrder.getSShopOrderItemList();
+        List<SShopOrderItem> sShopOrderItemList = shopOrder.getItemList();
         Long id = shopOrder.getId();
         if (StringUtils.isNotNull(sShopOrderItemList))
         {
@@ -123,6 +133,10 @@ public class ShopOrderServiceImpl implements IShopOrderService
             for (SShopOrderItem sShopOrderItem : sShopOrderItemList)
             {
                 sShopOrderItem.setOrderId(id);
+                sShopOrderItem.setRefundCount(0L);
+                sShopOrderItem.setRefundStatus(1L);
+                sShopOrderItem.setCreateBy(shopOrder.getCreateBy());
+                sShopOrderItem.setCreateTime(new Date());
                 list.add(sShopOrderItem);
             }
             if (list.size() > 0)

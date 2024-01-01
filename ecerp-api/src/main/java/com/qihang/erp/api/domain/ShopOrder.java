@@ -110,7 +110,7 @@ public class ShopOrder extends BaseEntity
     private String shippingCompany;
 
     /** $table.subTable.functionName信息 */
-    private List<SShopOrderItem> sShopOrderItemList;
+    private List<SShopOrderItem> itemList;
 
     public void setId(Long id) 
     {
@@ -329,14 +329,12 @@ public class ShopOrder extends BaseEntity
         return shippingCompany;
     }
 
-    public List<SShopOrderItem> getSShopOrderItemList()
-    {
-        return sShopOrderItemList;
+
+    public List<SShopOrderItem> getItemList() {
+        return itemList;
     }
 
-    public void setSShopOrderItemList(List<SShopOrderItem> sShopOrderItemList)
-    {
-        this.sShopOrderItemList = sShopOrderItemList;
+    public void setItemList(List<SShopOrderItem> itemList) {
+        this.itemList = itemList;
     }
-
 }

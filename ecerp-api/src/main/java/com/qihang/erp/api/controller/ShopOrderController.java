@@ -77,28 +77,9 @@ public class ShopOrderController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody ShopOrder shopOrder)
     {
+        shopOrder.setCreateBy(getUsername());
         return toAjax(shopOrderService.insertShopOrder(shopOrder));
     }
 
-    /**
-     * 修改店铺订单
-     */
-    @PreAuthorize("@ss.hasPermi('shop:order:edit')")
-    @Log(title = "店铺订单", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody ShopOrder shopOrder)
-    {
-        return toAjax(shopOrderService.updateShopOrder(shopOrder));
-    }
 
-    /**
-     * 删除店铺订单
-     */
-    @PreAuthorize("@ss.hasPermi('shop:order:remove')")
-    @Log(title = "店铺订单", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(shopOrderService.deleteShopOrderByIds(ids));
-    }
 }
