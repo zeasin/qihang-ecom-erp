@@ -5934,3 +5934,9 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at java.base/java.lang.Thread.run(Thread.java:842)
+2024-01-02 10:36:50 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SCRIPT TO ""D:\\dev\\projects\\qihang.ecom.erp\\db\\menu.sql"" [*]SYS_MENU"; SQL statement:
+SCRIPT TO "D:\dev\projects\qihang.ecom.erp\db\menu.sql" SYS_MENU [42000-214]
+2024-01-02 10:40:10 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]COPY (SELECT * FROM SYS_MENU) TO 'D:\\dev\\projects\\qihang.ecom.erp\\db\\menu.csv' WITH CSV HEADER"; expected "COMMIT, CREATE, CALL, CHECKPOINT, COMMENT"; SQL statement:
+COPY (SELECT * FROM SYS_MENU) TO 'D:\dev\projects\qihang.ecom.erp\db\menu.csv' WITH CSV HEADER [42001-214]
