@@ -180,7 +180,7 @@
 <!--      <el-table-column label="收件人电话" align="center" prop="receiverPhone" />-->
 <!--      <el-table-column label="收件人姓名" align="center" prop="receiverName" />-->
       <el-table-column label="收件人" align="center" prop="receiverName1" />
-      <el-table-column label="手机号" align="center" prop="receiverPhone1" />
+<!--      <el-table-column label="手机号" align="center" prop="receiverPhone1" />-->
 <!--      <el-table-column label="${comment}" align="center" prop="receiverAddress1" />-->
 <!--      <el-table-column label="详细地址" align="center" prop="address" />-->
       <el-table-column label="区县" align="center" prop="town" />
