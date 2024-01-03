@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qihang.erp.api.mapper.TaoOrderRefundMapper">
+    
+    <resultMap type="TaoOrderRefund" id="TaoOrderRefundResult">
+        <result property="id"    column="id"    />
+        <result property="refundId"    column="refund_id"    />
+        <result property="afterSalesType"    column="after_sales_type"    />
+        <result property="tid"    column="tid"    />
+        <result property="oid"    column="oid"    />
+        <result property="buyerNick"    column="buyer_nick"    />
+        <result property="totalFee"    column="total_fee"    />
+        <result property="payment"    column="payment"    />
+        <result property="refundFee"    column="refund_fee"    />
+        <result property="created"    column="created"    />
+        <result property="modified"    column="modified"    />
+        <result property="orderStatus"    column="order_status"    />
+        <result property="status"    column="status"    />
+        <result property="goodStatus"    column="good_status"    />
+        <result property="num"    column="num"    />
+        <result property="hasGoodReturn"    column="has_good_return"    />
+        <result property="reason"    column="reason"    />
+        <result property="desc"    column="desc"    />
+        <result property="logisticsCompany"    column="logisticsCompany"    />
+        <result property="logisticsCode"    column="logisticsCode"    />
+        <result property="sendTime"    column="send_time"    />
+        <result property="auditStatus"    column="auditStatus"    />
+        <result property="auditTime"    column="auditTime"    />
+        <result property="receivedTime"    column="receivedTime"    />
+        <result property="address"    column="address"    />
+        <result property="remark"    column="remark"    />
+        <result property="createOn"    column="createOn"    />
+        <result property="shopId"    column="shopId"    />
+        <result property="erpGoodsId"    column="erpGoodsId"    />
+        <result property="erpGoodsSpecId"    column="erpGoodsSpecId"    />
+        <result property="specNumber"    column="specNumber"    />
+        <result property="refundPhase"    column="refund_phase"    />
+    </resultMap>
+
+    <sql id="selectTaoOrderRefundVo">
+        select id, refund_id, after_sales_type, tid, oid, buyer_nick, total_fee, payment, refund_fee, created, modified, order_status, status, good_status, num, has_good_return, reason, desc, logisticsCompany, logisticsCode, send_time, auditStatus, auditTime, receivedTime, address, remark, createOn, shopId, erpGoodsId, erpGoodsSpecId, specNumber, refund_phase from s_tao_order_refund
+    </sql>
+
+    <select id="selectTaoOrderRefundList" parameterType="TaoOrderRefund" resultMap="TaoOrderRefundResult">
+        <include refid="selectTaoOrderRefundVo"/>
+        <where>  
+            <if test="refundId != null  and refundId != ''"> and refund_id = #{refundId}</if>
+            <if test="afterSalesType != null "> and after_sales_type = #{afterSalesType}</if>
+            <if test="tid != null "> and tid = #{tid}</if>
+            <if test="oid != null "> and oid = #{oid}</if>
+            <if test="buyerNick != null  and buyerNick != ''"> and buyer_nick = #{buyerNick}</if>
+            <if test="totalFee != null  and totalFee != ''"> and total_fee = #{totalFee}</if>
+            <if test="payment != null  and payment != ''"> and payment = #{payment}</if>
+            <if test="refundFee != null "> and refund_fee = #{refundFee}</if>
+            <if test="created != null "> and created = #{created}</if>
+            <if test="modified != null "> and modified = #{modified}</if>
+            <if test="orderStatus != null  and orderStatus != ''"> and order_status = #{orderStatus}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="goodStatus != null  and goodStatus != ''"> and good_status = #{goodStatus}</if>
+            <if test="num != null "> and num = #{num}</if>
+            <if test="hasGoodReturn != null "> and has_good_return = #{hasGoodReturn}</if>
+            <if test="reason != null  and reason != ''"> and reason = #{reason}</if>
+            <if test="desc != null  and desc != ''"> and desc = #{desc}</if>
+            <if test="logisticsCompany != null  and logisticsCompany != ''"> and logisticsCompany = #{logisticsCompany}</if>
+            <if test="logisticsCode != null  and logisticsCode != ''"> and logisticsCode = #{logisticsCode}</if>
+            <if test="sendTime != null  and sendTime != ''"> and send_time = #{sendTime}</if>
+            <if test="auditStatus != null "> and auditStatus = #{auditStatus}</if>
+            <if test="auditTime != null "> and auditTime = #{auditTime}</if>
+            <if test="receivedTime != null "> and receivedTime = #{receivedTime}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="createOn != null "> and createOn = #{createOn}</if>
+            <if test="shopId != null "> and shopId = #{shopId}</if>
+            <if test="erpGoodsId != null "> and erpGoodsId = #{erpGoodsId}</if>
+            <if test="erpGoodsSpecId != null "> and erpGoodsSpecId = #{erpGoodsSpecId}</if>
+            <if test="specNumber != null  and specNumber != ''"> and specNumber = #{specNumber}</if>
+            <if test="refundPhase != null  and refundPhase != ''"> and refund_phase = #{refundPhase}</if>
+        </where>
+    </select>
+    
+    <select id="selectTaoOrderRefundById" parameterType="Long" resultMap="TaoOrderRefundResult">
+        <include refid="selectTaoOrderRefundVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTaoOrderRefund" parameterType="TaoOrderRefund" useGeneratedKeys="true" keyProperty="id">
+        insert into s_tao_order_refund
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="refundId != null">refund_id,</if>
+            <if test="afterSalesType != null">after_sales_type,</if>
+            <if test="tid != null">tid,</if>
+            <if test="oid != null">oid,</if>
+            <if test="buyerNick != null">buyer_nick,</if>
+            <if test="totalFee != null">total_fee,</if>
+            <if test="payment != null">payment,</if>
+            <if test="refundFee != null">refund_fee,</if>
+            <if test="created != null">created,</if>
+            <if test="modified != null">modified,</if>
+            <if test="orderStatus != null">order_status,</if>
+            <if test="status != null">status,</if>
+            <if test="goodStatus != null">good_status,</if>
+            <if test="num != null">num,</if>
+            <if test="hasGoodReturn != null">has_good_return,</if>
+            <if test="reason != null">reason,</if>
+            <if test="desc != null">desc,</if>
+            <if test="logisticsCompany != null">logisticsCompany,</if>
+            <if test="logisticsCode != null">logisticsCode,</if>
+            <if test="sendTime != null">send_time,</if>
+            <if test="auditStatus != null">auditStatus,</if>
+            <if test="auditTime != null">auditTime,</if>
+            <if test="receivedTime != null">receivedTime,</if>
+            <if test="address != null">address,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createOn != null">createOn,</if>
+            <if test="shopId != null">shopId,</if>
+            <if test="erpGoodsId != null">erpGoodsId,</if>
+            <if test="erpGoodsSpecId != null">erpGoodsSpecId,</if>
+            <if test="specNumber != null">specNumber,</if>
+            <if test="refundPhase != null">refund_phase,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="refundId != null">#{refundId},</if>
+            <if test="afterSalesType != null">#{afterSalesType},</if>
+            <if test="tid != null">#{tid},</if>
+            <if test="oid != null">#{oid},</if>
+            <if test="buyerNick != null">#{buyerNick},</if>
+            <if test="totalFee != null">#{totalFee},</if>
+            <if test="payment != null">#{payment},</if>
+            <if test="refundFee != null">#{refundFee},</if>
+            <if test="created != null">#{created},</if>
+            <if test="modified != null">#{modified},</if>
+            <if test="orderStatus != null">#{orderStatus},</if>
+            <if test="status != null">#{status},</if>
+            <if test="goodStatus != null">#{goodStatus},</if>
+            <if test="num != null">#{num},</if>
+            <if test="hasGoodReturn != null">#{hasGoodReturn},</if>
+            <if test="reason != null">#{reason},</if>
+            <if test="desc != null">#{desc},</if>
+            <if test="logisticsCompany != null">#{logisticsCompany},</if>
+            <if test="logisticsCode != null">#{logisticsCode},</if>
+            <if test="sendTime != null">#{sendTime},</if>
+            <if test="auditStatus != null">#{auditStatus},</if>
+            <if test="auditTime != null">#{auditTime},</if>
+            <if test="receivedTime != null">#{receivedTime},</if>
+            <if test="address != null">#{address},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createOn != null">#{createOn},</if>
+            <if test="shopId != null">#{shopId},</if>
+            <if test="erpGoodsId != null">#{erpGoodsId},</if>
+            <if test="erpGoodsSpecId != null">#{erpGoodsSpecId},</if>
+            <if test="specNumber != null">#{specNumber},</if>
+            <if test="refundPhase != null">#{refundPhase},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTaoOrderRefund" parameterType="TaoOrderRefund">
+        update s_tao_order_refund
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="refundId != null">refund_id = #{refundId},</if>
+            <if test="afterSalesType != null">after_sales_type = #{afterSalesType},</if>
+            <if test="tid != null">tid = #{tid},</if>
+            <if test="oid != null">oid = #{oid},</if>
+            <if test="buyerNick != null">buyer_nick = #{buyerNick},</if>
+            <if test="totalFee != null">total_fee = #{totalFee},</if>
+            <if test="payment != null">payment = #{payment},</if>
+            <if test="refundFee != null">refund_fee = #{refundFee},</if>
+            <if test="created != null">created = #{created},</if>
+            <if test="modified != null">modified = #{modified},</if>
+            <if test="orderStatus != null">order_status = #{orderStatus},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="goodStatus != null">good_status = #{goodStatus},</if>
+            <if test="num != null">num = #{num},</if>
+            <if test="hasGoodReturn != null">has_good_return = #{hasGoodReturn},</if>
+            <if test="reason != null">reason = #{reason},</if>
+            <if test="desc != null">desc = #{desc},</if>
+            <if test="logisticsCompany != null">logisticsCompany = #{logisticsCompany},</if>
+            <if test="logisticsCode != null">logisticsCode = #{logisticsCode},</if>
+            <if test="sendTime != null">send_time = #{sendTime},</if>
+            <if test="auditStatus != null">auditStatus = #{auditStatus},</if>
+            <if test="auditTime != null">auditTime = #{auditTime},</if>
+            <if test="receivedTime != null">receivedTime = #{receivedTime},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createOn != null">createOn = #{createOn},</if>
+            <if test="shopId != null">shopId = #{shopId},</if>
+            <if test="erpGoodsId != null">erpGoodsId = #{erpGoodsId},</if>
+            <if test="erpGoodsSpecId != null">erpGoodsSpecId = #{erpGoodsSpecId},</if>
+            <if test="specNumber != null">specNumber = #{specNumber},</if>
+            <if test="refundPhase != null">refund_phase = #{refundPhase},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTaoOrderRefundById" parameterType="Long">
+        delete from s_tao_order_refund where id = #{id}
+    </delete>
+
+    <delete id="deleteTaoOrderRefundByIds" parameterType="String">
+        delete from s_tao_order_refund where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
