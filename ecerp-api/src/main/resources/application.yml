@@ -9,7 +9,7 @@ zhijian:
   # 实例演示开关
   demoEnabled: true
   # 文件路径 示例（ Windows配置D:/zhijian/uploadPath，Linux配置 /home/zhijian/uploadPath）
-  profile: D:/zhijian/uploadPath
+#  profile: D:/zhijian/uploadPath
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数字计算 char 字符验证
@@ -63,10 +63,10 @@ spring:
       # 设置总上传的文件大小
       max-request-size: 20MB
   # 服务模块
-  devtools:
-    restart:
-      # 热部署开关
-      enabled: true
+#  devtools:
+#    restart:
+#      # 热部署开关
+#      enabled: true
   # redis 配置
   redis:
     # 地址
@@ -130,12 +130,12 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
 
-# Swagger配置
-swagger:
-  # 是否开启swagger
-  enabled: true
-  # 请求前缀
-  pathMapping: /dev-api
+## Swagger配置
+#swagger:
+#  # 是否开启swagger
+#  enabled: true
+#  # 请求前缀
+#  pathMapping: /dev-api
 
 # 防止XSS攻击
 xss:
@@ -152,6 +152,6 @@ minio:
   secret-key: minioadmin
   bucket-name: ding_server
 
-spider:
-  thread:
-    count: 5
+#spider:
+#  thread:
+#    count: 5
