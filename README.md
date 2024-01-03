@@ -95,7 +95,7 @@ A[创建采购订单] -->B(审核)
 
 ## 三、如何使用？
 ### 0、开发环境配置
-+ MySQL导入数据`db\sql\mysql\00.sql`
++ MySQL导入数据`db\sql\mysql\qihang-erp.sql`
 + 启动Redis
   + 进入项目redis文件夹
   + 启动：双击`start.bat`
