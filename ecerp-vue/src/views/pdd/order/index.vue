@@ -297,25 +297,25 @@
     />
 
     <!-- 添加或修改拼多多订单对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="1000px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="180px">
+    <el-dialog :title="title" :visible.sync="open" width="1000px" append-to-body :close-on-click-modal="false">
+      <el-form ref="form" :model="form" :rules="rules" label-width="180px" inline>
         <el-form-item label="订单编号" prop="orderSn">
-          <el-input v-model="form.orderSn" placeholder="请输入订单编号" />
+          <el-input v-model="form.orderSn" placeholder="请输入订单编号" style="width:250px" :disabled="isAudit" />
         </el-form-item>
         <el-form-item label="店铺" prop="shopId">
           <!-- <el-input v-model="form.shopId" placeholder="请输入内部店铺ID" /> -->
-          <el-select v-model="form.shopId" placeholder="请选择平台">
+          <el-select v-model="form.shopId" placeholder="请选择平台" style="width:250px" :disabled="isAudit">
            <el-option
               v-for="item in shopList"
               :key="item.id"
               :label="item.name"
-              :value="item.id">
+              :value="item.id" >
             </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="是否顺丰包邮" prop="freeSf">
           <!-- <el-input v-model="form.freeSf" placeholder="请输入是否顺丰包邮，1-是 0-否" /> -->
-          <el-select v-model="form.freeSf" placeholder="是否顺丰包邮" >
+          <el-select v-model="form.freeSf" placeholder="是否顺丰包邮" style="width:250px" :disabled="isAudit">
            <el-option label="是" value="1"></el-option>
            <el-option label="否" value="0"></el-option>
           </el-select>
@@ -323,27 +323,27 @@
 
         <el-form-item label="是否是抽奖订单" prop="isLuckyFlag">
           <!-- <el-input v-model="form.isLuckyFlag" placeholder="请输入是否是抽奖订单，1-非抽奖订单，2-抽奖订单" /> -->
-          <el-select v-model="form.isLuckyFlag" placeholder="是否是抽奖订单">
+          <el-select v-model="form.isLuckyFlag" placeholder="是否是抽奖订单" style="width:250px" :disabled="isAudit">
            <el-option label="非抽奖订单" value="1"></el-option>
            <el-option label="抽奖订单" value="2"></el-option>
           </el-select>
         </el-form-item>
         
        <el-form-item label="收件人姓名" prop="receiverName1">
-          <el-input v-model="form.receiverName1" placeholder="请输入收件人姓名" style="width:250px" />
+          <el-input v-model="form.receiverName1" placeholder="请输入收件人姓名" style="width:250px" :disabled="isAudit"/>
         </el-form-item>
         <el-form-item label="收件人电话" prop="receiverPhone1">
-          <el-input v-model="form.receiverPhone1" placeholder="请输入收件人电话" style="width:250px"/>
+          <el-input v-model="form.receiverPhone1" placeholder="请输入收件人电话" style="width:250px" :disabled="isAudit" />
         </el-form-item>
         <el-form-item label="收件地址" prop="receiverAddress1">
-          <el-input v-model="form.receiverAddress1" placeholder="请输入收件地址" />
+          <el-input v-model="form.receiverAddress1" placeholder="请输入收件地址" style="width:250px" :disabled="isAudit" />
         </el-form-item>
        
         <!-- <el-form-item label="国家地区" prop="country">
           <el-input v-model="form.country" placeholder="请输入国家地区" />
         </el-form-item> -->
         <el-form-item label="订单创建时间" prop="createdTime">
-          <el-date-picker clearable
+          <el-date-picker clearable :disabled="isAudit"
             v-model="form.createdTime"
             type="datetime"
             value-format="yyyy-MM-dd"
@@ -352,29 +352,29 @@
         </el-form-item>
         
         <el-form-item label="买家留言信息" prop="buyerMemo">
-          <el-input v-model="form.buyerMemo" type="textarea" placeholder="请输入买家留言信息" />
+          <el-input v-model="form.buyerMemo" type="textarea" placeholder="请输入买家留言信息" style="width:250px" />
         </el-form-item>
         <el-form-item label="订单备注" prop="remark">
-          <el-input type="textarea" v-model="form.remark" placeholder="请输入内容" />
+          <el-input type="textarea" v-model="form.remark" placeholder="请输入内容" style="width:250px"/>
         </el-form-item>
         
         <el-form-item label="标签" prop="tag">
-          <el-input v-model="form.tag" placeholder="请输入标签" />
+          <el-input v-model="form.tag" placeholder="请输入标签" style="width:250px"/>
         </el-form-item>
         
-        <el-divider content-position="center">拼多多订单商品</el-divider>
+        <el-divider content-position="center">订单商品</el-divider>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
-            <el-button type="primary" icon="el-icon-plus" size="mini" @click="handleAddPddOrderItem">添加</el-button>
+            <el-button v-if="!isAudit" type="primary" icon="el-icon-plus" size="mini" @click="handleAddPddOrderItem">添加</el-button>
           </el-col>
           <el-col :span="1.5">
-            <el-button type="danger" icon="el-icon-delete" size="mini" @click="handleDeletePddOrderItem">删除</el-button>
+            <el-button type="danger" v-if="!isAudit" icon="el-icon-delete" size="mini" @click="handleDeletePddOrderItem">删除</el-button>
           </el-col>
         </el-row>
         <el-table :data="pddOrderItemList" :row-class-name="rowPddOrderItemIndex" @selection-change="handlePddOrderItemSelectionChange" ref="pddOrderItem" style="margin-bottom: 10px;">
-          <el-table-column type="selection" width="50" align="center" />
+          <el-table-column type="selection" width="50" align="center" v-if="!isAudit" />
           <el-table-column label="序号" align="center" prop="index" width="50"/>
-          <el-table-column label="erp系统商品id" prop="erpGoodsId" width="350">
+          <el-table-column label="erp系统商品id" prop="erpGoodsId" width="350" v-if="!isAudit" >
             <template slot-scope="scope">
               <!-- <el-input v-model="scope.row.erpGoodsId" placeholder="请输入erp系统商品id" /> -->
               <el-select v-model="scope.row.erpSpecId" filterable remote reserve-keyword placeholder="搜索商品" style="width: 330px;"
@@ -419,12 +419,12 @@
           </el-table-column>
           <el-table-column label="数量" prop="quantity" >
             <template slot-scope="scope">
-              <el-input v-model="scope.row.quantity" placeholder="请输入商品数量" @input="qtyChange(scope.row)" />
+              <el-input v-model="scope.row.quantity" placeholder="请输入商品数量" @input="qtyChange(scope.row)" :disabled="isAudit" />
             </template>
           </el-table-column>
           <el-table-column label="总金额" prop="itemAmount">
             <template slot-scope="scope">
-              <el-input v-model="scope.row.itemAmount" placeholder="请输入子订单金额" />
+              <el-input v-model="scope.row.itemAmount" placeholder="请输入子订单金额" :disabled="isAudit" />
             </template>
           </el-table-column>
           
@@ -453,16 +453,16 @@
           <el-input v-model="form.discountAmount" placeholder="请输入折扣金额，单位：元，折扣金额=平台优惠+商家优惠+团长免单优惠金额"  style="width:250px"/>
         </el-form-item> -->
         <el-form-item label="商品金额，单位：元" prop="goodsAmount">
-          <el-input v-model="form.goodsAmount" placeholder="请输入商品金额，单位：元，商品金额=商品销售价格*商品数量-改价金额" style="width:250px" />
+          <el-input v-model="form.goodsAmount" placeholder="请输入商品金额，单位：元，商品金额=商品销售价格*商品数量-改价金额" style="width:250px" :disabled="isAudit"/>
         </el-form-item>
         <el-form-item label="商家优惠金额，单位：元" prop="sellerDiscount">
-          <el-input v-model="form.sellerDiscount" placeholder="请输入商家优惠金额，单位：元" style="width:250px" />
+          <el-input v-model="form.sellerDiscount" placeholder="请输入商家优惠金额，单位：元" style="width:250px" :disabled="isAudit"/>
         </el-form-item>
         <el-form-item label="平台优惠金额，单位：元" prop="platformDiscount">
-          <el-input v-model="form.platformDiscount" placeholder="请输入平台优惠金额，单位：元" style="width:250px" />
+          <el-input v-model="form.platformDiscount" placeholder="请输入平台优惠金额，单位：元" style="width:250px" :disabled="isAudit"/>
         </el-form-item>
         <el-form-item label="团长免单金额，单位：元" prop="capitalFreeDiscount">
-          <el-input type="number" v-model.number="form.capitalFreeDiscount" placeholder="请输入团长免单金额，单位：元" style="width:250px" />
+          <el-input type="number" v-model.number="form.capitalFreeDiscount" placeholder="请输入团长免单金额，单位：元" style="width:250px" :disabled="isAudit"/>
         </el-form-item>
         <!-- <el-form-item label="支付金额，单位：元" prop="payAmount">
           <el-input v-model="form.payAmount" placeholder="请输入支付金额，单位：元，支付金额=商品金额-折扣金额+邮费" style="width:250px" />
@@ -470,7 +470,7 @@
     -->
         
        <el-form-item label="邮费，单位：元" prop="postage">
-          <el-input v-model="form.postage" placeholder="请输入邮费，单位：元" style="width:250px" />
+          <el-input v-model="form.postage" placeholder="请输入邮费，单位：元" style="width:250px" :disabled="isAudit"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -482,10 +482,10 @@
 </template>
 
 <script>
-import { listOrder, getOrder, delOrder, addOrder, updateOrder } from "@/api/pdd/order";
+import { listOrder, getOrder, addOrder, confirmOrder } from "@/api/pdd/order";
 import { listShop } from "@/api/shop/shop";
 import { searchSku } from "@/api/goods/goods";
-export default {
+export default { 
   name: "Order",
   data() {
     return {
@@ -511,6 +511,8 @@ export default {
       title: "",
       // 是否显示弹出层
       open: false,
+      // 是否审核状态
+      isAudit:false,
       shopList:[],
       // 查询参数
       queryParams: {
@@ -553,6 +555,9 @@ export default {
       
         freeSf: [
           { required: true, message: "是否顺丰包邮，1-是 0-否不能为空", trigger: "blur" }
+        ],
+        isLuckyFlag:[
+          { required: true, message: "是否抽奖订单不能为空", trigger: "blur" }
         ],
         receiverName1:[{ required: true, message: "收件人不能为空", trigger: "blur" }],
         receiverPhone1:[{ required: true, message: "收件人电话不能为空", trigger: "blur" }],
@@ -700,18 +705,24 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
+      this.isAudit = false
       this.open = true;
       this.title = "添加拼多多订单";
     },
     /** 修改按钮操作 */
-    handleUpdate(row) {
+    handleUpdate(row) { 
       this.reset();
       const id = row.id || this.ids
       getOrder(id).then(response => {
         this.form = response.data;
         this.pddOrderItemList = response.data.pddOrderItemList;
+        this.$nextTick(()=>{
+          this.form.isLuckyFlag = response.data.isLuckyFlag+''
+          this.form.freeSf = response.data.freeSf+''
+        })
+        this.isAudit = true
         this.open = true;
-        this.title = "修改拼多多订单";
+        this.title = "确认订单";
       });
     },
     /** 提交按钮 */
@@ -720,8 +731,8 @@ export default {
         if (valid) {
           this.form.pddOrderItemList = this.pddOrderItemList;
           if (this.form.id != null) {
-            updateOrder(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
+            confirmOrder(this.form).then(response => {
+              this.$modal.msgSuccess("订单确认成功");
               this.open = false;
               this.getList();
             });
@@ -813,7 +824,7 @@ export default {
         row.goodsSpec = spec.colorValue + ' ' + spec.sizeValue + ' ' + spec.styleValue
         row.goodsImage = spec.colorImage
         row.goodsNum = spec.number
-        row.goodsName = spec.goodsName
+        row.goodsName = spec.name
         row.specNum = spec.specNum
         row.isGift = '0'
         row.quantity = 1
@@ -824,18 +835,6 @@ export default {
         let goodsAmount = this.form.goodsAmount ? this.form.goodsAmount:0.0
         goodsAmount += row.itemAmount
         this.form.goodsAmount = goodsAmount
-        
-
-      //   this.goodsForm.id = spec.id
-      //   this.goodsForm.goodsId = spec.goodsId
-      //   this.goodsForm.name = spec.name
-      //   this.goodsForm.colorImage = spec.colorImage
-      //   this.goodsForm.colorValue = spec.colorValue
-      //   this.goodsForm.number = spec.number
-      //   this.goodsForm.purPrice = spec.purPrice
-      //   this.goodsForm.sizeValue = spec.sizeValue
-      //   this.goodsForm.specNum = spec.specNum
-      //   this.goodsForm.styleValue = spec.styleValue
       }
     },
     qtyChange(row) {
@@ -847,12 +846,7 @@ export default {
         goodsAmountNew+= row.itemAmount
       })
       this.form.goodsAmount = goodsAmountNew
-      // if (this.goodsForm.qty && this.goodsForm.qty > 0) {
-      //   if (this.goodsForm.purPrice) {
-      //     this.goodsForm.amount = this.goodsForm.qty * this.goodsForm.purPrice
-      //   }
 
-      // }
     },
   }
 };

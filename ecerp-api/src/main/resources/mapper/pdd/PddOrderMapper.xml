@@ -66,7 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <resultMap id="PddOrderPddOrderItemResult" type="PddOrder" extends="PddOrderResult">
-        <collection property="pddOrderItemList" notNullColumn="sub_id" javaType="java.util.List" resultMap="PddOrderItemResult" />
+        <collection property="pddOrderItemList" notNullColumn="id" javaType="java.util.List" resultMap="PddOrderItemResult" />
     </resultMap>
 
     <resultMap type="com.qihang.erp.api.domain.PddOrderItem" id="PddOrderItemResult">
@@ -161,10 +161,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="selectPddOrderById" parameterType="Long" resultMap="PddOrderPddOrderItemResult">
         select a.id, a.order_sn, a.shop_id, a.trade_type, a.confirm_status, a.free_sf, a.group_status, a.capital_free_discount, a.seller_discount, a.platform_discount, a.remark, a.updated_at, a.refund_status, a.is_lucky_flag, a.order_status, a.shipping_time, a.tracking_number, a.tracking_company, a.pay_type, a.pay_no, a.postage, a.discount_amount, a.goods_amount, a.pay_amount, a.receiver_phone, a.receiver_name, a.receiver_name1, a.receiver_phone1, a.receiver_address1, a.address, a.town, a.city, a.province, a.country, a.created_time, a.pay_time, a.confirm_time, a.receive_time, a.buyer_memo, a.after_sales_status, a.order_confirm_time, a.last_ship_time, a.audit_status, a.settlement_status, a.ship_status, a.ship_time, a.tag, a.excel_log_id, a.excel_msg, a.encryptedData, a.signature, a.print_status, a.print_time, a.nameKey, a.phoneKey, a.addressKey, a.result, a.pull_time,
- b.id as sub_id, b.order_id as sub_order_id, b.erp_goods_id as sub_erp_goods_id, b.erp_spec_id as sub_erp_spec_id, b.goods_name as sub_goods_name, b.goods_image as sub_goods_image, b.goods_num as sub_goods_num, b.goods_spec as sub_goods_spec, b.spec_num as sub_spec_num, b.goods_price as sub_goods_price, b.item_amount as sub_item_amount, b.quantity as sub_quantity, b.remark as sub_remark, b.is_gift as sub_is_gift, b.good_id as sub_good_id, b.sku_id as sub_sku_id, b.refund_count as sub_refund_count
+--  b.id as sub_id,
+ b.order_id as order_id, b.erp_goods_id as erp_goods_id, b.erp_spec_id as erp_spec_id, b.goods_name as goods_name, b.goods_image as goods_image,
+ b.goods_num as goods_num, b.goods_spec as goods_spec, b.spec_num as spec_num, b.goods_price as goods_price, b.item_amount as item_amount, b.quantity as quantity,
+--  b.remark as remark,
+ b.is_gift as is_gift, b.good_id as good_id, b.sku_id as sku_id, b.refund_count as refund_count
         from s_pdd_order a
         left join s_pdd_order_item b on b.order_id = a.id
         where a.id = #{id}
+    </select>
+
+    <select id="selectByOrderSn" parameterType="String" resultMap="PddOrderResult">
+        select a.* from s_pdd_order a
+        where a.order_sn = #{orderSn}
     </select>
 
     <select id="selectOrderItemByOrderId" parameterType="Long" resultMap="PddOrderItemResult">

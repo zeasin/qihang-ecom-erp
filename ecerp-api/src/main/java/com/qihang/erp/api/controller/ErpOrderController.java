@@ -2,12 +2,13 @@ package com.qihang.erp.api.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.qihang.erp.api.domain.ErpOrder;
+import com.qihang.erp.api.service.IErpOrderService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,33 +17,31 @@ import com.zhijian.common.annotation.Log;
 import com.zhijian.common.core.controller.BaseController;
 import com.zhijian.common.core.domain.AjaxResult;
 import com.zhijian.common.enums.BusinessType;
-import com.qihang.erp.api.domain.ShopOrder;
-import com.qihang.erp.api.service.IShopOrderService;
 import com.zhijian.common.utils.poi.ExcelUtil;
 import com.zhijian.common.core.page.TableDataInfo;
 
 /**
  * 店铺订单Controller
- * 
+ *
  * @author qihang
  * @date 2023-12-31
  */
 @RestController
-@RequestMapping("/shop/order")
-public class ShopOrderController extends BaseController
+@RequestMapping("/api/order")
+public class ErpOrderController extends BaseController
 {
     @Autowired
-    private IShopOrderService shopOrderService;
+    private IErpOrderService orderService;
 
     /**
      * 查询店铺订单列表
      */
     @PreAuthorize("@ss.hasPermi('shop:order:list')")
     @GetMapping("/list")
-    public TableDataInfo list(ShopOrder shopOrder)
+    public TableDataInfo list(ErpOrder order)
     {
         startPage();
-        List<ShopOrder> list = shopOrderService.selectShopOrderList(shopOrder);
+        List<ErpOrder> list = orderService.selectErpOrderList(order);
         return getDataTable(list);
     }
 
@@ -52,10 +51,10 @@ public class ShopOrderController extends BaseController
     @PreAuthorize("@ss.hasPermi('shop:order:export')")
     @Log(title = "店铺订单", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, ShopOrder shopOrder)
+    public void export(HttpServletResponse response, ErpOrder order)
     {
-        List<ShopOrder> list = shopOrderService.selectShopOrderList(shopOrder);
-        ExcelUtil<ShopOrder> util = new ExcelUtil<ShopOrder>(ShopOrder.class);
+        List<ErpOrder> list = orderService.selectErpOrderList(order);
+        ExcelUtil<ErpOrder> util = new ExcelUtil<ErpOrder>(ErpOrder.class);
         util.exportExcel(response, list, "店铺订单数据");
     }
 
@@ -66,7 +65,7 @@ public class ShopOrderController extends BaseController
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
-        return success(shopOrderService.selectShopOrderById(id));
+        return success(orderService.selectErpOrderById(id));
     }
 
     /**
@@ -75,10 +74,10 @@ public class ShopOrderController extends BaseController
     @PreAuthorize("@ss.hasPermi('shop:order:add')")
     @Log(title = "店铺订单", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody ShopOrder shopOrder)
+    public AjaxResult add(@RequestBody ErpOrder order)
     {
-        shopOrder.setCreateBy(getUsername());
-        return toAjax(shopOrderService.insertShopOrder(shopOrder));
+        order.setCreateBy(getUsername());
+        return toAjax(orderService.insertErpOrder(order));
     }
 
 

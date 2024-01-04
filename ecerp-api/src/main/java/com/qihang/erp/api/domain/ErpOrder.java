@@ -1,16 +1,18 @@
 package com.qihang.erp.api.domain;
 
 import java.util.List;
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zhijian.common.annotation.Excel;
 import com.zhijian.common.core.domain.BaseEntity;
 
 /**
- * 店铺订单对象 s_shop_order
+ * 订单对象 erp_order
  * 
  * @author qihang
- * @date 2023-12-31
+ * @date 2024-01-04
  */
-public class ShopOrder extends BaseEntity
+public class ErpOrder extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
@@ -21,8 +23,12 @@ public class ShopOrder extends BaseEntity
     @Excel(name = "订单编号")
     private String orderNum;
 
-    /** 内部店铺ID */
-    @Excel(name = "内部店铺ID")
+    /** 店铺类型 */
+    @Excel(name = "店铺类型")
+    private Long shopType;
+
+    /** 店铺ID */
+    @Excel(name = "店铺ID")
     private Long shopId;
 
     /** 买家留言信息 */
@@ -41,61 +47,46 @@ public class ShopOrder extends BaseEntity
     @Excel(name = "订单状态1：待发货，2：已发货待签收，3：已签收")
     private Long orderStatus;
 
-    /** 邮费，单位：元 */
-    @Excel(name = "邮费，单位：元")
-    private Long postage;
-
-    /** 折扣金额，单位：元，折扣金额=平台优惠+商家优惠+团长免单优惠金额 */
-    @Excel(name = "折扣金额，单位：元，折扣金额=平台优惠+商家优惠+团长免单优惠金额")
-    private Long discountAmount;
-
-    /** 商品金额，单位：元，商品金额=商品销售价格*商品数量-改价金额（接口暂无该字段） */
-    @Excel(name = "商品金额，单位：元，商品金额=商品销售价格*商品数量-改价金额", readConverterExp = "接=口暂无该字段")
-    private Long goodsAmount;
-
     /** 支付金额，单位：元，支付金额=商品金额-折扣金额+邮费 */
     @Excel(name = "支付金额，单位：元，支付金额=商品金额-折扣金额+邮费")
-    private Long payAmount;
+    private Double amount;
 
-    /** 支付时间 */
-    @Excel(name = "支付时间")
-    private String payTime;
-
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    /** 收件人姓名 */
+    @Excel(name = "收件人姓名")
     private String receiverName;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    /** 收件人手机号 */
+    @Excel(name = "收件人手机号")
     private String receiverPhone;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    /** 收件人地址 */
+    @Excel(name = "收件人地址")
     private String address;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-    private String town;
-
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-    private String city;
-
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-    private String province;
-
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    /** 国家/地区 */
+    @Excel(name = "国家/地区")
     private String country;
 
-    /** 订单审核时间 */
-    @Excel(name = "订单审核时间")
-    private String auditTime;
+    /** 省 */
+    @Excel(name = "省")
+    private String province;
 
-    /** 订单审核状态：0待确认，1已确认2已拦截-9未拉取 */
-    @Excel(name = "订单审核状态：0待确认，1已确认2已拦截-9未拉取")
-    private Long auditStatus;
+    /** 市 */
+    @Excel(name = "市")
+    private String city;
+
+    /** 区 */
+    @Excel(name = "区")
+    private String town;
+
+    /** 订单确认时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "订单确认时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date confirmTime;
+
+//    /** 订单审核状态：0待确认，1已确认2已拦截-9未拉取 */
+//    @Excel(name = "订单审核状态：0待确认，1已确认2已拦截-9未拉取")
+//    private Long auditStatus;
 
     /** 发货时间 */
     @Excel(name = "发货时间")
@@ -109,8 +100,8 @@ public class ShopOrder extends BaseEntity
     @Excel(name = "物流公司")
     private String shippingCompany;
 
-    /** $table.subTable.functionName信息 */
-    private List<SShopOrderItem> itemList;
+    /** 订单明细信息 */
+    private List<ErpOrderItem> itemList;
 
     public void setId(Long id) 
     {
@@ -129,6 +120,15 @@ public class ShopOrder extends BaseEntity
     public String getOrderNum() 
     {
         return orderNum;
+    }
+    public void setShopType(Long shopType) 
+    {
+        this.shopType = shopType;
+    }
+
+    public Long getShopType() 
+    {
+        return shopType;
     }
     public void setShopId(Long shopId) 
     {
@@ -175,50 +175,14 @@ public class ShopOrder extends BaseEntity
     {
         return orderStatus;
     }
-    public void setPostage(Long postage) 
+    public void setAmount(Double amount)
     {
-        this.postage = postage;
+        this.amount = amount;
     }
 
-    public Long getPostage() 
+    public Double getAmount()
     {
-        return postage;
-    }
-    public void setDiscountAmount(Long discountAmount) 
-    {
-        this.discountAmount = discountAmount;
-    }
-
-    public Long getDiscountAmount() 
-    {
-        return discountAmount;
-    }
-    public void setGoodsAmount(Long goodsAmount) 
-    {
-        this.goodsAmount = goodsAmount;
-    }
-
-    public Long getGoodsAmount() 
-    {
-        return goodsAmount;
-    }
-    public void setPayAmount(Long payAmount) 
-    {
-        this.payAmount = payAmount;
-    }
-
-    public Long getPayAmount() 
-    {
-        return payAmount;
-    }
-    public void setPayTime(String payTime) 
-    {
-        this.payTime = payTime;
-    }
-
-    public String getPayTime() 
-    {
-        return payTime;
+        return amount;
     }
     public void setReceiverName(String receiverName) 
     {
@@ -247,23 +211,14 @@ public class ShopOrder extends BaseEntity
     {
         return address;
     }
-    public void setTown(String town) 
+    public void setCountry(String country) 
     {
-        this.town = town;
+        this.country = country;
     }
 
-    public String getTown() 
+    public String getCountry() 
     {
-        return town;
-    }
-    public void setCity(String city) 
-    {
-        this.city = city;
-    }
-
-    public String getCity() 
-    {
-        return city;
+        return country;
     }
     public void setProvince(String province) 
     {
@@ -274,39 +229,48 @@ public class ShopOrder extends BaseEntity
     {
         return province;
     }
-    public void setCountry(String country) 
+    public void setCity(String city) 
     {
-        this.country = country;
+        this.city = city;
     }
 
-    public String getCountry() 
+    public String getCity() 
     {
-        return country;
+        return city;
     }
-    public void setAuditTime(String auditTime) 
+    public void setTown(String town) 
     {
-        this.auditTime = auditTime;
-    }
-
-    public String getAuditTime() 
-    {
-        return auditTime;
-    }
-    public void setAuditStatus(Long auditStatus) 
-    {
-        this.auditStatus = auditStatus;
+        this.town = town;
     }
 
-    public Long getAuditStatus() 
+    public String getTown() 
     {
-        return auditStatus;
+        return town;
     }
-    public void setShippingTime(String shippingTime) 
+    public void setConfirmTime(Date confirmTime) 
+    {
+        this.confirmTime = confirmTime;
+    }
+
+    public Date getConfirmTime() 
+    {
+        return confirmTime;
+    }
+//    public void setAuditStatus(Long auditStatus)
+//    {
+//        this.auditStatus = auditStatus;
+//    }
+//
+//    public Long getAuditStatus()
+//    {
+//        return auditStatus;
+//    }
+    public void setShippingTime(String shippingTime)
     {
         this.shippingTime = shippingTime;
     }
 
-    public String getShippingTime() 
+    public String getShippingTime()
     {
         return shippingTime;
     }
@@ -329,12 +293,11 @@ public class ShopOrder extends BaseEntity
         return shippingCompany;
     }
 
-
-    public List<SShopOrderItem> getItemList() {
+    public List<ErpOrderItem> getItemList() {
         return itemList;
     }
 
-    public void setItemList(List<SShopOrderItem> itemList) {
+    public void setItemList(List<ErpOrderItem> itemList) {
         this.itemList = itemList;
     }
 }

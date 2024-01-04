@@ -4,12 +4,12 @@ import com.zhijian.common.annotation.Excel;
 import com.zhijian.common.core.domain.BaseEntity;
 
 /**
- * ${subTable.functionName}对象 s_shop_order_item
+ * 订单明细对象 erp_order_item
  * 
  * @author qihang
- * @date 2023-12-31
+ * @date 2024-01-04
  */
-public class SShopOrderItem extends BaseEntity
+public class ErpOrderItem extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 

@@ -27,10 +27,10 @@ export function addOrder(data) {
 }
 
 // 修改拼多多订单
-export function updateOrder(data) {
+export function confirmOrder(data) {
   return request({
-    url: '/pdd/order',
-    method: 'put',
+    url: '/pdd/order/confirm',
+    method: 'post',
     data: data
   })
 }
