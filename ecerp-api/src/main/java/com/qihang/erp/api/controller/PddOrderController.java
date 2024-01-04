@@ -80,25 +80,25 @@ public class PddOrderController extends BaseController
         return toAjax(pddOrderService.insertPddOrder(pddOrder));
     }
 
-    /**
-     * 修改拼多多订单
-     */
-    @PreAuthorize("@ss.hasPermi('pdd:order:edit')")
-    @Log(title = "拼多多订单", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody PddOrder pddOrder)
-    {
-        return toAjax(pddOrderService.updatePddOrder(pddOrder));
-    }
-
-    /**
-     * 删除拼多多订单
-     */
-    @PreAuthorize("@ss.hasPermi('pdd:order:remove')")
-    @Log(title = "拼多多订单", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(pddOrderService.deletePddOrderByIds(ids));
-    }
+//    /**
+//     * 修改拼多多订单
+//     */
+//    @PreAuthorize("@ss.hasPermi('pdd:order:edit')")
+//    @Log(title = "拼多多订单", businessType = BusinessType.UPDATE)
+//    @PutMapping
+//    public AjaxResult edit(@RequestBody PddOrder pddOrder)
+//    {
+//        return toAjax(pddOrderService.updatePddOrder(pddOrder));
+//    }
+//
+//    /**
+//     * 删除拼多多订单
+//     */
+//    @PreAuthorize("@ss.hasPermi('pdd:order:remove')")
+//    @Log(title = "拼多多订单", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(pddOrderService.deletePddOrderByIds(ids));
+//    }
 }

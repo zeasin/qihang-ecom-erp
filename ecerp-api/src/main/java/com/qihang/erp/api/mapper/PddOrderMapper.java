@@ -22,6 +22,8 @@ public interface PddOrderMapper
      */
     public PddOrder selectPddOrderById(Long id);
 
+    List<PddOrderItem> selectOrderItemByOrderId(Long orderId);
+
     /**
      * 查询拼多多订单列表
      * 
