@@ -2,6 +2,8 @@ package com.qihang.erp.api.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.zhijian.common.utils.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,7 +79,20 @@ public class PddOrderController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody PddOrder pddOrder)
     {
-        return toAjax(pddOrderService.insertPddOrder(pddOrder));
+        Integer result = pddOrderService.insertPddOrder(pddOrder);
+        if(result == -1) return new AjaxResult(505,"订单号已存在");
+        return toAjax(result);
+    }
+
+    @Log(title = "拼多多订单", businessType = BusinessType.UPDATE)
+    @PostMapping("/confirm")
+    public AjaxResult confirmOrder(@RequestBody PddOrder pddOrder)
+    {
+        Integer result = pddOrderService.confirmOrder(pddOrder.getId(),pddOrder.getRemark(),getUsername());
+        if(result == -1) return new AjaxResult(505,"订单不存在");
+        else if(result == -2) return new AjaxResult(506,"订单已确认过了");
+        else if(result == -3) return new AjaxResult(507,"订单售后中！无法操作！");
+        return toAjax(1);
     }
 
 //    /**

@@ -1,6 +1,9 @@
 package com.qihang.erp.api.service.impl;
 
+import java.util.Date;
 import java.util.List;
+
+import com.qihang.erp.api.domain.ErpOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -62,6 +65,8 @@ public class PddOrderServiceImpl implements IPddOrderService
     @Override
     public int insertPddOrder(PddOrder pddOrder)
     {
+        PddOrder order = pddOrderMapper.selectByOrderSn(pddOrder.getOrderSn());
+        if(order!=null) return -1;
         pddOrder.setTradeType(0L);
         pddOrder.setConfirmStatus(1L);
         pddOrder.setGroupStatus(1L);
@@ -79,6 +84,44 @@ public class PddOrderServiceImpl implements IPddOrderService
         int rows = pddOrderMapper.insertPddOrder(pddOrder);
         insertPddOrderItem(pddOrder);
         return rows;
+    }
+
+    /**
+     * 确认订单
+     * @param orderId
+     * @return
+     */
+    @Transactional
+    @Override
+    public int confirmOrder(Long orderId,String remark,String createBy) {
+        PddOrder order = pddOrderMapper.selectPddOrderById(orderId);
+        if(order == null) return -1;
+        else if(order.getAuditStatus() != 0) return -2;
+        else if(order.getRefundStatus() != 1) return -3;
+
+        // 确认订单（操作：插入数据到s_shop_order、s_shop_order_item）
+        ErpOrder so = new ErpOrder();
+        so.setOrderNum(order.getOrderSn());
+        so.setShopId(order.getShopId());
+        so.setShopType(5L);
+        so.setRemark(remark);
+        so.setBuyerMemo(order.getBuyerMemo());
+        so.setTag(order.getTag());
+        so.setRefundStatus(1L);
+        so.setOrderStatus(1L);
+        so.setAmount(order.getPayAmount());
+        so.setReceiverName(order.getReceiverName());
+        so.setReceiverPhone(order.getReceiverPhone());
+        so.setAddress(order.getAddress());
+        so.setCountry("中国");
+        so.setProvince(order.getProvince());
+        so.setCity(order.getCity());
+        so.setTown(order.getTown());
+        so.setConfirmTime(new Date());
+        so.setCreateTime(new Date());
+        so.setCreateBy(createBy);
+
+        return 1;
     }
 
     /**

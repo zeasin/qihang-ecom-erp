@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询店铺订单列表
 export function listOrder(query) {
   return request({
-    url: '/shop/order/list',
+    url: '/api/order/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listOrder(query) {
 // 查询店铺订单详细
 export function getOrder(id) {
   return request({
-    url: '/shop/order/' + id,
+    url: '/api/order/' + id,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getOrder(id) {
 // 新增店铺订单
 export function addOrder(data) {
   return request({
-    url: '/shop/order',
+    url: '/api/order',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addOrder(data) {
 // 修改店铺订单
 export function updateOrder(data) {
   return request({
-    url: '/shop/order',
+    url: '/api/order',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function updateOrder(data) {
 // 删除店铺订单
 export function delOrder(id) {
   return request({
-    url: '/shop/order/' + id,
+    url: '/api/order/' + id,
     method: 'delete'
   })
 }
