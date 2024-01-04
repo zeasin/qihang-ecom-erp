@@ -57,6 +57,20 @@ public class PddOrderServiceImpl implements IPddOrderService
     @Override
     public int insertPddOrder(PddOrder pddOrder)
     {
+        pddOrder.setTradeType(1L);
+        pddOrder.setConfirmStatus(1L);
+        pddOrder.setGroupStatus(1L);
+        pddOrder.setRefundStatus(1L);
+        pddOrder.setOrderStatus(1L);
+        double discountAmount = pddOrder.getPlatformDiscount() + pddOrder.getSellerDiscount()+ pddOrder.getCapitalFreeDiscount();
+        pddOrder.setDiscountAmount(discountAmount);
+        double payAmount = pddOrder.getGoodsAmount() - pddOrder.getDiscountAmount() + pddOrder.getPostage();
+        pddOrder.setPayAmount(payAmount);
+        pddOrder.setAfterSalesStatus(0L);
+        pddOrder.setOrderConfirmTime(0L);
+        pddOrder.setAuditStatus(0L);
+        pddOrder.setSettlementStatus(0L);
+        pddOrder.setShipStatus(0L);
         int rows = pddOrderMapper.insertPddOrder(pddOrder);
         insertPddOrderItem(pddOrder);
         return rows;

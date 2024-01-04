@@ -13,13 +13,13 @@
           <el-option v-for="item in shopList" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
-        </el-form-item>
+        </el-form-item> 
         <el-form-item label="收件人姓名" prop="receiverName">
           <el-input v-model="form.receiverName" style="width: 220px;" placeholder="请输入收件人姓名" />
         </el-form-item>
         <el-form-item label="收件人手机号" prop="receiverPhone">
           <el-input v-model="form.receiverPhone"  style="width: 220px;" placeholder="请输入收件人手机号" />
-        </el-form-item>
+        </el-form-item> 
         
         <el-form-item label="省市区" prop="town">
        
@@ -66,12 +66,12 @@
             <template slot-scope="scope">
               <!-- <el-input v-model="scope.row.goodsTitle" placeholder="请输入商品标题" /> -->
               <el-select v-model="scope.row.goodsId" filterable remote reserve-keyword placeholder="搜索商品" style="width: 330px;"
-            :remote-method="searchSku" :loading="skuListLoading" @change="skuChanage(scope.row)">
-            <el-option v-for="item in skuList" :key="item.id"
-              :label="item.name + ' - ' + item.colorValue + ' ' + item.sizeValue + ' ' + item.styleValue"
-              :value="item.id">
-            </el-option>
-          </el-select>
+                :remote-method="searchSku" :loading="skuListLoading" @change="skuChanage(scope.row)">
+                <el-option v-for="item in skuList" :key="item.id"
+                  :label="item.name + ' - ' + item.colorValue + ' ' + item.sizeValue + ' ' + item.styleValue"
+                  :value="item.id">
+                </el-option>
+              </el-select>
             </template>
           </el-table-column>
           <el-table-column label="商品图片" prop="goodsImg" width="150">
