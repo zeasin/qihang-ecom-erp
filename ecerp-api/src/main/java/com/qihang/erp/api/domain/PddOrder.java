@@ -45,15 +45,15 @@ public class PddOrder extends BaseEntity
 
     /** 团长免单金额，单位：元 */
     @Excel(name = "团长免单金额，单位：元")
-    private Long capitalFreeDiscount;
+    private Double capitalFreeDiscount;
 
     /** 商家优惠金额，单位：元 */
     @Excel(name = "商家优惠金额，单位：元")
-    private Long sellerDiscount;
+    private Double sellerDiscount;
 
     /** 平台优惠金额，单位：元 */
     @Excel(name = "平台优惠金额，单位：元")
-    private Long platformDiscount;
+    private Double platformDiscount;
 
     /** 订单的更新时间 */
     @Excel(name = "订单的更新时间")
@@ -93,19 +93,19 @@ public class PddOrder extends BaseEntity
 
     /** 邮费，单位：元 */
     @Excel(name = "邮费，单位：元")
-    private Long postage;
+    private Double postage;
 
     /** 折扣金额，单位：元，折扣金额=平台优惠+商家优惠+团长免单优惠金额 */
     @Excel(name = "折扣金额，单位：元，折扣金额=平台优惠+商家优惠+团长免单优惠金额")
-    private Long discountAmount;
+    private Double discountAmount;
 
     /** 商品金额，单位：元，商品金额=商品销售价格*商品数量-改价金额（接口暂无该字段） */
     @Excel(name = "商品金额，单位：元，商品金额=商品销售价格*商品数量-改价金额", readConverterExp = "接=口暂无该字段")
-    private Long goodsAmount;
+    private Double goodsAmount;
 
     /** 支付金额，单位：元，支付金额=商品金额-折扣金额+邮费 */
     @Excel(name = "支付金额，单位：元，支付金额=商品金额-折扣金额+邮费")
-    private Long payAmount;
+    private Double payAmount;
 
     /** 收件人电话 */
     @Excel(name = "收件人电话")
@@ -311,30 +311,30 @@ public class PddOrder extends BaseEntity
     {
         return groupStatus;
     }
-    public void setCapitalFreeDiscount(Long capitalFreeDiscount) 
+    public void setCapitalFreeDiscount(Double capitalFreeDiscount)
     {
         this.capitalFreeDiscount = capitalFreeDiscount;
     }
 
-    public Long getCapitalFreeDiscount() 
+    public Double getCapitalFreeDiscount()
     {
         return capitalFreeDiscount;
     }
-    public void setSellerDiscount(Long sellerDiscount) 
+    public void setSellerDiscount(Double sellerDiscount)
     {
         this.sellerDiscount = sellerDiscount;
     }
 
-    public Long getSellerDiscount() 
+    public Double getSellerDiscount()
     {
         return sellerDiscount;
     }
-    public void setPlatformDiscount(Long platformDiscount) 
+    public void setPlatformDiscount(Double platformDiscount)
     {
         this.platformDiscount = platformDiscount;
     }
 
-    public Long getPlatformDiscount() 
+    public Double getPlatformDiscount()
     {
         return platformDiscount;
     }
@@ -419,39 +419,39 @@ public class PddOrder extends BaseEntity
     {
         return payNo;
     }
-    public void setPostage(Long postage) 
+    public void setPostage(Double postage)
     {
         this.postage = postage;
     }
 
-    public Long getPostage() 
+    public Double getPostage()
     {
         return postage;
     }
-    public void setDiscountAmount(Long discountAmount) 
+    public void setDiscountAmount(Double discountAmount)
     {
         this.discountAmount = discountAmount;
     }
 
-    public Long getDiscountAmount() 
+    public Double getDiscountAmount()
     {
         return discountAmount;
     }
-    public void setGoodsAmount(Long goodsAmount) 
+    public void setGoodsAmount(Double goodsAmount)
     {
         this.goodsAmount = goodsAmount;
     }
 
-    public Long getGoodsAmount() 
+    public Double getGoodsAmount()
     {
         return goodsAmount;
     }
-    public void setPayAmount(Long payAmount) 
+    public void setPayAmount(Double payAmount)
     {
         this.payAmount = payAmount;
     }
 
-    public Long getPayAmount() 
+    public Double getPayAmount()
     {
         return payAmount;
     }
