@@ -77,6 +77,7 @@ public class ShopController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody Shop shop)
     {
+        shop.setModifyOn(System.currentTimeMillis()/1000);
         return toAjax(shopService.insertShop(shop));
     }
 
