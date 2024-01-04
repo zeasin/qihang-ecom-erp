@@ -78,14 +78,14 @@
         </el-date-picker>
       </el-form-item>
 
-      <el-form-item label="标签" prop="tag">
+<!--       <el-form-item label="标签" prop="tag">
         <el-input
           v-model="queryParams.tag"
           placeholder="请输入标签"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item> -->
 <!--     -->
 <!--      <el-form-item label="API拉取时间" prop="pullTime">-->
 <!--        <el-date-picker clearable-->
