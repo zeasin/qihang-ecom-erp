@@ -10,12 +10,15 @@
         />
       </el-form-item>
       <el-form-item label="店铺" prop="shopId">
-        <el-input
-          v-model="queryParams.shopId"
-          placeholder="请选择店铺"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+        
+        <el-select v-model="queryParams.shopId" placeholder="请选择平台" @change="handleQuery">
+         <el-option
+            v-for="item in shopList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id">
+          </el-option>
+        </el-select>
       </el-form-item>
 
 
@@ -43,14 +46,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="发货时间" prop="shippingTime">
-        <el-date-picker clearable
-                        v-model="queryParams.shippingTime"
-                        type="date"
-                        value-format="yyyy-MM-dd"
-                        placeholder="请选择发货时间">
-        </el-date-picker>
-      </el-form-item>
+
 <!--      <el-form-item label="省" prop="province">-->
 <!--        <el-input-->
 <!--          v-model="queryParams.province"-->
@@ -487,6 +483,7 @@
 
 <script>
 import { listOrder, getOrder, delOrder, addOrder, updateOrder } from "@/api/pdd/order";
+import { listShop } from "@/api/shop/shop";
 
 export default {
   name: "Order",
@@ -514,6 +511,7 @@ export default {
       title: "",
       // 是否显示弹出层
       open: false,
+      shopList:[],
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -646,7 +644,13 @@ export default {
     };
   },
   created() {
+     listShop({type:5}).then(response => {
+        this.shopList = response.rows;
+        
+      });
+
     this.getList();
+
   },
   methods: {
     /** 查询拼多多订单列表 */

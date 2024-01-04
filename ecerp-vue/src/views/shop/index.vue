@@ -9,6 +9,22 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+       <el-form-item label="平台" prop="type">
+        <!-- <el-input
+          v-model="queryParams.name"
+          placeholder="请输入店铺名" 
+          clearable
+          @keyup.enter.native="handleQuery"
+        /> -->
+        <el-select v-model="queryParams.type" placeholder="请选择平台">
+         <el-option
+            v-for="item in typeList"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
       
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -64,23 +80,31 @@
 
     <el-table v-loading="loading" :data="shopList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键" align="center" prop="id" />
+      <el-table-column label="店铺ID" align="center" prop="id" />
       <el-table-column label="店铺名" align="center" prop="name" />
-      <el-table-column label="店铺别名" align="center" prop="nickName" />
-      <el-table-column label="标识" align="center" prop="ename" />
-      <el-table-column label="店铺主体" align="center" prop="company" />
-      <el-table-column label="对应第三方平台Id" align="center" prop="type" />
-      <el-table-column label="店铺url" align="center" prop="url" />
-      <el-table-column label="排序" align="center" prop="orderNum" />
-      <el-table-column label="是否删除0否1是" align="center" prop="isDelete" />
-      <el-table-column label="是否显示(0：是1否）" align="center" prop="isShow" />
-      <el-table-column label="更新时间" align="center" prop="modifyOn" />
+      <!-- <el-table-column label="店铺别名" align="center" prop="nickName" /> -->
+      <!-- <el-table-column label="标识" align="center" prop="ename" /> -->
+      <!-- <el-table-column label="店铺主体" align="center" prop="company" /> -->
+      <el-table-column label="平台" align="center" prop="type" >
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.type === 4">淘宝</el-tag>
+          <el-tag v-if="scope.row.type === 5">拼多多</el-tag>
+          <el-tag v-if="scope.row.type === 6">抖店</el-tag>
+          <el-tag v-if="scope.row.type === 7">小红书</el-tag>
+          <el-tag v-if="scope.row.type === 13">快手小店</el-tag>
+        </template> 
+      </el-table-column>
+      <!-- <el-table-column label="店铺url" align="center" prop="url" /> -->
+      <!-- <el-table-column label="排序" align="center" prop="orderNum" /> -->
+      <!-- <el-table-column label="是否删除0否1是" align="center" prop="isDelete" /> -->
+      <!-- <el-table-column label="是否显示(0：是1否）" align="center" prop="isShow" /> -->
+      <!-- <el-table-column label="更新时间" align="center" prop="modifyOn" /> -->
       <el-table-column label="描述" align="center" prop="remark" />
-      <el-table-column label="第三方平台店铺id，淘宝天猫开放平台使用" align="center" prop="sellerUserId" />
-      <el-table-column label="卖家userId" align="center" prop="sellerUserIdStr" />
-      <el-table-column label="第三方平台sessionKey" align="center" prop="sessionKey" />
-      <el-table-column label="Appkey暂时抖音用" align="center" prop="appkey" />
-      <el-table-column label="Appsercet暂时抖音用" align="center" prop="appSercet" />
+      <!-- <el-table-column label="第三方平台店铺id，淘宝天猫开放平台使用" align="center" prop="sellerUserId" /> -->
+      <!-- <el-table-column label="卖家userId" align="center" prop="sellerUserIdStr" /> -->
+      <!-- <el-table-column label="第三方平台sessionKey" align="center" prop="sessionKey" /> -->
+      <!-- <el-table-column label="Appkey暂时抖音用" align="center" prop="appkey" /> -->
+      <!-- <el-table-column label="Appsercet暂时抖音用" align="center" prop="appSercet" /> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -114,6 +138,16 @@
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="店铺名" prop="name">
           <el-input v-model="form.name" placeholder="请输入店铺名" />
+        </el-form-item>
+        <el-form-item label="平台" prop="type">
+          <el-select v-model="queryParams.type" placeholder="请选择店铺">
+           <el-option
+              v-for="item in typeList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="店铺别名" prop="nickName">
           <el-input v-model="form.nickName" placeholder="请输入店铺别名" />
@@ -187,6 +221,19 @@ export default {
       total: 0,
       // 店铺表格数据
       shopList: [],
+      typeList: [{
+          value: '4',
+          label: '淘宝'
+        }, {
+          value: '5',
+          label: '拼多多'
+        }, {
+          value: '6',
+          label: '抖店'
+        }, {
+          value: '7',
+          label: '小红书'
+        }],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
