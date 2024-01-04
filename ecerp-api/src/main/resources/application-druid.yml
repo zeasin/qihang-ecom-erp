@@ -54,7 +54,7 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
-    h2:
-        console:
-            enabled: true
-            path: /h2-console
+#    h2:
+#        console:
+#            enabled: true
+#            path: /h2-console
