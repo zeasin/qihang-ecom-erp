@@ -90,7 +90,7 @@ public class ErpOrder extends BaseEntity
 
     /** 发货时间 */
     @Excel(name = "发货时间")
-    private String shippingTime;
+    private Date shippingTime;
 
     /** 快递单号 */
     @Excel(name = "快递单号")
@@ -265,12 +265,12 @@ public class ErpOrder extends BaseEntity
 //    {
 //        return auditStatus;
 //    }
-    public void setShippingTime(String shippingTime)
+    public void setShippingTime(Date shippingTime)
     {
         this.shippingTime = shippingTime;
     }
 
-    public String getShippingTime()
+    public Date getShippingTime()
     {
         return shippingTime;
     }
