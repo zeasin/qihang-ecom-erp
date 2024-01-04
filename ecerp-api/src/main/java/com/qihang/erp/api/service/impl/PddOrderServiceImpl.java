@@ -44,7 +44,12 @@ public class PddOrderServiceImpl implements IPddOrderService
     @Override
     public List<PddOrder> selectPddOrderList(PddOrder pddOrder)
     {
-        return pddOrderMapper.selectPddOrderList(pddOrder);
+        List<PddOrder> orderList = pddOrderMapper.selectPddOrderList(pddOrder);
+        for (var o:orderList) {
+            List<PddOrderItem> items = pddOrderMapper.selectOrderItemByOrderId(o.getId());
+            o.setPddOrderItemList(items);
+        }
+        return orderList;
     }
 
     /**
@@ -57,7 +62,7 @@ public class PddOrderServiceImpl implements IPddOrderService
     @Override
     public int insertPddOrder(PddOrder pddOrder)
     {
-        pddOrder.setTradeType(1L);
+        pddOrder.setTradeType(0L);
         pddOrder.setConfirmStatus(1L);
         pddOrder.setGroupStatus(1L);
         pddOrder.setRefundStatus(1L);

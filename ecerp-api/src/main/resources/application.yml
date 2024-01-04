@@ -113,8 +113,8 @@ token:
 mybatis-plus:
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   type-aliases-package: com.zhijian.**.domain;com.qihang.erp.api.domain
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启sql日志
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启sql日志
 #  config-location: classpath:mybatis/mybatis-config.xml
 
 ### # mybatis mapper路径 适用于 mybatis 和 mybatis-plus

@@ -69,28 +69,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <collection property="pddOrderItemList" notNullColumn="sub_id" javaType="java.util.List" resultMap="PddOrderItemResult" />
     </resultMap>
 
-    <resultMap type="PddOrderItem" id="PddOrderItemResult">
-        <result property="id"    column="sub_id"    />
-        <result property="orderId"    column="sub_order_id"    />
-        <result property="erpGoodsId"    column="sub_erp_goods_id"    />
-        <result property="erpSpecId"    column="sub_erp_spec_id"    />
-        <result property="goodsName"    column="sub_goods_name"    />
-        <result property="goodsImage"    column="sub_goods_image"    />
-        <result property="goodsNum"    column="sub_goods_num"    />
-        <result property="goodsSpec"    column="sub_goods_spec"    />
-        <result property="specNum"    column="sub_spec_num"    />
-        <result property="goodsPrice"    column="sub_goods_price"    />
-        <result property="itemAmount"    column="sub_item_amount"    />
-        <result property="quantity"    column="sub_quantity"    />
-        <result property="remark"    column="sub_remark"    />
-        <result property="isGift"    column="sub_is_gift"    />
-        <result property="goodId"    column="sub_good_id"    />
-        <result property="skuId"    column="sub_sku_id"    />
-        <result property="refundCount"    column="sub_refund_count"    />
+    <resultMap type="com.qihang.erp.api.domain.PddOrderItem" id="PddOrderItemResult">
+        <result property="id"    column="id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="erpGoodsId"    column="erp_goods_id"    />
+        <result property="erpSpecId"    column="erp_spec_id"    />
+        <result property="goodsName"    column="goods_name"    />
+        <result property="goodsImage"    column="goods_image"    />
+        <result property="goodsNum"    column="goods_num"    />
+        <result property="goodsSpec"    column="goods_spec"    />
+        <result property="specNum"    column="spec_num"    />
+        <result property="goodsPrice"    column="goods_price"    />
+        <result property="itemAmount"    column="item_amount"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="remark"    column="remark"    />
+        <result property="isGift"    column="is_gift"    />
+        <result property="goodId"    column="good_id"    />
+        <result property="skuId"    column="sku_id"    />
+        <result property="refundCount"    column="refund_count"    />
     </resultMap>
 
     <sql id="selectPddOrderVo">
         select id, order_sn, shop_id, trade_type, confirm_status, free_sf, group_status, capital_free_discount, seller_discount, platform_discount, remark, updated_at, refund_status, is_lucky_flag, order_status, shipping_time, tracking_number, tracking_company, pay_type, pay_no, postage, discount_amount, goods_amount, pay_amount, receiver_phone, receiver_name, receiver_name1, receiver_phone1, receiver_address1, address, town, city, province, country, created_time, pay_time, confirm_time, receive_time, buyer_memo, after_sales_status, order_confirm_time, last_ship_time, audit_status, settlement_status, ship_status, ship_time, tag, excel_log_id, excel_msg, encryptedData, signature, print_status, print_time, nameKey, phoneKey, addressKey, result, pull_time from s_pdd_order
+    </sql>
+
+    <sql id="selectPddOrderItemVo">
+        select * from s_pdd_order_item
     </sql>
 
     <select id="selectPddOrderList" parameterType="PddOrder" resultMap="PddOrderResult">
@@ -161,6 +165,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from s_pdd_order a
         left join s_pdd_order_item b on b.order_id = a.id
         where a.id = #{id}
+    </select>
+
+    <select id="selectOrderItemByOrderId" parameterType="Long" resultMap="PddOrderItemResult">
+
+        <include refid="selectPddOrderItemVo"/>
+        <where>
+         and order_id = #{orderId}
+        </where>
     </select>
         
     <insert id="insertPddOrder" parameterType="PddOrder" useGeneratedKeys="true" keyProperty="id">

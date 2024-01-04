@@ -112,14 +112,13 @@
         <el-button
           type="success"
           plain
-          icon="el-icon-edit"
+          icon="el-icon-upload"
           size="mini"
-          :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['pdd:order:edit']"
-        >修改</el-button>
+        >Execl导入</el-button>
       </el-col>
-      <el-col :span="1.5">
+      <!-- <el-col :span="1.5">
         <el-button
           type="danger"
           plain
@@ -129,7 +128,7 @@
           @click="handleDelete"
           v-hasPermi="['pdd:order:remove']"
         >删除</el-button>
-      </el-col>
+      </el-col> -->
       <el-col :span="1.5">
         <el-button
           type="warning"
@@ -152,36 +151,89 @@
           <span v-if="scope.row.shopId==5">梦小妮潮流女装</span>
         </template>
       </el-table-column>
-      <el-table-column label="订单类型" align="center" prop="tradeType" />
-      <el-table-column label="成交状态" align="center" prop="confirmStatus" />
+      <el-table-column label="商品" prop="pddOrderItemList" width="350">
+          <template slot-scope="scope">
+            <el-row v-for="item in scope.row.pddOrderItemList" :key="item.id" :gutter="20">
+              <!-- <div class="container">
+                <img :src="item.goodsImage"  style="width: 70px; height: 70px" alt="your-image-description">
+                <p>your text here</p>
+              </div> -->
+
+              <!-- <div style="width: 75px;">
+                  <el-image  style="width: 70px; height: 70px" :src="item.goodsImage"></el-image>
+            </div> -->
+            <div style="float: left;display: flex;align-items: center;" >
+              <el-image  style="width: 70px; height: 70px;" :src="item.goodsImage"></el-image>
+              <div style="margin-left:10px">
+              <p>{{item.goodsName}}</p>
+              <p>{{item.goodsSpec}}</p>
+              <p>
+                <el-tag size="small">x {{item.quantity}}</el-tag>
+                </p>
+              </div>
+            </div>
+     
+
+            </el-row>
+          </template>
+      </el-table-column>
+      <!-- <el-table-column label="订单类型" align="center" prop="tradeType" /> -->
+      <!-- <el-table-column label="成交状态" align="center" prop="confirmStatus" /> -->
 <!--      <el-table-column label="是否顺丰包邮，1-是 0-否" align="center" prop="freeSf" />-->
 <!--      <el-table-column label="成团状态：0：拼团中、1：已成团、2：团失败" align="center" prop="groupStatus" />-->
-      <el-table-column label="团长免单金额，单位：元" align="center" prop="capitalFreeDiscount" />
-      <el-table-column label="商家优惠金额，单位：元" align="center" prop="sellerDiscount" />
-      <el-table-column label="平台优惠金额，单位：元" align="center" prop="platformDiscount" />
-      <el-table-column label="订单备注" align="center" prop="remark" />
-      <el-table-column label="更新时间" align="center" prop="updatedAt" />
-      <el-table-column label="售后状态" align="center" prop="refundStatus" />
-<!--      <el-table-column label="是否是抽奖订单，1-非抽奖订单，2-抽奖订单" align="center" prop="isLuckyFlag" />-->
-      <el-table-column label="订单状态" align="center" prop="orderStatus" />
-      <el-table-column label="发货时间" align="center" prop="shippingTime" />
-      <el-table-column label="快递单号" align="center" prop="trackingNumber" />
-      <el-table-column label="物流公司" align="center" prop="trackingCompany" />
-      <el-table-column label="支付方式" align="center" prop="payType" />
-<!--      <el-table-column label="支付单号" align="center" prop="payNo" />-->
-      <el-table-column label="邮费" align="center" prop="postage" />
-      <el-table-column label="折扣金额" align="center" prop="discountAmount" />
+      <!-- <el-table-column label="邮费" align="center" prop="postage" />
+      <el-table-column label="折扣金额" align="center" prop="discountAmount" /> -->
       <el-table-column label="商品金额" align="center" prop="goodsAmount" />
-      <el-table-column label="支付金额" align="center" prop="payAmount" />
+      <el-table-column label="实付金额" align="center" prop="payAmount" />
+     <!--  <el-table-column label="团长免单金额，单位：元" align="center" prop="capitalFreeDiscount" />
+      <el-table-column label="商家优惠金额，单位：元" align="center" prop="sellerDiscount" />
+      <el-table-column label="平台优惠金额，单位：元" align="center" prop="platformDiscount" /> -->
+      <!-- <el-table-column label="订单备注" align="center" prop="remark" /> -->
+      <!-- <el-table-column label="更新时间" align="center" prop="updatedAt" /> -->
+      <el-table-column label="状态" align="center" prop="orderStatus" >
+         <template slot-scope="scope">
+          <el-tag size="small" v-if="scope.row.orderStatus === 1"> 待发货</el-tag>
+          <el-tag size="small" v-if="scope.row.orderStatus === 2"> 已发货</el-tag>
+          <el-tag size="small" v-if="scope.row.orderStatus === 3"> 已签收</el-tag>
+          <span></span>
+          <el-tag size="small" v-if="scope.row.refundStatus === 1" style="margin-top: 5px;"> 无售后或售后关闭</el-tag>
+          <el-tag size="small" v-if="scope.row.refundStatus === 2" style="margin-top: 5px;"> 售后处理中</el-tag>
+          <el-tag size="small" v-if="scope.row.refundStatus === 3" style="margin-top: 5px;"> 退款中</el-tag>
+          <el-tag size="small" v-if="scope.row.refundStatus === 4" style="margin-top: 5px;"> 退款成功</el-tag>
+          
+          <el-tag size="small" v-if="scope.row.auditStatus === 0" style="margin-top: 5px;"> 待确认</el-tag>
+          <el-tag size="small" v-if="scope.row.auditStatus === 1" style="margin-top: 5px;"> 已确认</el-tag>
+          <el-tag size="small" v-if="scope.row.auditStatus === 2" style="margin-top: 5px;"> 已拦截</el-tag>
+        </template>
+      </el-table-column>
+<!--      <el-table-column label="是否是抽奖订单，1-非抽奖订单，2-抽奖订单" align="center" prop="isLuckyFlag" />-->
+      <!-- <el-table-column label="订单状态" align="center" prop="orderStatus" /> -->
+      <el-table-column label="发货物流" align="center" prop="trackingNumber">
+        <template slot-scope="scope">
+          {{scope.row.trackingNumber}}<br/>
+          {{scope.row.shippingTime}}
+        </template>
+      </el-table-column>
+      <!-- <el-table-column label="发货时间" align="center" prop="shipping_time" /> -->
+      <!-- <el-table-column label="快递单号" align="center" prop="trackingNumber" /> -->
+      <!-- <el-table-column label="物流公司" align="center" prop="trackingCompany" /> -->
+      <!-- <el-table-column label="支付方式" align="center" prop="payType" /> -->
+<!--      <el-table-column label="支付单号" align="center" prop="payNo" />-->
+      
 <!--      <el-table-column label="收件人电话" align="center" prop="receiverPhone" />-->
 <!--      <el-table-column label="收件人姓名" align="center" prop="receiverName" />-->
-      <el-table-column label="收件人" align="center" prop="receiverName1" />
+      <el-table-column label="收件人" align="center" prop="receiverName1" >
+        <template slot-scope="scope">
+          {{scope.row.receiverName1}}<br/>
+          {{scope.row.province}}{{scope.row.city}}
+        </template>
+      </el-table-column>
 <!--      <el-table-column label="手机号" align="center" prop="receiverPhone1" />-->
 <!--      <el-table-column label="${comment}" align="center" prop="receiverAddress1" />-->
 <!--      <el-table-column label="详细地址" align="center" prop="address" />-->
-      <el-table-column label="区县" align="center" prop="town" />
+      <!-- <el-table-column label="区县" align="center" prop="town" />
       <el-table-column label="市" align="center" prop="city" />
-      <el-table-column label="省" align="center" prop="province" />
+      <el-table-column label="省" align="center" prop="province" /> -->
 <!--      <el-table-column label="国家地区" align="center" prop="country" />-->
       <el-table-column label="订单创建时间" align="center" prop="createdTime" width="180">
         <template slot-scope="scope">
@@ -192,14 +244,14 @@
 <!--      <el-table-column label="成交时间" align="center" prop="confirmTime" />-->
 <!--      <el-table-column label="确认收货时间" align="center" prop="receiveTime" />-->
       <el-table-column label="买家留言信息" align="center" prop="buyerMemo" />
-      <el-table-column label="售后状态" align="center" prop="afterSalesStatus" />
+      <!-- <el-table-column label="售后状态" align="center" prop="afterSalesStatus" /> -->
 <!--      <el-table-column label="订单成交时间" align="center" prop="orderConfirmTime" />-->
-      <el-table-column label="订单承诺发货时间" align="center" prop="lastShipTime" />
-      <el-table-column label="审核状态" align="center" prop="auditStatus" />
+      <!-- <el-table-column label="订单承诺发货时间" align="center" prop="lastShipTime" /> -->
+      <!-- <el-table-column label="审核状态" align="center" prop="auditStatus" /> -->
 <!--      <el-table-column label="结算状态" align="center" prop="settlementStatus" />-->
-      <el-table-column label="发货状态" align="center" prop="shipStatus" />
+      <!-- <el-table-column label="发货状态" align="center" prop="shipStatus" /> -->
 <!--      <el-table-column label="发货时间" align="center" prop="shipTime" />-->
-      <el-table-column label="标签" align="center" prop="tag" />
+      <!-- <el-table-column label="标签" align="center" prop="tag" /> -->
 <!--      <el-table-column label="导入文件id" align="center" prop="excelLogId" />-->
 <!--      <el-table-column label="导入结果" align="center" prop="excelMsg" />-->
 <!--      <el-table-column label="打印密文" align="center" prop="encryptedData" />-->
@@ -218,19 +270,20 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
+          v-if="scope.row.auditStatus === 0"
             size="mini"
-            type="text"
-            icon="el-icon-edit"
+            type="success"
+            icon="el-icon-success"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['pdd:order:edit']"
-          >修改</el-button>
-          <el-button
+          >确认订单</el-button>
+          <!-- <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['pdd:order:remove']"
-          >删除</el-button>
+          >删除</el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -804,3 +857,4 @@ export default {
   }
 };
 </script>
+
