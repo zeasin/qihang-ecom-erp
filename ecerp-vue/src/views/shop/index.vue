@@ -16,7 +16,7 @@
           clearable
           @keyup.enter.native="handleQuery"
         /> -->
-        <el-select v-model="queryParams.type" placeholder="请选择平台">
+        <el-select v-model="queryParams.type" placeholder="请选择平台" clearable>
          <el-option
             v-for="item in typeList"
             :key="item.value"
@@ -140,7 +140,7 @@
           <el-input v-model="form.name" placeholder="请输入店铺名" />
         </el-form-item>
         <el-form-item label="平台" prop="type">
-          <el-select v-model="queryParams.type" placeholder="请选择店铺">
+          <el-select v-model="form.type" placeholder="请选择店铺">
            <el-option
               v-for="item in typeList"
               :key="item.value"
@@ -152,45 +152,11 @@
         <el-form-item label="店铺别名" prop="nickName">
           <el-input v-model="form.nickName" placeholder="请输入店铺别名" />
         </el-form-item>
-        <el-form-item label="标识" prop="ename">
-          <el-input v-model="form.ename" placeholder="请输入标识" />
-        </el-form-item>
-        <el-form-item label="店铺主体" prop="company">
-          <el-input v-model="form.company" placeholder="请输入店铺主体" />
-        </el-form-item>
-        <el-form-item label="店铺url" prop="url">
-          <el-input v-model="form.url" placeholder="请输入店铺url" />
-        </el-form-item>
-        <el-form-item label="排序" prop="orderNum">
-          <el-input v-model="form.orderNum" placeholder="请输入排序" />
-        </el-form-item>
-        <el-form-item label="是否删除0否1是" prop="isDelete">
-          <el-input v-model="form.isDelete" placeholder="请输入是否删除0否1是" />
-        </el-form-item>
-        <el-form-item label="是否显示(0：是1否）" prop="isShow">
-          <el-input v-model="form.isShow" placeholder="请输入是否显示(0：是1否）" />
-        </el-form-item>
-        <el-form-item label="更新时间" prop="modifyOn">
-          <el-input v-model="form.modifyOn" placeholder="请输入更新时间" />
-        </el-form-item>
+        
         <el-form-item label="描述" prop="remark">
-          <el-input v-model="form.remark" placeholder="请输入描述" />
+          <el-input type="textarea" v-model="form.remark" placeholder="请输入描述" />
         </el-form-item>
-        <el-form-item label="第三方平台店铺id，淘宝天猫开放平台使用" prop="sellerUserId">
-          <el-input v-model="form.sellerUserId" placeholder="请输入第三方平台店铺id，淘宝天猫开放平台使用" />
-        </el-form-item>
-        <el-form-item label="卖家userId" prop="sellerUserIdStr">
-          <el-input v-model="form.sellerUserIdStr" placeholder="请输入卖家userId" />
-        </el-form-item>
-        <el-form-item label="第三方平台sessionKey" prop="sessionKey">
-          <el-input v-model="form.sessionKey" placeholder="请输入第三方平台sessionKey" />
-        </el-form-item>
-        <el-form-item label="Appkey暂时抖音用" prop="appkey">
-          <el-input v-model="form.appkey" placeholder="请输入Appkey暂时抖音用" />
-        </el-form-item>
-        <el-form-item label="Appsercet暂时抖音用" prop="appSercet">
-          <el-input v-model="form.appSercet" placeholder="请输入Appsercet暂时抖音用" />
-        </el-form-item>
+        
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -243,46 +209,20 @@ export default {
         pageNum: 1,
         pageSize: 10,
         name: null,
-        nickName: null,
-        ename: null,
-        company: null,
-        type: null,
-        url: null,
-        orderNum: null,
-        isDelete: null,
-        isShow: null,
-        modifyOn: null,
-        sellerUserId: null,
-        sellerUserIdStr: null,
-        sessionKey: null,
-        appkey: null,
-        appSercet: null
+        type: null
       },
       // 表单参数
-      form: {},
+      form: {
+        type:null
+      },
       // 表单校验
       rules: {
         name: [
           { required: true, message: "店铺名不能为空", trigger: "blur" }
         ],
         type: [
-          { required: true, message: "对应第三方平台Id不能为空", trigger: "change" }
-        ],
-        orderNum: [
-          { required: true, message: "排序不能为空", trigger: "blur" }
-        ],
-        isDelete: [
-          { required: true, message: "是否删除0否1是不能为空", trigger: "blur" }
-        ],
-        modifyOn: [
-          { required: true, message: "更新时间不能为空", trigger: "blur" }
-        ],
-        sellerUserId: [
-          { required: true, message: "第三方平台店铺id，淘宝天猫开放平台使用不能为空", trigger: "blur" }
-        ],
-        sellerUserIdStr: [
-          { required: true, message: "卖家userId不能为空", trigger: "blur" }
-        ],
+          { required: true, message: "请选择平台", trigger: "change" }
+        ]
       }
     };
   },
