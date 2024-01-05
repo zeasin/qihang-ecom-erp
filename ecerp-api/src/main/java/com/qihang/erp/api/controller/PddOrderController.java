@@ -81,6 +81,8 @@ public class PddOrderController extends BaseController
     {
         Integer result = pddOrderService.insertPddOrder(pddOrder);
         if(result == -1) return new AjaxResult(505,"订单号已存在");
+        else if(result == -2) return new AjaxResult(506,"请添加商品");
+        else if(result == -3) return new AjaxResult(507,"商品数据错误");
         return toAjax(result);
     }
 
