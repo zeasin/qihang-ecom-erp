@@ -243,7 +243,7 @@
     <el-dialog :title="title" :visible.sync="open" width="1100px" append-to-body :close-on-click-modal="false">
       <el-form ref="form" :model="form" :rules="rules" label-width="180px" inline>
         <el-form-item label="淘宝订单ID" prop="id">
-          <el-input v-model="form.id" placeholder="请输入淘宝订单ID" style="width:250px"/>
+          <el-input v-model="form.id" placeholder="请输入淘宝订单ID" style="width:250px" :disabled="isAudit"/>
         </el-form-item>
         <el-form-item label="店铺" prop="shopId">
           <!-- <el-input v-model="form.shopId" placeholder="请输入订单所属商户id" /> -->

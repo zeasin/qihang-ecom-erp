@@ -1,6 +1,8 @@
 package com.qihang.erp.api.service.impl;
 
 import java.util.List;
+
+import com.qihang.erp.api.domain.TaoOrderItem;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +47,12 @@ public class XhsOrderServiceImpl implements IXhsOrderService
     @Override
     public List<XhsOrder> selectXhsOrderList(XhsOrder xhsOrder)
     {
-        return xhsOrderMapper.selectXhsOrderList(xhsOrder);
+        var orderList = xhsOrderMapper.selectXhsOrderList(xhsOrder);
+        for (var o:orderList) {
+            List<XhsOrderItem> items = xhsOrderMapper.selectOrderItemByOrderId(o.getId());
+            o.setXhsOrderItemList(items);
+        }
+        return orderList;
     }
 
     /**

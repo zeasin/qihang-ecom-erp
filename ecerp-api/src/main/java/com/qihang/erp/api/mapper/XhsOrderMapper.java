@@ -1,6 +1,8 @@
 package com.qihang.erp.api.mapper;
 
 import java.util.List;
+
+import com.qihang.erp.api.domain.TaoOrderItem;
 import com.qihang.erp.api.domain.XhsOrder;
 import com.qihang.erp.api.domain.XhsOrderItem;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,6 +31,7 @@ public interface XhsOrderMapper
      * @return 小红书订单集合
      */
     public List<XhsOrder> selectXhsOrderList(XhsOrder xhsOrder);
+    List<XhsOrderItem> selectOrderItemByOrderId(Long orderId);
 
     /**
      * 新增小红书订单
