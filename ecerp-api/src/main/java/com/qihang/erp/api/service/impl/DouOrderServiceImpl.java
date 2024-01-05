@@ -45,7 +45,12 @@ public class DouOrderServiceImpl implements IDouOrderService
     @Override
     public List<DouOrder> selectDouOrderList(DouOrder douOrder)
     {
-        return douOrderMapper.selectDouOrderList(douOrder);
+        List<DouOrder> douOrders = douOrderMapper.selectDouOrderList(douOrder);
+        for (var o:douOrders) {
+            List<DouOrderItem> items = douOrderMapper.selectOrderItemByOrderId(o.getId());
+            o.setDouOrderItemList(items);
+        }
+        return douOrders;
     }
 
     /**

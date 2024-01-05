@@ -106,7 +106,7 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['pdd:order:add']"
-        >新增</el-button>
+        >手动添加</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -118,17 +118,16 @@
           v-hasPermi="['pdd:order:edit']"
         >Execl导入</el-button>
       </el-col>
-      <!-- <el-col :span="1.5">
+      <el-col :span="1.5">
         <el-button
           type="danger"
           plain
-          icon="el-icon-delete"
+          icon="el-icon-download"
           size="mini"
-          :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['pdd:order:remove']"
-        >删除</el-button>
-      </el-col> -->
+        >API拉取订单</el-button>
+      </el-col>
       <el-col :span="1.5">
         <el-button
           type="warning"
@@ -137,7 +136,7 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['pdd:order:export']"
-        >导出</el-button>
+        >导出订单</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -748,13 +747,14 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除拼多多订单编号为"' + ids + '"的数据项？').then(function() {
-        return delOrder(ids);
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
+      this.$modal.msgSuccess("请先配置API");
+      // const ids = row.id || this.ids;
+      // this.$modal.confirm('是否确认删除拼多多订单编号为"' + ids + '"的数据项？').then(function() {
+      //   return delOrder(ids);
+      // }).then(() => {
+      //   this.getList();
+      //   this.$modal.msgSuccess("删除成功");
+      // }).catch(() => {});
     },
 	/** 拼多多订单明细序号 */
     rowPddOrderItemIndex({ row, rowIndex }) {

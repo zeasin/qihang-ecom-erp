@@ -76,29 +76,28 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['dou:order:add']"
-        >新增</el-button>
+        >手动添加</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
           type="success"
           plain
-          icon="el-icon-edit"
+          icon="el-icon-upload"
           size="mini"
-          :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['dou:order:edit']"
-        >修改</el-button>
+        >Execl导入</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
           type="danger"
           plain
-          icon="el-icon-delete"
+          icon="el-icon-download"
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['dou:order:remove']"
-        >删除</el-button>
+        >API拉取订单</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -108,7 +107,7 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['dou:order:export']"
-        >导出</el-button>
+        >导出订单</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -117,51 +116,89 @@
       <el-table-column type="selection" width="55" align="center" />
 <!--      <el-table-column label="订单id，自增" align="center" prop="id" />-->
       <el-table-column label="订单id" align="center" prop="orderId" />
-      <el-table-column label="店铺" align="center" prop="shopId" />
+      <el-table-column label="店铺" align="center" prop="shopId" >
+        <template slot-scope="scope">
+          <span v-if="scope.row.shopId==22">梦小妮牛仔裤</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="商品" width="350">
+          <template slot-scope="scope">
+            <el-row v-for="item in scope.row.douOrderItemList" :key="item.id" :gutter="20">
+              
+            <div style="float: left;display: flex;align-items: center;" >
+              <el-image  style="width: 70px; height: 70px;" :src="item.productPic"></el-image>
+              <div style="margin-left:10px">
+              <p>{{item.productName}}</p>
+              <p>{{item.goodsSpec}}</p>
+              <p>
+                <el-tag size="small">x {{item.comboNum}}</el-tag>
+                </p>
+              </div>
+            </div>
+            </el-row>
+          </template>
+      </el-table-column>
+      <el-table-column label="订单金额" align="center" prop="orderTotalAmount" />
+      <el-table-column label="运费" align="center" prop="postAmount" />
 <!--      <el-table-column label="买家用户名" align="center" prop="userName" />-->
-      <el-table-column label="收货地址" align="center" prop="postAddr" />
+      <!-- <el-table-column label="收货地址" align="center" prop="postAddr" /> -->
 <!--      <el-table-column label="邮政编码" align="center" prop="postCode" />-->
-      <el-table-column label="收件人姓名" align="center" prop="postReceiver" />
+      <el-table-column label="收件人" align="center" prop="postReceiver" />
 <!--      <el-table-column label="收件人电话" align="center" prop="postTel" />-->
       <el-table-column label="买家备注" align="center" prop="buyerWords" />
       <el-table-column label="卖家备注" align="center" prop="sellerWords" />
 <!--      <el-table-column label="物流公司id" align="center" prop="logisticsId" />-->
       <el-table-column label="物流单号" align="center" prop="logisticsCode" />
-      <el-table-column label="物流公司" align="center" prop="logisticsCompany" />
-      <el-table-column label="发货时间" align="center" prop="logisticsTime" width="180">
+      <!-- <el-table-column label="物流公司" align="center" prop="logisticsCompany" /> -->
+      <!-- <el-table-column label="发货时间" align="center" prop="logisticsTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.logisticsTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="收货时间" align="center" prop="receiptTime" />
-      <el-table-column label="订单状态" align="center" prop="orderStatus" />
-      <el-table-column label="订单状态" align="center" prop="orderStatusStr" />
+      <el-table-column label="收货时间" align="center" prop="receiptTime" /> -->
+      <el-table-column label="订单状态" align="center" prop="orderStatus" >
+        <template slot-scope="scope">
+          <!-- 订单状态1 待确认/待支付（订单创建完毕）105 已支付 2 备货中 101 部分发货 3 已发货（全部发货）4 已取消5 已完成（已收货） -->
+          <el-tag size="small" v-if="scope.row.orderStatus === 1"> 待支付</el-tag>
+          <el-tag size="small" v-if="scope.row.orderStatus === 2"> 备货中</el-tag>
+          <el-tag size="small" v-if="scope.row.orderStatus === 3"> 已发货</el-tag>
+          <el-tag size="small" v-if="scope.row.orderStatus === 4"> 已取消</el-tag>
+          <el-tag size="small" v-if="scope.row.orderStatus === 5"> 已完成</el-tag>
+          <span></span>
+
+          <el-tag size="small" v-if="scope.row.auditStatus === 0" style="margin-top: 5px;"> 待确认</el-tag>
+          <el-tag size="small" v-if="scope.row.auditStatus === 1" style="margin-top: 5px;"> 已确认</el-tag>
+          <el-tag size="small" v-if="scope.row.auditStatus === 2" style="margin-top: 5px;"> 已拦截</el-tag>
+
+        </template>
+      </el-table-column>
+      <!-- <el-table-column label="订单状态" align="center" prop="orderStatusStr" /> -->
       <el-table-column label="订单创建时间" align="center" prop="orderCreateTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.orderCreateTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="最晚发货时间" align="center" prop="expShipTime" width="180">
+      <!-- <el-table-column label="最晚发货时间" align="center" prop="expShipTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.expShipTime, '{y}-{m}-{d}') }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 <!--      <el-table-column label="订单取消原因" align="center" prop="cancelReason" />-->
 <!--      <el-table-column label="【支付类型" align="center" prop="payType" />-->
-      <el-table-column label="支付方式" align="center" prop="payTypeName" />
+      <!-- <el-table-column label="支付方式" align="center" prop="payTypeName" /> -->
 <!--      <el-table-column label="支付时间 (pay_type为0货到付款时, 此字段为空)" align="center" prop="payTime" width="180">-->
 <!--        <template slot-scope="scope">-->
 <!--          <span>{{ parseTime(scope.row.payTime, '{y}-{m}-{d}') }}</span>-->
 <!--        </template>-->
 <!--      </el-table-column>-->
-      <el-table-column label="邮费金额 (单位: 分)" align="center" prop="postAmount" />
-      <el-table-column label="平台优惠券金额 (单位: 分)" align="center" prop="couponAmount" />
-      <el-table-column label="商家优惠券金额 (单位: 分)" align="center" prop="shopCouponAmount" />
+      
+      <!-- <el-table-column label="平台优惠券金额 (单位: 分)" align="center" prop="couponAmount" /> -->
+      <!-- <el-table-column label="商家优惠券金额 (单位: 分)" align="center" prop="shopCouponAmount" /> -->
 <!--      <el-table-column label="优惠券详情 (type为优惠券类型, credit为优惠金额,单位分)" align="center" prop="couponInfo" />-->
-      <el-table-column label="父订单总金额 (单位: 分)" align="center" prop="orderTotalAmount" />
+      
 <!--      <el-table-column label="运费险金额" align="center" prop="postInsuranceAmount" />-->
-      <el-table-column label="是否评价 (1:已评价)" align="center" prop="isComment" />
-      <el-table-column label="订单佣金 (详情见附录)" align="center" prop="cType" />
+      <!-- <el-table-column label="是否评价 (1:已评价)" align="center" prop="isComment" /> -->
+      <!-- <el-table-column label="订单佣金 (详情见附录)" align="center" prop="cType" /> -->
 <!--      <el-table-column label="订单渠道 (站外0 火山1 抖音2 头条3 西瓜4 微信5 闪购6 头条lite版本7 懂车帝8 皮皮虾9)" align="center" prop="bType" />-->
 <!--      <el-table-column label="app渠道" align="center" prop="appSource" />-->
 <!--      <el-table-column label="流量来源" align="center" prop="trafficeSource" />-->
@@ -171,18 +208,18 @@
 <!--          <span>{{ parseTime(scope.row.createdTime, '{y}-{m}-{d}') }}</span>-->
 <!--        </template>-->
 <!--      </el-table-column>-->
-      <el-table-column label="发货状态" align="center" prop="sendStatus" />
+     <!--  <el-table-column label="发货状态" align="center" prop="sendStatus" />
       <el-table-column label="发货时间" align="center" prop="sendTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.sendTime, '{y}-{m}-{d}') }}</span>
         </template>
-      </el-table-column>
-      <el-table-column label="订单审核状态" align="center" prop="auditStatus" />
+      </el-table-column> -->
+      <!-- <el-table-column label="订单审核状态" align="center" prop="auditStatus" /> -->
 <!--      <el-table-column label="加密地址详情" align="center" prop="encryptDetail" />-->
-      <el-table-column label="省" align="center" prop="province" />
-      <el-table-column label="市" align="center" prop="city" />
-      <el-table-column label="区" align="center" prop="town" />
-      <el-table-column label="街道" align="center" prop="street" />
+      <!-- <el-table-column label="省" align="center" prop="province" /> -->
+      <!-- <el-table-column label="市" align="center" prop="city" /> -->
+      <!-- <el-table-column label="区" align="center" prop="town" /> -->
+      <!-- <el-table-column label="街道" align="center" prop="street" /> -->
 <!--      <el-table-column label="发货时间" align="center" prop="shipTime" />-->
 <!--      <el-table-column label="0、普通 1、拼团 2、定金预售 3、订金找贷 4、拍卖 5、0元单 6、回收 7、寄卖" align="center" prop="tradeType" />-->
 <!--      <el-table-column label="加密电话" align="center" prop="encryptPostTel" />-->
@@ -201,7 +238,7 @@
 <!--      <el-table-column label="是否结算" align="center" prop="settlementStatus" />-->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button
+          <!-- <el-button
             size="mini"
             type="text"
             icon="el-icon-edit"
@@ -215,7 +252,7 @@
             @click="handleDelete(scope.row)"
             v-hasPermi="['dou:order:remove']"
           >删除</el-button>
-        </template>
+        </template> -->
       </el-table-column>
     </el-table>
 
