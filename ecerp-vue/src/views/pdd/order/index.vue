@@ -11,7 +11,7 @@
       </el-form-item>
       <el-form-item label="店铺" prop="shopId">
         
-        <el-select v-model="queryParams.shopId" placeholder="请选择店铺" @change="handleQuery">
+        <el-select v-model="queryParams.shopId" placeholder="请选择店铺" clearable @change="handleQuery">
          <el-option
             v-for="item in shopList"
             :key="item.id"

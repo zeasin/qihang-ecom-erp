@@ -10,15 +10,23 @@
         />
       </el-form-item>
       <el-form-item label="店铺" prop="shopId">
-        <el-input
+        <!-- <el-input
           v-model="queryParams.shopId"
           placeholder="请输入店铺"
           clearable
           @keyup.enter.native="handleQuery"
-        />
+        /> -->
+        <el-select v-model="queryParams.shopId" placeholder="请选择店铺" clearable @change="handleQuery">
+         <el-option
+            v-for="item in shopList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id">
+          </el-option>
+        </el-select>
       </el-form-item>
 
-      <el-form-item label="订单创建时间" prop="orderCreateTime">
+      <el-form-item label="下单日期" prop="orderCreateTime">
         <el-date-picker clearable
           v-model="queryParams.orderCreateTime"
           type="date"
@@ -101,7 +109,11 @@
     <el-table v-loading="loading" :data="orderList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="订单号" align="center" prop="id" />
-      <el-table-column label="店铺" align="center" prop="shopId" />
+      <el-table-column label="店铺" align="center" prop="shopId" >
+       <template slot-scope="scope">
+          <span v-if="scope.row.shopId==6">梦小妮牛仔裤</span>
+        </template>
+      </el-table-column>
       <el-table-column label="商品" width="350">
           <template slot-scope="scope">
             <el-row v-for="item in scope.row.taoOrderItemList" :key="item.id" :gutter="20">
@@ -144,12 +156,27 @@
           <span>{{ parseTime(scope.row.completeTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column> -->
-      <el-table-column label="卖家备注" align="center" prop="sellerMemo" />
+      <!-- <el-table-column label="卖家备注" align="center" prop="sellerMemo" /> -->
       <el-table-column label="买家留言" align="center" prop="buyerFeedback" />
 <!--      <el-table-column label="关闭原因。buyerCancel:买家取消订单，sellerGoodsLack:卖家库存不足，other:其它" align="center" prop="closeReason" />-->
 
-      <el-table-column label="订单状态" align="center" prop="statusStr" />
-      <el-table-column label="交易状态" align="center" prop="status" />
+      <!-- <el-table-column label="订单状态" align="center" prop="statusStr" /> -->
+      <el-table-column label="订单状态" align="center" prop="status" >
+         <template slot-scope="scope">
+          
+          <el-tag size="small" v-if="scope.row.status === 1"> 待支付</el-tag>
+          <el-tag size="small" v-if="scope.row.status === 2"> 待发货</el-tag>
+          <el-tag size="small" v-if="scope.row.status === 3"> 已发货</el-tag>
+          <el-tag size="small" v-if="scope.row.status === 4"> 已取消</el-tag>
+          <el-tag size="small" v-if="scope.row.status === 5"> 已完成</el-tag>
+          <span></span>
+
+          <el-tag size="small" v-if="scope.row.auditStatus === 0" style="margin-top: 5px;"> 待确认</el-tag>
+          <el-tag size="small" v-if="scope.row.auditStatus === 1" style="margin-top: 5px;"> 已确认</el-tag>
+          <el-tag size="small" v-if="scope.row.auditStatus === 2" style="margin-top: 5px;"> 已拦截</el-tag>
+
+        </template>
+      </el-table-column>
       <!-- <el-table-column label="快递公司" align="center" prop="logisticsCompany" /> -->
 <!--      <el-table-column label="快递公司编码" align="center" prop="logisticsCompanyCode" />-->
       <el-table-column label="快递单号" align="center" prop="logisticsCode" />
@@ -213,144 +240,78 @@
     />
 
     <!-- 添加或修改淘宝订单对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="店铺id" prop="shopId">
-          <el-input v-model="form.shopId" placeholder="请输入店铺id" />
+    <el-dialog :title="title" :visible.sync="open" width="1100px" append-to-body :close-on-click-modal="false">
+      <el-form ref="form" :model="form" :rules="rules" label-width="180px" inline>
+        <el-form-item label="淘宝订单ID" prop="id">
+          <el-input v-model="form.id" placeholder="请输入淘宝订单ID" style="width:250px"/>
         </el-form-item>
-        <el-form-item label="订单来源0天猫1淘宝" prop="orderSource">
-          <el-input v-model="form.orderSource" placeholder="请输入订单来源0天猫1淘宝" />
+        <el-form-item label="店铺" prop="shopId">
+          <!-- <el-input v-model="form.shopId" placeholder="请输入订单所属商户id" /> -->
+          <el-select v-model="form.shopId" placeholder="请选择店铺" style="width:250px" :disabled="isAudit">
+           <el-option style="width:250px"
+              v-for="item in shopList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id" >
+            </el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="买家昵称" prop="buyerName">
-          <el-input v-model="form.buyerName" placeholder="请输入买家昵称" />
-        </el-form-item>
-        <el-form-item label="应付款总金额，totalAmount = ∑itemAmount + shippingFee，单位为元" prop="totalAmount">
-          <el-input v-model="form.totalAmount" placeholder="请输入应付款总金额，totalAmount = ∑itemAmount + shippingFee，单位为元" />
-        </el-form-item>
-        <el-form-item label="运费" prop="shippingFee">
-          <el-input v-model="form.shippingFee" placeholder="请输入运费" />
-        </el-form-item>
-        <el-form-item label="优惠金额" prop="discountAmount">
-          <el-input v-model="form.discountAmount" placeholder="请输入优惠金额" />
-        </el-form-item>
-        <el-form-item label="实际支付金额" prop="payAmount">
-          <el-input v-model="form.payAmount" placeholder="请输入实际支付金额" />
-        </el-form-item>
-        <el-form-item label="优惠描述" prop="discountRemark">
-          <el-input v-model="form.discountRemark" placeholder="请输入优惠描述" />
+        <el-form-item label="订单来源" prop="orderSource">
+          <!-- <el-input v-model="form.orderSource" placeholder="请输入订单来源0天猫1淘宝" /> -->
+          <el-select v-model="form.orderSource" placeholder="订单来源0天猫1淘宝" style="width:250px" :disabled="isAudit">
+           <el-option label="淘宝" value="1"></el-option>
+           <el-option label="天猫" value="0"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="订单创建时间" prop="orderCreateTime">
-          <el-date-picker clearable
+          <el-date-picker clearable style="width:250px"
             v-model="form.orderCreateTime"
-            type="date"
-            value-format="yyyy-MM-dd"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="请选择订单创建时间">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="订单修改时间" prop="orderModifyTime">
-          <el-date-picker clearable
-            v-model="form.orderModifyTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择订单修改时间">
-          </el-date-picker>
+        <el-form-item label="收件人姓名" prop="receiver">
+          <el-input v-model="form.receiver" placeholder="请输入收件人姓名" style="width:250px"/>
         </el-form-item>
-        <el-form-item label="付款时间，如果有多次付款，这里返回的是首次付款时间" prop="payTime">
-          <el-date-picker clearable
-            v-model="form.payTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择付款时间，如果有多次付款，这里返回的是首次付款时间">
-          </el-date-picker>
+        <el-form-item label="收件人电话" prop="phone">
+          <el-input v-model="form.phone" placeholder="请输入收件人电话" style="width:250px"/>
         </el-form-item>
-        <el-form-item label="确认时间" prop="confirmedTime">
-          <el-date-picker clearable
-            v-model="form.confirmedTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择确认时间">
-          </el-date-picker>
+        <el-form-item label="省市区" prop="provinces">
+          <el-cascader style="width:250px"
+            size="large"
+            :options="pcaTextArr"
+            v-model="form.provinces">
+          </el-cascader>
         </el-form-item>
-        <el-form-item label="发货时间" prop="deliveredTime">
-          <el-date-picker clearable
-            v-model="form.deliveredTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择发货时间">
-          </el-date-picker>
+        <el-form-item label="详细地址" prop="postAddr">
+          <el-input v-model="form.address" placeholder="请输入详细地址" style="width:250px" />
         </el-form-item>
-        <el-form-item label="完成时间" prop="completeTime">
-          <el-date-picker clearable
-            v-model="form.completeTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择完成时间">
-          </el-date-picker>
-        </el-form-item>
+        
+     
+        
+        
+        
+        
         <el-form-item label="卖家备忘信息" prop="sellerMemo">
-          <el-input v-model="form.sellerMemo" placeholder="请输入卖家备忘信息" />
+          <el-input type="textarea" v-model="form.sellerMemo" placeholder="请输入卖家备忘信息" style="width:250px" />
         </el-form-item>
-        <el-form-item label="买家留言，不超过500字" prop="buyerFeedback">
-          <el-input v-model="form.buyerFeedback" type="textarea" placeholder="请输入内容" />
+        <el-form-item label="买家留言" prop="buyerFeedback">
+          <el-input type="textarea" v-model="form.buyerFeedback" placeholder="买家留言，不超过500字" style="width:250px"/>
         </el-form-item>
-        <el-form-item label="关闭原因。buyerCancel:买家取消订单，sellerGoodsLack:卖家库存不足，other:其它" prop="closeReason">
-          <el-input v-model="form.closeReason" placeholder="请输入关闭原因。buyerCancel:买家取消订单，sellerGoodsLack:卖家库存不足，other:其它" />
-        </el-form-item>
-        <el-form-item label="收货时间，这里返回的是完全收货时间" prop="receivingTime">
-          <el-date-picker clearable
-            v-model="form.receivingTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择收货时间，这里返回的是完全收货时间">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="订单状态" prop="statusStr">
+       
+        <!-- <el-form-item label="订单状态" prop="statusStr">
           <el-input v-model="form.statusStr" placeholder="请输入订单状态" />
-        </el-form-item>
-        <el-form-item label="快递公司" prop="logisticsCompany">
-          <el-input v-model="form.logisticsCompany" placeholder="请输入快递公司" />
-        </el-form-item>
-        <el-form-item label="快递公司编码" prop="logisticsCompanyCode">
-          <el-input v-model="form.logisticsCompanyCode" placeholder="请输入快递公司编码" />
-        </el-form-item>
-        <el-form-item label="快递单号" prop="logisticsCode">
-          <el-input v-model="form.logisticsCode" placeholder="请输入快递单号" />
-        </el-form-item>
-        <el-form-item label="退款单ID" prop="refundId">
-          <el-input v-model="form.refundId" placeholder="请输入退款单ID" />
-        </el-form-item>
-        <el-form-item label="退款金额，单位为元" prop="refundAmount">
-          <el-input v-model="form.refundAmount" placeholder="请输入退款金额，单位为元" />
-        </el-form-item>
-        <el-form-item label="订单审核时间" prop="auditTime">
-          <el-date-picker clearable
-            v-model="form.auditTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择订单审核时间">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="仓库发货时间" prop="sendTime">
-          <el-date-picker clearable
-            v-model="form.sendTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择仓库发货时间">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="标签(1：实售2：淘宝客3：刷单4：返现)" prop="tag">
-          <el-input v-model="form.tag" placeholder="请输入标签(1：实售2：淘宝客3：刷单4：返现)" />
+        </el-form-item> -->
+       
+        <el-form-item label="标签" prop="tag">
+          <el-input v-model="form.tag" placeholder="请输入标签(1：实售2：淘宝客3：刷单4：返现)" style="width:250px" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" style="width:250px" />
         </el-form-item>
-        <el-form-item label="是否评价" prop="isComment">
-          <el-input v-model="form.isComment" placeholder="请输入是否评价" />
-        </el-form-item>
-        <el-form-item label="是否合并发货(0:否1:是)" prop="isMerge">
-          <el-input v-model="form.isMerge" placeholder="请输入是否合并发货(0:否1:是)" />
-        </el-form-item>
-        <el-divider content-position="center">淘宝订单明细信息</el-divider>
+        
+        <el-divider content-position="center">订单商品</el-divider>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
             <el-button type="primary" icon="el-icon-plus" size="mini" @click="handleAddTaoOrderItem">添加</el-button>
@@ -359,20 +320,32 @@
             <el-button type="danger" icon="el-icon-delete" size="mini" @click="handleDeleteTaoOrderItem">删除</el-button>
           </el-col>
         </el-row>
-        <el-table :data="taoOrderItemList" :row-class-name="rowTaoOrderItemIndex" @selection-change="handleTaoOrderItemSelectionChange" ref="taoOrderItem">
+        <el-table :data="taoOrderItemList" :row-class-name="rowTaoOrderItemIndex" @selection-change="handleTaoOrderItemSelectionChange" ref="taoOrderItem" style="margin-bottom: 10px;">
           <el-table-column type="selection" width="50" align="center" />
           <el-table-column label="序号" align="center" prop="index" width="50"/>
-          <el-table-column label="天猫子订单id" prop="subItemId" width="150">
+          <el-table-column label="商品" prop="erpGoodsId" width="350" v-if="!isAudit" >
+            <template slot-scope="scope">
+              <el-select v-model="scope.row.erpGoodsSpecId" filterable remote reserve-keyword placeholder="搜索商品" style="width: 330px;"
+                :remote-method="searchSku" :loading="skuListLoading" @change="skuChanage(scope.row)">
+                <el-option v-for="item in skuList" :key="item.id"
+                  :label="item.name + ' - ' + item.colorValue + ' ' + item.sizeValue + ' ' + item.styleValue"
+                  :value="item.id">
+                </el-option>
+              </el-select>
+            </template>
+          </el-table-column>
+          <el-table-column label="商品图片" prop="productImgUrl" >
+            <template slot-scope="scope">
+              <el-image style="width: 70px; height: 70px" :src="scope.row.productImgUrl"></el-image>
+            </template>
+          </el-table-column>
+          <!-- <el-table-column label="天猫子订单id" prop="subItemId" width="150">
             <template slot-scope="scope">
               <el-input v-model="scope.row.subItemId" placeholder="请输入天猫子订单id" />
             </template>
-          </el-table-column>
-          <el-table-column label="明细总金额" prop="itemAmount" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.itemAmount" placeholder="请输入明细总金额" />
-            </template>
-          </el-table-column>
-          <el-table-column label="优惠金额" prop="discountFee" width="150">
+          </el-table-column> -->
+          
+          <!-- <el-table-column label="优惠金额" prop="discountFee" width="150">
             <template slot-scope="scope">
               <el-input v-model="scope.row.discountFee" placeholder="请输入优惠金额" />
             </template>
@@ -411,28 +384,33 @@
             <template slot-scope="scope">
               <el-input v-model="scope.row.skuId" placeholder="请输入天猫的SKUID" />
             </template>
-          </el-table-column>
-          <el-table-column label="单品货号，对应系统sku编码" prop="specNumber" width="150">
+          </el-table-column> -->
+          <el-table-column label="sku编码" prop="specNumber" width="100">
             <template slot-scope="scope">
-              <el-input v-model="scope.row.specNumber" placeholder="请输入单品货号，对应系统sku编码" />
+              <el-input v-model="scope.row.specNumber" placeholder="请输入单品货号，对应系统sku编码" disabled/>
             </template>
           </el-table-column>
-          <el-table-column label="SKU字符串" prop="skuInfo" width="150">
+          <!-- <el-table-column label="SKU字符串" prop="skuInfo" width="150">
             <template slot-scope="scope">
               <el-input v-model="scope.row.skuInfo" placeholder="请输入SKU字符串" />
             </template>
-          </el-table-column>
-          <el-table-column label="实际单价" prop="price" width="150">
+          </el-table-column> -->
+          <el-table-column label="单价" prop="price">
             <template slot-scope="scope">
-              <el-input v-model="scope.row.price" placeholder="请输入实际单价" />
+              <el-input v-model="scope.row.price" placeholder="请输入实际单价" disabled/>
             </template>
           </el-table-column>
-          <el-table-column label="数量" prop="quantity" width="150">
+          <el-table-column label="数量" prop="quantity">
             <template slot-scope="scope">
-              <el-input v-model="scope.row.quantity" placeholder="请输入数量" />
+              <el-input v-model="scope.row.quantity" placeholder="请输入数量"  @input="qtyChange(scope.row)" :disabled="isAudit" />
             </template>
           </el-table-column>
-          <el-table-column label="子订单状态" prop="status" width="150">
+          <el-table-column label="总金额" prop="itemAmount">
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.itemAmount" placeholder="请输入明细总金额" disabled/>
+            </template>
+          </el-table-column>
+         <!--  <el-table-column label="子订单状态" prop="status" width="150">
             <template slot-scope="scope">
               <el-select v-model="scope.row.status" placeholder="请选择子订单状态">
                 <el-option label="请选择字典生成" value="" />
@@ -507,8 +485,20 @@
             <template slot-scope="scope">
               <el-input v-model="scope.row.isSwap" placeholder="请输入是否换货(0:否1:是)" />
             </template>
-          </el-table-column>
+          </el-table-column> -->
         </el-table>
+        <el-form-item label="总金额" prop="totalAmount">
+          <el-input v-model="form.totalAmount" placeholder="请输入应付款总金额，totalAmount = ∑itemAmount + shippingFee，单位为元" style="width:250px"/>
+        </el-form-item>
+        <el-form-item label="运费" prop="shippingFee">
+          <el-input v-model="form.shippingFee" placeholder="请输入运费" style="width:250px"/>
+        </el-form-item>
+        <el-form-item label="优惠金额" prop="discountAmount">
+          <el-input v-model="form.discountAmount" placeholder="请输入优惠金额" style="width:250px"/>
+        </el-form-item>
+        <!-- <el-form-item label="实际支付金额" prop="payAmount">
+          <el-input v-model="form.payAmount" placeholder="请输入实际支付金额" style="width:250px"/>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -520,7 +510,15 @@
 
 <script>
 import { listOrder, getOrder, delOrder, addOrder, updateOrder } from "@/api/tao/order";
-
+import { listShop } from "@/api/shop/shop";
+import { searchSku } from "@/api/goods/goods";
+import {
+  provinceAndCityData,
+  pcTextArr,
+  regionData,
+  pcaTextArr,
+  codeToText,
+} from "element-china-area-data";
 export default {
   name: "Order",
   data() {
@@ -543,6 +541,10 @@ export default {
       orderList: [],
       // 淘宝订单明细表格数据
       taoOrderItemList: [],
+      shopList:[],
+      isAudit:false,
+      skuListLoading:false,
+      skuList:[],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -551,9 +553,8 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        shopId: null,
-        orderSource: null,
-        buyerName: null,
+        shopId: '6',
+        orderSource: '1',
         totalAmount: null,
         shippingFee: null,
         discountAmount: null,
@@ -590,14 +591,42 @@ export default {
         updateBy: null
       },
       // 表单参数
-      form: {},
+      form: {
+        provinces: [],
+        address:null,
+        receiver:null,
+        phone:null,
+        province:null,
+        city:null,
+        town:null
+      },
+      pcaTextArr,
       // 表单校验
       rules: {
-        shopId: [
-          { required: true, message: "店铺id不能为空", trigger: "blur" }
+        id: [
+          { required: true, message: "请输入淘宝订单ID", trigger: "blur" }
         ],
-        buyerName: [
-          { required: true, message: "买家昵称不能为空", trigger: "blur" }
+        shopId: [
+          { required: true, message: "请选择店铺", trigger: "blur" }
+        ],
+        orderSource: [
+          { required: true, message: "请选择订单来源", trigger: "blur" }
+        ],
+        orderCreateTime: [
+          { required: true, message: "订单创建时间不能为空", trigger: "blur" }
+        ],
+        
+        receiver: [
+          { required: true, message: "请填写收件人姓名", trigger: "blur" }
+        ],
+        phone: [
+          { required: true, message: "请填写收件人手机号", trigger: "blur" }
+        ],
+        provinces: [
+          { required: true, message: "请选择省市区", trigger: "blur" }
+        ],
+        address: [
+          { required: true, message: "请填写详细地址", trigger: "change" }
         ],
         totalAmount: [
           { required: true, message: "应付款总金额，totalAmount = ∑itemAmount + shippingFee，单位为元不能为空", trigger: "blur" }
@@ -611,9 +640,7 @@ export default {
         payAmount: [
           { required: true, message: "实际支付金额不能为空", trigger: "blur" }
         ],
-        orderCreateTime: [
-          { required: true, message: "订单创建时间不能为空", trigger: "blur" }
-        ],
+        
         status: [
           { required: true, message: "交易状态，waitbuyerpay:等待买家付款;waitsellersend:等待卖家发货;waitlogisticstakein:等待物流公司揽件;waitbuyerreceive:等待买家收货;waitbuyersign:等待买家签收;signinsuccess:买家已签收;confirm_goods:已收货;success:交易成功;cancel:交易取消;terminated:交易终止;未枚举:其他状态不能为空", trigger: "change" }
         ],
@@ -627,6 +654,9 @@ export default {
     };
   },
   created() {
+    listShop({type:4}).then(response => {
+        this.shopList = response.rows;
+      });
     this.getList();
   },
   methods: {
@@ -649,31 +679,14 @@ export default {
       this.form = {
         id: null,
         shopId: null,
-        orderSource: null,
-        buyerName: null,
+        orderSource: '1',
         totalAmount: null,
-        shippingFee: null,
-        discountAmount: null,
+        shippingFee: 0,
+        discountAmount: 0,
         payAmount: null,
-        discountRemark: null,
-        orderCreateTime: null,
-        orderModifyTime: null,
-        payTime: null,
-        confirmedTime: null,
-        deliveredTime: null,
-        completeTime: null,
         sellerMemo: null,
         buyerFeedback: null,
-        closeReason: null,
-        receivingTime: null,
-        statusStr: null,
         status: null,
-        logisticsCompany: null,
-        logisticsCompanyCode: null,
-        logisticsCode: null,
-        refundId: null,
-        refundAmount: null,
-        refundStatus: null,
         auditStatus: null,
         auditTime: null,
         sendStatus: null,
@@ -709,6 +722,7 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
+      this.isAudit = false
       this.open = true;
       this.title = "添加淘宝订单";
     },
@@ -720,15 +734,19 @@ export default {
         this.form = response.data;
         this.taoOrderItemList = response.data.taoOrderItemList;
         this.open = true;
-        this.title = "修改淘宝订单";
+        this.title = "确认订单";
       });
+      this.isAudit = true
     },
     /** 提交按钮 */
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
+          this.form.province = this.form.provinces[0]
+          this.form.city = this.form.provinces[1]
+          this.form.town = this.form.provinces[2]
           this.form.taoOrderItemList = this.taoOrderItemList;
-          if (this.form.id != null) {
+          if (this.isAudit === true) {
             updateOrder(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
@@ -813,7 +831,52 @@ export default {
       this.download('tao/order/export', {
         ...this.queryParams
       }, `order_${new Date().getTime()}.xlsx`)
-    }
+    },
+    // 搜索SKU
+    searchSku(query) {
+      this.shopLoading = true;
+      const qw = {
+        keyword: query
+      }
+      searchSku(qw).then(res => {
+        this.skuList = res.rows;
+        this.skuListLoading = false;
+      })
+    },
+    skuChanage(row) {
+      console.log('=========',row)
+      const spec = this.skuList.find(x => x.id === row.erpGoodsSpecId);
+      if (spec) {
+        console.log('=========', spec)
+        row.erpGoodsId = spec.goodsId
+        row.price = spec.purPrice
+        row.skuInfo = spec.colorValue + ' ' + spec.sizeValue + ' ' + spec.styleValue
+        row.productImgUrl = spec.colorImage
+        row.goodsNumber = spec.number
+        row.goodsTitle = spec.name
+        row.specNumber = spec.specNum
+        row.isGift = '0'
+        row.quantity = 1
+        row.itemAmount = row.price * row.quantity
+
+        // 计算总金额
+        let goodsAmount = this.form.totalAmount ? parseFloat(this.form.totalAmount):0.0
+        goodsAmount += row.itemAmount
+        this.form.totalAmount = goodsAmount
+      }
+    },
+    qtyChange(row) {
+      console.log('======值变化=====', row)
+      row.itemAmount = row.price * row.comboNum
+      // 计算总金额
+      let goodsAmountNew =0.0
+      this.taoOrderItemList.forEach(x=>{
+        goodsAmountNew+= row.itemAmount
+      })
+      this.form.totalAmount = goodsAmountNew
+
+    },
+  
   }
 };
 </script>

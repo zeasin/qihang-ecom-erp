@@ -16,7 +16,7 @@
           clearable
           @keyup.enter.native="handleQuery"
         /> -->
-        <el-select v-model="queryParams.shopId" placeholder="请选择店铺" @change="handleQuery">
+        <el-select v-model="queryParams.shopId" placeholder="请选择店铺" clearable @change="handleQuery">
          <el-option
             v-for="item in shopList"
             :key="item.id"
@@ -646,6 +646,7 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
+      this.isAudit = false
       this.open = true;
       this.title = "添加抖店订单";
     },
@@ -657,8 +658,9 @@ export default {
         this.form = response.data;
         this.douOrderItemList = response.data.douOrderItemList;
         this.open = true;
-        this.title = "修改抖店订单";
+        this.title = "确认订单";
       });
+      this.isAudit = true
     },
     /** 提交按钮 */
     submitForm() {
