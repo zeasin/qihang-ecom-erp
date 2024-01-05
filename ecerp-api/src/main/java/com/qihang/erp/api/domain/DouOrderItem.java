@@ -28,10 +28,6 @@ public class DouOrderItem extends BaseEntity
     @Excel(name = "子订单id")
     private String subOrderId;
 
-    /** 订单所属商户id */
-    @Excel(name = "订单所属商户id")
-    private Long shopId;
-
     /** 该子订单购买的商品id */
     @Excel(name = "该子订单购买的商品id")
     private String productId;
@@ -66,11 +62,11 @@ public class DouOrderItem extends BaseEntity
 
     /** 邮费金额 (单位: 分) */
     @Excel(name = "邮费金额 (单位: 分)")
-    private Long postAmount;
+    private Double postAmount;
 
     /** 平台优惠券金额 (单位: 分) */
     @Excel(name = "平台优惠券金额 (单位: 分)")
-    private Long couponAmount;
+    private Double couponAmount;
 
     /** 优惠券id */
     @Excel(name = "优惠券id")
@@ -148,15 +144,6 @@ public class DouOrderItem extends BaseEntity
     {
         return subOrderId;
     }
-    public void setShopId(Long shopId) 
-    {
-        this.shopId = shopId;
-    }
-
-    public Long getShopId() 
-    {
-        return shopId;
-    }
     public void setProductId(String productId) 
     {
         this.productId = productId;
@@ -229,21 +216,21 @@ public class DouOrderItem extends BaseEntity
     {
         return comboNum;
     }
-    public void setPostAmount(Long postAmount) 
+    public void setPostAmount(Double postAmount)
     {
         this.postAmount = postAmount;
     }
 
-    public Long getPostAmount() 
+    public Double getPostAmount()
     {
         return postAmount;
     }
-    public void setCouponAmount(Long couponAmount) 
+    public void setCouponAmount(Double couponAmount)
     {
         this.couponAmount = couponAmount;
     }
 
-    public Long getCouponAmount() 
+    public Double getCouponAmount()
     {
         return couponAmount;
     }
