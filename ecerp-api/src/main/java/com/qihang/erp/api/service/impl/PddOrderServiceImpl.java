@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import com.zhijian.common.utils.StringUtils;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.qihang.erp.api.domain.PddOrderItem;
@@ -26,6 +27,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
  * @author qihang
  * @date 2024-01-02
  */
+@Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout=36000,rollbackFor=Exception.class)
 @Service
 public class PddOrderServiceImpl implements IPddOrderService 
 {
@@ -75,13 +77,13 @@ public class PddOrderServiceImpl implements IPddOrderService
         PddOrder order = pddOrderMapper.selectByOrderSn(pddOrder.getOrderSn());
         if (order != null) return -1;
 
-        if (StringUtils.isNotNull(pddOrder.getPddOrderItemList())) {
-            for (PddOrderItem pddOrderItem : pddOrder.getPddOrderItemList()) {
-                if (StringUtils.isNull(pddOrderItem.getErpSpecId())) {
-                    return -3;
-                }
-            }
-        } else return -2;
+//        if (StringUtils.isNotNull(pddOrder.getPddOrderItemList())) {
+//            for (PddOrderItem pddOrderItem : pddOrder.getPddOrderItemList()) {
+//                if (StringUtils.isNull(pddOrderItem.getErpSpecId())) {
+//                    return -3;
+//                }
+//            }
+//        } else return -2;
 
         pddOrder.setTradeType(0L);
         pddOrder.setConfirmStatus(1L);
@@ -107,12 +109,13 @@ public class PddOrderServiceImpl implements IPddOrderService
         }
 
         if (list.size() > 0) {
-//            try {
+            try {
                 pddOrderMapper.batchPddOrderItem(list);
-//            } catch (Exception e) {
-//                //手工回滚异常
-//                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-//            }
+            } catch (Exception e) {
+                //手工回滚异常
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                return -3;
+            }
         }
 
         return rows;
