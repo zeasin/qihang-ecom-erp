@@ -1,8 +1,11 @@
 package com.qihang.erp.api.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.qihang.erp.api.domain.DouOrderItem;
+import com.qihang.erp.api.domain.TaoOrderAddress;
+import com.qihang.erp.api.mapper.TaoOrderAddressMapper;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,8 @@ public class TaoOrderServiceImpl implements ITaoOrderService
 {
     @Autowired
     private TaoOrderMapper taoOrderMapper;
+    @Autowired
+    private TaoOrderAddressMapper addressMapper;
 
     /**
      * 查询淘宝订单
@@ -65,9 +70,28 @@ public class TaoOrderServiceImpl implements ITaoOrderService
     @Override
     public int insertTaoOrder(TaoOrder taoOrder)
     {
+        if(StringUtils.isNull(taoOrder.getShippingFee())) taoOrder.setShippingFee(BigDecimal.ZERO);
+        taoOrder.setTotalAmount(taoOrder.getTotalAmount().add(taoOrder.getShippingFee()));
+        taoOrder.setPayAmount(taoOrder.getTotalAmount());
+        taoOrder.setStatus(2L);
+        taoOrder.setStatusStr("等待发货");
+        taoOrder.setRefundStatus("0");
+        taoOrder.setAuditStatus(0L);
+        taoOrder.setSendStatus(0L);
+        taoOrder.setIsComment(0);
         taoOrder.setCreateTime(DateUtils.getNowDate());
         int rows = taoOrderMapper.insertTaoOrder(taoOrder);
         insertTaoOrderItem(taoOrder);
+        // 添加地址
+        TaoOrderAddress address = new TaoOrderAddress();
+        address.setOrderId(taoOrder.getId());
+        address.setContactPerson(taoOrder.getReceiver());
+        address.setMobile(taoOrder.getPhone());
+        address.setProvince(taoOrder.getProvince());
+        address.setCity(taoOrder.getCity());
+        address.setArea(taoOrder.getTown());
+        address.setAddress(taoOrder.getAddress());
+        addressMapper.insertTaoOrderAddress(address);
         return rows;
     }
 
@@ -129,7 +153,17 @@ public class TaoOrderServiceImpl implements ITaoOrderService
             List<TaoOrderItem> list = new ArrayList<TaoOrderItem>();
             for (TaoOrderItem taoOrderItem : taoOrderItemList)
             {
+                taoOrderItem.setSubItemId(taoOrder.getId());
                 taoOrderItem.setOrderId(id);
+                taoOrderItem.setDiscountFee(BigDecimal.ZERO);
+                taoOrderItem.setAdjustFee(BigDecimal.ZERO);
+                taoOrderItem.setStatus("2");
+                taoOrderItem.setRefundStatus(0L);
+                taoOrderItem.setLogisticsStatus(0L);
+                taoOrderItem.setNewSpecId(0L);
+                taoOrderItem.setAfterSaleState(0L);
+                taoOrderItem.setIsGift(0);
+                taoOrderItem.setIsSwap(0);
                 list.add(taoOrderItem);
             }
             if (list.size() > 0)

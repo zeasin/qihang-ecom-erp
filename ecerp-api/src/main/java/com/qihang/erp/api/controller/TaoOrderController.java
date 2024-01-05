@@ -78,7 +78,9 @@ public class TaoOrderController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody TaoOrder taoOrder)
     {
-        return toAjax(taoOrderService.insertTaoOrder(taoOrder));
+        taoOrder.setCreateBy(getUsername());
+        int result = taoOrderService.insertTaoOrder(taoOrder);
+        return toAjax(result);
     }
 
 //    /**

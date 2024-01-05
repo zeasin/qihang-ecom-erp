@@ -161,10 +161,65 @@ public class TaoOrder extends BaseEntity
     @Excel(name = "是否合并发货(0:否1:是)")
     private Integer isMerge;
 
+    private String receiver;
+    private String phone;
+    private String province;
+    private String city;
+    private String town;
+    private String address;
+
     /** 淘宝订单明细信息 */
     private List<TaoOrderItem> taoOrderItemList;
 
-    public void setId(Long id) 
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }
