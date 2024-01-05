@@ -251,8 +251,8 @@
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['dou:order:remove']"
-          >删除</el-button>
-        </template> -->
+          >删除</el-button> -->
+        </template>
       </el-table-column>
     </el-table>
 
