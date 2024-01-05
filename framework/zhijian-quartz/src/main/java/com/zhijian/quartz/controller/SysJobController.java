@@ -47,7 +47,7 @@ public class SysJobController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(SysJob sysJob)
     {
-        startPage();
+        startPage(false);
         List<SysJob> list = jobService.selectJobList(sysJob);
         return getDataTable(list);
     }

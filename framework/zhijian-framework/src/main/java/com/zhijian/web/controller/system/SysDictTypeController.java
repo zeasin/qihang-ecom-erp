@@ -38,7 +38,7 @@ public class SysDictTypeController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(SysDictType dictType)
     {
-        startPage();
+        startPage(false);
         List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
         return getDataTable(list);
     }

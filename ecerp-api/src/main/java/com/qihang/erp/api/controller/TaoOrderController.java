@@ -43,6 +43,7 @@ public class TaoOrderController extends BaseController
     {
         startPage();
         List<TaoOrder> list = taoOrderService.selectTaoOrderList(taoOrder);
+
         return getDataTable(list);
     }
 
@@ -80,25 +81,25 @@ public class TaoOrderController extends BaseController
         return toAjax(taoOrderService.insertTaoOrder(taoOrder));
     }
 
-    /**
-     * 修改淘宝订单
-     */
-    @PreAuthorize("@ss.hasPermi('tao:order:edit')")
-    @Log(title = "淘宝订单", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody TaoOrder taoOrder)
-    {
-        return toAjax(taoOrderService.updateTaoOrder(taoOrder));
-    }
-
-    /**
-     * 删除淘宝订单
-     */
-    @PreAuthorize("@ss.hasPermi('tao:order:remove')")
-    @Log(title = "淘宝订单", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(taoOrderService.deleteTaoOrderByIds(ids));
-    }
+//    /**
+//     * 修改淘宝订单
+//     */
+//    @PreAuthorize("@ss.hasPermi('tao:order:edit')")
+//    @Log(title = "淘宝订单", businessType = BusinessType.UPDATE)
+//    @PutMapping
+//    public AjaxResult edit(@RequestBody TaoOrder taoOrder)
+//    {
+//        return toAjax(taoOrderService.updateTaoOrder(taoOrder));
+//    }
+//
+//    /**
+//     * 删除淘宝订单
+//     */
+//    @PreAuthorize("@ss.hasPermi('tao:order:remove')")
+//    @Log(title = "淘宝订单", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(taoOrderService.deleteTaoOrderByIds(ids));
+//    }
 }

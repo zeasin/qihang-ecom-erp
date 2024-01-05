@@ -61,20 +61,20 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['tao:order:add']"
-        >新增</el-button>
+        >手动添加</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
           type="success"
           plain
-          icon="el-icon-edit"
+          icon="el-icon-upload"
           size="mini"
-          :disabled="single"
+
           @click="handleUpdate"
           v-hasPermi="['tao:order:edit']"
-        >修改</el-button>
+        >Execl导入</el-button>
       </el-col>
-      <el-col :span="1.5">
+      <!-- <el-col :span="1.5">
         <el-button
           type="danger"
           plain
@@ -84,7 +84,7 @@
           @click="handleDelete"
           v-hasPermi="['tao:order:remove']"
         >删除</el-button>
-      </el-col>
+      </el-col> -->
       <el-col :span="1.5">
         <el-button
           type="warning"
@@ -93,7 +93,7 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['tao:order:export']"
-        >导出</el-button>
+        >导出订单</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -102,25 +102,39 @@
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="订单号" align="center" prop="id" />
       <el-table-column label="店铺" align="center" prop="shopId" />
-<!--      <el-table-column label="订单来源0天猫1淘宝" align="center" prop="orderSource" />-->
-<!--      <el-table-column label="买家昵称" align="center" prop="buyerName" />-->
-      <el-table-column label="应付款总金额" align="center" prop="totalAmount" />
+      <el-table-column label="商品" width="350">
+          <template slot-scope="scope">
+            <el-row v-for="item in scope.row.taoOrderItemList" :key="item.id" :gutter="20">
+              
+            <div style="float: left;display: flex;align-items: center;" >
+              <el-image  style="width: 70px; height: 70px;" :src="item.productImgUrl"></el-image>
+              <div style="margin-left:10px">
+              <p>{{item.goodsTitle}}</p>
+              <p>{{item.skuInfo}}&nbsp;
+                <el-tag size="small">x {{item.quantity}}</el-tag>
+                </p>
+              </div>
+            </div>
+            </el-row>
+          </template>
+      </el-table-column>
+      <el-table-column label="总金额" align="center" prop="totalAmount" />
       <el-table-column label="运费" align="center" prop="shippingFee" />
-      <el-table-column label="优惠金额" align="center" prop="discountAmount" />
-      <el-table-column label="实际支付金额" align="center" prop="payAmount" />
-      <el-table-column label="优惠描述" align="center" prop="discountRemark" />
+      <!-- <el-table-column label="优惠金额" align="center" prop="discountAmount" /> -->
+      <!-- <el-table-column label="实际支付金额" align="center" prop="payAmount" /> -->
+      <!-- <el-table-column label="优惠描述" align="center" prop="discountRemark" /> -->
       <el-table-column label="订单创建时间" align="center" prop="orderCreateTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.orderCreateTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="订单修改时间" align="center" prop="orderModifyTime" width="180">
+      <!-- <el-table-column label="订单修改时间" align="center" prop="orderModifyTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.orderModifyTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-
-      <el-table-column label="发货时间" align="center" prop="deliveredTime" width="180">
+ -->
+     <!--  <el-table-column label="发货时间" align="center" prop="deliveredTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.deliveredTime, '{y}-{m}-{d}') }}</span>
         </template>
@@ -129,14 +143,14 @@
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.completeTime, '{y}-{m}-{d}') }}</span>
         </template>
-      </el-table-column>
-      <el-table-column label="卖家备忘信息" align="center" prop="sellerMemo" />
-      <el-table-column label="买家留言，不超过500字" align="center" prop="buyerFeedback" />
+      </el-table-column> -->
+      <el-table-column label="卖家备注" align="center" prop="sellerMemo" />
+      <el-table-column label="买家留言" align="center" prop="buyerFeedback" />
 <!--      <el-table-column label="关闭原因。buyerCancel:买家取消订单，sellerGoodsLack:卖家库存不足，other:其它" align="center" prop="closeReason" />-->
 
       <el-table-column label="订单状态" align="center" prop="statusStr" />
       <el-table-column label="交易状态" align="center" prop="status" />
-      <el-table-column label="快递公司" align="center" prop="logisticsCompany" />
+      <!-- <el-table-column label="快递公司" align="center" prop="logisticsCompany" /> -->
 <!--      <el-table-column label="快递公司编码" align="center" prop="logisticsCompanyCode" />-->
       <el-table-column label="快递单号" align="center" prop="logisticsCode" />
 <!--      <el-table-column label="退款单ID" align="center" prop="refundId" />-->
@@ -154,10 +168,10 @@
 <!--          <span>{{ parseTime(scope.row.sendTime, '{y}-{m}-{d}') }}</span>-->
 <!--        </template>-->
 <!--      </el-table-column>-->
-      <el-table-column label="标签(1：实售2：淘宝客3：刷单4：返现)" align="center" prop="tag" />
+      <!-- <el-table-column label="标签(1：实售2：淘宝客3：刷单4：返现)" align="center" prop="tag" /> -->
       <el-table-column label="备注" align="center" prop="remark" />
-      <el-table-column label="是否评价" align="center" prop="isComment" />
-      <el-table-column label="是否合并发货(0:否1:是)" align="center" prop="isMerge" />
+      <!-- <el-table-column label="是否评价" align="center" prop="isComment" /> -->
+      <!-- <el-table-column label="是否合并发货(0:否1:是)" align="center" prop="isMerge" /> -->
 <!--      <el-table-column label="订单创建时间" align="center" prop="createTime" width="180">-->
 <!--        <template slot-scope="scope">-->
 <!--          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>-->
