@@ -334,7 +334,14 @@
         <el-form-item label="收件人电话" prop="receiverPhone1">
           <el-input v-model="form.receiverPhone1" placeholder="请输入收件人电话" style="width:250px" :disabled="isAudit" />
         </el-form-item>
-        <el-form-item label="收件地址" prop="receiverAddress1">
+        <el-form-item label="省市区" prop="provinces">
+          <el-cascader style="width:250px"
+            size="large"
+            :options="pcaTextArr"
+            v-model="form.provinces">
+          </el-cascader>
+        </el-form-item>
+        <el-form-item label="详细地址" prop="receiverAddress1">
           <el-input v-model="form.receiverAddress1" placeholder="请输入收件地址" style="width:250px" :disabled="isAudit" />
         </el-form-item>
        
@@ -484,6 +491,15 @@
 import { listOrder, getOrder, addOrder, confirmOrder } from "@/api/pdd/order";
 import { listShop } from "@/api/shop/shop";
 import { searchSku } from "@/api/goods/goods";
+import {
+  provinceAndCityData,
+  pcTextArr,
+  regionData,
+  pcaTextArr,
+  codeToText,
+} from "element-china-area-data";
+
+
 export default { 
   name: "Order",
   data() {
@@ -537,7 +553,10 @@ export default {
         shipTime: null
       },
       // 表单参数
-      form: {},
+      form: {
+        provinces: []
+      },
+      pcaTextArr,
       skuListLoading:false,
       skuList:[],
       // 表单校验
@@ -560,7 +579,8 @@ export default {
         ],
         receiverName1:[{ required: true, message: "收件人不能为空", trigger: "blur" }],
         receiverPhone1:[{ required: true, message: "收件人电话不能为空", trigger: "blur" }],
-        receiverAddress1:[{ required: true, message: "收件地址不能为空", trigger: "blur" }],
+        provinces:[{ required: true, message: "请选择省市区", trigger: "blur" }],
+        receiverAddress1:[{ required: true, message: "详细地址不能为空", trigger: "blur" }],
         createdTime:[{ required: true, message: "订单创建时间不能为空", trigger: "blur" }],
         capitalFreeDiscount: [
           { required: true, message: "团长免单金额，单位：元不能为空", trigger: "blur" }
@@ -726,8 +746,12 @@ export default {
     },
     /** 提交按钮 */
     submitForm() {
+      console.log('====提交表单====',this.form.provinces)
       this.$refs["form"].validate(valid => {
         if (valid) {
+          this.form.province = this.form.provinces[0]
+          this.form.city = this.form.provinces[1]
+          this.form.town = this.form.provinces[2]
           this.form.pddOrderItemList = this.pddOrderItemList;
           if (this.form.id != null) {
             confirmOrder(this.form).then(response => {
@@ -736,11 +760,41 @@ export default {
               this.getList();
             });
           } else {
-            addOrder(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
-              this.open = false;
-              this.getList();
-            });
+            // // 定义一个包含省、市、区的正则表达式
+            // const regex = /([\u4e00-\u9fa5]+省|[\u4e00-\u9fa5]+自治区)?([\u4e00-\u9fa5]+市)?([\u4e00-\u9fa5]+县|[\u4e00-\u9fa5]+区)/;
+   
+            // // 要提取的地址
+            // // let address = "广东省深圳市南山区";
+             
+            // // 使用正则表达式进行匹配并提取省、市、区信息
+            // let matches = this.form.receiverAddress1.match(regex);
+            // if (matches) {
+            //     this.form.province = matches[1]; // 省份
+            //     this.form.city = matches[2];     // 城市
+            //     this.form.town = matches[3]; // 区/县
+            //     console.log("提取到省、市、区信息:",this.form.province,this.form.city,this.form.town);
+            // } else {
+            //     console.log("无法提取到省、市、区信息");
+            //     this.$modal.msgError("无法提取到省、市、区信息");
+            //     return
+            // }
+
+            if(this.form.pddOrderItemList && this.form.pddOrderItemList.length > 0){
+              this.form.pddOrderItemList.forEach(i =>{
+                if(!i.erpSpecId || i.erpSpecId === 0){
+                  this.$modal.msgError("请添加商品11");
+                  return
+                }
+              })
+              addOrder(this.form).then(response => {
+                this.$modal.msgSuccess("新增成功");
+                this.open = false;
+                this.getList();
+              });
+            }else{
+              this.$modal.msgError("请添加商品");
+            }
+            
           }
         }
       });
@@ -832,7 +886,7 @@ export default {
         row.itemAmount = row.goodsPrice * row.quantity
 
         // 计算总金额
-        let goodsAmount = this.form.goodsAmount ? this.form.goodsAmount:0.0
+        let goodsAmount = this.form.goodsAmount ? parseFloat(this.form.goodsAmount):0.0
         goodsAmount += row.itemAmount
         this.form.goodsAmount = goodsAmount
       }

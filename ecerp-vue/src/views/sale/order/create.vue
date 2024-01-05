@@ -19,19 +19,18 @@
         <el-form-item label="收件人手机号" prop="receiverPhone">
           <el-input v-model="form.receiverPhone"  style="width: 220px;" placeholder="请输入收件人手机号" />
         </el-form-item> 
-        
-        <el-form-item label="省市区" prop="town">
-       
-            <el-input v-model="form.province" style="width: 120px;" placeholder="请输入省" />
-         
-  
-            <el-input v-model="form.city" placeholder="请输入市" style="width: 120px;margin-left: 10px;" />
-    
-   
-            <el-input v-model="form.town" placeholder="请输入区"  style="width: 120px;margin-left: 10px;"/>
-      
-          
+        <el-form-item label="省市区" prop="provinces">
+          <el-cascader style="width:250px"
+            size="large"
+            :options="pcaTextArr"
+            v-model="form.provinces">
+          </el-cascader>
         </el-form-item>
+        <!-- <el-form-item label="省市区" prop="town">
+            <el-input v-model="form.province" style="width: 120px;" placeholder="请输入省" />
+            <el-input v-model="form.city" placeholder="请输入市" style="width: 120px;margin-left: 10px;" />
+            <el-input v-model="form.town" placeholder="请输入区"  style="width: 120px;margin-left: 10px;"/>
+        </el-form-item> -->
         <el-form-item label="详细地址" prop="address">
           <el-input v-model="form.address" placeholder="请输入详细地址" />
         </el-form-item>
@@ -171,6 +170,14 @@
 import { searchSku } from "@/api/goods/goods";
 import { listShop } from "@/api/shop/shop";
 import { addOrder } from "@/api/shop/order";
+import {
+  provinceAndCityData,
+  pcTextArr,
+  regionData,
+  pcaTextArr,
+  codeToText,
+} from "element-china-area-data";
+
 export default {
   name: "OrderCreate",
   data() {
@@ -178,15 +185,17 @@ export default {
       // 表单参数
       form: {
         goodsAmount:null,
-        itemList:[]
+        itemList:[],
+        provinces: []
       },
+      pcaTextArr,
       // 表单校验
       rules: {
         orderNum: [{ required: true, message: '订单编码不能为空' }],
         shopId: [{ required: true, message: '请选择店铺' }],
         receiverName: [{ required: true, message: '请填写收件人信息' }],
         receiverPhone: [{ required: true, message: '请填写收件人信息' }],
-        province: [{ required: true, message: '请填写收货信息' }],
+        provinces: [{ required: true, message: '请填写收货信息' }],
         city: [{ required: true, message: '请填写收货信息' }],
         town: [{ required: true, message: '请填写收货信息' }],
         address: [{ required: true, message: '请填写收货信息' }],
@@ -340,7 +349,11 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-         
+          
+          this.form.province = this.form.provinces[0]
+          this.form.city = this.form.provinces[1]
+          this.form.town = this.form.provinces[2]
+
           if(this.form.itemList && this.form.itemList.length >0){
             this.form.itemList.forEach(x=>{
               if(!x.goodsId || !x.quantity){

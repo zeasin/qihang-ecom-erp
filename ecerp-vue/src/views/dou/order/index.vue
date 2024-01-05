@@ -129,8 +129,7 @@
               <el-image  style="width: 70px; height: 70px;" :src="item.productPic"></el-image>
               <div style="margin-left:10px">
               <p>{{item.productName}}</p>
-              <p>{{item.goodsSpec}}</p>
-              <p>
+              <p>{{item.goodsSpec}}&nbsp;
                 <el-tag size="small">x {{item.comboNum}}</el-tag>
                 </p>
               </div>

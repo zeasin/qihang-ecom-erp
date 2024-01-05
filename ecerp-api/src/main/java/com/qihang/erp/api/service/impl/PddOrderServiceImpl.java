@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import com.zhijian.common.utils.StringUtils;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.qihang.erp.api.domain.PddOrderItem;
 import com.qihang.erp.api.mapper.PddOrderMapper;
 import com.qihang.erp.api.domain.PddOrder;
 import com.qihang.erp.api.service.IPddOrderService;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * 拼多多订单Service业务层处理
@@ -67,18 +69,26 @@ public class PddOrderServiceImpl implements IPddOrderService
      * @param pddOrder 拼多多订单
      * @return 结果
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public int insertPddOrder(PddOrder pddOrder)
-    {
+    public int insertPddOrder(PddOrder pddOrder) {
         PddOrder order = pddOrderMapper.selectByOrderSn(pddOrder.getOrderSn());
-        if(order!=null) return -1;
+        if (order != null) return -1;
+
+        if (StringUtils.isNotNull(pddOrder.getPddOrderItemList())) {
+            for (PddOrderItem pddOrderItem : pddOrder.getPddOrderItemList()) {
+                if (StringUtils.isNull(pddOrderItem.getErpSpecId())) {
+                    return -3;
+                }
+            }
+        } else return -2;
+
         pddOrder.setTradeType(0L);
         pddOrder.setConfirmStatus(1L);
         pddOrder.setGroupStatus(1L);
         pddOrder.setRefundStatus(1L);
         pddOrder.setOrderStatus(1L);
-        double discountAmount = pddOrder.getPlatformDiscount() + pddOrder.getSellerDiscount()+ pddOrder.getCapitalFreeDiscount();
+        double discountAmount = pddOrder.getPlatformDiscount() + pddOrder.getSellerDiscount() + pddOrder.getCapitalFreeDiscount();
         pddOrder.setDiscountAmount(discountAmount);
         double payAmount = pddOrder.getGoodsAmount() - pddOrder.getDiscountAmount() + pddOrder.getPostage();
         pddOrder.setPayAmount(payAmount);
@@ -88,7 +98,23 @@ public class PddOrderServiceImpl implements IPddOrderService
         pddOrder.setSettlementStatus(0L);
         pddOrder.setShipStatus(0L);
         int rows = pddOrderMapper.insertPddOrder(pddOrder);
-        insertPddOrderItem(pddOrder);
+//        insertPddOrderItem(pddOrder);
+        Long id = pddOrder.getId();
+        List<PddOrderItem> list = new ArrayList<PddOrderItem>();
+        for (PddOrderItem pddOrderItem : pddOrder.getPddOrderItemList()) {
+            pddOrderItem.setOrderId(id);
+            list.add(pddOrderItem);
+        }
+
+        if (list.size() > 0) {
+//            try {
+                pddOrderMapper.batchPddOrderItem(list);
+//            } catch (Exception e) {
+//                //手工回滚异常
+//                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//            }
+        }
+
         return rows;
     }
 
