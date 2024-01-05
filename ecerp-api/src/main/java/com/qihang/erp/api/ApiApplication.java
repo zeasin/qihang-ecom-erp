@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * 启动程序
@@ -13,8 +16,9 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  */
 // @ComponentScan("com.zhijian")
 @Log
+//@EnableTransactionManagement
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
-public class ApiApplication {
+public class ApiApplication  {
     public static void main(String[] args) {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(ApiApplication.class, args);
@@ -46,4 +50,6 @@ public class ApiApplication {
         // " | | \\ / \\ / \n" +
         // " ''-' `'-' `-..-' ");
     }
+
+
 }

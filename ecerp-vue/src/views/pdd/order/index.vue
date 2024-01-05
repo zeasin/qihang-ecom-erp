@@ -780,9 +780,9 @@ export default {
             // }
 
             if(this.form.pddOrderItemList && this.form.pddOrderItemList.length > 0){
-              this.form.pddOrderItemList.forEach(i =>{
-                if(!i.erpSpecId || i.erpSpecId === 0){
-                  this.$modal.msgError("请添加商品11");
+              this.form.pddOrderItemList.forEach(x =>{
+                if(!x.erpSpecId || x.erpSpecId === 0){
+                  this.$modal.msgError("请完善商品信息");
                   return
                 }
               })
