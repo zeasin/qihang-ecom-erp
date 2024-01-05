@@ -77,6 +77,7 @@ public class DouOrderController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody DouOrder douOrder)
     {
+        douOrder.setCreateBy(getUsername());
         return toAjax(douOrderService.insertDouOrder(douOrder));
     }
 //

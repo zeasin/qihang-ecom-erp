@@ -1,5 +1,6 @@
 package com.qihang.erp.api.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,14 @@ public class DouOrderServiceImpl implements IDouOrderService
     @Override
     public int insertDouOrder(DouOrder douOrder)
     {
+        douOrder.setOrderStatus(2L);
+        douOrder.setOrderStatusStr("备货中");
+        douOrder.setPostInsuranceAmount(0L);
+        douOrder.setIsComment(0L);
+        douOrder.setCreatedTime(new Date());
+        douOrder.setSendStatus(0L);
+        douOrder.setAuditStatus(0L);
+
         int rows = douOrderMapper.insertDouOrder(douOrder);
         insertDouOrderItem(douOrder);
         return rows;
@@ -126,6 +135,17 @@ public class DouOrderServiceImpl implements IDouOrderService
             List<DouOrderItem> list = new ArrayList<DouOrderItem>();
             for (DouOrderItem douOrderItem : douOrderItemList)
             {
+                douOrderItem.setOrderId(douOrder.getOrderId());
+                douOrderItem.setSubOrderId("");
+                if(StringUtils.isNull(douOrderItem.getPostAmount())) {
+                    douOrderItem.setPostAmount(0.0);
+                }
+                if(StringUtils.isNull(douOrderItem.getCouponAmount())) {
+                    douOrderItem.setCouponAmount(0.0);
+                }
+                douOrderItem.setIsComment(0L);
+                if(StringUtils.isNull(douOrderItem.getIsGift())) { douOrderItem.setIsGift(0L);}
+                douOrderItem.setItemStatus(douOrder.getOrderStatus());
                 douOrderItem.setDouyinOrderId(id);
                 list.add(douOrderItem);
             }

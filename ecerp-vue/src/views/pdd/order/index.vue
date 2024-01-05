@@ -11,7 +11,7 @@
       </el-form-item>
       <el-form-item label="店铺" prop="shopId">
         
-        <el-select v-model="queryParams.shopId" placeholder="请选择平台" @change="handleQuery">
+        <el-select v-model="queryParams.shopId" placeholder="请选择店铺" @change="handleQuery">
          <el-option
             v-for="item in shopList"
             :key="item.id"
@@ -303,7 +303,7 @@
         </el-form-item>
         <el-form-item label="店铺" prop="shopId">
           <!-- <el-input v-model="form.shopId" placeholder="请输入内部店铺ID" /> -->
-          <el-select v-model="form.shopId" placeholder="请选择平台" style="width:250px" :disabled="isAudit">
+          <el-select v-model="form.shopId" placeholder="请选择店铺" style="width:250px" :disabled="isAudit">
            <el-option
               v-for="item in shopList"
               :key="item.id"
@@ -352,7 +352,7 @@
           <el-date-picker clearable :disabled="isAudit"
             v-model="form.createdTime"
             type="datetime"
-            value-format="yyyy-MM-dd"
+            value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="请选择订单创建时间" style="width:250px">
           </el-date-picker>
         </el-form-item>
@@ -380,7 +380,7 @@
         <el-table :data="pddOrderItemList" :row-class-name="rowPddOrderItemIndex" @selection-change="handlePddOrderItemSelectionChange" ref="pddOrderItem" style="margin-bottom: 10px;">
           <el-table-column type="selection" width="50" align="center" v-if="!isAudit" />
           <el-table-column label="序号" align="center" prop="index" width="50"/>
-          <el-table-column label="erp系统商品id" prop="erpGoodsId" width="350" v-if="!isAudit" >
+          <el-table-column label="商品" prop="erpGoodsId" width="350" v-if="!isAudit" >
             <template slot-scope="scope">
               <!-- <el-input v-model="scope.row.erpGoodsId" placeholder="请输入erp系统商品id" /> -->
               <el-select v-model="scope.row.erpSpecId" filterable remote reserve-keyword placeholder="搜索商品" style="width: 330px;"
