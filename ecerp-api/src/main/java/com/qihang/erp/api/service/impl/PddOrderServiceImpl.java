@@ -105,6 +105,10 @@ public class PddOrderServiceImpl implements IPddOrderService
         else if(order.getAuditStatus() != 0) return -2;
         else if(order.getRefundStatus() != 1) return -3;
 
+        // 判断是否存在
+        ErpOrder erpo = erpOrderMapper.selectErpOrderByNum(order.getOrderSn());
+        if(erpo !=null ) return -4;
+
         // 确认订单（操作：插入数据到s_shop_order、s_shop_order_item）
         ErpOrder so = new ErpOrder();
         so.setOrderNum(order.getOrderSn());
@@ -159,6 +163,12 @@ public class PddOrderServiceImpl implements IPddOrderService
             items.add(item);
         }
         erpOrderMapper.batchErpOrderItem(items);
+
+        //更新自己
+        PddOrder po =new PddOrder();
+        po.setId(order.getId());
+        po.setAuditStatus(1L);
+        pddOrderMapper.updatePddOrder(po);
         return 1;
     }
 

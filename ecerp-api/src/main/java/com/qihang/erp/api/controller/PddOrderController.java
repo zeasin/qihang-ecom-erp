@@ -92,7 +92,8 @@ public class PddOrderController extends BaseController
         if(result == -1) return new AjaxResult(505,"订单不存在");
         else if(result == -2) return new AjaxResult(506,"订单已确认过了");
         else if(result == -3) return new AjaxResult(507,"订单售后中！无法操作！");
-        return toAjax(1);
+        else if(result == -4) return new AjaxResult(508,"订单号确认过了！请检查订单号是否正确！");
+        return toAjax(result);
     }
 
 //    /**
