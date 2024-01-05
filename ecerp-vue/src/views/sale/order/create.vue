@@ -8,8 +8,7 @@
           
         </el-form-item>
         <el-form-item label="店铺" prop="shopId">
-          <el-select v-model="form.shopId" filterable remote reserve-keyword placeholder="搜索店铺"
-          :remote-method="searchSupplier" :loading="shopLoading">
+          <el-select v-model="form.shopId" filterable r placeholder="搜索店铺" >
           <el-option v-for="item in shopList" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
@@ -204,6 +203,9 @@ export default {
   },
   created() {
     this.form.orderDate = this.getDate()
+    listShop({}).then(response => {
+        this.shopList = response.rows;
+      });
   },
   methods: {
     getDate() {
@@ -239,6 +241,7 @@ export default {
         row.goodsSpec = spec.colorValue + ' ' + spec.sizeValue + ' ' + spec.styleValue
         row.goodsImg = spec.colorImage
         row.goodsNum = spec.number
+        row.goodsTitle = spec.name
         row.specNum = spec.specNum
         row.isGift = '0'
         row.quantity = 1
@@ -351,7 +354,7 @@ export default {
               this.$modal.msgSuccess("订单创建成功");
               // 调用全局挂载的方法,关闭当前标签页
               this.$store.dispatch("tagsView/delView", this.$route);
-              this.$router.push('/shop/order/list');
+              this.$router.push('/sale/order/list');
             });
           
         }else{

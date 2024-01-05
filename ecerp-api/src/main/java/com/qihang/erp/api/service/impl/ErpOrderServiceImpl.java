@@ -1,5 +1,6 @@
 package com.qihang.erp.api.service.impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import com.zhijian.common.utils.DateUtils;
@@ -59,15 +60,29 @@ public class ErpOrderServiceImpl implements IErpOrderService
     @Override
     public int insertErpOrder(ErpOrder erpOrder)
     {
+        ErpOrder order = erpOrderMapper.selectErpOrderByNum(erpOrder.getOrderNum());
+        if (order!=null&& order.getId()>0) return -1;// 订单号已存在
 //        erpOrder.setCreateTime(DateUtils.getNowDate());
 //        int rows = erpOrderMapper.insertErpOrder(erpOrder);
 //        insertErpOrderItem(erpOrder);
 //        return rows;
         if(erpOrder.getItemList() == null || erpOrder.getItemList().size() == 0) return -1;
-        erpOrder.setOrderStatus(1L);
-        erpOrder.setRefundStatus(1L);
-//        if(erpOrder.getPostage() == null)shopOrder.setPostage(0L);
-//        if(erpOrder.getDiscountAmount() == null)shopOrder.setDiscountAmount(0L);
+
+        if(erpOrder.getShopId() == 1) erpOrder.setShopType(99);
+        else if(erpOrder.getShopId() == 5) erpOrder.setShopType(5);
+        else if(erpOrder.getShopId() == 6) erpOrder.setShopType(4);
+        else if(erpOrder.getShopId() == 13) erpOrder.setShopType(13);
+        else if(erpOrder.getShopId() == 21) erpOrder.setShopType(7);
+        else if(erpOrder.getShopId() == 22) erpOrder.setShopType(6);
+
+        erpOrder.setOrderStatus(1);
+        erpOrder.setRefundStatus(1);
+        if(erpOrder.getPostage() == null) erpOrder.setPostage(BigDecimal.ZERO);
+        if(erpOrder.getDiscountAmount() == null) erpOrder.setDiscountAmount(BigDecimal.ZERO);
+
+        // 实际金额 = 商品金额 - 折扣金额 + 运费
+        erpOrder.setAmount(erpOrder.getGoodsAmount().subtract(erpOrder.getDiscountAmount()).add(erpOrder.getPostage()));
+
 //        if(erpOrder.getPayAmount() == null)shopOrder.setPayAmount(0L);
 //        if(erpOrder.getAuditStatus() == null) shopOrder.setAuditStatus(1L);
 
@@ -140,8 +155,8 @@ public class ErpOrderServiceImpl implements IErpOrderService
 
 
                 erpOrderItem.setOrderId(id);
-                erpOrderItem.setRefundCount(0L);
-                erpOrderItem.setRefundStatus(1L);
+                erpOrderItem.setRefundCount(0);
+                erpOrderItem.setRefundStatus(1);
                 erpOrderItem.setCreateBy(erpOrder.getCreateBy());
                 erpOrderItem.setCreateTime(new Date());
                 list.add(erpOrderItem);

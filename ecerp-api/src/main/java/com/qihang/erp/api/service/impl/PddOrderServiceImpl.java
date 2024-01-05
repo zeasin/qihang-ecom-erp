@@ -1,9 +1,13 @@
 package com.qihang.erp.api.service.impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import com.qihang.erp.api.domain.ErpOrder;
+import com.qihang.erp.api.domain.ErpOrderItem;
+import com.qihang.erp.api.mapper.ErpOrderMapper;
+import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -25,6 +29,8 @@ public class PddOrderServiceImpl implements IPddOrderService
 {
     @Autowired
     private PddOrderMapper pddOrderMapper;
+    @Autowired
+    private ErpOrderMapper erpOrderMapper;
 
     /**
      * 查询拼多多订单
@@ -102,14 +108,23 @@ public class PddOrderServiceImpl implements IPddOrderService
         // 确认订单（操作：插入数据到s_shop_order、s_shop_order_item）
         ErpOrder so = new ErpOrder();
         so.setOrderNum(order.getOrderSn());
-        so.setShopId(order.getShopId());
-        so.setShopType(5L);
+        so.setShopId(order.getShopId().intValue());
+        so.setShopType(5);
         so.setRemark(remark);
         so.setBuyerMemo(order.getBuyerMemo());
         so.setTag(order.getTag());
-        so.setRefundStatus(1L);
-        so.setOrderStatus(1L);
-        so.setAmount(order.getPayAmount());
+        so.setRefundStatus(1);
+        so.setOrderStatus(1);
+        so.setGoodsAmount(BigDecimal.valueOf(order.getGoodsAmount()));
+        so.setDiscountAmount(BigDecimal.valueOf(order.getDiscountAmount()));
+        so.setAmount(BigDecimal.valueOf(order.getPayAmount()));
+        so.setPostage(BigDecimal.valueOf(order.getPostage()));
+        try {
+            //2022-07-17 17:10:57
+            Date payDate = DateUtils.dateTime("yyyy-MM-dd HH:mm:ss", order.getPayTime());
+            so.setPayTime(payDate);
+        }catch (Exception e){}
+
         so.setReceiverName(order.getReceiverName());
         so.setReceiverPhone(order.getReceiverPhone());
         so.setAddress(order.getAddress());
@@ -120,7 +135,30 @@ public class PddOrderServiceImpl implements IPddOrderService
         so.setConfirmTime(new Date());
         so.setCreateTime(new Date());
         so.setCreateBy(createBy);
+        erpOrderMapper.insertErpOrder(so);
 
+        List<ErpOrderItem> items = new ArrayList<>();
+        for (var i:order.getPddOrderItemList()) {
+            ErpOrderItem item = new ErpOrderItem();
+            item.setOrderId(so.getId());
+            item.setGoodsId(i.getErpGoodsId());
+            item.setSpecId(i.getErpSpecId());
+            item.setGoodsTitle(i.getGoodsName());
+            item.setGoodsImg(i.getGoodsImage());
+            item.setGoodsNum(i.getGoodsNum());
+            item.setSpecNum(i.getSpecNum());
+            item.setGoodsSpec(i.getGoodsSpec());
+            item.setGoodsPrice(BigDecimal.valueOf(i.getGoodsPrice()));
+            item.setItemAmount(BigDecimal.valueOf(i.getItemAmount()));
+            item.setQuantity(i.getQuantity().intValue());
+            item.setIsGift(i.getIsGift().intValue());
+            item.setRefundCount(0);
+            item.setRefundStatus(1);
+            item.setCreateBy(createBy);
+            item.setCreateTime(new Date());
+            items.add(item);
+        }
+        erpOrderMapper.batchErpOrderItem(items);
         return 1;
     }
 

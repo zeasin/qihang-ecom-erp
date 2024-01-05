@@ -14,6 +14,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="tag"    column="tag"    />
         <result property="refundStatus"    column="refund_status"    />
         <result property="orderStatus"    column="order_status"    />
+        <result property="goodsAmount"    column="goods_amount"    />
+        <result property="discountAmount"    column="discount_amount"    />
+        <result property="postage"    column="postage"    />
         <result property="amount"    column="amount"    />
         <result property="receiverName"    column="receiver_name"    />
         <result property="receiverPhone"    column="receiver_phone"    />
@@ -22,6 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="province"    column="province"    />
         <result property="city"    column="city"    />
         <result property="town"    column="town"    />
+        <result property="payTime"    column="pay_time"    />
         <result property="confirmTime"    column="confirm_time"    />
         <result property="shippingTime"    column="shipping_time"    />
         <result property="shippingNumber"    column="shipping_number"    />
@@ -60,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectErpOrderVo">
-        select id, order_num, shop_type, shop_id, remark, buyer_memo, tag, refund_status, order_status, amount, receiver_name, receiver_phone, address, country, province, city, town, confirm_time, shipping_time, shipping_number, shipping_company, create_time, create_by, update_time, update_by from erp_order
+        select id, order_num, shop_type, shop_id, remark, buyer_memo, tag, refund_status, order_status, goods_amount, discount_amount, postage, amount, receiver_name, receiver_phone, address, country, province, city, town, pay_time, confirm_time, shipping_time, shipping_number, shipping_company, create_time, create_by, update_time, update_by from erp_order
     </sql>
 
     <select id="selectErpOrderList" parameterType="ErpOrder" resultMap="ErpOrderResult">
@@ -73,6 +77,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="tag != null  and tag != ''"> and tag = #{tag}</if>
             <if test="refundStatus != null "> and refund_status = #{refundStatus}</if>
             <if test="orderStatus != null "> and order_status = #{orderStatus}</if>
+            <if test="goodsAmount != null "> and goods_amount = #{goodsAmount}</if>
+            <if test="discountAmount != null "> and discount_amount = #{discountAmount}</if>
+            <if test="postage != null "> and postage = #{postage}</if>
             <if test="amount != null "> and amount = #{amount}</if>
             <if test="receiverName != null  and receiverName != ''"> and receiver_name like concat('%', #{receiverName}, '%')</if>
             <if test="receiverPhone != null  and receiverPhone != ''"> and receiver_phone = #{receiverPhone}</if>
@@ -81,20 +88,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="province != null  and province != ''"> and province = #{province}</if>
             <if test="city != null  and city != ''"> and city = #{city}</if>
             <if test="town != null  and town != ''"> and town = #{town}</if>
+            <if test="payTime != null "> and pay_time = #{payTime}</if>
             <if test="confirmTime != null "> and confirm_time = #{confirmTime}</if>
-
-            <if test="shippingTime != null  and shippingTime != ''"> and shipping_time = #{shippingTime}</if>
+            <if test="shippingTime != null "> and shipping_time = #{shippingTime}</if>
             <if test="shippingNumber != null  and shippingNumber != ''"> and shipping_number = #{shippingNumber}</if>
             <if test="shippingCompany != null  and shippingCompany != ''"> and shipping_company = #{shippingCompany}</if>
         </where>
     </select>
     
     <select id="selectErpOrderById" parameterType="Long" resultMap="ErpOrderErpOrderItemResult">
-        select a.id, a.order_num, a.shop_type, a.shop_id, a.remark, a.buyer_memo, a.tag, a.refund_status, a.order_status, a.amount, a.receiver_name, a.receiver_phone, a.address, a.country, a.province, a.city, a.town, a.confirm_time, a.shipping_time, a.shipping_number, a.shipping_company, a.create_time, a.create_by, a.update_time, a.update_by,
+        select a.id, a.order_num, a.shop_type, a.shop_id, a.remark, a.buyer_memo, a.tag, a.refund_status, a.order_status, a.goods_amount, a.discount_amount, a.postage, a.amount, a.receiver_name, a.receiver_phone, a.address, a.country, a.province, a.city, a.town, a.pay_time, a.confirm_time, a.shipping_time, a.shipping_number, a.shipping_company, a.create_time, a.create_by, a.update_time, a.update_by,
  b.id as sub_id, b.order_id as sub_order_id, b.goods_id as sub_goods_id, b.spec_id as sub_spec_id, b.goods_title as sub_goods_title, b.goods_img as sub_goods_img, b.goods_num as sub_goods_num, b.goods_spec as sub_goods_spec, b.spec_num as sub_spec_num, b.goods_price as sub_goods_price, b.item_amount as sub_item_amount, b.quantity as sub_quantity, b.remark as sub_remark, b.is_gift as sub_is_gift, b.refund_count as sub_refund_count, b.refund_status as sub_refund_status, b.create_time as sub_create_time, b.create_by as sub_create_by, b.update_time as sub_update_time, b.update_by as sub_update_by
         from erp_order a
         left join erp_order_item b on b.order_id = a.id
         where a.id = #{id}
+    </select>
+
+    <select id="selectErpOrderByNum" parameterType="String" resultMap="ErpOrderResult">
+        <include refid="selectErpOrderVo"/>
+        <where>
+            and order_num = #{orderNum}
+        </where>
     </select>
         
     <insert id="insertErpOrder" parameterType="ErpOrder" useGeneratedKeys="true" keyProperty="id">
@@ -108,6 +122,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="tag != null">tag,</if>
             <if test="refundStatus != null">refund_status,</if>
             <if test="orderStatus != null">order_status,</if>
+            <if test="goodsAmount != null">goods_amount,</if>
+            <if test="discountAmount != null">discount_amount,</if>
+            <if test="postage != null">postage,</if>
             <if test="amount != null">amount,</if>
             <if test="receiverName != null">receiver_name,</if>
             <if test="receiverPhone != null">receiver_phone,</if>
@@ -116,8 +133,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="province != null">province,</if>
             <if test="city != null">city,</if>
             <if test="town != null">town,</if>
+            <if test="payTime != null">pay_time,</if>
             <if test="confirmTime != null">confirm_time,</if>
-
             <if test="shippingTime != null">shipping_time,</if>
             <if test="shippingNumber != null">shipping_number,</if>
             <if test="shippingCompany != null">shipping_company,</if>
@@ -135,6 +152,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="tag != null">#{tag},</if>
             <if test="refundStatus != null">#{refundStatus},</if>
             <if test="orderStatus != null">#{orderStatus},</if>
+            <if test="goodsAmount != null">#{goodsAmount},</if>
+            <if test="discountAmount != null">#{discountAmount},</if>
+            <if test="postage != null">#{postage},</if>
             <if test="amount != null">#{amount},</if>
             <if test="receiverName != null">#{receiverName},</if>
             <if test="receiverPhone != null">#{receiverPhone},</if>
@@ -143,8 +163,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="province != null">#{province},</if>
             <if test="city != null">#{city},</if>
             <if test="town != null">#{town},</if>
+            <if test="payTime != null">#{payTime},</if>
             <if test="confirmTime != null">#{confirmTime},</if>
-            <if test="auditStatus != null">#{auditStatus},</if>
             <if test="shippingTime != null">#{shippingTime},</if>
             <if test="shippingNumber != null">#{shippingNumber},</if>
             <if test="shippingCompany != null">#{shippingCompany},</if>
@@ -166,6 +186,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="tag != null">tag = #{tag},</if>
             <if test="refundStatus != null">refund_status = #{refundStatus},</if>
             <if test="orderStatus != null">order_status = #{orderStatus},</if>
+            <if test="goodsAmount != null">goods_amount = #{goodsAmount},</if>
+            <if test="discountAmount != null">discount_amount = #{discountAmount},</if>
+            <if test="postage != null">postage = #{postage},</if>
             <if test="amount != null">amount = #{amount},</if>
             <if test="receiverName != null">receiver_name = #{receiverName},</if>
             <if test="receiverPhone != null">receiver_phone = #{receiverPhone},</if>
@@ -174,8 +197,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="province != null">province = #{province},</if>
             <if test="city != null">city = #{city},</if>
             <if test="town != null">town = #{town},</if>
+            <if test="payTime != null">pay_time = #{payTime},</if>
             <if test="confirmTime != null">confirm_time = #{confirmTime},</if>
-
             <if test="shippingTime != null">shipping_time = #{shippingTime},</if>
             <if test="shippingNumber != null">shipping_number = #{shippingNumber},</if>
             <if test="shippingCompany != null">shipping_company = #{shippingCompany},</if>
