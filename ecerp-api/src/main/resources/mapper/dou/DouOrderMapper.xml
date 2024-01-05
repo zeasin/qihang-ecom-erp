@@ -161,7 +161,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="settlementStatus != null "> and settlement_status = #{settlementStatus}</if>
         </where>
     </select>
-    
+
+    <select id="selectOrderItemByOrderId" parameterType="Long" resultMap="DouOrderItemResult">
+
+        select
+               b.id as sub_id, b.douyin_order_id as sub_douyin_order_id, b.order_id as sub_order_id, b.sub_order_id as sub_sub_order_id,
+               b.shop_id as sub_shop_id, b.product_id as sub_product_id, b.product_name as sub_product_name, b.product_pic as sub_product_pic,
+               b.combo_id as sub_combo_id, b.goods_num as sub_goods_num, b.spec_num as sub_spec_num, b.goods_spec as sub_goods_spec,
+               b.combo_num as sub_combo_num, b.post_amount as sub_post_amount, b.coupon_amount as sub_coupon_amount, b.coupon_meta_id as sub_coupon_meta_id,
+               b.coupon_info as sub_coupon_info, b.campaign_info as sub_campaign_info, b.total_amount as sub_total_amount, b.is_comment as sub_is_comment,
+               b.erp_goods_id as sub_erp_goods_id, b.erp_spec_id as sub_erp_spec_id, b.remark as sub_remark, b.price as sub_price, b.is_gift as sub_is_gift,
+               b.item_status as sub_item_status
+        from  s_dou_order_item b
+        where b.douyin_order_id = #{orderId}
+    </select>
+
     <select id="selectDouOrderById" parameterType="Long" resultMap="DouOrderDouOrderItemResult">
         select a.id, a.order_id, a.shop_id, a.user_name, a.post_addr, a.post_code, a.post_receiver, a.post_tel, a.buyer_words, a.seller_words, a.logistics_id, a.logistics_code, a.logistics_company, a.logistics_time, a.receipt_time, a.order_status, a.order_status_str, a.order_create_time, a.exp_ship_time, a.cancel_reason, a.pay_type, a.pay_type_name, a.pay_time, a.post_amount, a.coupon_amount, a.shop_coupon_amount, a.coupon_info, a.order_total_amount, a.post_insurance_amount, a.is_comment, a.c_type, a.b_type, a.appSource, a.trafficeSource, a.cos_ratio, a.created_time, a.update_time, a.send_status, a.send_time, a.auditStatus, a.encryptDetail, a.province, a.city, a.town, a.street, a.ship_time, a.trade_type, a.encrypt_post_tel, a.encrypt_post_receiver, a.result, a.print_status, a.print_time, a.phoneKey, a.addressKey, a.author_id, a.author_name, a.settlement_status,
  b.id as sub_id, b.douyin_order_id as sub_douyin_order_id, b.order_id as sub_order_id, b.sub_order_id as sub_sub_order_id, b.shop_id as sub_shop_id, b.product_id as sub_product_id, b.product_name as sub_product_name, b.product_pic as sub_product_pic, b.combo_id as sub_combo_id, b.goods_num as sub_goods_num, b.spec_num as sub_spec_num, b.goods_spec as sub_goods_spec, b.combo_num as sub_combo_num, b.post_amount as sub_post_amount, b.coupon_amount as sub_coupon_amount, b.coupon_meta_id as sub_coupon_meta_id, b.coupon_info as sub_coupon_info, b.campaign_info as sub_campaign_info, b.total_amount as sub_total_amount, b.is_comment as sub_is_comment, b.erp_goods_id as sub_erp_goods_id, b.erp_spec_id as sub_erp_spec_id, b.remark as sub_remark, b.price as sub_price, b.is_gift as sub_is_gift, b.item_status as sub_item_status

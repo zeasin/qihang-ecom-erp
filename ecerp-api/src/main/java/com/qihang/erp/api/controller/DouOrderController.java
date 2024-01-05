@@ -79,26 +79,26 @@ public class DouOrderController extends BaseController
     {
         return toAjax(douOrderService.insertDouOrder(douOrder));
     }
-
-    /**
-     * 修改抖店订单
-     */
-    @PreAuthorize("@ss.hasPermi('dou:order:edit')")
-    @Log(title = "抖店订单", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody DouOrder douOrder)
-    {
-        return toAjax(douOrderService.updateDouOrder(douOrder));
-    }
-
-    /**
-     * 删除抖店订单
-     */
-    @PreAuthorize("@ss.hasPermi('dou:order:remove')")
-    @Log(title = "抖店订单", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(douOrderService.deleteDouOrderByIds(ids));
-    }
+//
+//    /**
+//     * 修改抖店订单
+//     */
+//    @PreAuthorize("@ss.hasPermi('dou:order:edit')")
+//    @Log(title = "抖店订单", businessType = BusinessType.UPDATE)
+//    @PutMapping
+//    public AjaxResult edit(@RequestBody DouOrder douOrder)
+//    {
+//        return toAjax(douOrderService.updateDouOrder(douOrder));
+//    }
+//
+//    /**
+//     * 删除抖店订单
+//     */
+//    @PreAuthorize("@ss.hasPermi('dou:order:remove')")
+//    @Log(title = "抖店订单", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(douOrderService.deleteDouOrderByIds(ids));
+//    }
 }

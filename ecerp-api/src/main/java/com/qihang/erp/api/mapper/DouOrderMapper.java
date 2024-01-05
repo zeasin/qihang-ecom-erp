@@ -3,6 +3,7 @@ package com.qihang.erp.api.mapper;
 import java.util.List;
 import com.qihang.erp.api.domain.DouOrder;
 import com.qihang.erp.api.domain.DouOrderItem;
+import com.qihang.erp.api.domain.PddOrderItem;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -30,6 +31,7 @@ public interface DouOrderMapper
      */
     public List<DouOrder> selectDouOrderList(DouOrder douOrder);
 
+    List<DouOrderItem> selectOrderItemByOrderId(Long orderId);
     /**
      * 新增抖店订单
      * 
