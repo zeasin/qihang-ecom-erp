@@ -1,6 +1,8 @@
 package com.qihang.erp.api.service.impl;
 
 import java.util.List;
+
+import com.qihang.erp.api.domain.DouOrderItem;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +47,12 @@ public class TaoOrderServiceImpl implements ITaoOrderService
     @Override
     public List<TaoOrder> selectTaoOrderList(TaoOrder taoOrder)
     {
-        return taoOrderMapper.selectTaoOrderList(taoOrder);
+        var orderList = taoOrderMapper.selectTaoOrderList(taoOrder);
+        for (var o:orderList) {
+            List<TaoOrderItem> items = taoOrderMapper.selectOrderItemByOrderId(o.getId());
+            o.setTaoOrderItemList(items);
+        }
+        return orderList;
     }
 
     /**

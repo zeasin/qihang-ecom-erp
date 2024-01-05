@@ -1,6 +1,8 @@
 package com.qihang.erp.api.mapper;
 
 import java.util.List;
+
+import com.qihang.erp.api.domain.DouOrderItem;
 import com.qihang.erp.api.domain.TaoOrder;
 import com.qihang.erp.api.domain.TaoOrderItem;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,7 +31,7 @@ public interface TaoOrderMapper
      * @return 淘宝订单集合
      */
     public List<TaoOrder> selectTaoOrderList(TaoOrder taoOrder);
-
+    List<TaoOrderItem> selectOrderItemByOrderId(Long orderId);
     /**
      * 新增淘宝订单
      * 
