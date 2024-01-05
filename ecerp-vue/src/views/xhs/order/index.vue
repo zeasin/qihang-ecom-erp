@@ -268,31 +268,15 @@
         <el-form-item label="商家标记备注" prop="sellerRemark">
           <el-input v-model="form.sellerRemark" placeholder="请输入商家标记备注" />
         </el-form-item>
-        <el-form-item label="商家标记优先级，ark订单列表展示旗子颜色 1灰旗 2红旗 3黄旗 4绿旗 5蓝旗 6紫旗" prop="sellerRemarkFlag">
-          <el-input v-model="form.sellerRemarkFlag" placeholder="请输入商家标记优先级，ark订单列表展示旗子颜色 1灰旗 2红旗 3黄旗 4绿旗 5蓝旗 6紫旗" />
-        </el-form-item>
-        <el-form-item label="预售最早发货时间 单位ms" prop="presaleDeliveryStartTime">
-          <el-input v-model="form.presaleDeliveryStartTime" placeholder="请输入预售最早发货时间 单位ms" />
-        </el-form-item>
-        <el-form-item label="预售最晚发货时间 单位ms" prop="presaleDeliveryEndTime">
-          <el-input v-model="form.presaleDeliveryEndTime" placeholder="请输入预售最晚发货时间 单位ms" />
-        </el-form-item>
-        <el-form-item label="原始关联订单号(退换订单的原订单)" prop="originalPackageId">
-          <el-input v-model="form.originalPackageId" placeholder="请输入原始关联订单号(退换订单的原订单)" />
-        </el-form-item>
+        
         <el-form-item label="订单实付金额(包含运费) 单位分" prop="totalPayAmount">
           <el-input v-model="form.totalPayAmount" placeholder="请输入订单实付金额(包含运费) 单位分" />
         </el-form-item>
         <el-form-item label="订单运费 单位分" prop="totalShippingFree">
           <el-input v-model="form.totalShippingFree" placeholder="请输入订单运费 单位分" />
         </el-form-item>
-        <el-form-item label="快递单号" prop="expressTrackingNo">
-          <el-input v-model="form.expressTrackingNo" placeholder="请输入快递单号" />
-        </el-form-item>
-        <el-form-item label="快递公司编码" prop="expressCompanyCode">
-          <el-input v-model="form.expressCompanyCode" placeholder="请输入快递公司编码" />
-        </el-form-item>
-        <el-form-item label="收件人姓名+手机+地址等计算得出，用来查询收件人详情" prop="openAddressId">
+        
+        <!-- <el-form-item label="收件人姓名+手机+地址等计算得出，用来查询收件人详情" prop="openAddressId">
           <el-input v-model="form.openAddressId" placeholder="请输入收件人姓名+手机+地址等计算得出，用来查询收件人详情" />
         </el-form-item>
         <el-form-item label="省" prop="province">
@@ -304,25 +288,24 @@
         <el-form-item label="区县" prop="district">
           <el-input v-model="form.district" placeholder="请输入区县" />
         </el-form-item>
-        <el-form-item label="订单审核时间" prop="auditTime">
-          <el-date-picker clearable
-            v-model="form.auditTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择订单审核时间">
-          </el-date-picker>
+     -->
+        <el-form-item label="收件人姓名" prop="receiver">
+          <el-input v-model="form.receiver" placeholder="请输入收件人姓名" style="width:250px"/>
         </el-form-item>
-        <el-form-item label="结算金额" prop="settleAmount">
-          <el-input v-model="form.settleAmount" placeholder="请输入结算金额" />
+        <el-form-item label="收件人电话" prop="phone">
+          <el-input v-model="form.phone" placeholder="请输入收件人电话" style="width:250px"/>
         </el-form-item>
-        <el-form-item label="发货时间" prop="sendTime">
-          <el-date-picker clearable
-            v-model="form.sendTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择发货时间">
-          </el-date-picker>
+        <el-form-item label="省市区" prop="provinces">
+          <el-cascader style="width:250px"
+            size="large"
+            :options="pcaTextArr"
+            v-model="form.provinces">
+          </el-cascader>
         </el-form-item>
+        <el-form-item label="详细地址" prop="postAddr">
+          <el-input v-model="form.address" placeholder="请输入详细地址" style="width:250px" />
+        </el-form-item>
+
         <el-divider content-position="center">小红书订单明细信息</el-divider>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
@@ -335,6 +318,22 @@
         <el-table :data="xhsOrderItemList" :row-class-name="rowXhsOrderItemIndex" @selection-change="handleXhsOrderItemSelectionChange" ref="xhsOrderItem">
           <el-table-column type="selection" width="50" align="center" />
           <el-table-column label="序号" align="center" prop="index" width="50"/>
+          <el-table-column label="商品" prop="erpGoodsId" width="350" v-if="!isAudit" >
+            <template slot-scope="scope">
+              <el-select v-model="scope.row.erpGoodsSpecId" filterable remote reserve-keyword placeholder="搜索商品" style="width: 330px;"
+                :remote-method="searchSku" :loading="skuListLoading" @change="skuChanage(scope.row)">
+                <el-option v-for="item in skuList" :key="item.id"
+                  :label="item.name + ' - ' + item.colorValue + ' ' + item.sizeValue + ' ' + item.styleValue"
+                  :value="item.id">
+                </el-option>
+              </el-select>
+            </template>
+          </el-table-column>
+          <el-table-column label="商品图片" prop="productImgUrl" >
+            <template slot-scope="scope">
+              <el-image style="width: 70px; height: 70px" :src="scope.row.productImgUrl"></el-image>
+            </template>
+          </el-table-column>
           <el-table-column label="商品id" prop="itemId" width="150">
             <template slot-scope="scope">
               <el-input v-model="scope.row.itemId" placeholder="请输入商品id" />
@@ -482,7 +481,17 @@ export default {
         updateBy: null
       },
       // 表单参数
-      form: {},
+      // 表单参数
+      form: {
+        provinces: [],
+        address:null,
+        receiver:null,
+        phone:null,
+        province:null,
+        city:null,
+        town:null
+      },
+      pcaTextArr,
       // 表单校验
       rules: {
         orderId: [
