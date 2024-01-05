@@ -113,7 +113,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null  and updateBy != ''"> and updateBy = #{updateBy}</if>
         </where>
     </select>
-    
+    <select id="selectOrderItemByOrderId" parameterType="Long" resultMap="XhsOrderItemResult">
+        select b.id as sub_id, b.orderId as sub_orderId, b.itemId as sub_itemId, b.itemName as sub_itemName, b.erpcode as sub_erpcode, b.itemSpec as sub_itemSpec, b.itemImage as sub_itemImage, b.quantity as sub_quantity, b.totalPaidAmount as sub_totalPaidAmount, b.totalMerchantDiscount as sub_totalMerchantDiscount, b.totalRedDiscount as sub_totalRedDiscount, b.itemTag as sub_itemTag, b.erpSendStatus as sub_erpSendStatus
+        from s_xhs_order_item b
+        where b.orderId = #{orderId}
+    </select>
     <select id="selectXhsOrderById" parameterType="Long" resultMap="XhsOrderXhsOrderItemResult">
         select a.id, a.orderId, a.shopType, a.shopId, a.orderType, a.orderStatus, a.afterSalesStatus, a.cancelStatus, a.orderCreatedTime, a.orderPaidTime, a.orderUpdateTime, a.orderDeliveryTime, a.orderCancelTime, a.orderFinishTime, a.promiseLastDeliveryTime, a.customerRemark, a.sellerRemark, a.sellerRemarkFlag, a.presaleDeliveryStartTime, a.presaleDeliveryEndTime, a.originalPackageId, a.totalPayAmount, a.totalShippingFree, a.expressTrackingNo, a.expressCompanyCode, a.openAddressId, a.province, a.city, a.district, a.auditStatus, a.auditTime, a.settleStatus, a.settleAmount, a.sendStatus, a.sendTime, a.createTime, a.createBy, a.updateTime, a.updateBy,
  b.id as sub_id, b.orderId as sub_orderId, b.itemId as sub_itemId, b.itemName as sub_itemName, b.erpcode as sub_erpcode, b.itemSpec as sub_itemSpec, b.itemImage as sub_itemImage, b.quantity as sub_quantity, b.totalPaidAmount as sub_totalPaidAmount, b.totalMerchantDiscount as sub_totalMerchantDiscount, b.totalRedDiscount as sub_totalRedDiscount, b.itemTag as sub_itemTag, b.erpSendStatus as sub_erpSendStatus

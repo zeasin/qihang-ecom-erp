@@ -10,23 +10,31 @@
         />
       </el-form-item>
       <el-form-item label="店铺" prop="shopId">
-        <el-input
+        <!-- <el-input
           v-model="queryParams.shopId"
           placeholder="请输入店铺ID"
           clearable
           @keyup.enter.native="handleQuery"
-        />
+        /> -->
+        <el-select v-model="queryParams.shopId" placeholder="请选择店铺" clearable @change="handleQuery">
+         <el-option
+            v-for="item in shopList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id">
+          </el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="订单创建时间" prop="orderCreatedTime">
+      <el-form-item label="下单日期" prop="orderCreatedTime">
         <el-date-picker clearable
                         v-model="queryParams.orderCreatedTime"
                         type="date"
                         value-format="yyyy-MM-dd"
-                        placeholder="请选择订单审核时间">
+                        placeholder="请选择下单日期">
         </el-date-picker>
       </el-form-item>
 
-      <el-form-item label="商家标记优先级" prop="sellerRemarkFlag">
+      <el-form-item label="优先级" prop="sellerRemarkFlag">
         <el-input
           v-model="queryParams.sellerRemarkFlag"
           placeholder="请输入商家标记优先级，ark订单列表展示旗子颜色 1灰旗 2红旗 3黄旗 4绿旗 5蓝旗 6紫旗"
@@ -59,29 +67,28 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['xhs:order:add']"
-        >新增</el-button>
+        >手动添加</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
           type="success"
           plain
-          icon="el-icon-edit"
+          icon="el-icon-upload"
           size="mini"
-          :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['xhs:order:edit']"
-        >修改</el-button>
+        >Execl导入</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
           type="danger"
           plain
-          icon="el-icon-delete"
+          icon="el-icon-download"
           size="mini"
-          :disabled="multiple"
+
           @click="handleDelete"
           v-hasPermi="['xhs:order:remove']"
-        >删除</el-button>
+        >API拉取订单</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -91,7 +98,7 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['xhs:order:export']"
-        >导出</el-button>
+        >导出订单</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -100,32 +107,79 @@
       <el-table-column type="selection" width="55" align="center" />
 <!--      <el-table-column label="主键id" align="center" prop="id" />-->
       <el-table-column label="订单号" align="center" prop="orderId" />
+      <el-table-column label="店铺" align="center" prop="shopId" >
+       <template slot-scope="scope">
+          <span v-if="scope.row.shopId==21">珍姐姐de衣柜的店</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="商品" width="350">
+          <template slot-scope="scope">
+            <el-row v-for="item in scope.row.xhsOrderItemList" :key="item.id" :gutter="20">
+              
+            <div style="float: left;display: flex;align-items: center;" >
+              <el-image  style="width: 70px; height: 70px;" :src="item.itemImage"></el-image>
+              <div style="margin-left:10px">
+              <p>{{item.itemName}}</p>
+              <p>{{item.itemSpec}}&nbsp;
+                <el-tag size="small">x {{item.quantity}}</el-tag>
+                </p>
+              </div>
+            </div>
+            </el-row>
+          </template>
+      </el-table-column>
 <!--      <el-table-column label="订单来源" align="center" prop="shopType" />-->
-      <el-table-column label="店铺" align="center" prop="shopId" />
+      <!-- <el-table-column label="店铺" align="center" prop="shopId" /> -->
 <!--      <el-table-column label="订单类型" align="center" prop="orderType" />-->
-      <el-table-column label="小红书订单状态" align="center" prop="orderStatus" />
-      <el-table-column label="小红书售后状态" align="center" prop="afterSalesStatus" />
-      <el-table-column label="申请取消状态" align="center" prop="cancelStatus" />
-      <el-table-column label="订单创建时间 单位ms" align="center" prop="orderCreatedTime" />
-      <el-table-column label="订单支付时间 单位ms" align="center" prop="orderPaidTime" />
+<el-table-column label="实付金额" align="center" prop="totalPayAmount" />
+      <el-table-column label="运费" align="center" prop="totalShippingFree" />
+      <el-table-column label="小红书订单状态" align="center" prop="orderStatus" >
+        <!-- 小红书订单状态，1已下单待付款 2已支付处理中 3清关中 4待发货 5部分发货 6待收货 7已完成 8已关闭 9已取消 10换货申请中 -->
+        <template slot-scope="scope">
+          
+          <el-tag size="small" v-if="scope.row.orderStatus === 1"> 待支付</el-tag>
+          <el-tag size="small" v-if="scope.row.orderStatus === 2"> 已支付</el-tag>
+          <el-tag size="small" v-if="scope.row.orderStatus === 3"> 清关中</el-tag>
+          <el-tag size="small" v-if="scope.row.orderStatus === 4"> 待发货</el-tag>
+          <el-tag size="small" v-if="scope.row.orderStatus === 5"> 部分发货</el-tag>
+           <el-tag size="small" v-if="scope.row.orderStatus === 6"> 待收货</el-tag>
+            <el-tag size="small" v-if="scope.row.orderStatus === 7"> 已完成</el-tag>
+             <el-tag size="small" v-if="scope.row.orderStatus === 8"> 已关闭</el-tag>
+              <el-tag size="small" v-if="scope.row.orderStatus === 9"> 已取消</el-tag>
+               <el-tag size="small" v-if="scope.row.orderStatus === 10"> 换货申请中</el-tag>
+          <span></span>
+
+          <el-tag size="small" v-if="scope.row.auditStatus === 0" style="margin-top: 5px;"> 待确认</el-tag>
+          <el-tag size="small" v-if="scope.row.auditStatus === 1" style="margin-top: 5px;"> 已确认</el-tag>
+          <el-tag size="small" v-if="scope.row.auditStatus === 2" style="margin-top: 5px;"> 已拦截</el-tag>
+
+        </template>
+      </el-table-column>
+      <!-- <el-table-column label="小红书售后状态" align="center" prop="afterSalesStatus" /> -->
+      <!-- <el-table-column label="申请取消状态" align="center" prop="cancelStatus" /> -->
+      <el-table-column label="下单时间" align="center" prop="orderCreatedTime" >
+        <template slot-scope="scope">
+          <span>{{ dateToString(scope.row.orderCreatedTime) }}</span>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column label="订单支付时间 单位ms" align="center" prop="orderPaidTime" />
       <el-table-column label="订单更新时间 单位ms" align="center" prop="orderUpdateTime" />
       <el-table-column label="订单发货时间 单位ms" align="center" prop="orderDeliveryTime" />
       <el-table-column label="订单取消时间 单位ms" align="center" prop="orderCancelTime" />
       <el-table-column label="订单完成时间 单位ms" align="center" prop="orderFinishTime" />
-      <el-table-column label="承诺最晚发货时间 单位ms" align="center" prop="promiseLastDeliveryTime" />
+      <el-table-column label="承诺最晚发货时间 单位ms" align="center" prop="promiseLastDeliveryTime" /> -->
       <el-table-column label="用户备注" align="center" prop="customerRemark" />
       <el-table-column label="商家标记备注" align="center" prop="sellerRemark" />
       <el-table-column label="商家标记优先级" align="center" prop="sellerRemarkFlag" />
-      <el-table-column label="预售最早发货时间 单位ms" align="center" prop="presaleDeliveryStartTime" />
-      <el-table-column label="预售最晚发货时间 单位ms" align="center" prop="presaleDeliveryEndTime" />
+      <!-- <el-table-column label="预售最早发货时间 单位ms" align="center" prop="presaleDeliveryStartTime" />
+      <el-table-column label="预售最晚发货时间 单位ms" align="center" prop="presaleDeliveryEndTime" /> -->
 <!--      <el-table-column label="原始关联订单号(退换订单的原订单)" align="center" prop="originalPackageId" />-->
-      <el-table-column label="订单实付金额(包含运费) 单位分" align="center" prop="totalPayAmount" />
-      <el-table-column label="订单运费 单位分" align="center" prop="totalShippingFree" />
+      
       <el-table-column label="快递单号" align="center" prop="expressTrackingNo" />
 <!--      <el-table-column label="快递公司编码" align="center" prop="expressCompanyCode" />-->
 <!--      <el-table-column label="收件人姓名+手机+地址等计算得出，用来查询收件人详情" align="center" prop="openAddressId" />-->
-      <el-table-column label="省" align="center" prop="province" />
-      <el-table-column label="市" align="center" prop="city" />
+      <!-- <el-table-column label="省" align="center" prop="province" /> -->
+      <!-- <el-table-column label="市" align="center" prop="city" /> -->
 <!--      <el-table-column label="区县" align="center" prop="district" />-->
 <!--      <el-table-column label="订单审核状态" align="center" prop="auditStatus" />-->
 <!--      <el-table-column label="订单审核时间" align="center" prop="auditTime" width="180">-->
@@ -182,35 +236,32 @@
     />
 
     <!-- 添加或修改小红书订单对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+    <el-dialog :title="title" :visible.sync="open" width="1100px" append-to-body :close-on-click-modal="false">
+      <el-form ref="form" :model="form" :rules="rules" label-width="180px" inline>
         <el-form-item label="订单号" prop="orderId">
-          <el-input v-model="form.orderId" placeholder="请输入订单号" />
+          <el-input v-model="form.orderId" placeholder="请输入订单号"  style="width:250px" :disabled="isAudit"/>
         </el-form-item>
-        <el-form-item label="店铺ID" prop="shopId">
-          <el-input v-model="form.shopId" placeholder="请输入店铺ID" />
+        <el-form-item label="店铺" prop="shopId">
+          <!-- <el-input v-model="form.shopId" placeholder="请输入店铺ID" /> -->
+          <el-select v-model="form.shopId" placeholder="请选择店铺" style="width:250px" :disabled="isAudit">
+           <el-option style="width:250px"
+              v-for="item in shopList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id" >
+            </el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="订单创建时间 单位ms" prop="orderCreatedTime">
-          <el-input v-model="form.orderCreatedTime" placeholder="请输入订单创建时间 单位ms" />
+        <el-form-item label="订单创建时间" prop="orderCreatedTime">
+          <!-- <el-input v-model="form.orderCreatedTime" placeholder="请输入订单创建时间 单位ms" /> -->
+           <el-date-picker clearable style="width:250px"
+            v-model="form.orderCreatedTime"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            placeholder="请选择订单创建时间">
+          </el-date-picker>
         </el-form-item>
-        <el-form-item label="订单支付时间 单位ms" prop="orderPaidTime">
-          <el-input v-model="form.orderPaidTime" placeholder="请输入订单支付时间 单位ms" />
-        </el-form-item>
-        <el-form-item label="订单更新时间 单位ms" prop="orderUpdateTime">
-          <el-input v-model="form.orderUpdateTime" placeholder="请输入订单更新时间 单位ms" />
-        </el-form-item>
-        <el-form-item label="订单发货时间 单位ms" prop="orderDeliveryTime">
-          <el-input v-model="form.orderDeliveryTime" placeholder="请输入订单发货时间 单位ms" />
-        </el-form-item>
-        <el-form-item label="订单取消时间 单位ms" prop="orderCancelTime">
-          <el-input v-model="form.orderCancelTime" placeholder="请输入订单取消时间 单位ms" />
-        </el-form-item>
-        <el-form-item label="订单完成时间 单位ms" prop="orderFinishTime">
-          <el-input v-model="form.orderFinishTime" placeholder="请输入订单完成时间 单位ms" />
-        </el-form-item>
-        <el-form-item label="承诺最晚发货时间 单位ms" prop="promiseLastDeliveryTime">
-          <el-input v-model="form.promiseLastDeliveryTime" placeholder="请输入承诺最晚发货时间 单位ms" />
-        </el-form-item>
+        
         <el-form-item label="用户备注" prop="customerRemark">
           <el-input v-model="form.customerRemark" placeholder="请输入用户备注" />
         </el-form-item>
@@ -348,7 +399,15 @@
 
 <script>
 import { listOrder, getOrder, delOrder, addOrder, updateOrder } from "@/api/xhs/order";
-
+import { listShop } from "@/api/shop/shop";
+import { searchSku } from "@/api/goods/goods";
+import {
+  provinceAndCityData,
+  pcTextArr,
+  regionData,
+  pcaTextArr,
+  codeToText,
+} from "element-china-area-data";
 export default {
   name: "Order",
   data() {
@@ -371,6 +430,10 @@ export default {
       orderList: [],
       // 小红书订单明细表格数据
       xhsOrderItemList: [],
+      shopList:[],
+      isAudit:false,
+      skuListLoading:false,
+      skuList:[],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -510,9 +573,16 @@ export default {
     };
   },
   created() {
+    listShop({type:7}).then(response => {
+        this.shopList = response.rows;
+      });
     this.getList();
   },
   methods: {
+    dateToString(timespan){
+            var date = new Date(timespan);
+            return date.toLocaleString();
+        },
     /** 查询小红书订单列表 */
     getList() {
       this.loading = true;
