@@ -50,11 +50,11 @@ public class PddOrderItem extends BaseEntity
 
     /** 商品单价 */
     @Excel(name = "商品单价")
-    private Long goodsPrice;
+    private Double goodsPrice;
 
     /** 子订单金额 */
     @Excel(name = "子订单金额")
-    private Long itemAmount;
+    private Double itemAmount;
 
     /** 商品数量 */
     @Excel(name = "商品数量")
@@ -157,21 +157,21 @@ public class PddOrderItem extends BaseEntity
     {
         return specNum;
     }
-    public void setGoodsPrice(Long goodsPrice) 
+    public void setGoodsPrice(Double goodsPrice)
     {
         this.goodsPrice = goodsPrice;
     }
 
-    public Long getGoodsPrice() 
+    public Double getGoodsPrice()
     {
         return goodsPrice;
     }
-    public void setItemAmount(Long itemAmount) 
+    public void setItemAmount(Double itemAmount)
     {
         this.itemAmount = itemAmount;
     }
 
-    public Long getItemAmount() 
+    public Double getItemAmount()
     {
         return itemAmount;
     }

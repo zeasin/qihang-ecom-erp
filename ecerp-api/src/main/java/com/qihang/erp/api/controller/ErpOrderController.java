@@ -77,7 +77,9 @@ public class ErpOrderController extends BaseController
     public AjaxResult add(@RequestBody ErpOrder order)
     {
         order.setCreateBy(getUsername());
-        return toAjax(orderService.insertErpOrder(order));
+        int result = orderService.insertErpOrder(order);
+        if(result == -1) return new AjaxResult(501,"订单号已存在！");
+        return toAjax(result);
     }
 
 

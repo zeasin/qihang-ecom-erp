@@ -1,5 +1,6 @@
 package com.qihang.erp.api.domain;
 
+import java.math.BigDecimal;
 import com.zhijian.common.annotation.Excel;
 import com.zhijian.common.core.domain.BaseEntity;
 
@@ -7,7 +8,7 @@ import com.zhijian.common.core.domain.BaseEntity;
  * 订单明细对象 erp_order_item
  * 
  * @author qihang
- * @date 2024-01-04
+ * @date 2024-01-05
  */
 public class ErpOrderItem extends BaseEntity
 {
@@ -50,27 +51,27 @@ public class ErpOrderItem extends BaseEntity
 
     /** 商品单价 */
     @Excel(name = "商品单价")
-    private Long goodsPrice;
+    private BigDecimal goodsPrice;
 
     /** 子订单金额 */
     @Excel(name = "子订单金额")
-    private Long itemAmount;
+    private BigDecimal itemAmount;
 
     /** 商品数量 */
     @Excel(name = "商品数量")
-    private Long quantity;
+    private Integer quantity;
 
     /** 是否赠品0否1是 */
     @Excel(name = "是否赠品0否1是")
-    private Long isGift;
+    private Integer isGift;
 
     /** 已退货数量 */
     @Excel(name = "已退货数量")
-    private Long refundCount;
+    private Integer refundCount;
 
     /** 售后状态 1：无售后或售后关闭，2：售后处理中，3：退款中，4： 退款成功  */
     @Excel(name = "售后状态 1：无售后或售后关闭，2：售后处理中，3：退款中，4： 退款成功 ")
-    private Long refundStatus;
+    private Integer refundStatus;
 
     public void setId(Long id) 
     {
@@ -153,57 +154,57 @@ public class ErpOrderItem extends BaseEntity
     {
         return specNum;
     }
-    public void setGoodsPrice(Long goodsPrice) 
+    public void setGoodsPrice(BigDecimal goodsPrice) 
     {
         this.goodsPrice = goodsPrice;
     }
 
-    public Long getGoodsPrice() 
+    public BigDecimal getGoodsPrice() 
     {
         return goodsPrice;
     }
-    public void setItemAmount(Long itemAmount) 
+    public void setItemAmount(BigDecimal itemAmount) 
     {
         this.itemAmount = itemAmount;
     }
 
-    public Long getItemAmount() 
+    public BigDecimal getItemAmount() 
     {
         return itemAmount;
     }
-    public void setQuantity(Long quantity) 
+    public void setQuantity(Integer quantity) 
     {
         this.quantity = quantity;
     }
 
-    public Long getQuantity() 
+    public Integer getQuantity() 
     {
         return quantity;
     }
-    public void setIsGift(Long isGift) 
+    public void setIsGift(Integer isGift) 
     {
         this.isGift = isGift;
     }
 
-    public Long getIsGift() 
+    public Integer getIsGift() 
     {
         return isGift;
     }
-    public void setRefundCount(Long refundCount) 
+    public void setRefundCount(Integer refundCount) 
     {
         this.refundCount = refundCount;
     }
 
-    public Long getRefundCount() 
+    public Integer getRefundCount() 
     {
         return refundCount;
     }
-    public void setRefundStatus(Long refundStatus) 
+    public void setRefundStatus(Integer refundStatus) 
     {
         this.refundStatus = refundStatus;
     }
 
-    public Long getRefundStatus() 
+    public Integer getRefundStatus() 
     {
         return refundStatus;
     }

@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 订单Mapper接口
  * 
  * @author qihang
- * @date 2024-01-04
+ * @date 2024-01-05
  */
 @Mapper
 public interface ErpOrderMapper 
@@ -21,6 +21,7 @@ public interface ErpOrderMapper
      * @return 订单
      */
     public ErpOrder selectErpOrderById(Long id);
+    ErpOrder selectErpOrderByNum(String orderNum);
 
     /**
      * 查询订单列表
