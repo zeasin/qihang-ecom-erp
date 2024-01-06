@@ -55,15 +55,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="orderId"    column="sub_orderId"    />
         <result property="itemId"    column="sub_itemId"    />
         <result property="itemName"    column="sub_itemName"    />
-        <result property="erpcode"    column="sub_erpcode"    />
+        <result property="erpCode"    column="sub_erpCode"    />
+        <result property="itemSpecCode"    column="sub_itemSpecCode"    />
         <result property="itemSpec"    column="sub_itemSpec"    />
         <result property="itemImage"    column="sub_itemImage"    />
+        <result property="price"    column="sub_price"    />
         <result property="quantity"    column="sub_quantity"    />
         <result property="totalPaidAmount"    column="sub_totalPaidAmount"    />
         <result property="totalMerchantDiscount"    column="sub_totalMerchantDiscount"    />
         <result property="totalRedDiscount"    column="sub_totalRedDiscount"    />
         <result property="itemTag"    column="sub_itemTag"    />
         <result property="erpSendStatus"    column="sub_erpSendStatus"    />
+        <result property="erpGoodsId"    column="sub_erpGoodsId"    />
+        <result property="erpGoodsSpecId"    column="sub_erpGoodsSpecId"    />
     </resultMap>
 
     <sql id="selectXhsOrderVo">
@@ -114,13 +118,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     <select id="selectOrderItemByOrderId" parameterType="Long" resultMap="XhsOrderItemResult">
-        select b.id as sub_id, b.orderId as sub_orderId, b.itemId as sub_itemId, b.itemName as sub_itemName, b.erpcode as sub_erpcode, b.itemSpec as sub_itemSpec, b.itemImage as sub_itemImage, b.quantity as sub_quantity, b.totalPaidAmount as sub_totalPaidAmount, b.totalMerchantDiscount as sub_totalMerchantDiscount, b.totalRedDiscount as sub_totalRedDiscount, b.itemTag as sub_itemTag, b.erpSendStatus as sub_erpSendStatus
+        select b.id as sub_id, b.orderId as sub_orderId, b.itemId as sub_itemId, b.itemName as sub_itemName, b.erpCode as sub_erpCode,b.itemSpecCode as sub_itemSpecCode,b.erpGoodsId as sub_erpGoodsId,b.erpGoodsSpecId as sub_erpGoodsSpecId,
+               b.itemSpec as sub_itemSpec, b.itemImage as sub_itemImage,b.price as sub_price, b.quantity as sub_quantity, b.totalPaidAmount as sub_totalPaidAmount, b.totalMerchantDiscount as sub_totalMerchantDiscount, b.totalRedDiscount as sub_totalRedDiscount, b.itemTag as sub_itemTag, b.erpSendStatus as sub_erpSendStatus
         from s_xhs_order_item b
         where b.orderId = #{orderId}
     </select>
     <select id="selectXhsOrderById" parameterType="Long" resultMap="XhsOrderXhsOrderItemResult">
         select a.id, a.orderId, a.shopType, a.shopId, a.orderType, a.orderStatus, a.afterSalesStatus, a.cancelStatus, a.orderCreatedTime, a.orderPaidTime, a.orderUpdateTime, a.orderDeliveryTime, a.orderCancelTime, a.orderFinishTime, a.promiseLastDeliveryTime, a.customerRemark, a.sellerRemark, a.sellerRemarkFlag, a.presaleDeliveryStartTime, a.presaleDeliveryEndTime, a.originalPackageId, a.totalPayAmount, a.totalShippingFree, a.expressTrackingNo, a.expressCompanyCode, a.openAddressId, a.province, a.city, a.district, a.auditStatus, a.auditTime, a.settleStatus, a.settleAmount, a.sendStatus, a.sendTime, a.createTime, a.createBy, a.updateTime, a.updateBy,
- b.id as sub_id, b.orderId as sub_orderId, b.itemId as sub_itemId, b.itemName as sub_itemName, b.erpcode as sub_erpcode, b.itemSpec as sub_itemSpec, b.itemImage as sub_itemImage, b.quantity as sub_quantity, b.totalPaidAmount as sub_totalPaidAmount, b.totalMerchantDiscount as sub_totalMerchantDiscount, b.totalRedDiscount as sub_totalRedDiscount, b.itemTag as sub_itemTag, b.erpSendStatus as sub_erpSendStatus
+               b.id as sub_id, b.orderId as sub_orderId, b.itemId as sub_itemId, b.itemName as sub_itemName, b.erpCode as sub_erpCode,b.itemSpecCode as sub_itemSpecCode, b.itemSpec as sub_itemSpec, b.itemImage as sub_itemImage,
+
+                b.erpGoodsId as sub_erpGoodsId,b.erpGoodsSpecId as sub_erpGoodsSpecId,b.price as sub_price,b.quantity as sub_quantity, b.totalPaidAmount as sub_totalPaidAmount, b.totalMerchantDiscount as sub_totalMerchantDiscount, b.totalRedDiscount as sub_totalRedDiscount, b.itemTag as sub_itemTag, b.erpSendStatus as sub_erpSendStatus
         from s_xhs_order a
         left join s_xhs_order_item b on b.orderId = a.id
         where a.id = #{id}
@@ -278,9 +285,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <insert id="batchXhsOrderItem">
-        insert into s_xhs_order_item( id, orderId, itemId, itemName, erpcode, itemSpec, itemImage, quantity, totalPaidAmount, totalMerchantDiscount, totalRedDiscount, itemTag, erpSendStatus) values
+        insert into s_xhs_order_item( id, orderId, itemId, itemName, erpCode,itemSpecCode, itemSpec, itemImage,price, quantity, totalPaidAmount, totalMerchantDiscount, totalRedDiscount, itemTag, erpSendStatus,erpGoodsId,erpGoodsSpecId) values
 		<foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.orderId}, #{item.itemId}, #{item.itemName}, #{item.erpcode}, #{item.itemSpec}, #{item.itemImage}, #{item.quantity}, #{item.totalPaidAmount}, #{item.totalMerchantDiscount}, #{item.totalRedDiscount}, #{item.itemTag}, #{item.erpSendStatus})
+            ( #{item.id}, #{item.orderId}, #{item.itemId}, #{item.itemName}, #{item.erpCode}, #{item.itemSpecCode}, #{item.itemSpec}, #{item.itemImage}, #{item.price}, #{item.quantity}, #{item.totalPaidAmount}, #{item.totalMerchantDiscount}, #{item.totalRedDiscount}, #{item.itemTag}, #{item.erpSendStatus}, #{item.erpGoodsId}, #{item.erpGoodsSpecId})
         </foreach>
     </insert>
 </mapper>

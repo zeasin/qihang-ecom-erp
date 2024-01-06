@@ -30,7 +30,9 @@ public class XhsOrderItem extends BaseEntity
 
     /** 商家编码(若为组合品，暂不支持组合品的商家编码，但skulist会返回子商品商家编码) */
     @Excel(name = "商家编码(若为组合品，暂不支持组合品的商家编码，但skulist会返回子商品商家编码)")
-    private String erpcode;
+    private String erpCode;
+
+    private String itemSpecCode;
 
     /** 规格 */
     @Excel(name = "规格")
@@ -39,7 +41,7 @@ public class XhsOrderItem extends BaseEntity
     /** 商品图片url */
     @Excel(name = "商品图片url")
     private String itemImage;
-
+    private Double price;
     /** 数量 */
     @Excel(name = "数量")
     private Long quantity;
@@ -47,6 +49,7 @@ public class XhsOrderItem extends BaseEntity
     /** 总支付金额（考虑总件数）商品总实付 */
     @Excel(name = "总支付金额", readConverterExp = "考=虑总件数")
     private Long totalPaidAmount;
+    private Double itemAmount;
 
     /** 商家承担总优惠 */
     @Excel(name = "商家承担总优惠")
@@ -64,7 +67,50 @@ public class XhsOrderItem extends BaseEntity
     @Excel(name = "ERP发货状态0待处理1出库中2已出库3已发货")
     private Long erpSendStatus;
 
-    public void setId(Long id) 
+    private Long erpGoodsId;
+    private Long erpGoodsSpecId;
+
+    public Double getItemAmount() {
+        return itemAmount;
+    }
+
+    public void setItemAmount(Double itemAmount) {
+        this.itemAmount = itemAmount;
+    }
+
+    public Long getErpGoodsId() {
+        return erpGoodsId;
+    }
+
+    public void setErpGoodsId(Long erpGoodsId) {
+        this.erpGoodsId = erpGoodsId;
+    }
+
+    public Long getErpGoodsSpecId() {
+        return erpGoodsSpecId;
+    }
+
+    public void setErpGoodsSpecId(Long erpGoodsSpecId) {
+        this.erpGoodsSpecId = erpGoodsSpecId;
+    }
+
+    public String getItemSpecCode() {
+        return itemSpecCode;
+    }
+
+    public void setItemSpecCode(String itemSpecCode) {
+        this.itemSpecCode = itemSpecCode;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }
@@ -100,16 +146,16 @@ public class XhsOrderItem extends BaseEntity
     {
         return itemName;
     }
-    public void setErpcode(String erpcode) 
-    {
-        this.erpcode = erpcode;
+
+    public String getErpCode() {
+        return erpCode;
     }
 
-    public String getErpcode() 
-    {
-        return erpcode;
+    public void setErpCode(String erpCode) {
+        this.erpCode = erpCode;
     }
-    public void setItemSpec(String itemSpec) 
+
+    public void setItemSpec(String itemSpec)
     {
         this.itemSpec = itemSpec;
     }

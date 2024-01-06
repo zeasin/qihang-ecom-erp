@@ -397,7 +397,7 @@
           </el-table-column> -->
           <el-table-column label="单价" prop="price">
             <template slot-scope="scope">
-              <el-input v-model="scope.row.price" placeholder="请输入实际单价" disabled/>
+              <el-input v-model="scope.row.price" placeholder="请输入单价" disabled/>
             </template>
           </el-table-column>
           <el-table-column label="数量" prop="quantity">

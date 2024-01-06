@@ -252,29 +252,22 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="订单创建时间" prop="orderCreatedTime">
+        <el-form-item label="下单时间" prop="createTime">
           <!-- <el-input v-model="form.orderCreatedTime" placeholder="请输入订单创建时间 单位ms" /> -->
            <el-date-picker clearable style="width:250px"
-            v-model="form.orderCreatedTime"
+            v-model="form.createTime"
             type="datetime"
             value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="请选择订单创建时间">
+            placeholder="请选择下单时间">
           </el-date-picker>
         </el-form-item>
         
         <el-form-item label="用户备注" prop="customerRemark">
-          <el-input v-model="form.customerRemark" placeholder="请输入用户备注" />
-        </el-form-item>
-        <el-form-item label="商家标记备注" prop="sellerRemark">
-          <el-input v-model="form.sellerRemark" placeholder="请输入商家标记备注" />
+          <el-input v-model="form.customerRemark" type="textarea" placeholder="请输入用户备注" style="width:250px"/>
         </el-form-item>
         
-        <el-form-item label="订单实付金额(包含运费) 单位分" prop="totalPayAmount">
-          <el-input v-model="form.totalPayAmount" placeholder="请输入订单实付金额(包含运费) 单位分" />
-        </el-form-item>
-        <el-form-item label="订单运费 单位分" prop="totalShippingFree">
-          <el-input v-model="form.totalShippingFree" placeholder="请输入订单运费 单位分" />
-        </el-form-item>
+        
+       
         
         <!-- <el-form-item label="收件人姓名+手机+地址等计算得出，用来查询收件人详情" prop="openAddressId">
           <el-input v-model="form.openAddressId" placeholder="请输入收件人姓名+手机+地址等计算得出，用来查询收件人详情" />
@@ -302,10 +295,12 @@
             v-model="form.provinces">
           </el-cascader>
         </el-form-item>
-        <el-form-item label="详细地址" prop="postAddr">
+        <el-form-item label="详细地址" prop="address">
           <el-input v-model="form.address" placeholder="请输入详细地址" style="width:250px" />
         </el-form-item>
-
+      <el-form-item label="商家标记备注" prop="sellerRemark">
+          <el-input v-model="form.sellerRemark" type="textarea" placeholder="请输入商家标记备注" style="width:250px"/>
+        </el-form-item>
         <el-divider content-position="center">小红书订单明细信息</el-divider>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
@@ -315,7 +310,7 @@
             <el-button type="danger" icon="el-icon-delete" size="mini" @click="handleDeleteXhsOrderItem">删除</el-button>
           </el-col>
         </el-row>
-        <el-table :data="xhsOrderItemList" :row-class-name="rowXhsOrderItemIndex" @selection-change="handleXhsOrderItemSelectionChange" ref="xhsOrderItem">
+        <el-table :data="xhsOrderItemList" :row-class-name="rowXhsOrderItemIndex" @selection-change="handleXhsOrderItemSelectionChange" ref="xhsOrderItem" style="margin-bottom: 10px;">
           <el-table-column type="selection" width="50" align="center" />
           <el-table-column label="序号" align="center" prop="index" width="50"/>
           <el-table-column label="商品" prop="erpGoodsId" width="350" v-if="!isAudit" >
@@ -329,22 +324,22 @@
               </el-select>
             </template>
           </el-table-column>
-          <el-table-column label="商品图片" prop="productImgUrl" >
+          <el-table-column label="商品图片" prop="itemImage" >
             <template slot-scope="scope">
-              <el-image style="width: 70px; height: 70px" :src="scope.row.productImgUrl"></el-image>
+              <el-image style="width: 70px; height: 70px" :src="scope.row.itemImage"></el-image>
             </template>
           </el-table-column>
-          <el-table-column label="商品id" prop="itemId" width="150">
+          <!-- <el-table-column label="商品id" prop="itemId" width="150">
             <template slot-scope="scope">
               <el-input v-model="scope.row.itemId" placeholder="请输入商品id" />
             </template>
-          </el-table-column>
-          <el-table-column label="商品名称" prop="itemName" width="150">
+          </el-table-column> -->
+          <!-- <el-table-column label="商品名称" prop="itemName" width="150">
             <template slot-scope="scope">
               <el-input v-model="scope.row.itemName" placeholder="请输入商品名称" />
             </template>
           </el-table-column>
-          <el-table-column label="商家编码(若为组合品，暂不支持组合品的商家编码，但skulist会返回子商品商家编码)" prop="erpcode" width="150">
+          <el-table-column label="商家编码" prop="erpcode" width="150">
             <template slot-scope="scope">
               <el-input v-model="scope.row.erpcode" placeholder="请输入商家编码(若为组合品，暂不支持组合品的商家编码，但skulist会返回子商品商家编码)" />
             </template>
@@ -353,18 +348,28 @@
             <template slot-scope="scope">
               <el-input v-model="scope.row.itemSpec" placeholder="请输入规格" />
             </template>
-          </el-table-column>
-          <el-table-column label="数量" prop="quantity" width="150">
+          </el-table-column> -->
+          <el-table-column label="SKU编码" prop="itemSpecCode" width="100">
             <template slot-scope="scope">
-              <el-input v-model="scope.row.quantity" placeholder="请输入数量" />
+              <el-input v-model="scope.row.itemSpecCode" placeholder="请输入规格" />
             </template>
           </el-table-column>
-          <el-table-column label="总支付金额" prop="totalPaidAmount" width="150">
+          <el-table-column label="单价" prop="price">
             <template slot-scope="scope">
-              <el-input v-model="scope.row.totalPaidAmount" placeholder="请输入总支付金额" />
+              <el-input v-model="scope.row.price" placeholder="请输入单价" disabled/>
             </template>
           </el-table-column>
-          <el-table-column label="商家承担总优惠" prop="totalMerchantDiscount" width="150">
+          <el-table-column label="数量" prop="quantity" >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.quantity" placeholder="请输入数量"  @input="qtyChange(scope.row)" :disabled="isAudit"/>
+            </template>
+          </el-table-column>
+          <el-table-column label="总金额" prop="itemAmount">
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.itemAmount" placeholder="请输入总金额" disabled/>
+            </template>
+          </el-table-column>
+          <!-- <el-table-column label="商家承担总优惠" prop="totalMerchantDiscount" width="150">
             <template slot-scope="scope">
               <el-input v-model="scope.row.totalMerchantDiscount" placeholder="请输入商家承担总优惠" />
             </template>
@@ -385,8 +390,14 @@
                 <el-option label="请选择字典生成" value="" />
               </el-select>
             </template>
-          </el-table-column>
+          </el-table-column> -->
         </el-table>
+         <el-form-item label="商品金额" prop="goodsAmount">
+          <el-input v-model="form.goodsAmount" placeholder="请输入商品总金额" />
+        </el-form-item>
+        <el-form-item label="订单运费" prop="shippingFree">
+          <el-input v-model="form.shippingFree" placeholder="请输入运费" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -489,7 +500,8 @@ export default {
         phone:null,
         province:null,
         city:null,
-        town:null
+        town:null,
+        goodsAmount:null
       },
       pcaTextArr,
       // 表单校验
@@ -497,86 +509,29 @@ export default {
         orderId: [
           { required: true, message: "订单号不能为空", trigger: "blur" }
         ],
-        shopType: [
-          { required: true, message: "订单来源不能为空", trigger: "change" }
-        ],
         shopId: [
           { required: true, message: "店铺ID不能为空", trigger: "blur" }
         ],
-        orderType: [
-          { required: true, message: "订单类型：不能为空", trigger: "change" }
-        ],
-        orderStatus: [
-          { required: true, message: "小红书订单状态，1已下单待付款 2已支付处理中 3清关中 4待发货 5部分发货 6待收货 7已完成 8已关闭 9已取消 10换货申请中不能为空", trigger: "change" }
-        ],
-        afterSalesStatus: [
-          { required: true, message: "小红书售后状态，1无售后 2售后处理中 3售后完成(含取消)不能为空", trigger: "change" }
-        ],
-        cancelStatus: [
-          { required: true, message: "申请取消状态，0未申请取消 1取消处理中不能为空", trigger: "change" }
-        ],
-        orderCreatedTime: [
-          { required: true, message: "订单创建时间 单位ms不能为空", trigger: "blur" }
-        ],
-        orderPaidTime: [
-          { required: true, message: "订单支付时间 单位ms不能为空", trigger: "blur" }
-        ],
-        orderUpdateTime: [
-          { required: true, message: "订单更新时间 单位ms不能为空", trigger: "blur" }
-        ],
-        orderDeliveryTime: [
-          { required: true, message: "订单发货时间 单位ms不能为空", trigger: "blur" }
-        ],
-        orderCancelTime: [
-          { required: true, message: "订单取消时间 单位ms不能为空", trigger: "blur" }
-        ],
-        orderFinishTime: [
-          { required: true, message: "订单完成时间 单位ms不能为空", trigger: "blur" }
-        ],
-        promiseLastDeliveryTime: [
-          { required: true, message: "承诺最晚发货时间 单位ms不能为空", trigger: "blur" }
-        ],
-        sellerRemarkFlag: [
-          { required: true, message: "商家标记优先级，ark订单列表展示旗子颜色 1灰旗 2红旗 3黄旗 4绿旗 5蓝旗 6紫旗不能为空", trigger: "blur" }
-        ],
-        presaleDeliveryStartTime: [
-          { required: true, message: "预售最早发货时间 单位ms不能为空", trigger: "blur" }
-        ],
-        presaleDeliveryEndTime: [
-          { required: true, message: "预售最晚发货时间 单位ms不能为空", trigger: "blur" }
-        ],
-        totalPayAmount: [
-          { required: true, message: "订单实付金额(包含运费) 单位分不能为空", trigger: "blur" }
-        ],
-        totalShippingFree: [
-          { required: true, message: "订单运费 单位分不能为空", trigger: "blur" }
-        ],
-        openAddressId: [
-          { required: true, message: "收件人姓名+手机+地址等计算得出，用来查询收件人详情不能为空", trigger: "blur" }
-        ],
-        province: [
-          { required: true, message: "省不能为空", trigger: "blur" }
-        ],
-        city: [
-          { required: true, message: "市不能为空", trigger: "blur" }
-        ],
-        district: [
-          { required: true, message: "区县不能为空", trigger: "blur" }
-        ],
-        settleStatus: [
-          { required: true, message: "结算状态0未结算1已结算不能为空", trigger: "change" }
-        ],
-        settleAmount: [
-          { required: true, message: "结算金额不能为空", trigger: "blur" }
-        ],
-        sendStatus: [
-          { required: true, message: "ERP发货状态0待处理1出库中2已出库3已发货不能为空", trigger: "change" }
-        ],
         createTime: [
-          { required: true, message: "创建时间不能为空", trigger: "blur" }
+          { required: true, message: "下单时间不能为空", trigger: "blur" }
         ],
-        updateTime: [
-          { required: true, message: "更新时间不能为空", trigger: "blur" }
+        receiver: [
+          { required: true, message: "收件人姓名不能为空", trigger: "blur" }
+        ],
+        phone: [
+          { required: true, message: "收件人电话不能为空", trigger: "blur" }
+        ],
+        provinces: [
+          { required: true, message: "请选择省市区", trigger: "blur" }
+        ],
+        address: [
+          { required: true, message: "收件人详情不能为空", trigger: "blur" }
+        ],
+        goodsAmount: [
+          { required: true, message: "总金额(不含运费) 不能为空", trigger: "blur" }
+        ],
+        shippingFree: [
+          { required: true, message: "订单运费不能为空", trigger: "blur" }
         ],
       }
     };
@@ -631,7 +586,7 @@ export default {
         presaleDeliveryEndTime: null,
         originalPackageId: null,
         totalPayAmount: null,
-        totalShippingFree: null,
+        shippingFree: 0,
         expressTrackingNo: null,
         expressCompanyCode: null,
         openAddressId: null,
@@ -689,6 +644,9 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
+          this.form.province = this.form.provinces[0]
+          this.form.city = this.form.provinces[1]
+          this.form.district = this.form.provinces[2]
           this.form.xhsOrderItemList = this.xhsOrderItemList;
           if (this.form.id != null) {
             updateOrder(this.form).then(response => {
@@ -729,7 +687,7 @@ export default {
       obj.itemSpec = "";
       obj.itemImage = "";
       obj.quantity = "";
-      obj.totalPaidAmount = "";
+      obj.itemAmount = "";
       obj.totalMerchantDiscount = "";
       obj.totalRedDiscount = "";
       obj.itemTag = "";
@@ -757,7 +715,52 @@ export default {
       this.download('xhs/order/export', {
         ...this.queryParams
       }, `order_${new Date().getTime()}.xlsx`)
-    }
+    },
+    // 搜索SKU
+    searchSku(query) {
+      this.shopLoading = true;
+      const qw = {
+        keyword: query
+      }
+      searchSku(qw).then(res => {
+        this.skuList = res.rows;
+        this.skuListLoading = false;
+      })
+    },
+    skuChanage(row) {
+      console.log('=========',row)
+      const spec = this.skuList.find(x => x.id === row.erpGoodsSpecId);
+      if (spec) {
+        console.log('=========', spec)
+        row.erpGoodsId = spec.goodsId
+        row.itemName = spec.name
+        row.erpcode = spec.number
+        row.itemSpec = spec.colorValue + ' ' + spec.sizeValue + ' ' + spec.styleValue
+        row.itemImage = spec.colorImage
+        row.price = spec.purPrice
+        row.itemSpecCode = spec.specNum
+        row.itemTag = '0'
+        row.quantity = 1
+        row.itemAmount = parseFloat(row.price) * row.quantity
+
+        // 计算总金额
+        let goodsAmount = this.form.goodsAmount ? parseFloat(this.form.goodsAmount):0.0
+        goodsAmount += row.itemAmount
+        this.form.goodsAmount = goodsAmount
+      }
+    },
+    qtyChange(row) {
+      console.log('======值变化=====', row)
+      row.itemAmount = row.price * row.comboNum
+      // 计算总金额
+      let goodsAmountNew =0.0
+      this.xhsOrderItemList.forEach(x=>{
+        goodsAmountNew+= row.itemAmount
+      })
+      this.form.goodsAmount = goodsAmountNew
+
+    },
+  
   }
 };
 </script>
