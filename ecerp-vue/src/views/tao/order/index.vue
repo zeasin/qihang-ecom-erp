@@ -172,8 +172,8 @@
           <span></span>
 
           <el-tag size="small" v-if="scope.row.auditStatus === 0" style="margin-top: 5px;"> 待确认</el-tag>
-          <el-tag size="small" v-if="scope.row.auditStatus === 1" style="margin-top: 5px;"> 已确认</el-tag>
-          <el-tag size="small" v-if="scope.row.auditStatus === 2" style="margin-top: 5px;"> 已拦截</el-tag>
+          <!-- <el-tag size="small" v-if="scope.row.auditStatus === 1" style="margin-top: 5px;"> 已确认</el-tag>
+          <el-tag size="small" v-if="scope.row.auditStatus === 2" style="margin-top: 5px;"> 已拦截</el-tag> -->
 
         </template>
       </el-table-column>
@@ -487,8 +487,8 @@
             </template>
           </el-table-column> -->
         </el-table>
-        <el-form-item label="总金额" prop="totalAmount">
-          <el-input v-model="form.totalAmount" placeholder="请输入应付款总金额，totalAmount = ∑itemAmount + shippingFee，单位为元" style="width:250px"/>
+        <el-form-item label="商品总金额" prop="totalAmount">
+          <el-input v-model="form.totalAmount" placeholder="请输入商品总金额" style="width:250px"/>
         </el-form-item>
         <el-form-item label="运费" prop="shippingFee">
           <el-input v-model="form.shippingFee" placeholder="请输入运费" style="width:250px"/>
