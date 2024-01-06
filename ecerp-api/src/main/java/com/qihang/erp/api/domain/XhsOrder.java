@@ -52,6 +52,7 @@ public class XhsOrder extends BaseEntity
     @Excel(name = "订单创建时间 单位ms")
     private Long orderCreatedTime;
 
+
     /** 订单支付时间 单位ms */
     @Excel(name = "订单支付时间 单位ms")
     private Long orderPaidTime;
@@ -104,6 +105,25 @@ public class XhsOrder extends BaseEntity
     @Excel(name = "订单实付金额(包含运费) 单位分")
     private Long totalPayAmount;
 
+    private Double goodsAmount;
+    private Double shippingFree;
+
+    public Double getShippingFree() {
+        return shippingFree;
+    }
+
+    public void setShippingFree(Double shippingFree) {
+        this.shippingFree = shippingFree;
+    }
+
+    public Double getGoodsAmount() {
+        return goodsAmount;
+    }
+
+    public void setGoodsAmount(Double goodsAmount) {
+        this.goodsAmount = goodsAmount;
+    }
+
     /** 订单运费 单位分 */
     @Excel(name = "订单运费 单位分")
     private Long totalShippingFree;
@@ -131,6 +151,34 @@ public class XhsOrder extends BaseEntity
     /** 区县 */
     @Excel(name = "区县")
     private String district;
+
+    private String receiver;
+    private String phone;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     /** 订单审核状态（0待审核1已审核） */
     @Excel(name = "订单审核状态", readConverterExp = "0=待审核1已审核")

@@ -1,8 +1,11 @@
 package com.qihang.erp.api.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.qihang.erp.api.domain.TaoOrderItem;
+import com.qihang.erp.api.domain.XhsOrderReceiver;
+import com.qihang.erp.api.mapper.XhsOrderReceiverMapper;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,8 @@ public class XhsOrderServiceImpl implements IXhsOrderService
 {
     @Autowired
     private XhsOrderMapper xhsOrderMapper;
+    @Autowired
+    private XhsOrderReceiverMapper receiverMapper;
 
     /**
      * 查询小红书订单
@@ -65,9 +70,45 @@ public class XhsOrderServiceImpl implements IXhsOrderService
     @Override
     public int insertXhsOrder(XhsOrder xhsOrder)
     {
+        xhsOrder.setShopType(7L);
+        xhsOrder.setOrderType(1L);
+        xhsOrder.setOrderStatus(2L);
+        xhsOrder.setAfterSalesStatus(1L);
+        xhsOrder.setCancelStatus(0L);
+        xhsOrder.setOrderPaidTime(0L);
+        xhsOrder.setOrderUpdateTime(0L);
+        xhsOrder.setOrderDeliveryTime(0L);
+        xhsOrder.setOrderCancelTime(0L);
+        xhsOrder.setOrderFinishTime(0L);
+        xhsOrder.setPromiseLastDeliveryTime(0L);
+        xhsOrder.setOrderCreatedTime(xhsOrder.getCreateTime().getTime());
+        xhsOrder.setPresaleDeliveryStartTime(0L);
+        xhsOrder.setPresaleDeliveryEndTime(0L);
+        Double totalAmount = (xhsOrder.getGoodsAmount() + xhsOrder.getShippingFree()) *100;
+        xhsOrder.setTotalPayAmount(totalAmount.longValue());
+        xhsOrder.setTotalShippingFree(xhsOrder.getShippingFree().longValue());
+        xhsOrder.setOpenAddressId("0");
+        xhsOrder.setAuditStatus(0L);
+        xhsOrder.setSettleStatus(0L);
+        xhsOrder.setSettleAmount(BigDecimal.ZERO);
+        xhsOrder.setSendStatus(0L);
         xhsOrder.setCreateTime(DateUtils.getNowDate());
+
         int rows = xhsOrderMapper.insertXhsOrder(xhsOrder);
         insertXhsOrderItem(xhsOrder);
+
+        // 地址
+        XhsOrderReceiver receiver = new XhsOrderReceiver();
+        receiver.setOrderId(xhsOrder.getId());
+        receiver.setReceiver(xhsOrder.getReceiver());
+        receiver.setPhone(xhsOrder.getPhone());
+        receiver.setCountry("中国");
+        receiver.setProvince(xhsOrder.getProvince());
+        receiver.setCity(xhsOrder.getCity());
+        receiver.setDistrict(xhsOrder.getDistrict());
+        receiver.setAddress(xhsOrder.getAddress());
+        receiverMapper.insertXhsOrderReceiver(receiver);
+
         return rows;
     }
 
@@ -129,6 +170,12 @@ public class XhsOrderServiceImpl implements IXhsOrderService
             List<XhsOrderItem> list = new ArrayList<XhsOrderItem>();
             for (XhsOrderItem xhsOrderItem : xhsOrderItemList)
             {
+                Double t = xhsOrderItem.getItemAmount()*100;
+                xhsOrderItem.setTotalPaidAmount(t.longValue());
+                xhsOrderItem.setTotalMerchantDiscount(0L);
+                xhsOrderItem.setTotalRedDiscount(0L);
+                xhsOrderItem.setItemTag(0L);
+                xhsOrderItem.setErpSendStatus(0L);
                 xhsOrderItem.setOrderId(id);
                 list.add(xhsOrderItem);
             }
