@@ -19,11 +19,11 @@ public class TaoOrderItem extends BaseEntity
 
     /** 订单id */
     @Excel(name = "订单id")
-    private Long orderId;
+    private String orderId;
 
     /** 天猫子订单id */
     @Excel(name = "天猫子订单id")
-    private Long subItemId;
+    private String subItemId;
 
     /** 明细总金额 */
     @Excel(name = "明细总金额")
@@ -142,21 +142,21 @@ public class TaoOrderItem extends BaseEntity
     {
         return id;
     }
-    public void setOrderId(Long orderId) 
+    public void setOrderId(String orderId)
     {
         this.orderId = orderId;
     }
 
-    public Long getOrderId() 
+    public String getOrderId()
     {
         return orderId;
     }
-    public void setSubItemId(Long subItemId) 
+    public void setSubItemId(String subItemId)
     {
         this.subItemId = subItemId;
     }
 
-    public Long getSubItemId() 
+    public String getSubItemId()
     {
         return subItemId;
     }

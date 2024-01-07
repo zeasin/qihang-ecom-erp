@@ -17,7 +17,7 @@ public interface ITaoOrderService
      * @param id 淘宝订单主键
      * @return 淘宝订单
      */
-    public TaoOrder selectTaoOrderById(Long id);
+    public TaoOrder selectTaoOrderById(String id);
 
     /**
      * 查询淘宝订单列表
@@ -34,14 +34,8 @@ public interface ITaoOrderService
      * @return 结果
      */
     public int insertTaoOrder(TaoOrder taoOrder);
+    public int confirmOrder(TaoOrder taoOrder);
 
-    /**
-     * 修改淘宝订单
-     * 
-     * @param taoOrder 淘宝订单
-     * @return 结果
-     */
-    public int updateTaoOrder(TaoOrder taoOrder);
 
     /**
      * 批量删除淘宝订单

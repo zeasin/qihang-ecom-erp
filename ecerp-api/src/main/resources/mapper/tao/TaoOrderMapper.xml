@@ -131,14 +131,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
 
-    <select id="selectTaoOrderById"  parameterType="Long" resultMap="TaoOrderTaoOrderItemResult">
+    <select id="selectTaoOrderById"  parameterType="String" resultMap="TaoOrderTaoOrderItemResult">
         select a.id, a.shopId, a.orderSource, a.buyerName, a.totalAmount, a.shippingFee, a.discountAmount, a.payAmount, a.discountRemark, a.orderCreateTime, a.orderModifyTime, a.payTime, a.confirmedTime, a.deliveredTime, a.completeTime, a.sellerMemo, a.buyerFeedback, a.closeReason, a.receivingTime, a.statusStr, a.status, a.logisticsCompany, a.logisticsCompanyCode, a.logisticsCode, a.refundId, a.refundAmount, a.refundStatus, a.auditStatus, a.auditTime, a.sendStatus, a.sendTime, a.tag, a.remark, a.is_comment, a.is_merge, a.createTime, a.createBy, a.updateTime, a.updateBy,
                b.id as sub_id, b.orderId as sub_orderId, b.subItemId as sub_subItemId, b.itemAmount as sub_itemAmount, b.discount_fee as sub_discount_fee, b.adjust_fee as sub_adjust_fee, b.goodsTitle as sub_goodsTitle, b.goodsNumber as sub_goodsNumber, b.productImgUrl as sub_productImgUrl, b.productUrl as sub_productUrl, b.productId as sub_productId, b.skuId as sub_skuId, b.specNumber as sub_specNumber, b.skuInfo as sub_skuInfo, b.price as sub_price, b.quantity as sub_quantity, b.status as sub_status, b.statusStr as sub_statusStr, b.refundStatus as sub_refundStatus, b.refundStatusStr as sub_refundStatusStr, b.refundAmount as sub_refundAmount, b.refundId as sub_refundId, b.logisticsStatus as sub_logisticsStatus, b.new_spec_id as sub_new_spec_id, b.new_spec_number as sub_new_spec_number, b.after_sale_state as sub_after_sale_state, b.erpGoodsId as sub_erpGoodsId, b.erpGoodsSpecId as sub_erpGoodsSpecId, b.remark as sub_remark, b.isGift as sub_isGift, b.isSwap as sub_isSwap
         from s_tao_order a
                  left join s_tao_order_item b on b.orderId = a.id
         where a.id = #{id}
     </select>
-    <select id="selectOrderItemByOrderId" parameterType="Long" resultMap="TaoOrderItemResult" >
+    <select id="selectOrderItemByOrderId" parameterType="String" resultMap="TaoOrderItemResult" >
         select b.id as sub_id, b.orderId as sub_orderId, b.subItemId as sub_subItemId, b.itemAmount as sub_itemAmount, b.discount_fee as sub_discount_fee, b.adjust_fee as sub_adjust_fee, b.goodsTitle as sub_goodsTitle, b.goodsNumber as sub_goodsNumber, b.productImgUrl as sub_productImgUrl, b.productUrl as sub_productUrl, b.productId as sub_productId, b.skuId as sub_skuId, b.specNumber as sub_specNumber, b.skuInfo as sub_skuInfo, b.price as sub_price, b.quantity as sub_quantity, b.status as sub_status, b.statusStr as sub_statusStr, b.refundStatus as sub_refundStatus, b.refundStatusStr as sub_refundStatusStr, b.refundAmount as sub_refundAmount, b.refundId as sub_refundId, b.logisticsStatus as sub_logisticsStatus, b.new_spec_id as sub_new_spec_id, b.new_spec_number as sub_new_spec_number, b.after_sale_state as sub_after_sale_state, b.erpGoodsId as sub_erpGoodsId, b.erpGoodsSpecId as sub_erpGoodsSpecId, b.remark as sub_remark, b.isGift as sub_isGift, b.isSwap as sub_isSwap
         from  s_tao_order_item b
         where b.orderId = #{orderId}

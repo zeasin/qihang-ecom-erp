@@ -18,7 +18,7 @@ public class TaoOrder extends BaseEntity
     private static final long serialVersionUID = 1L;
 
     /** 订单id（天猫订单id） */
-    private Long id;
+    private String id;
 
     /** 店铺id */
     @Excel(name = "店铺id")
@@ -167,6 +167,15 @@ public class TaoOrder extends BaseEntity
     private String city;
     private String town;
     private String address;
+    private Integer shipType;
+
+    public Integer getShipType() {
+        return shipType;
+    }
+
+    public void setShipType(Integer shipType) {
+        this.shipType = shipType;
+    }
 
     /** 淘宝订单明细信息 */
     private List<TaoOrderItem> taoOrderItemList;
@@ -219,12 +228,12 @@ public class TaoOrder extends BaseEntity
         this.address = address;
     }
 
-    public void setId(Long id)
+    public void setId(String id)
     {
         this.id = id;
     }
 
-    public Long getId() 
+    public String getId()
     {
         return id;
     }

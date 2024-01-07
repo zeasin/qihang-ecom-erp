@@ -20,6 +20,7 @@ public interface TaoOrderAddressMapper
      * @return 淘宝订单地址
      */
     public TaoOrderAddress selectTaoOrderAddressById(Long id);
+    public TaoOrderAddress selectTaoOrderAddressByOrderId(String orderId);
 
     /**
      * 查询淘宝订单地址列表

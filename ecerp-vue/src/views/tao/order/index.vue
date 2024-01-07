@@ -214,19 +214,20 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
+          v-if="scope.row.auditStatus === 0"
             size="mini"
-            type="text"
-            icon="el-icon-edit"
+            type="success"
+            icon="el-icon-success"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['tao:order:edit']"
-          >修改</el-button>
+          >确认订单</el-button>
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
+            icon="el-icon-view"
+            @click="handleDetail(scope.row)"
             v-hasPermi="['tao:order:remove']"
-          >删除</el-button>
+          >详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -243,7 +244,7 @@
     <el-dialog :title="title" :visible.sync="open" width="1100px" append-to-body :close-on-click-modal="false">
       <el-form ref="form" :model="form" :rules="rules" label-width="180px" inline>
         <el-form-item label="淘宝订单ID" prop="id">
-          <el-input v-model="form.id" placeholder="请输入淘宝订单ID" style="width:250px" :disabled="isAudit"/>
+          <el-input v-model.number="form.id" placeholder="请输入淘宝订单ID" style="width:250px" :disabled="isAudit"/>
         </el-form-item>
         <el-form-item label="店铺" prop="shopId">
           <!-- <el-input v-model="form.shopId" placeholder="请输入订单所属商户id" /> -->
@@ -339,62 +340,12 @@
               <el-image style="width: 70px; height: 70px" :src="scope.row.productImgUrl"></el-image>
             </template>
           </el-table-column>
-          <!-- <el-table-column label="天猫子订单id" prop="subItemId" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.subItemId" placeholder="请输入天猫子订单id" />
-            </template>
-          </el-table-column> -->
-          
-          <!-- <el-table-column label="优惠金额" prop="discountFee" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.discountFee" placeholder="请输入优惠金额" />
-            </template>
-          </el-table-column>
-          <el-table-column label="手工调整金额" prop="adjustFee" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.adjustFee" placeholder="请输入手工调整金额" />
-            </template>
-          </el-table-column>
-          <el-table-column label="商品标题" prop="goodsTitle" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.goodsTitle" placeholder="请输入商品标题" />
-            </template>
-          </el-table-column>
-          <el-table-column label="商品货号，对应系统商品编码" prop="goodsNumber" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.goodsNumber" placeholder="请输入商品货号，对应系统商品编码" />
-            </template>
-          </el-table-column>
-          <el-table-column label="商品主图" prop="productImgUrl" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.productImgUrl" placeholder="请输入商品主图" />
-            </template>
-          </el-table-column>
-          <el-table-column label="商品链接" prop="productUrl" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.productUrl" placeholder="请输入商品链接" />
-            </template>
-          </el-table-column>
-          <el-table-column label="天猫的商品Id" prop="productId" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.productId" placeholder="请输入天猫的商品Id" />
-            </template>
-          </el-table-column>
-          <el-table-column label="天猫的SKUID" prop="skuId" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.skuId" placeholder="请输入天猫的SKUID" />
-            </template>
-          </el-table-column> -->
+
           <el-table-column label="sku编码" prop="specNumber" width="100">
             <template slot-scope="scope">
               <el-input v-model="scope.row.specNumber" placeholder="请输入单品货号，对应系统sku编码" disabled/>
             </template>
           </el-table-column>
-          <!-- <el-table-column label="SKU字符串" prop="skuInfo" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.skuInfo" placeholder="请输入SKU字符串" />
-            </template>
-          </el-table-column> -->
           <el-table-column label="单价" prop="price">
             <template slot-scope="scope">
               <el-input v-model="scope.row.price" placeholder="请输入单价" disabled/>
@@ -410,92 +361,17 @@
               <el-input v-model="scope.row.itemAmount" placeholder="请输入明细总金额" disabled/>
             </template>
           </el-table-column>
-         <!--  <el-table-column label="子订单状态" prop="status" width="150">
-            <template slot-scope="scope">
-              <el-select v-model="scope.row.status" placeholder="请选择子订单状态">
-                <el-option label="请选择字典生成" value="" />
-              </el-select>
-            </template>
-          </el-table-column>
-          <el-table-column label="子订单状态" prop="statusStr" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.statusStr" placeholder="请输入子订单状态" />
-            </template>
-          </el-table-column>
-          <el-table-column label="退款状态0无售后1售后中" prop="refundStatus" width="150">
-            <template slot-scope="scope">
-              <el-select v-model="scope.row.refundStatus" placeholder="请选择退款状态0无售后1售后中">
-                <el-option label="请选择字典生成" value="" />
-              </el-select>
-            </template>
-          </el-table-column>
-          <el-table-column label="退款状态" prop="refundStatusStr" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.refundStatusStr" placeholder="请输入退款状态" />
-            </template>
-          </el-table-column>
-          <el-table-column label="退款金额" prop="refundAmount" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.refundAmount" placeholder="请输入退款金额" />
-            </template>
-          </el-table-column>
-          <el-table-column label="退款单id" prop="refundId" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.refundId" placeholder="请输入退款单id" />
-            </template>
-          </el-table-column>
-          <el-table-column label="1 未发货 2 已发货 3 已收货 4 已经退货 5 部分发货 8 还未创建物流订单" prop="logisticsStatus" width="150">
-            <template slot-scope="scope">
-              <el-select v-model="scope.row.logisticsStatus" placeholder="请选择1 未发货 2 已发货 3 已收货 4 已经退货 5 部分发货 8 还未创建物流订单">
-                <el-option label="请选择字典生成" value="" />
-              </el-select>
-            </template>
-          </el-table-column>
-          <el-table-column label="确认订单最新规格id" prop="newSpecId" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.newSpecId" placeholder="请输入确认订单最新规格id" />
-            </template>
-          </el-table-column>
-          <el-table-column label="确认订单最新规格编码" prop="newSpecNumber" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.newSpecNumber" placeholder="请输入确认订单最新规格编码" />
-            </template>
-          </el-table-column>
-          <el-table-column label="售后状态0未申请售后1售后申请中(退款待审核)2同意退货(退款待收货)3买家已发货，待收货(待收货)4已收货" prop="afterSaleState" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.afterSaleState" placeholder="请输入售后状态0未申请售后1售后申请中(退款待审核)2同意退货(退款待收货)3买家已发货，待收货(待收货)4已收货" />
-            </template>
-          </el-table-column>
-          <el-table-column label="erp系统商品id" prop="erpGoodsId" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.erpGoodsId" placeholder="请输入erp系统商品id" />
-            </template>
-          </el-table-column>
-          <el-table-column label="erp系统商品规格id" prop="erpGoodsSpecId" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.erpGoodsSpecId" placeholder="请输入erp系统商品规格id" />
-            </template>
-          </el-table-column>
-          <el-table-column label="是否礼品0否1是" prop="isGift" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.isGift" placeholder="请输入是否礼品0否1是" />
-            </template>
-          </el-table-column>
-          <el-table-column label="是否换货(0:否1:是)" prop="isSwap" width="150">
-            <template slot-scope="scope">
-              <el-input v-model="scope.row.isSwap" placeholder="请输入是否换货(0:否1:是)" />
-            </template>
-          </el-table-column> -->
+         
         </el-table>
         <el-form-item label="商品总金额" prop="totalAmount">
           <el-input v-model="form.totalAmount" placeholder="请输入商品总金额" style="width:250px"/>
         </el-form-item>
         <el-form-item label="运费" prop="shippingFee">
           <el-input v-model="form.shippingFee" placeholder="请输入运费" style="width:250px"/>
-        </el-form-item>
+        </el-form-item> 
         <el-form-item label="优惠金额" prop="discountAmount">
           <el-input v-model="form.discountAmount" placeholder="请输入优惠金额" style="width:250px"/>
-        </el-form-item>
+        </el-form-item> 
         <!-- <el-form-item label="实际支付金额" prop="payAmount">
           <el-input v-model="form.payAmount" placeholder="请输入实际支付金额" style="width:250px"/>
         </el-form-item> -->
@@ -505,11 +381,150 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+
+    <!-- 订单详情对话框 -->
+    <el-dialog :title="detailTitle" :visible.sync="detailOpen" width="1100px" append-to-body>
+      
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px" inline>
+        <el-descriptions title="订单信息">
+            <el-descriptions-item label="订单号">{{form.id}}</el-descriptions-item>
+            <el-descriptions-item label="来源">
+              <el-tag size="small" v-if="form.orderSource ===1 ">淘宝</el-tag>
+              <el-tag size="small" v-if="form.orderSource ===0 ">天猫</el-tag>
+            </el-descriptions-item>
+            <el-descriptions-item label="店铺">
+              <span v-if="form.shopId==6">梦小妮牛仔裤</span>
+            </el-descriptions-item>
+            <el-descriptions-item label="下单日期"> 
+              {{ parseTime(form.orderCreateTime, '{yyyy}-{m}-{dd}')}}
+              <!-- <el-date-picker
+              disabled
+                v-model="form.orderCreateTime"
+                type="datetime"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                placeholder="请选择订单创建时间">
+              </el-date-picker> -->
+            </el-descriptions-item>
+            <el-descriptions-item label="标签">
+              <el-tag size="small" v-if="form.tag ==='1' ">实售</el-tag>
+              <el-tag size="small" v-if="form.tag ==='2' ">淘宝客</el-tag>
+              <el-tag size="small" v-if="form.tag ==='3' ">刷单</el-tag>
+              <el-tag size="small" v-if="form.tag ==='4' ">返现</el-tag>
+            </el-descriptions-item>
+            <el-descriptions-item label="卖家备忘信息">
+              {{form.sellerMemo}}
+            </el-descriptions-item>
+            <el-descriptions-item label="买家留言">
+              {{form.buyerFeedback}}
+            </el-descriptions-item>
+            <el-descriptions-item label="备注">
+              {{form.remark}}
+            </el-descriptions-item>
+            <el-descriptions-item label="关闭原因">{{form.closeReason}}</el-descriptions-item>
+            <el-descriptions-item label="订单状态">{{form.statusStr}}</el-descriptions-item>
+            
+        </el-descriptions>
+        <el-descriptions title="付款信息">
+            <el-descriptions-item label="应付总额">{{form.totalAmount}}</el-descriptions-item>
+            <el-descriptions-item label="优惠金额">{{form.discountAmount}}</el-descriptions-item>
+            <el-descriptions-item label="运费">{{form.shippingFee}}</el-descriptions-item>
+            <el-descriptions-item label="实际支付金额">{{form.payAmount}}</el-descriptions-item>
+        </el-descriptions>
+
+       
+         <el-descriptions title="收货信息">
+          <el-descriptions-item label="收件人姓名">{{form.receiver}}</el-descriptions-item>
+          <el-descriptions-item label="收件人手机号">{{form.phone}}</el-descriptions-item>
+          <el-descriptions-item label="省市区">{{form.province}}{{form.city}}{{form.town}}</el-descriptions-item>
+          <el-descriptions-item label="详细地址">{{form.address}}</el-descriptions-item>
+      </el-descriptions>
+        
+        <el-divider content-position="center">订单商品</el-divider>
+        <el-table :data="goodsList"  style="margin-bottom: 10px;">
+          <!-- <el-table-column type="selection" width="50" align="center" /> -->
+          <el-table-column label="序号" align="center" type="index" width="50"/>
+          
+          <el-table-column label="商品图片" prop="productImgUrl" width="80">
+            <template slot-scope="scope">
+              <el-image style="width: 70px; height: 70px" :src="scope.row.productImgUrl"></el-image>
+            </template>
+          </el-table-column>
+          <el-table-column label="商品标题" prop="goodsTitle" ></el-table-column>
+          <el-table-column label="SKU" prop="skuInfo" width="150"></el-table-column>
+          <el-table-column label="sku编码" prop="specNumber"></el-table-column>
+          <el-table-column label="单价" prop="price"></el-table-column>
+          <el-table-column label="数量" prop="quantity"></el-table-column>
+          <el-table-column label="商品金额" prop="itemAmount"></el-table-column>
+        </el-table>
+
+        <el-row :gutter="10" class="mb8" v-if="isAudit">
+          <el-col :span="1.5">
+            <el-button type="primary" plain icon="el-icon-plus" size="mini" @click="handleAddTaoOrderItem">添加赠品</el-button>
+          </el-col>
+          <el-col :span="1.5">
+            <el-button type="danger" plain icon="el-icon-delete" size="mini" @click="handleDeleteTaoOrderItem">删除</el-button>
+          </el-col>
+        </el-row>
+        <el-table v-if="isAudit" :data="taoOrderItemList" :row-class-name="rowTaoOrderItemIndex" @selection-change="handleTaoOrderItemSelectionChange" ref="taoOrderItem"  style="margin-bottom: 10px;">
+          <el-table-column type="selection" width="50" align="center" />
+          <el-table-column label="序号" align="center" prop="index" width="50"/>
+          <el-table-column label="商品" prop="erpGoodsId" width="350"  >
+            <template slot-scope="scope">
+              <el-select v-model="scope.row.erpGoodsSpecId" filterable remote reserve-keyword placeholder="搜索商品" style="width: 330px;"
+                :remote-method="searchSku" :loading="skuListLoading" @change="skuChanage(scope.row)">
+                <el-option v-for="item in skuList" :key="item.id"
+                  :label="item.name + ' - ' + item.colorValue + ' ' + item.sizeValue + ' ' + item.styleValue"
+                  :value="item.id">
+                </el-option>
+              </el-select>
+            </template>
+          </el-table-column>
+          <el-table-column label="商品图片" prop="productImgUrl" >
+            <template slot-scope="scope">
+              <el-image style="width: 70px; height: 70px" :src="scope.row.productImgUrl"></el-image>
+            </template>
+          </el-table-column>
+          <el-table-column label="sku编码" prop="specNumber" width="100">
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.specNumber" placeholder="请输入单品货号，对应系统sku编码" disabled/>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="单价" prop="price">
+            <template slot-scope="scope"> 
+              <el-input v-model="scope.row.price" placeholder="请输入单价" disabled/>
+            </template>
+          </el-table-column>
+          <el-table-column label="数量" prop="quantity">
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.quantity" placeholder="请输入数量"  @input="qtyChange(scope.row)" :disabled="isAudit" />
+            </template>
+          </el-table-column>
+          <el-table-column label="总金额" prop="itemAmount">
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.itemAmount" placeholder="请输入明细总金额" disabled/>
+            </template>
+          </el-table-column>
+         
+        </el-table>
+         <el-form-item label="发货类型" prop="shipType" v-if="isAudit">
+          <!-- <el-input v-model="form.orderSource" placeholder="请输入订单来源0天猫1淘宝" /> -->
+          <el-select v-model="form.shipType" placeholder="发货类型0仓库发货1供应商代发" style="width:250px">
+           <el-option label="供应商代发" value="1"></el-option>
+           <el-option label="仓库发货" value="0"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer" v-if="isAudit">
+        <el-button type="primary" @click="submitConfirmForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { listOrder, getOrder, delOrder, addOrder, updateOrder } from "@/api/tao/order";
+import { listOrder, getOrder, delOrder, addOrder, confirmOrder } from "@/api/tao/order";
 import { listShop } from "@/api/shop/shop";
 import { searchSku } from "@/api/goods/goods";
 import {
@@ -541,6 +556,7 @@ export default {
       orderList: [],
       // 淘宝订单明细表格数据
       taoOrderItemList: [],
+      goodsList:[],
       shopList:[],
       isAudit:false,
       skuListLoading:false,
@@ -549,6 +565,8 @@ export default {
       title: "",
       // 是否显示弹出层
       open: false,
+      detailTitle:'订单详情',
+      detailOpen:false,
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -647,8 +665,8 @@ export default {
         auditStatus: [
           { required: true, message: "订单审核状态不能为空", trigger: "change" }
         ],
-        createTime: [
-          { required: true, message: "订单创建时间不能为空", trigger: "blur" }
+        shipType: [
+          { required: true, message: "请选择发货类型", trigger: "blur" }
         ],
       }
     };
@@ -672,6 +690,7 @@ export default {
     // 取消按钮
     cancel() {
       this.open = false;
+      this.detailOpen = false;
       this.reset();
     },
     // 表单重置
@@ -732,9 +751,9 @@ export default {
       const id = row.id || this.ids
       getOrder(id).then(response => {
         this.form = response.data;
-        this.taoOrderItemList = response.data.taoOrderItemList;
-        this.open = true;
-        this.title = "确认订单";
+        this.goodsList = response.data.taoOrderItemList;
+        this.detailOpen = true;
+        this.detailTitle = "确认订单";
       });
       this.isAudit = true
     },
@@ -746,31 +765,47 @@ export default {
           this.form.city = this.form.provinces[1]
           this.form.town = this.form.provinces[2]
           this.form.taoOrderItemList = this.taoOrderItemList;
-          if (this.isAudit === true) {
-            updateOrder(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
-              this.open = false;
-              this.getList();
-            });
-          } else {
+          // if (this.isAudit === true) {
+          //   updateOrder(this.form).then(response => {
+          //     this.$modal.msgSuccess("修改成功");
+          //     this.open = false;
+          //     this.getList();
+          //   });
+          // } else {
             addOrder(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
             });
-          }
+          // }
         }
       });
     },
+    /** 确认订单按钮 */
+    submitConfirmForm(){
+      console.log('====确认订单=====',this.form,this.taoOrderItemList)
+      this.$refs["form"].validate(valid => {
+        if (valid) {
+          this.form.taoOrderItemList = this.taoOrderItemList;
+          confirmOrder(this.form).then(response => {
+            this.$modal.msgSuccess("确认成功");
+            this.detailOpen = false;
+            this.getList();
+          });
+        }
+      })
+    },
     /** 删除按钮操作 */
-    handleDelete(row) {
-      const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除淘宝订单编号为"' + ids + '"的数据项？').then(function() {
-        return delOrder(ids);
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
+    handleDetail(row) {
+      this.reset();
+      const id = row.id || this.ids
+      getOrder(id).then(response => {
+        this.form = response.data;
+        this.goodsList = response.data.taoOrderItemList;
+        this.detailOpen = true;
+        this.detailTitle = "订单详情";
+      });
+      this.isAudit = false
     },
 	/** 淘宝订单明细序号 */
     rowTaoOrderItemIndex({ row, rowIndex }) {

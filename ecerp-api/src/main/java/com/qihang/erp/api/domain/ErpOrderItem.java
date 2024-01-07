@@ -20,6 +20,24 @@ public class ErpOrderItem extends BaseEntity
     /** 订单ID */
     @Excel(name = "订单ID")
     private Long orderId;
+    private Integer supplierId;
+    private String orderItemNum;
+
+    public String getOrderItemNum() {
+        return orderItemNum;
+    }
+
+    public void setOrderItemNum(String orderItemNum) {
+        this.orderItemNum = orderItemNum;
+    }
+
+    public Integer getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Integer supplierId) {
+        this.supplierId = supplierId;
+    }
 
     /** erp系统商品id */
     @Excel(name = "erp系统商品id")
