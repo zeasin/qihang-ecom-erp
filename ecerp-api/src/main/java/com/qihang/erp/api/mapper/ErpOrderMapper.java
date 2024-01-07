@@ -78,7 +78,8 @@ public interface ErpOrderMapper
      * @return 结果
      */
     public int batchErpOrderItem(List<ErpOrderItem> erpOrderItemList);
-    
+    public int insertErpOrderItem(ErpOrderItem erpOrderItem);
+
 
     /**
      * 通过订单主键删除订单明细信息
