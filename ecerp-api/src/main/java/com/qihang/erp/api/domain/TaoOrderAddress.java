@@ -18,7 +18,7 @@ public class TaoOrderAddress extends BaseEntity
 
     /** 订单id */
     @Excel(name = "订单id")
-    private Long orderId;
+    private String orderId;
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
@@ -65,12 +65,12 @@ public class TaoOrderAddress extends BaseEntity
     {
         return id;
     }
-    public void setOrderId(Long orderId) 
+    public void setOrderId(String orderId)
     {
         this.orderId = orderId;
     }
 
-    public Long getOrderId() 
+    public String getOrderId()
     {
         return orderId;
     }

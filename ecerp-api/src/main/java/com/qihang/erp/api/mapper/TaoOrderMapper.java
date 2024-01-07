@@ -22,7 +22,7 @@ public interface TaoOrderMapper
      * @param id 淘宝订单主键
      * @return 淘宝订单
      */
-    public TaoOrder selectTaoOrderById(Long id);
+    public TaoOrder selectTaoOrderById(String id);
 
     /**
      * 查询淘宝订单列表
@@ -31,7 +31,7 @@ public interface TaoOrderMapper
      * @return 淘宝订单集合
      */
     public List<TaoOrder> selectTaoOrderList(TaoOrder taoOrder);
-    List<TaoOrderItem> selectOrderItemByOrderId(Long orderId);
+    List<TaoOrderItem> selectOrderItemByOrderId(String orderId);
     /**
      * 新增淘宝订单
      * 

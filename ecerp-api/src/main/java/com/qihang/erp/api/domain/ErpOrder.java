@@ -102,6 +102,16 @@ public class ErpOrder extends BaseEntity
     @Excel(name = "订单确认时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date confirmTime;
 
+    private Integer shipType;
+
+    public Integer getShipType() {
+        return shipType;
+    }
+
+    public void setShipType(Integer shipType) {
+        this.shipType = shipType;
+    }
+
     /** 发货时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "发货时间", width = 30, dateFormat = "yyyy-MM-dd")

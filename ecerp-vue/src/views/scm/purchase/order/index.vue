@@ -289,7 +289,7 @@ export default {
   },
   created() {
     this.getList();
-  },
+  }, 
   methods: {
     amountChange(nv){
       this.form.totalAmount = parseFloat(this.form.orderAmount)+parseFloat(this.form.shipCost)

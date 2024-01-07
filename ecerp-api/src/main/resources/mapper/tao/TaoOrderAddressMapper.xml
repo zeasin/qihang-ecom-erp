@@ -42,6 +42,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectTaoOrderAddressVo"/>
         where id = #{id}
     </select>
+    <select id="selectTaoOrderAddressByOrderId" parameterType="String" resultMap="TaoOrderAddressResult">
+        <include refid="selectTaoOrderAddressVo"/>
+        where orderId = #{orderId}
+    </select>
         
     <insert id="insertTaoOrderAddress" parameterType="TaoOrderAddress" useGeneratedKeys="true" keyProperty="id">
         insert into s_tao_order_address

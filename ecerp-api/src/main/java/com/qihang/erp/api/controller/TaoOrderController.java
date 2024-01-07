@@ -2,6 +2,9 @@ package com.qihang.erp.api.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.qihang.erp.api.domain.ErpOrder;
+import com.qihang.erp.api.mapper.ErpOrderMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +36,7 @@ public class TaoOrderController extends BaseController
 {
     @Autowired
     private ITaoOrderService taoOrderService;
+
 
     /**
      * 查询淘宝订单列表
@@ -67,7 +71,7 @@ public class TaoOrderController extends BaseController
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
-        return success(taoOrderService.selectTaoOrderById(id));
+        return success(taoOrderService.selectTaoOrderById(id+""));
     }
 
     /**
@@ -82,6 +86,21 @@ public class TaoOrderController extends BaseController
         int result = taoOrderService.insertTaoOrder(taoOrder);
         return toAjax(result);
     }
+    @Log(title = "淘宝订单", businessType = BusinessType.UPDATE)
+    @PostMapping("/confirmOrder")
+    public AjaxResult confirmOrder(@RequestBody TaoOrder taoOrder)
+    {
+        taoOrder.setUpdateBy(getUsername());
+        int result = taoOrderService.confirmOrder(taoOrder);
+        if(result == -1) return new AjaxResult(501,"已确认过了！请勿重复确认！");
+        else if(result == -2) return new AjaxResult(502,"订单已存在！请勿重复确认！");
+        else if(result == -3) return new AjaxResult(503,"请指定发货方式！");
+        else if(result == -4) return new AjaxResult(504,"发货方式不支持！");
+
+
+        return toAjax(1);
+    }
+
 
 //    /**
 //     * 修改淘宝订单

@@ -27,10 +27,10 @@ export function addOrder(data) {
 }
 
 // 修改淘宝订单
-export function updateOrder(data) {
+export function confirmOrder(data) {
   return request({
-    url: '/tao/order',
-    method: 'put',
+    url: '/tao/order/confirmOrder',
+    method: 'post',
     data: data
   })
 }
