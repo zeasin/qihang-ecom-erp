@@ -244,4 +244,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             ( #{item.id}, #{item.orderId},#{item.supplierId},#{item.orderItemNum}, #{item.goodsId}, #{item.specId}, #{item.goodsTitle}, #{item.goodsImg}, #{item.goodsNum}, #{item.goodsSpec}, #{item.specNum}, #{item.goodsPrice}, #{item.itemAmount}, #{item.quantity}, #{item.remark}, #{item.isGift}, #{item.refundCount}, #{item.refundStatus}, #{item.createTime}, #{item.createBy}, #{item.updateTime}, #{item.updateBy})
         </foreach>
     </insert>
+
+    <insert id="insertErpOrderItem" parameterType="com.qihang.erp.api.domain.ErpOrderItem" useGeneratedKeys="true" keyProperty="id">
+        insert into erp_order_item(order_id,supplier_id,order_item_num, goods_id, spec_id, goods_title, goods_img, goods_num, goods_spec, spec_num, goods_price, item_amount, quantity, remark, is_gift, refund_count, refund_status, create_time, create_by) values
+
+        (#{orderId},#{supplierId},#{orderItemNum}, #{goodsId}, #{specId}, #{goodsTitle}, #{goodsImg}, #{goodsNum}, #{goodsSpec}, #{specNum}, #{goodsPrice}, #{itemAmount}, #{quantity}, #{remark}, #{isGift}, #{refundCount}, #{refundStatus}, #{createTime}, #{createBy})
+
+    </insert>
 </mapper>

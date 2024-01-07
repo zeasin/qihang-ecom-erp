@@ -212,17 +212,20 @@ public class TaoOrderServiceImpl implements ITaoOrderService
                 items.add(item);
             }
         }
-        erpOrderMapper.batchErpOrderItem(items);
+//        erpOrderMapper.batchErpOrderItem(items);
 
         // 新增代发表
         if(taoOrder.getShipType() == 1){
-            for (var it: items) {
+            for (ErpOrderItem it: items) {
+                // 添加Erp_order_item
+                erpOrderMapper.insertErpOrderItem(it);
                 ScmSupplierAgentShipping agentShipping = new ScmSupplierAgentShipping();
                 agentShipping.setShopId(original.getShopId());
                 agentShipping.setShopType(4L);
                 agentShipping.setSupplierId(it.getSupplierId().longValue());
                 agentShipping.setOrderNum(original.getId());
-                agentShipping.setOrderItemId(it.getOrderItemNum());
+//                agentShipping.setOrderItemId(it.getOrderItemNum());
+                agentShipping.setOrderItemId(it.getId().toString());
                 agentShipping.setOrderDate(original.getOrderCreateTime());
                 agentShipping.setGoodsId(it.getGoodsId());
                 agentShipping.setSpecId(it.getSpecId());
@@ -242,12 +245,15 @@ public class TaoOrderServiceImpl implements ITaoOrderService
             }
         }else {
             // 仓库发货
-            WmsOrderShipping shipping = new WmsOrderShipping();
-            for (var it: items) {
+            for (ErpOrderItem it: items) {
+                erpOrderMapper.insertErpOrderItem(it);
+
+                WmsOrderShipping shipping = new WmsOrderShipping();
                 shipping.setShopId(original.getShopId());
                 shipping.setShopType(4L);
                 shipping.setOrderNum(original.getId());
-                shipping.setOrderItemId(it.getOrderItemNum());
+//                shipping.setOrderItemId(it.getOrderItemNum());
+                shipping.setOrderItemId(it.getId().toString());
                 shipping.setOrderDate(original.getOrderCreateTime());
                 shipping.setGoodsId(it.getGoodsId());
                 shipping.setSpecId(it.getSpecId());
