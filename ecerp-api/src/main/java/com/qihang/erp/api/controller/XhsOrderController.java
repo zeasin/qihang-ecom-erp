@@ -2,6 +2,8 @@ package com.qihang.erp.api.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.qihang.erp.api.domain.DouOrder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,25 +82,39 @@ public class XhsOrderController extends BaseController
         return toAjax(xhsOrderService.insertXhsOrder(xhsOrder));
     }
 
-    /**
-     * 修改小红书订单
-     */
     @PreAuthorize("@ss.hasPermi('xhs:order:edit')")
     @Log(title = "小红书订单", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody XhsOrder xhsOrder)
+    @PostMapping("/confirm")
+    public AjaxResult confirm(@RequestBody XhsOrder bo)
     {
-        return toAjax(xhsOrderService.updateXhsOrder(xhsOrder));
+        bo.setUpdateBy(getUsername());
+        Integer result = xhsOrderService.confirmOrder(bo);
+        if(result == -1) return new AjaxResult(505,"订单不存在");
+        else if(result == -2) return new AjaxResult(506,"订单已确认过了");
+        else if(result == -3) return new AjaxResult(507,"订单售后中！无法操作！");
+        else if(result == -4) return new AjaxResult(508,"订单号确认过了！请检查订单号是否正确！");
+        else if(result == -5) return new AjaxResult(509,"不支持的发货方式！");
+        return toAjax(result);
     }
-
-    /**
-     * 删除小红书订单
-     */
-    @PreAuthorize("@ss.hasPermi('xhs:order:remove')")
-    @Log(title = "小红书订单", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(xhsOrderService.deleteXhsOrderByIds(ids));
-    }
+//    /**
+//     * 修改小红书订单
+//     */
+//    @PreAuthorize("@ss.hasPermi('xhs:order:edit')")
+//    @Log(title = "小红书订单", businessType = BusinessType.UPDATE)
+//    @PutMapping
+//    public AjaxResult edit(@RequestBody XhsOrder xhsOrder)
+//    {
+//        return toAjax(xhsOrderService.updateXhsOrder(xhsOrder));
+//    }
+//
+//    /**
+//     * 删除小红书订单
+//     */
+//    @PreAuthorize("@ss.hasPermi('xhs:order:remove')")
+//    @Log(title = "小红书订单", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(xhsOrderService.deleteXhsOrderByIds(ids));
+//    }
 }

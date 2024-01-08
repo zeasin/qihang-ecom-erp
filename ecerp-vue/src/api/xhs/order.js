@@ -27,10 +27,10 @@ export function addOrder(data) {
 }
 
 // 修改小红书订单
-export function updateOrder(data) {
+export function confirmOrder(data) {
   return request({
-    url: '/xhs/order',
-    method: 'put',
+    url: '/xhs/order/confirm',
+    method: 'post',
     data: data
   })
 }

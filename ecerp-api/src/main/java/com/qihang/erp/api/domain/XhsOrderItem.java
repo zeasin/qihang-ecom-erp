@@ -3,6 +3,8 @@ package com.qihang.erp.api.domain;
 import com.zhijian.common.annotation.Excel;
 import com.zhijian.common.core.domain.BaseEntity;
 
+import java.math.BigDecimal;
+
 /**
  * 小红书订单明细对象 s_xhs_order_item
  * 
@@ -41,7 +43,7 @@ public class XhsOrderItem extends BaseEntity
     /** 商品图片url */
     @Excel(name = "商品图片url")
     private String itemImage;
-    private Double price;
+    private BigDecimal price;
     /** 数量 */
     @Excel(name = "数量")
     private Long quantity;
@@ -102,11 +104,11 @@ public class XhsOrderItem extends BaseEntity
         this.itemSpecCode = itemSpecCode;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

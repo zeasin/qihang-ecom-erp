@@ -232,14 +232,14 @@
             type="success"
             icon="el-icon-success"
             @click="handleConfirm(scope.row)"
-            v-hasPermi="['pdd:order:edit']"
+            v-hasPermi="['dou:order:edit']"
           >确认订单</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-view"
             @click="handleDetail(scope.row)"
-            v-hasPermi="['pdd:order:remove']"
+            v-hasPermi="['dou:order:remove']"
           >详情</el-button>
         </template>
       </el-table-column>
