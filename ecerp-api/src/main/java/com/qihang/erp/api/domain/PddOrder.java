@@ -71,6 +71,16 @@ public class PddOrder extends BaseEntity
     @Excel(name = "订单状态1：待发货，2：已发货待签收，3：已签收")
     private Long orderStatus;
 
+    private Integer shipType;
+
+    public Integer getShipType() {
+        return shipType;
+    }
+
+    public void setShipType(Integer shipType) {
+        this.shipType = shipType;
+    }
+
     /** 发货时间 */
     @Excel(name = "发货时间")
     private String shippingTime;

@@ -34,7 +34,7 @@ public interface IPddOrderService
      * @return 结果
      */
     public int insertPddOrder(PddOrder pddOrder);
-    int confirmOrder(Long orderId,String remark,String createBy);
+    int confirmOrder(PddOrder pddOrder);
 
     /**
      * 修改拼多多订单

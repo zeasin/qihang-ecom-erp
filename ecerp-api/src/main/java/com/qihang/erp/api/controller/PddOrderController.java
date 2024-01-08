@@ -90,11 +90,13 @@ public class PddOrderController extends BaseController
     @PostMapping("/confirm")
     public AjaxResult confirmOrder(@RequestBody PddOrder pddOrder)
     {
-        Integer result = pddOrderService.confirmOrder(pddOrder.getId(),pddOrder.getRemark(),getUsername());
+        pddOrder.setUpdateBy(getUsername());
+        Integer result = pddOrderService.confirmOrder(pddOrder);
         if(result == -1) return new AjaxResult(505,"订单不存在");
         else if(result == -2) return new AjaxResult(506,"订单已确认过了");
         else if(result == -3) return new AjaxResult(507,"订单售后中！无法操作！");
         else if(result == -4) return new AjaxResult(508,"订单号确认过了！请检查订单号是否正确！");
+        else if(result == -5) return new AjaxResult(509,"不支持的发货方式！");
         return toAjax(result);
     }
 
