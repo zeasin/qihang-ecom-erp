@@ -85,6 +85,10 @@ public class TaoOrderServiceImpl implements ITaoOrderService
     @Override
     public int insertTaoOrder(TaoOrder taoOrder)
     {
+        if (StringUtils.isNotNull(taoOrder.getTaoOrderItemList())) return -2;
+        TaoOrder order = taoOrderMapper.selectTaoOrderById(taoOrder.getId());
+        if (order != null) return -1;
+
         if(StringUtils.isNull(taoOrder.getShippingFee())) taoOrder.setShippingFee(BigDecimal.ZERO);
         taoOrder.setTotalAmount(taoOrder.getTotalAmount().add(taoOrder.getShippingFee()));
         taoOrder.setPayAmount(taoOrder.getTotalAmount());
