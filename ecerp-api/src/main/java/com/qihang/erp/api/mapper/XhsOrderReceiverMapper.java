@@ -20,6 +20,7 @@ public interface XhsOrderReceiverMapper
      * @return 订单收件人信息
      */
     public XhsOrderReceiver selectXhsOrderReceiverById(Long id);
+    public XhsOrderReceiver selectXhsOrderReceiverByOrderId(Long orderId);
 
     /**
      * 查询订单收件人信息列表

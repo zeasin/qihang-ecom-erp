@@ -220,7 +220,7 @@ public class PddOrderServiceImpl implements IPddOrderService
                 item.setGoodsPrice(BigDecimal.valueOf(i.getGoodsPrice()));
                 item.setItemAmount(BigDecimal.valueOf(i.getItemAmount()));
                 item.setQuantity(i.getQuantity().intValue());
-                item.setIsGift(i.getIsGift().intValue());
+                item.setIsGift(1);
                 item.setRefundCount(0);
                 item.setRefundStatus(1);
                 item.setCreateBy(pddOrder.getUpdateBy());

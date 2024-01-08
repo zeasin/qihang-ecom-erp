@@ -1,6 +1,8 @@
 package com.qihang.erp.api.service;
 
 import java.util.List;
+
+import com.qihang.erp.api.domain.DouOrder;
 import com.qihang.erp.api.domain.XhsOrder;
 
 /**
@@ -34,7 +36,7 @@ public interface IXhsOrderService
      * @return 结果
      */
     public int insertXhsOrder(XhsOrder xhsOrder);
-
+    public int confirmOrder(XhsOrder bo);
     /**
      * 修改小红书订单
      * 

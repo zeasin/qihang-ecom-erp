@@ -102,6 +102,7 @@ public class DouOrderServiceImpl implements IDouOrderService
         return douOrderMapper.updateDouOrder(douOrder);
     }
 
+    @Transactional
     @Override
     public int confirmOrder(DouOrder bo) {
         DouOrder original = douOrderMapper.selectDouOrderById(bo.getId());
@@ -135,13 +136,13 @@ public class DouOrderServiceImpl implements IDouOrderService
             so.setPayTime(original.getPayTime());
         }catch (Exception e){}
 
-        so.setReceiverName(original.getPostReceiver());
-        so.setReceiverPhone(original.getPostTel());
-        so.setAddress(original.getPostAddr());
+        so.setReceiverName(bo.getPostReceiver());
+        so.setReceiverPhone(bo.getPostTel());
+        so.setAddress(bo.getPostAddr());
         so.setCountry("中国");
-        so.setProvince(original.getProvince());
-        so.setCity(original.getCity());
-        so.setTown(original.getTown());
+        so.setProvince(bo.getProvince());
+        so.setCity(bo.getCity());
+        so.setTown(bo.getTown());
         so.setConfirmTime(new Date());
         so.setCreateTime(new Date());
         so.setCreateBy(bo.getUpdateBy());
@@ -191,7 +192,7 @@ public class DouOrderServiceImpl implements IDouOrderService
                 item.setGoodsPrice(i.getPrice());
                 item.setItemAmount(i.getTotalAmount());
                 item.setQuantity(i.getComboNum().intValue());
-                item.setIsGift(i.getIsGift().intValue());
+                item.setIsGift(1);
                 item.setRefundCount(0);
                 item.setRefundStatus(1);
                 item.setCreateBy(bo.getUpdateBy());

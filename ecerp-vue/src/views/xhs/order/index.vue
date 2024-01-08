@@ -34,14 +34,14 @@
         </el-date-picker>
       </el-form-item>
 
-      <el-form-item label="优先级" prop="sellerRemarkFlag">
-        <el-input
-          v-model="queryParams.sellerRemarkFlag"
-          placeholder="请输入商家标记优先级，ark订单列表展示旗子颜色 1灰旗 2红旗 3黄旗 4绿旗 5蓝旗 6紫旗"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+<!--      <el-form-item label="优先级" prop="sellerRemarkFlag">-->
+<!--        <el-input-->
+<!--          v-model="queryParams.sellerRemarkFlag"-->
+<!--          placeholder="请输入商家标记优先级，ark订单列表展示旗子颜色 1灰旗 2红旗 3黄旗 4绿旗 5蓝旗 6紫旗"-->
+<!--          clearable-->
+<!--          @keyup.enter.native="handleQuery"-->
+<!--        />-->
+<!--      </el-form-item>-->
 
 
       <el-form-item label="快递单号" prop="expressTrackingNo">
@@ -75,7 +75,7 @@
           plain
           icon="el-icon-upload"
           size="mini"
-          @click="handleUpdate"
+          @click="handleImport"
           v-hasPermi="['xhs:order:edit']"
         >Execl导入</el-button>
       </el-col>
@@ -86,7 +86,7 @@
           icon="el-icon-download"
           size="mini"
 
-          @click="handleDelete"
+          @click="handlePull"
           v-hasPermi="['xhs:order:remove']"
         >API拉取订单</el-button>
       </el-col>
@@ -104,7 +104,7 @@
     </el-row>
 
     <el-table v-loading="loading" :data="orderList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
+<!--      <el-table-column type="selection" width="55" align="center" />-->
 <!--      <el-table-column label="主键id" align="center" prop="id" />-->
       <el-table-column label="订单号" align="center" prop="orderId" />
       <el-table-column label="店铺" align="center" prop="shopId" >
@@ -115,7 +115,7 @@
       <el-table-column label="商品" width="350">
           <template slot-scope="scope">
             <el-row v-for="item in scope.row.xhsOrderItemList" :key="item.id" :gutter="20">
-              
+
             <div style="float: left;display: flex;align-items: center;" >
               <el-image  style="width: 70px; height: 70px;" :src="item.itemImage"></el-image>
               <div style="margin-left:10px">
@@ -136,7 +136,7 @@
       <el-table-column label="小红书订单状态" align="center" prop="orderStatus" >
         <!-- 小红书订单状态，1已下单待付款 2已支付处理中 3清关中 4待发货 5部分发货 6待收货 7已完成 8已关闭 9已取消 10换货申请中 -->
         <template slot-scope="scope">
-          
+
           <el-tag size="small" v-if="scope.row.orderStatus === 1"> 待支付</el-tag>
           <el-tag size="small" v-if="scope.row.orderStatus === 2"> 已支付</el-tag>
           <el-tag size="small" v-if="scope.row.orderStatus === 3"> 清关中</el-tag>
@@ -174,7 +174,7 @@
       <!-- <el-table-column label="预售最早发货时间 单位ms" align="center" prop="presaleDeliveryStartTime" />
       <el-table-column label="预售最晚发货时间 单位ms" align="center" prop="presaleDeliveryEndTime" /> -->
 <!--      <el-table-column label="原始关联订单号(退换订单的原订单)" align="center" prop="originalPackageId" />-->
-      
+
       <el-table-column label="快递单号" align="center" prop="expressTrackingNo" />
 <!--      <el-table-column label="快递公司编码" align="center" prop="expressCompanyCode" />-->
 <!--      <el-table-column label="收件人姓名+手机+地址等计算得出，用来查询收件人详情" align="center" prop="openAddressId" />-->
@@ -210,19 +210,20 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
+            v-if="scope.row.auditStatus === 0"
             size="mini"
-            type="text"
-            icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
+            type="success"
+            icon="el-icon-success"
+            @click="handleConfirm(scope.row)"
             v-hasPermi="['xhs:order:edit']"
-          >修改</el-button>
+          >确认订单</el-button>
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
+            icon="el-icon-view"
+            @click="handleDetail(scope.row)"
             v-hasPermi="['xhs:order:remove']"
-          >删除</el-button>
+          >详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -261,14 +262,14 @@
             placeholder="请选择下单时间">
           </el-date-picker>
         </el-form-item>
-        
+
         <el-form-item label="用户备注" prop="customerRemark">
           <el-input v-model="form.customerRemark" type="textarea" placeholder="请输入用户备注" style="width:250px"/>
         </el-form-item>
-        
-        
-       
-        
+
+
+
+
         <!-- <el-form-item label="收件人姓名+手机+地址等计算得出，用来查询收件人详情" prop="openAddressId">
           <el-input v-model="form.openAddressId" placeholder="请输入收件人姓名+手机+地址等计算得出，用来查询收件人详情" />
         </el-form-item>
@@ -404,11 +405,185 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+
+    <!-- 确认订单、订单详情对话框 -->
+    <el-dialog :title="detailTitle" :visible.sync="detailOpen" width="1100px" append-to-body :close-on-click-modal="false">
+      <el-form ref="form" :model="form" :rules="rules" label-width="100px" inline>
+        <el-descriptions title="订单信息">
+          <el-descriptions-item label="ID">{{form.id}}</el-descriptions-item>
+          <el-descriptions-item label="订单号">{{form.orderId}}</el-descriptions-item>
+          <el-descriptions-item label="店铺">
+            {{ shopList.find(x=>x.id === form.shopId)?shopList.find(x=>x.id === form.shopId).name:'' }}
+          </el-descriptions-item>
+          <el-descriptions-item label="订单类型">
+            <el-tag size="small" v-if="form.orderType ===1 ">普通订单</el-tag>
+            <el-tag size="small" v-if="form.orderType ===2 ">定金预售</el-tag>
+            <el-tag size="small" v-if="form.orderType ===3 ">全款预售</el-tag>
+            <el-tag size="small" v-if="form.orderType ===4 ">延迟发货</el-tag>
+            <el-tag size="small" v-if="form.orderType ===5 ">换货补发</el-tag>
+          </el-descriptions-item>
+
+          <el-descriptions-item label="买家备注">
+            {{form.customerRemark}}
+          </el-descriptions-item>
+          <el-descriptions-item label="卖家备注">
+            {{form.sellerRemark}}
+          </el-descriptions-item>
+
+          <el-descriptions-item label="创建时间">
+            {{ dateToString(form.orderCreatedTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="最晚发货时间"> {{ dateToString(form.promiseLastDeliveryTime) }}</el-descriptions-item>
+
+          <el-descriptions-item label="订单取消时间"> {{ dateToString(form.orderCancelTime) }}</el-descriptions-item>
+
+          <el-descriptions-item label="订单状态">
+            <!--    小红书订单状态，1已下单待付款 2已支付处理中 3清关中 4待发货 5部分发货 6待收货 7已完成 8已关闭 9已取消 10换货申请中-->
+            <el-tag v-if="form.orderStatus === 1" style="margin-bottom: 6px;">待支付</el-tag>
+            <el-tag v-if="form.orderStatus === 2" style="margin-bottom: 6px;">处理中</el-tag>
+            <el-tag v-if="form.orderStatus === 3" style="margin-bottom: 6px;">清关中</el-tag>
+            <el-tag v-if="form.orderStatus === 4" style="margin-bottom: 6px;">待发货</el-tag>
+            <el-tag v-if="form.orderStatus === 5" style="margin-bottom: 6px;">部分发货</el-tag>
+            <el-tag v-if="form.orderStatus === 6" style="margin-bottom: 6px;">待收货</el-tag>
+            <el-tag v-if="form.orderStatus === 7" style="margin-bottom: 6px;">已完成</el-tag>
+            <el-tag v-if="form.orderStatus === 8" style="margin-bottom: 6px;">已关闭</el-tag>
+            <el-tag v-if="form.orderStatus === 9" style="margin-bottom: 6px;">已取消</el-tag>
+            <el-tag v-if="form.orderStatus === 10" style="margin-bottom: 6px;">换货申请中</el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="退款状态">
+            <el-tag v-if="form.afterSalesStatus === 1">无售后</el-tag>
+            <el-tag v-if="form.afterSalesStatus === 2">售后处理中</el-tag>
+            <el-tag v-if="form.afterSalesStatus === 3">售后完成(含取消)</el-tag>
+          </el-descriptions-item>
+
+        </el-descriptions>
+        <el-descriptions title="付款信息">
+
+          <el-descriptions-item label="实际支付金额">{{form.totalPayAmount /100}}</el-descriptions-item>
+
+          <el-descriptions-item label="运费">{{form.totalShippingFree / 100}}</el-descriptions-item>
+
+          <el-descriptions-item label="支付时间"> {{ dateToString(form.orderPaidTime) }}</el-descriptions-item>
+
+        </el-descriptions>
+
+
+        <el-descriptions title="收货信息">
+          <el-descriptions-item label="收件人姓名">{{form.receiver}}</el-descriptions-item>
+          <el-descriptions-item label="收件人手机号">{{form.phone}}</el-descriptions-item>
+          <el-descriptions-item label="省市区">{{form.province}}{{form.city}}{{form.district}}</el-descriptions-item>
+          <el-descriptions-item label="详细地址">{{form.address}}</el-descriptions-item>
+        </el-descriptions>
+        <el-descriptions title="发货信息">
+          <!-- <el-descriptions-item label="发货方式">
+            <el-tag v-if="form.shipType === 1"  type="danger">供应商代发</el-tag>
+              <el-tag v-if="form.shipType === 0" type="danger">仓库发货</el-tag>
+          </el-descriptions-item> -->
+          <el-descriptions-item label="物流公司">{{form.expressCompanyCode}}</el-descriptions-item>
+          <el-descriptions-item label="物流单号">{{form.expressTrackingNo}}</el-descriptions-item>
+          <el-descriptions-item label="发货时间">{{dateToString(form.orderDeliveryTime)}}</el-descriptions-item>
+        </el-descriptions>
+        <el-divider content-position="center">订单商品</el-divider>
+        <el-table :data="goodsList"  style="margin-bottom: 10px;">
+          <el-table-column label="序号" align="center" type="index" width="50"/>
+
+          <el-table-column label="商品图片" width="80">
+            <template slot-scope="scope">
+              <el-image style="width: 70px; height: 70px" :src="scope.row.itemImage"></el-image>
+            </template>
+          </el-table-column>
+          <el-table-column label="商品标题" prop="itemName" ></el-table-column>
+          <el-table-column label="SKU" prop="itemSpec" width="150"></el-table-column>
+          <el-table-column label="sku编码" prop="itemSpecCode"></el-table-column>
+          <el-table-column label="单价" prop="price"></el-table-column>
+          <el-table-column label="数量" prop="quantity"></el-table-column>
+          <el-table-column label="商品金额" prop="totalPaidAmount"></el-table-column>
+        </el-table>
+
+
+
+        <el-divider content-position="center">订单商品</el-divider>
+        <el-row :gutter="10" class="mb8">
+          <el-col :span="1.5">
+            <el-button type="primary" icon="el-icon-plus" size="mini" @click="handleAddXhsOrderItem">添加赠品</el-button>
+          </el-col>
+          <el-col :span="1.5">
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="handleDeleteXhsOrderItem">删除</el-button>
+          </el-col>
+        </el-row>
+        <el-table :data="xhsOrderItemList" :row-class-name="rowXhsOrderItemIndex" @selection-change="handleXhsOrderItemSelectionChange" ref="xhsOrderItem" style="margin-bottom: 10px;">
+          <el-table-column type="selection" width="50" align="center" />
+          <el-table-column label="序号" align="center" prop="index" width="50"/>
+          <el-table-column label="商品" prop="erpGoodsId" width="350" >
+            <template slot-scope="scope">
+              <el-select v-model="scope.row.erpGoodsSpecId" filterable remote reserve-keyword placeholder="搜索商品" style="width: 330px;"
+                         :remote-method="searchSku" :loading="skuListLoading" @change="skuChanage(scope.row)">
+                <el-option v-for="item in skuList" :key="item.id"
+                           :label="item.name + ' - ' + item.colorValue + ' ' + item.sizeValue + ' ' + item.styleValue"
+                           :value="item.id">
+                </el-option>
+              </el-select>
+            </template>
+          </el-table-column>
+          <el-table-column label="商品图片" prop="itemImage" >
+            <template slot-scope="scope">
+              <el-image style="width: 70px; height: 70px" :src="scope.row.itemImage"></el-image>
+            </template>
+          </el-table-column>
+          <el-table-column label="SKU编码" prop="itemSpecCode" width="100">
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.itemSpecCode" placeholder="请输入规格" />
+            </template>
+          </el-table-column>
+          <el-table-column label="单价" prop="price">
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.price" placeholder="请输入单价" />
+            </template>
+          </el-table-column>
+          <el-table-column label="数量" prop="quantity" >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.quantity" placeholder="请输入数量"  @input="qtyChange(scope.row)" />
+            </template>
+          </el-table-column>
+          <el-table-column label="总金额" prop="itemAmount">
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.itemAmount" placeholder="请输入总金额" />
+            </template>
+          </el-table-column>
+        </el-table>
+        <el-form-item label="收件人姓名" prop="receiver" v-if="isAudit">
+          <el-input v-model="form.receiver" placeholder="请输入收件人姓名" style="width:250px" />
+        </el-form-item>
+        <el-form-item label="收件人电话" prop="phone" v-if="isAudit">
+          <el-input v-model="form.phone" placeholder="请输入收件人电话" style="width:250px" />
+        </el-form-item>
+        <el-form-item label="省市区" prop="provinces" v-if="isAudit">
+          <el-cascader style="width:250px"
+                       size="large"
+                       :options="pcaTextArr"
+                       v-model="form.provinces">
+          </el-cascader>
+        </el-form-item>
+        <el-form-item label="详细地址" prop="address" v-if="isAudit">
+          <el-input v-model="form.address" placeholder="请输入收件地址" style="width:250px" />
+        </el-form-item>
+        <el-form-item label="发货方式" prop="shipType" v-if="isAudit">
+          <el-select v-model="form.shipType" placeholder="发货类型0仓库发货1供应商代发" style="width:250px">
+            <el-option label="供应商代发" value="1"></el-option>
+            <el-option label="仓库发货" value="0"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitConfirmForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { listOrder, getOrder, delOrder, addOrder, updateOrder } from "@/api/xhs/order";
+import { listOrder, getOrder, delOrder, addOrder, confirmOrder } from "@/api/xhs/order";
 import { listShop } from "@/api/shop/shop";
 import { searchSku } from "@/api/goods/goods";
 import {
@@ -441,7 +616,6 @@ export default {
       // 小红书订单明细表格数据
       xhsOrderItemList: [],
       shopList:[],
-      isAudit:false,
       skuListLoading:false,
       skuList:[],
       // 弹出层标题
@@ -503,6 +677,10 @@ export default {
         town:null,
         goodsAmount:null
       },
+      isAudit:false,
+      detailOpen:false,
+      detailTitle:'',
+      goodsList:[],
       pcaTextArr,
       // 表单校验
       rules: {
@@ -533,6 +711,9 @@ export default {
         shippingFree: [
           { required: true, message: "订单运费不能为空", trigger: "blur" }
         ],
+        shipType: [
+          { required: true, message: "请选择发货方式", trigger: "blur" }
+        ],
       }
     };
   },
@@ -559,6 +740,7 @@ export default {
     // 取消按钮
     cancel() {
       this.open = false;
+      this.detailOpen = false
       this.reset();
     },
     // 表单重置
@@ -629,15 +811,33 @@ export default {
       this.open = true;
       this.title = "添加小红书订单";
     },
+    handleImport(){
+
+    },
+    handlePull(){
+      this.$modal.msgSuccess("请先配置API参数");
+    },
     /** 修改按钮操作 */
-    handleUpdate(row) {
+    handleConfirm(row) {
       this.reset();
       const id = row.id || this.ids
       getOrder(id).then(response => {
         this.form = response.data;
-        this.xhsOrderItemList = response.data.xhsOrderItemList;
-        this.open = true;
-        this.title = "修改小红书订单";
+        this.goodsList = response.data.xhsOrderItemList;
+        this.detailOpen = true;
+        this.detailTitle = "确认订单";
+        this.isAudit = true
+      });
+    },
+    handleDetail(row) {
+      this.reset();
+      const id = row.id || this.ids
+      getOrder(id).then(response => {
+        this.form = response.data;
+        this.goodsList = response.data.xhsOrderItemList;
+        this.detailOpen = true;
+        this.detailTitle = "订单详情";
+        this.isAudit = false
       });
     },
     /** 提交按钮 */
@@ -648,32 +848,39 @@ export default {
           this.form.city = this.form.provinces[1]
           this.form.district = this.form.provinces[2]
           this.form.xhsOrderItemList = this.xhsOrderItemList;
-          if (this.form.id != null) {
-            updateOrder(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
-              this.open = false;
-              this.getList();
-            });
-          } else {
+
             addOrder(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
             });
-          }
+
+            // confirmOrder(this.form).then(response => {
+            //   this.$modal.msgSuccess("修改成功");
+            //   this.open = false;
+            //   this.getList();
+            // });
+
         }
       });
     },
-    /** 删除按钮操作 */
-    handleDelete(row) {
-      const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除小红书订单编号为"' + ids + '"的数据项？').then(function() {
-        return delOrder(ids);
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
+    submitConfirmForm(){
+      this.$refs["form"].validate(valid => {
+        if (valid) {
+          this.form.province = this.form.provinces[0]
+          this.form.city = this.form.provinces[1]
+          this.form.district = this.form.provinces[2]
+          this.form.xhsOrderItemList = this.xhsOrderItemList;
+          confirmOrder(this.form).then(response => {
+            this.$modal.msgSuccess("确认成功");
+            this.detailOpen = false;
+            this.getList();
+          });
+        }
+      })
     },
+    /** 删除按钮操作 */
+
 	/** 小红书订单明细序号 */
     rowXhsOrderItemIndex({ row, rowIndex }) {
       row.index = rowIndex + 1;
@@ -760,7 +967,7 @@ export default {
       this.form.goodsAmount = goodsAmountNew
 
     },
-  
+
   }
 };
 </script>

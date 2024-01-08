@@ -38,6 +38,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectXhsOrderReceiverVo"/>
         where id = #{id}
     </select>
+    <select id="selectXhsOrderReceiverByOrderId" parameterType="Long" resultMap="XhsOrderReceiverResult">
+        <include refid="selectXhsOrderReceiverVo"/>
+        where orderId = #{orderId}
+    </select>
+
         
     <insert id="insertXhsOrderReceiver" parameterType="XhsOrderReceiver" useGeneratedKeys="true" keyProperty="id">
         insert into s_xhs_order_receiver

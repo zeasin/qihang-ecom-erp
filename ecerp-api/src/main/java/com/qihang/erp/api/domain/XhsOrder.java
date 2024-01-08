@@ -19,6 +19,7 @@ public class XhsOrder extends BaseEntity
 
     /** 主键id（自增长） */
     private Long id;
+    private Integer shipType;
 
     /** 订单号（第三方平台orderId） */
     @Excel(name = "订单号", readConverterExp = "第=三方平台orderId")
@@ -155,6 +156,14 @@ public class XhsOrder extends BaseEntity
     private String receiver;
     private String phone;
     private String address;
+
+    public Integer getShipType() {
+        return shipType;
+    }
+
+    public void setShipType(Integer shipType) {
+        this.shipType = shipType;
+    }
 
     public String getAddress() {
         return address;

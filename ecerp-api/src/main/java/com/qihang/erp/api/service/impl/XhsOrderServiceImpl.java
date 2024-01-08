@@ -1,20 +1,17 @@
 package com.qihang.erp.api.service.impl;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
-import com.qihang.erp.api.domain.TaoOrderItem;
-import com.qihang.erp.api.domain.XhsOrderReceiver;
-import com.qihang.erp.api.mapper.XhsOrderReceiverMapper;
+import com.qihang.erp.api.domain.*;
+import com.qihang.erp.api.mapper.*;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import com.zhijian.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
-import com.qihang.erp.api.domain.XhsOrderItem;
-import com.qihang.erp.api.mapper.XhsOrderMapper;
-import com.qihang.erp.api.domain.XhsOrder;
 import com.qihang.erp.api.service.IXhsOrderService;
 
 /**
@@ -30,7 +27,15 @@ public class XhsOrderServiceImpl implements IXhsOrderService
     private XhsOrderMapper xhsOrderMapper;
     @Autowired
     private XhsOrderReceiverMapper receiverMapper;
+    @Autowired
+    private ErpOrderMapper erpOrderMapper;
+    @Autowired
+    private GoodsMapper goodsMapper;
+    @Autowired
+    private ScmSupplierAgentShippingMapper agentShippingMapper;
 
+    @Autowired
+    private WmsOrderShippingMapper orderShippingMapper;
     /**
      * 查询小红书订单
      * 
@@ -40,7 +45,17 @@ public class XhsOrderServiceImpl implements IXhsOrderService
     @Override
     public XhsOrder selectXhsOrderById(Long id)
     {
-        return xhsOrderMapper.selectXhsOrderById(id);
+        XhsOrder xhsOrder = xhsOrderMapper.selectXhsOrderById(id);
+        XhsOrderReceiver receiver = receiverMapper.selectXhsOrderReceiverByOrderId(id);
+        if(receiver!=null) {
+            xhsOrder.setReceiver(receiver.getReceiver());
+            xhsOrder.setPhone(receiver.getPhone());
+            xhsOrder.setAddress(receiver.getAddress());
+            xhsOrder.setProvince(receiver.getProvince());
+            xhsOrder.setCity(receiver.getCity());
+            xhsOrder.setDistrict(receiver.getDistrict());
+        }
+        return xhsOrder;
     }
 
     /**
@@ -110,6 +125,181 @@ public class XhsOrderServiceImpl implements IXhsOrderService
         receiverMapper.insertXhsOrderReceiver(receiver);
 
         return rows;
+    }
+
+    @Transactional
+    @Override
+    public int confirmOrder(XhsOrder bo) {
+        XhsOrder original = xhsOrderMapper.selectXhsOrderById(bo.getId());
+        if(original == null) return -1;
+        else if(original.getAuditStatus() != 0) return -2;
+//        else if(original.getRefundStatus() != 1) return -3;
+        if(bo.getShipType() != 0 && bo.getShipType() != 1){
+            // 1 供应商发货 0 仓库发货
+            return -5;
+        }
+        // 判断是否存在
+        ErpOrder erpo = erpOrderMapper.selectErpOrderByNum(original.getOrderId());
+        if(erpo !=null ) return -4;
+
+        // 确认订单（操作：插入数据到s_shop_order、s_shop_order_item）
+        ErpOrder so = new ErpOrder();
+        so.setOrderNum(original.getOrderId());
+        so.setShopId(original.getShopId().intValue());
+        so.setShopType(6);
+        so.setShipType(bo.getShipType());
+        so.setRemark(original.getSellerRemark());
+        so.setBuyerMemo(original.getCustomerRemark());
+        so.setTag("");
+        so.setRefundStatus(1);
+        so.setOrderStatus(1);
+        BigDecimal shipFee = BigDecimal.valueOf(original.getTotalShippingFree()).divide(BigDecimal.valueOf(100));
+        BigDecimal payAmount = BigDecimal.valueOf(original.getTotalPayAmount()).divide(BigDecimal.valueOf(100));
+        so.setGoodsAmount(payAmount.subtract(shipFee));
+        so.setDiscountAmount(BigDecimal.ZERO);
+        so.setAmount(payAmount);
+        so.setPostage(shipFee);
+        try {
+            so.setPayTime(new Date(original.getOrderPaidTime()));
+        }catch (Exception e){}
+
+//        XhsOrderReceiver receiver = receiverMapper.selectXhsOrderReceiverByOrderId(original.getId());
+        so.setReceiverName(bo.getReceiver());
+        so.setReceiverPhone(bo.getPhone());
+        so.setAddress(bo.getAddress());
+        so.setCountry("中国");
+        so.setProvince(bo.getProvince());
+        so.setCity(bo.getCity());
+        so.setTown(bo.getDistrict());
+        so.setConfirmTime(new Date());
+        so.setCreateTime(new Date());
+        so.setCreateBy(bo.getUpdateBy());
+        erpOrderMapper.insertErpOrder(so);
+
+        // 添加Erp_order_item
+        List<XhsOrderItem> orderItems = xhsOrderMapper.selectOrderItemByOrderId(original.getId());
+        List<ErpOrderItem> items = new ArrayList<>();
+        for (var i:orderItems) {
+            Goods goods = goodsMapper.selectGoodsById(i.getErpGoodsId());
+            ErpOrderItem item = new ErpOrderItem();
+            item.setOrderId(so.getId());
+            item.setOrderItemNum(i.getId()+"");
+            item.setSupplierId(goods.getSupplierId().intValue());
+            item.setGoodsId(i.getErpGoodsId());
+            item.setSpecId(i.getErpGoodsSpecId());
+            item.setGoodsTitle(i.getItemName());
+            item.setGoodsImg(i.getItemImage());
+            item.setGoodsNum(i.getErpCode());
+            item.setSpecNum(i.getItemSpecCode());
+            item.setGoodsSpec(i.getItemSpec());
+            item.setGoodsPrice(i.getPrice());
+
+            item.setItemAmount(BigDecimal.valueOf(i.getTotalPaidAmount()));
+            item.setQuantity(i.getQuantity().intValue());
+            item.setIsGift(i.getItemTag().intValue());
+            item.setRefundCount(0);
+            item.setRefundStatus(1);
+            item.setCreateBy(bo.getUpdateBy());
+            item.setCreateTime(new Date());
+            items.add(item);
+        }
+        // 添加了赠品
+        if(bo.getXhsOrderItemList()!=null && !bo.getXhsOrderItemList().isEmpty()) {
+            for (var i : bo.getXhsOrderItemList()) {
+                Goods goods = goodsMapper.selectGoodsById(i.getErpGoodsId());
+                ErpOrderItem item = new ErpOrderItem();
+                item.setOrderId(so.getId());
+                item.setOrderItemNum(original.getOrderId()+"_");
+                item.setSupplierId(goods.getSupplierId().intValue());
+                item.setGoodsId(i.getErpGoodsId());
+                item.setGoodsId(i.getErpGoodsId());
+                item.setSpecId(i.getErpGoodsSpecId());
+                item.setGoodsTitle(i.getItemName());
+                item.setGoodsImg(i.getItemImage());
+                item.setGoodsNum(i.getErpCode());
+                item.setSpecNum(i.getItemSpecCode());
+                item.setGoodsSpec(i.getItemSpec());
+                item.setGoodsPrice(i.getPrice());
+                item.setItemAmount(BigDecimal.valueOf(i.getItemAmount()));
+                item.setQuantity(i.getQuantity().intValue());
+                item.setIsGift(1);
+                item.setRefundCount(0);
+                item.setRefundStatus(1);
+                item.setCreateBy(bo.getUpdateBy());
+                item.setCreateTime(new Date());
+                items.add(item);
+            }
+        }
+//        erpOrderMapper.batchErpOrderItem(items);
+        // 新增代发表
+        if(bo.getShipType() == 1){
+            for (ErpOrderItem it: items) {
+                // 添加Erp_order_item
+                erpOrderMapper.insertErpOrderItem(it);
+                ScmSupplierAgentShipping agentShipping = new ScmSupplierAgentShipping();
+                agentShipping.setShopId(original.getShopId());
+                agentShipping.setShopType(6L);
+                agentShipping.setSupplierId(it.getSupplierId().longValue());
+                agentShipping.setOrderNum(original.getOrderId());
+                agentShipping.setOrderItemId(it.getId().toString());
+                try {
+                    agentShipping.setOrderDate(new Date(original.getOrderCreatedTime()));
+                }catch (Exception e){}
+
+                agentShipping.setGoodsId(it.getGoodsId());
+                agentShipping.setSpecId(it.getSpecId());
+                agentShipping.setGoodsTitle(it.getGoodsTitle());
+                agentShipping.setGoodsImg(it.getGoodsImg());
+                agentShipping.setGoodsNum(it.getGoodsNum());
+                agentShipping.setGoodsSpec(it.getGoodsSpec());
+                agentShipping.setSpecNum(it.getSpecNum());
+                agentShipping.setGoodsPrice(it.getGoodsPrice());
+                agentShipping.setQuantity(it.getQuantity().longValue());
+                agentShipping.setItemAmount(it.getItemAmount());
+                agentShipping.setStatus(0L);
+                agentShipping.setCreateTime(new Date());
+                agentShipping.setCreateBy(bo.getUpdateBy());
+
+                agentShippingMapper.insertScmSupplierAgentShipping(agentShipping);
+            }
+        }else {
+            // 仓库发货
+            for (ErpOrderItem it: items) {
+                erpOrderMapper.insertErpOrderItem(it);
+
+                WmsOrderShipping shipping = new WmsOrderShipping();
+                shipping.setShopId(original.getShopId());
+                shipping.setShopType(6L);
+                shipping.setOrderNum(original.getOrderId());
+
+                shipping.setOrderItemId(it.getId().toString());
+                try {
+                    shipping.setOrderDate(new Date(original.getOrderCreatedTime()));
+                }catch (Exception e){}
+                shipping.setGoodsId(it.getGoodsId());
+                shipping.setSpecId(it.getSpecId());
+                shipping.setGoodsTitle(it.getGoodsTitle());
+                shipping.setGoodsImg(it.getGoodsImg());
+                shipping.setGoodsNum(it.getGoodsNum());
+                shipping.setGoodsSpec(it.getGoodsSpec());
+                shipping.setSpecNum(it.getSpecNum());
+                shipping.setQuantity(it.getQuantity().longValue());
+                shipping.setStatus(0L);
+                shipping.setCreateTime(new Date());
+                shipping.setCreateBy(bo.getUpdateBy());
+                orderShippingMapper.insertWmsOrderShipping(shipping);
+            }
+        }
+        //更新自己
+
+        //更新自己
+        XhsOrder up =new XhsOrder();
+        up.setId(original.getId());
+        up.setAuditStatus(1L);
+        up.setUpdateBy(bo.getUpdateBy());
+        up.setUpdateTime(new Date());
+        xhsOrderMapper.updateXhsOrder(up);
+        return 1;
     }
 
     /**
