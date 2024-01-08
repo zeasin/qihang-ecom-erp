@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="店铺ID" prop="shopId">
+      <el-form-item label="店铺" prop="shopId">
         <!-- <el-input
           v-model="queryParams.shopId"
           placeholder="请输入店铺ID"
@@ -10,6 +10,13 @@
         /> -->
         <el-select v-model="queryParams.shopId" filterable  placeholder="搜索店铺" >
           <el-option v-for="item in shopList" :key="item.id" :label="item.name" :value="item.id">
+            <span style="float: left">{{ item.name }}</span>
+              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 4">淘宝天猫</span>
+              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 5">拼多多</span>
+              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 6">抖店</span>
+              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 7">小红书</span>
+              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 13">快手小店</span>
+              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 99">其他</span>
           </el-option>
           </el-select>
       </el-form-item>
@@ -17,11 +24,7 @@
         <el-select
           v-model="queryParams.supplierId"
           filterable
-          remote
-          reserve-keyword
-          placeholder="请输入供应商名称"
-          :remote-method="searchSupplier"
-          :loading="supplierLoading">
+          placeholder="请输入供应商名称">
           <el-option
             v-for="item in supplierList"
             :key="item.id"
@@ -48,7 +51,7 @@
           placeholder="请选择订单日期">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="商品id" prop="goodsId">
+      <el-form-item label="商品ID" prop="goodsId">
         <el-input
           v-model="queryParams.goodsId"
           placeholder="请输入erp系统商品id"
@@ -56,16 +59,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      
-      <el-form-item label="商品标题" prop="goodsTitle">
-        <el-input
-          v-model="queryParams.goodsTitle"
-          placeholder="请输入商品标题"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      
+            
       <el-form-item label="商品编码" prop="goodsNum">
         <el-input
           v-model="queryParams.goodsNum"
@@ -115,23 +109,28 @@
 
     <el-table v-loading="loading" :data="agentShippingList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键ID" align="center" prop="id" />
-      <el-table-column label="店铺ID" align="center" prop="shopId" >
+      <el-table-column label="订单编号" align="center" prop="orderNum" />
+      <!-- <el-table-column label="主键ID" align="center" prop="id" /> -->
+      <el-table-column label="店铺" align="center" prop="shopId" >
         <template slot-scope="scope">
-          <span>{{ shopList.find(x=>x.id === scope.row.shopId).name  }}</span>
+          <span>{{ shopList.find(x=>x.id === scope.row.shopId)?shopList.find(x=>x.id === scope.row.shopId).name:''  }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="店铺平台" align="center" prop="shopType" >
+      <!-- <el-table-column label="店铺平台" align="center" prop="shopType" >
          <template slot-scope="scope">
           <el-tag size="small" v-if="scope.row.shopType === 4">淘宝</el-tag>
           <el-tag size="small" v-if="scope.row.shopType === 5">拼多多</el-tag>
           <el-tag size="small" v-if="scope.row.shopType === 6">抖店</el-tag>
           <el-tag size="small" v-if="scope.row.shopType === 7">小红书</el-tag>
          </template>
+      </el-table-column> -->
+      <el-table-column label="供应商" align="center" prop="supplierId" >
+        <template slot-scope="scope">
+        <span>{{ supplierList.find(x=>x.id === scope.row.supplierId)?supplierList.find(x=>x.id === scope.row.supplierId).name:''  }}</span>
+      </template>
       </el-table-column>
-      <el-table-column label="供应商ID" align="center" prop="supplierId" />
-      <el-table-column label="订单编号" align="center" prop="orderNum" />
-      <el-table-column label="子订单编号" align="center" prop="orderItemId" />
+      <!-- <el-table-column label="订单编号" align="center" prop="orderNum" /> -->
+      <!-- <el-table-column label="子订单编号" align="center" prop="orderItemId" /> -->
       <el-table-column label="订单日期" align="center" prop="orderDate" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.orderDate, '{y}-{m}-{d}') }}</span>
@@ -386,6 +385,9 @@ export default {
     this.getList();
     listShop({}).then(response => {
         this.shopList = response.rows;
+      });
+    listSupplier({}).then(response => {
+      this.supplierList = response.rows;
       });
   },
   methods: {
