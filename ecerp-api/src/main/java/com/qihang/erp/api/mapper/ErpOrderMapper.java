@@ -3,6 +3,7 @@ package com.qihang.erp.api.mapper;
 import java.util.List;
 import com.qihang.erp.api.domain.ErpOrder;
 import com.qihang.erp.api.domain.ErpOrderItem;
+import com.qihang.erp.api.domain.TaoOrderItem;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -30,6 +31,8 @@ public interface ErpOrderMapper
      * @return 订单集合
      */
     public List<ErpOrder> selectErpOrderList(ErpOrder erpOrder);
+
+    List<ErpOrderItem> selectOrderItemByOrderId(Long orderId);
 
     /**
      * 新增订单

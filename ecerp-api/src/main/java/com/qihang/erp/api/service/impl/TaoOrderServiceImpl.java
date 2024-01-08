@@ -157,7 +157,7 @@ public class TaoOrderServiceImpl implements ITaoOrderService
         so.setCountry("中国");
         so.setProvince(addr.getProvince());
         so.setCity(addr.getCity());
-        so.setTown(addr.getTown());
+        so.setTown(addr.getArea());
 
         erpOrderMapper.insertErpOrder(so);
         // 新增ErpOrderItem

@@ -3,6 +3,8 @@ package com.qihang.erp.api.service.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
+import com.qihang.erp.api.domain.TaoOrderItem;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,7 +49,12 @@ public class ErpOrderServiceImpl implements IErpOrderService
     @Override
     public List<ErpOrder> selectErpOrderList(ErpOrder erpOrder)
     {
-        return erpOrderMapper.selectErpOrderList(erpOrder);
+        List<ErpOrder> orderList = erpOrderMapper.selectErpOrderList(erpOrder);
+        for (var o:orderList) {
+            List<ErpOrderItem> items = erpOrderMapper.selectOrderItemByOrderId(o.getId());
+            o.setItemList(items);
+        }
+        return orderList;
     }
 
     /**
