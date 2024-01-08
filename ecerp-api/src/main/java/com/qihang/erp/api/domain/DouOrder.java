@@ -86,12 +86,12 @@ public class DouOrder extends BaseEntity
     private String orderStatusStr;
 
     /** 订单创建时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "订单创建时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date orderCreateTime;
 
     /** 最晚发货时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "最晚发货时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date expShipTime;
 
@@ -108,21 +108,21 @@ public class DouOrder extends BaseEntity
     private String payTypeName;
 
     /** 支付时间 (pay_type为0货到付款时, 此字段为空) */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "支付时间 (pay_type为0货到付款时, 此字段为空)", width = 30, dateFormat = "yyyy-MM-dd")
     private Date payTime;
 
     /** 邮费金额 (单位: 分) */
     @Excel(name = "邮费金额 (单位: 分)")
-    private Long postAmount;
+    private BigDecimal postAmount;
 
     /** 平台优惠券金额 (单位: 分) */
     @Excel(name = "平台优惠券金额 (单位: 分)")
-    private Long couponAmount;
+    private BigDecimal couponAmount;
 
     /** 商家优惠券金额 (单位: 分) */
     @Excel(name = "商家优惠券金额 (单位: 分)")
-    private Long shopCouponAmount;
+    private BigDecimal shopCouponAmount;
 
     /** 优惠券详情 (type为优惠券类型, credit为优惠金额,单位分) */
     @Excel(name = "优惠券详情 (type为优惠券类型, credit为优惠金额,单位分)")
@@ -130,7 +130,7 @@ public class DouOrder extends BaseEntity
 
     /** 父订单总金额 (单位: 分) 即用户实际支付金额, 不包含运费 */
     @Excel(name = "父订单总金额 (单位: 分) 即用户实际支付金额, 不包含运费")
-    private Long orderTotalAmount;
+    private BigDecimal orderTotalAmount;
 
     /** 运费险金额（单位：分） */
     @Excel(name = "运费险金额", readConverterExp = "单=位：分")
@@ -249,7 +249,17 @@ public class DouOrder extends BaseEntity
     /** 抖店订单明细信息 */
     private List<DouOrderItem> douOrderItemList;
 
-    public void setId(Long id) 
+    private Integer shipType;
+
+    public Integer getShipType() {
+        return shipType;
+    }
+
+    public void setShipType(Integer shipType) {
+        this.shipType = shipType;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }
@@ -456,30 +466,30 @@ public class DouOrder extends BaseEntity
     {
         return payTime;
     }
-    public void setPostAmount(Long postAmount) 
+    public void setPostAmount(BigDecimal postAmount)
     {
         this.postAmount = postAmount;
     }
 
-    public Long getPostAmount() 
+    public BigDecimal getPostAmount()
     {
         return postAmount;
     }
-    public void setCouponAmount(Long couponAmount) 
+    public void setCouponAmount(BigDecimal couponAmount)
     {
         this.couponAmount = couponAmount;
     }
 
-    public Long getCouponAmount() 
+    public BigDecimal getCouponAmount()
     {
         return couponAmount;
     }
-    public void setShopCouponAmount(Long shopCouponAmount) 
+    public void setShopCouponAmount(BigDecimal shopCouponAmount)
     {
         this.shopCouponAmount = shopCouponAmount;
     }
 
-    public Long getShopCouponAmount() 
+    public BigDecimal getShopCouponAmount()
     {
         return shopCouponAmount;
     }
@@ -492,12 +502,12 @@ public class DouOrder extends BaseEntity
     {
         return couponInfo;
     }
-    public void setOrderTotalAmount(Long orderTotalAmount) 
+    public void setOrderTotalAmount(BigDecimal orderTotalAmount)
     {
         this.orderTotalAmount = orderTotalAmount;
     }
 
-    public Long getOrderTotalAmount() 
+    public BigDecimal getOrderTotalAmount()
     {
         return orderTotalAmount;
     }

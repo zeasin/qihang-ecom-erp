@@ -3,6 +3,8 @@ package com.qihang.erp.api.domain;
 import com.zhijian.common.annotation.Excel;
 import com.zhijian.common.core.domain.BaseEntity;
 
+import java.math.BigDecimal;
+
 /**
  * 抖店订单明细对象 s_dou_order_item
  * 
@@ -62,11 +64,11 @@ public class DouOrderItem extends BaseEntity
 
     /** 邮费金额 (单位: 分) */
     @Excel(name = "邮费金额 (单位: 分)")
-    private Double postAmount;
+    private BigDecimal postAmount;
 
     /** 平台优惠券金额 (单位: 分) */
     @Excel(name = "平台优惠券金额 (单位: 分)")
-    private Double couponAmount;
+    private BigDecimal couponAmount;
 
     /** 优惠券id */
     @Excel(name = "优惠券id")
@@ -82,7 +84,7 @@ public class DouOrderItem extends BaseEntity
 
     /** 该子订单总金额 (单位: 分) */
     @Excel(name = "该子订单总金额 (单位: 分)")
-    private Long totalAmount;
+    private BigDecimal totalAmount;
 
     /** 是否评价 (1:已评价) */
     @Excel(name = "是否评价 (1:已评价)")
@@ -98,7 +100,7 @@ public class DouOrderItem extends BaseEntity
 
     /** 商品单价 */
     @Excel(name = "商品单价")
-    private Long price;
+    private BigDecimal price;
 
     /** 是否赠品0否1是 */
     @Excel(name = "是否赠品0否1是")
@@ -216,21 +218,21 @@ public class DouOrderItem extends BaseEntity
     {
         return comboNum;
     }
-    public void setPostAmount(Double postAmount)
+    public void setPostAmount(BigDecimal postAmount)
     {
         this.postAmount = postAmount;
     }
 
-    public Double getPostAmount()
+    public BigDecimal getPostAmount()
     {
         return postAmount;
     }
-    public void setCouponAmount(Double couponAmount)
+    public void setCouponAmount(BigDecimal couponAmount)
     {
         this.couponAmount = couponAmount;
     }
 
-    public Double getCouponAmount()
+    public BigDecimal getCouponAmount()
     {
         return couponAmount;
     }
@@ -261,12 +263,12 @@ public class DouOrderItem extends BaseEntity
     {
         return campaignInfo;
     }
-    public void setTotalAmount(Long totalAmount) 
+    public void setTotalAmount(BigDecimal totalAmount)
     {
         this.totalAmount = totalAmount;
     }
 
-    public Long getTotalAmount() 
+    public BigDecimal getTotalAmount()
     {
         return totalAmount;
     }
@@ -297,12 +299,12 @@ public class DouOrderItem extends BaseEntity
     {
         return erpSpecId;
     }
-    public void setPrice(Long price) 
+    public void setPrice(BigDecimal price)
     {
         this.price = price;
     }
 
-    public Long getPrice() 
+    public BigDecimal getPrice()
     {
         return price;
     }

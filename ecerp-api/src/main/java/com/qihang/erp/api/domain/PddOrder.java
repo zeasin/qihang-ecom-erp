@@ -158,7 +158,7 @@ public class PddOrder extends BaseEntity
     private String country;
 
     /** 订单创建时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "订单创建时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date createdTime;
 

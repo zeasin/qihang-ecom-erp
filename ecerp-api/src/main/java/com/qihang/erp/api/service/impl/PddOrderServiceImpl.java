@@ -131,46 +131,46 @@ public class PddOrderServiceImpl implements IPddOrderService
     @Transactional
     @Override
     public int confirmOrder(PddOrder pddOrder) {
-        PddOrder order = pddOrderMapper.selectPddOrderById(pddOrder.getId());
-        if(order == null) return -1;
-        else if(order.getAuditStatus() != 0) return -2;
-        else if(order.getRefundStatus() != 1) return -3;
+        PddOrder original = pddOrderMapper.selectPddOrderById(pddOrder.getId());
+        if(original == null) return -1;
+        else if(original.getAuditStatus() != 0) return -2;
+        else if(original.getRefundStatus() != 1) return -3;
         if(pddOrder.getShipType() != 0 && pddOrder.getShipType() != 1){
             // 1 供应商发货 0 仓库发货
             return -5;
         }
         // 判断是否存在
-        ErpOrder erpo = erpOrderMapper.selectErpOrderByNum(order.getOrderSn());
+        ErpOrder erpo = erpOrderMapper.selectErpOrderByNum(original.getOrderSn());
         if(erpo !=null ) return -4;
 
         // 确认订单（操作：插入数据到s_shop_order、s_shop_order_item）
         ErpOrder so = new ErpOrder();
-        so.setOrderNum(order.getOrderSn());
-        so.setShopId(order.getShopId().intValue());
+        so.setOrderNum(original.getOrderSn());
+        so.setShopId(original.getShopId().intValue());
         so.setShopType(5);
         so.setShipType(pddOrder.getShipType());
-        so.setRemark(order.getRemark());
-        so.setBuyerMemo(order.getBuyerMemo());
-        so.setTag(order.getTag());
+        so.setRemark(original.getRemark());
+        so.setBuyerMemo(original.getBuyerMemo());
+        so.setTag(original.getTag());
         so.setRefundStatus(1);
         so.setOrderStatus(1);
-        so.setGoodsAmount(BigDecimal.valueOf(order.getGoodsAmount()));
-        so.setDiscountAmount(BigDecimal.valueOf(order.getDiscountAmount()));
-        so.setAmount(BigDecimal.valueOf(order.getPayAmount()));
-        so.setPostage(BigDecimal.valueOf(order.getPostage()));
+        so.setGoodsAmount(BigDecimal.valueOf(original.getGoodsAmount()));
+        so.setDiscountAmount(BigDecimal.valueOf(original.getDiscountAmount()));
+        so.setAmount(BigDecimal.valueOf(original.getPayAmount()));
+        so.setPostage(BigDecimal.valueOf(original.getPostage()));
         try {
             //2022-07-17 17:10:57
-            Date payDate = DateUtils.dateTime("yyyy-MM-dd HH:mm:ss", order.getPayTime());
+            Date payDate = DateUtils.dateTime("yyyy-MM-dd HH:mm:ss", original.getPayTime());
             so.setPayTime(payDate);
         }catch (Exception e){}
 
-        so.setReceiverName(order.getReceiverName());
-        so.setReceiverPhone(order.getReceiverPhone());
-        so.setAddress(order.getAddress());
+        so.setReceiverName(original.getReceiverName());
+        so.setReceiverPhone(original.getReceiverPhone());
+        so.setAddress(original.getAddress());
         so.setCountry("中国");
-        so.setProvince(order.getProvince());
-        so.setCity(order.getCity());
-        so.setTown(order.getTown());
+        so.setProvince(original.getProvince());
+        so.setCity(original.getCity());
+        so.setTown(original.getTown());
         so.setConfirmTime(new Date());
         so.setCreateTime(new Date());
         so.setCreateBy(pddOrder.getUpdateBy());
@@ -235,13 +235,13 @@ public class PddOrderServiceImpl implements IPddOrderService
                 // 添加Erp_order_item
                 erpOrderMapper.insertErpOrderItem(it);
                 ScmSupplierAgentShipping agentShipping = new ScmSupplierAgentShipping();
-                agentShipping.setShopId(order.getShopId());
+                agentShipping.setShopId(original.getShopId());
                 agentShipping.setShopType(5L);
                 agentShipping.setSupplierId(it.getSupplierId().longValue());
-                agentShipping.setOrderNum(order.getOrderSn());
+                agentShipping.setOrderNum(original.getOrderSn());
                 agentShipping.setOrderItemId(it.getId().toString());
                 try {
-                    agentShipping.setOrderDate(order.getCreatedTime());
+                    agentShipping.setOrderDate(original.getCreatedTime());
                 }catch (Exception e){}
 
                 agentShipping.setGoodsId(it.getGoodsId());
@@ -266,13 +266,13 @@ public class PddOrderServiceImpl implements IPddOrderService
                 erpOrderMapper.insertErpOrderItem(it);
 
                 WmsOrderShipping shipping = new WmsOrderShipping();
-                shipping.setShopId(order.getShopId());
+                shipping.setShopId(original.getShopId());
                 shipping.setShopType(5L);
-                shipping.setOrderNum(order.getOrderSn());
+                shipping.setOrderNum(original.getOrderSn());
 
                 shipping.setOrderItemId(it.getId().toString());
                 try {
-                    shipping.setOrderDate(order.getCreatedTime());
+                    shipping.setOrderDate(original.getCreatedTime());
                 }catch (Exception e){}
                 shipping.setGoodsId(it.getGoodsId());
                 shipping.setSpecId(it.getSpecId());
@@ -292,7 +292,7 @@ public class PddOrderServiceImpl implements IPddOrderService
 
         //更新自己
         PddOrder po =new PddOrder();
-        po.setId(order.getId());
+        po.setId(original.getId());
         po.setAuditStatus(1L);
         po.setUpdateBy(pddOrder.getUpdateBy());
         po.setUpdateTime(new Date());

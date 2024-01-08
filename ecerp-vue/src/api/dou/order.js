@@ -27,10 +27,10 @@ export function addOrder(data) {
 }
 
 // 修改抖店订单
-export function updateOrder(data) {
+export function confirmOrder(data) {
   return request({
-    url: '/dou/order',
-    method: 'put',
+    url: '/dou/order/confirm',
+    method: 'post',
     data: data
   })
 }
