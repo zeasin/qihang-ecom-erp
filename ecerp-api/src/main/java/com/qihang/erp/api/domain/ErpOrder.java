@@ -127,8 +127,17 @@ public class ErpOrder extends BaseEntity
 
     /** 订单明细信息 */
     private List<ErpOrderItem> itemList;
+    private List<ErpOrderItem> erpOrderItemList;
 
-    public void setId(Long id) 
+    public List<ErpOrderItem> getErpOrderItemList() {
+        return erpOrderItemList;
+    }
+
+    public void setErpOrderItemList(List<ErpOrderItem> erpOrderItemList) {
+        this.erpOrderItemList = erpOrderItemList;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }

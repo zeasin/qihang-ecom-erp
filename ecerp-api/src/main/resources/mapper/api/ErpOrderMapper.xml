@@ -99,7 +99,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shippingCompany != null  and shippingCompany != ''"> and shipping_company = #{shippingCompany}</if>
         </where>
     </select>
-    
+
+
+    <select id="selectOrderItemByOrderId" parameterType="Long" resultMap="ErpOrderItemResult">
+        select
+               b.id as sub_id, b.order_item_num as sub_order_item_num,b.supplier_id as sub_supplier_id,b.order_id as sub_order_id, b.goods_id as sub_goods_id, b.spec_id as sub_spec_id, b.goods_title as sub_goods_title, b.goods_img as sub_goods_img, b.goods_num as sub_goods_num, b.goods_spec as sub_goods_spec, b.spec_num as sub_spec_num, b.goods_price as sub_goods_price, b.item_amount as sub_item_amount, b.quantity as sub_quantity, b.remark as sub_remark, b.is_gift as sub_is_gift, b.refund_count as sub_refund_count, b.refund_status as sub_refund_status, b.create_time as sub_create_time, b.create_by as sub_create_by, b.update_time as sub_update_time, b.update_by as sub_update_by
+        from  erp_order_item b
+        where b.order_id = #{orderId}
+    </select>
+
+
     <select id="selectErpOrderById" parameterType="Long" resultMap="ErpOrderErpOrderItemResult">
         select a.id,a.ship_type, a.order_num, a.shop_type, a.shop_id, a.remark, a.buyer_memo, a.tag, a.refund_status, a.order_status, a.goods_amount, a.discount_amount, a.postage, a.amount, a.receiver_name, a.receiver_phone, a.address, a.country, a.province, a.city, a.town, a.pay_time, a.confirm_time, a.shipping_time, a.shipping_number, a.shipping_company, a.create_time, a.create_by, a.update_time, a.update_by,
  b.id as sub_id, b.order_item_num as sub_order_item_num,b.supplier_id as sub_supplier_id,b.order_id as sub_order_id, b.goods_id as sub_goods_id, b.spec_id as sub_spec_id, b.goods_title as sub_goods_title, b.goods_img as sub_goods_img, b.goods_num as sub_goods_num, b.goods_spec as sub_goods_spec, b.spec_num as sub_spec_num, b.goods_price as sub_goods_price, b.item_amount as sub_item_amount, b.quantity as sub_quantity, b.remark as sub_remark, b.is_gift as sub_is_gift, b.refund_count as sub_refund_count, b.refund_status as sub_refund_status, b.create_time as sub_create_time, b.create_by as sub_create_by, b.update_time as sub_update_time, b.update_by as sub_update_by
