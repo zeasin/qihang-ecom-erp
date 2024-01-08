@@ -80,17 +80,24 @@ public class DouOrderController extends BaseController
         douOrder.setCreateBy(getUsername());
         return toAjax(douOrderService.insertDouOrder(douOrder));
     }
-//
-//    /**
-//     * 修改抖店订单
-//     */
-//    @PreAuthorize("@ss.hasPermi('dou:order:edit')")
-//    @Log(title = "抖店订单", businessType = BusinessType.UPDATE)
-//    @PutMapping
-//    public AjaxResult edit(@RequestBody DouOrder douOrder)
-//    {
-//        return toAjax(douOrderService.updateDouOrder(douOrder));
-//    }
+
+    /**
+     * 修改抖店订单
+     */
+    @PreAuthorize("@ss.hasPermi('dou:order:edit')")
+    @Log(title = "抖店订单", businessType = BusinessType.UPDATE)
+    @PostMapping("/confirm")
+    public AjaxResult confirm(@RequestBody DouOrder douOrder)
+    {
+        douOrder.setUpdateBy(getUsername());
+        Integer result = douOrderService.confirmOrder(douOrder);
+        if(result == -1) return new AjaxResult(505,"订单不存在");
+        else if(result == -2) return new AjaxResult(506,"订单已确认过了");
+        else if(result == -3) return new AjaxResult(507,"订单售后中！无法操作！");
+        else if(result == -4) return new AjaxResult(508,"订单号确认过了！请检查订单号是否正确！");
+        else if(result == -5) return new AjaxResult(509,"不支持的发货方式！");
+        return toAjax(result);
+    }
 //
 //    /**
 //     * 删除抖店订单

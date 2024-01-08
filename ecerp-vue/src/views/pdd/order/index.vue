@@ -678,7 +678,7 @@
         <el-form-item label="收件人电话" prop="receiverPhone1" v-if="isAudit">
           <el-input v-model="form.receiverPhone1" placeholder="请输入收件人电话" style="width:250px" />
         </el-form-item>
-        <el-form-item label="省市区" prop="provinces">
+        <el-form-item label="省市区" prop="provinces" v-if="isAudit">
           <el-cascader style="width:250px"
                        size="large"
                        :options="pcaTextArr"
@@ -1007,7 +1007,6 @@ export default {
         //   this.form.isLuckyFlag = response.data.isLuckyFlag+''
         //   this.form.freeSf = response.data.freeSf+''
         // })
-        this.isAudit = true
         this.detailOpen = true;
         this.detailTitle = "订单详情";
         this.isAudit = false

@@ -42,6 +42,7 @@ public interface IDouOrderService
      * @return 结果
      */
     public int updateDouOrder(DouOrder douOrder);
+    public int confirmOrder(DouOrder douOrder);
 
     /**
      * 批量删除抖店订单
