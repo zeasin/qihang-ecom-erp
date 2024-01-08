@@ -117,7 +117,7 @@
       <el-table-column label="商品" width="350">
           <template slot-scope="scope">
             <el-row v-for="item in scope.row.taoOrderItemList" :key="item.id" :gutter="20">
-              
+
             <div style="float: left;display: flex;align-items: center;" >
               <el-image  style="width: 70px; height: 70px;" :src="item.productImgUrl"></el-image>
               <div style="margin-left:10px">
@@ -163,7 +163,7 @@
       <!-- <el-table-column label="订单状态" align="center" prop="statusStr" /> -->
       <el-table-column label="订单状态" align="center" prop="status" >
          <template slot-scope="scope">
-          
+
           <el-tag size="small" v-if="scope.row.status === 1"> 待支付</el-tag>
           <el-tag size="small" v-if="scope.row.status === 2"> 待发货</el-tag>
           <el-tag size="small" v-if="scope.row.status === 3"> 已发货</el-tag>
@@ -288,30 +288,30 @@
         <el-form-item label="详细地址" prop="postAddr">
           <el-input v-model="form.address" placeholder="请输入详细地址" style="width:250px" />
         </el-form-item>
-        
-     
-        
-        
-        
-        
+
+
+
+
+
+
         <el-form-item label="卖家备忘信息" prop="sellerMemo">
           <el-input type="textarea" v-model="form.sellerMemo" placeholder="请输入卖家备忘信息" style="width:250px" />
         </el-form-item>
         <el-form-item label="买家留言" prop="buyerFeedback">
           <el-input type="textarea" v-model="form.buyerFeedback" placeholder="买家留言，不超过500字" style="width:250px"/>
         </el-form-item>
-       
+
         <!-- <el-form-item label="订单状态" prop="statusStr">
           <el-input v-model="form.statusStr" placeholder="请输入订单状态" />
         </el-form-item> -->
-       
+
         <el-form-item label="标签" prop="tag">
           <el-input v-model="form.tag" placeholder="请输入标签(1：实售2：淘宝客3：刷单4：返现)" style="width:250px" />
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" style="width:250px" />
         </el-form-item>
-        
+
         <el-divider content-position="center">订单商品</el-divider>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
@@ -361,17 +361,17 @@
               <el-input v-model="scope.row.itemAmount" placeholder="请输入明细总金额" disabled/>
             </template>
           </el-table-column>
-         
+
         </el-table>
         <el-form-item label="商品总金额" prop="totalAmount">
           <el-input v-model="form.totalAmount" placeholder="请输入商品总金额" style="width:250px"/>
         </el-form-item>
         <el-form-item label="运费" prop="shippingFee">
           <el-input v-model="form.shippingFee" placeholder="请输入运费" style="width:250px"/>
-        </el-form-item> 
+        </el-form-item>
         <el-form-item label="优惠金额" prop="discountAmount">
           <el-input v-model="form.discountAmount" placeholder="请输入优惠金额" style="width:250px"/>
-        </el-form-item> 
+        </el-form-item>
         <!-- <el-form-item label="实际支付金额" prop="payAmount">
           <el-input v-model="form.payAmount" placeholder="请输入实际支付金额" style="width:250px"/>
         </el-form-item> -->
@@ -384,7 +384,7 @@
 
     <!-- 订单详情对话框 -->
     <el-dialog :title="detailTitle" :visible.sync="detailOpen" width="1100px" append-to-body>
-      
+
       <el-form ref="form" :model="form" :rules="rules" label-width="80px" inline>
         <el-descriptions title="订单信息">
             <el-descriptions-item label="订单号">{{form.id}}</el-descriptions-item>
@@ -395,7 +395,7 @@
             <el-descriptions-item label="店铺">
               <span v-if="form.shopId==6">梦小妮牛仔裤</span>
             </el-descriptions-item>
-            <el-descriptions-item label="下单日期"> 
+            <el-descriptions-item label="下单日期">
               {{ parseTime(form.orderCreateTime, '{yyyy}-{m}-{dd}')}}
               <!-- <el-date-picker
               disabled
@@ -422,7 +422,7 @@
             </el-descriptions-item>
             <el-descriptions-item label="关闭原因">{{form.closeReason}}</el-descriptions-item>
             <el-descriptions-item label="订单状态">{{form.statusStr}}</el-descriptions-item>
-            
+
         </el-descriptions>
         <el-descriptions title="付款信息">
             <el-descriptions-item label="应付总额">{{form.totalAmount}}</el-descriptions-item>
@@ -431,19 +431,19 @@
             <el-descriptions-item label="实际支付金额">{{form.payAmount}}</el-descriptions-item>
         </el-descriptions>
 
-       
+
          <el-descriptions title="收货信息">
           <el-descriptions-item label="收件人姓名">{{form.receiver}}</el-descriptions-item>
           <el-descriptions-item label="收件人手机号">{{form.phone}}</el-descriptions-item>
           <el-descriptions-item label="省市区">{{form.province}}{{form.city}}{{form.town}}</el-descriptions-item>
           <el-descriptions-item label="详细地址">{{form.address}}</el-descriptions-item>
       </el-descriptions>
-        
+
         <el-divider content-position="center">订单商品</el-divider>
         <el-table :data="goodsList"  style="margin-bottom: 10px;">
           <!-- <el-table-column type="selection" width="50" align="center" /> -->
           <el-table-column label="序号" align="center" type="index" width="50"/>
-          
+
           <el-table-column label="商品图片" prop="productImgUrl" width="80">
             <template slot-scope="scope">
               <el-image style="width: 70px; height: 70px" :src="scope.row.productImgUrl"></el-image>
@@ -491,7 +491,7 @@
           </el-table-column>
 
           <el-table-column label="单价" prop="price">
-            <template slot-scope="scope"> 
+            <template slot-scope="scope">
               <el-input v-model="scope.row.price" placeholder="请输入单价" disabled/>
             </template>
           </el-table-column>
@@ -505,9 +505,9 @@
               <el-input v-model="scope.row.itemAmount" placeholder="请输入明细总金额" disabled/>
             </template>
           </el-table-column>
-         
+
         </el-table>
-         <el-form-item label="发货类型" prop="shipType" v-if="isAudit">
+         <el-form-item label="发货方式" prop="shipType" v-if="isAudit">
           <!-- <el-input v-model="form.orderSource" placeholder="请输入订单来源0天猫1淘宝" /> -->
           <el-select v-model="form.shipType" placeholder="发货类型0仓库发货1供应商代发" style="width:250px">
            <el-option label="供应商代发" value="1"></el-option>
@@ -633,7 +633,7 @@ export default {
         orderCreateTime: [
           { required: true, message: "订单创建时间不能为空", trigger: "blur" }
         ],
-        
+
         receiver: [
           { required: true, message: "请填写收件人姓名", trigger: "blur" }
         ],
@@ -658,7 +658,7 @@ export default {
         payAmount: [
           { required: true, message: "实际支付金额不能为空", trigger: "blur" }
         ],
-        
+
         status: [
           { required: true, message: "交易状态，waitbuyerpay:等待买家付款;waitsellersend:等待卖家发货;waitlogisticstakein:等待物流公司揽件;waitbuyerreceive:等待买家收货;waitbuyersign:等待买家签收;signinsuccess:买家已签收;confirm_goods:已收货;success:交易成功;cancel:交易取消;terminated:交易终止;未枚举:其他状态不能为空", trigger: "change" }
         ],
@@ -911,7 +911,7 @@ export default {
       this.form.totalAmount = goodsAmountNew
 
     },
-  
+
   }
 };
 </script>

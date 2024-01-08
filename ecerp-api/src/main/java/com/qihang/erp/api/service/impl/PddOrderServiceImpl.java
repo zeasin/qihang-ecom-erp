@@ -4,9 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import com.qihang.erp.api.domain.ErpOrder;
-import com.qihang.erp.api.domain.ErpOrderItem;
-import com.qihang.erp.api.mapper.ErpOrderMapper;
+import com.qihang.erp.api.domain.*;
+import com.qihang.erp.api.mapper.*;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +14,6 @@ import com.zhijian.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import com.qihang.erp.api.domain.PddOrderItem;
-import com.qihang.erp.api.mapper.PddOrderMapper;
-import com.qihang.erp.api.domain.PddOrder;
 import com.qihang.erp.api.service.IPddOrderService;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
@@ -35,7 +31,13 @@ public class PddOrderServiceImpl implements IPddOrderService
     private PddOrderMapper pddOrderMapper;
     @Autowired
     private ErpOrderMapper erpOrderMapper;
+    @Autowired
+    private GoodsMapper goodsMapper;
+    @Autowired
+    private ScmSupplierAgentShippingMapper agentShippingMapper;
 
+    @Autowired
+    private WmsOrderShippingMapper orderShippingMapper;
     /**
      * 查询拼多多订单
      * 
@@ -123,17 +125,20 @@ public class PddOrderServiceImpl implements IPddOrderService
 
     /**
      * 确认订单
-     * @param orderId
+     * @param pddOrder
      * @return
      */
     @Transactional
     @Override
-    public int confirmOrder(Long orderId,String remark,String createBy) {
-        PddOrder order = pddOrderMapper.selectPddOrderById(orderId);
+    public int confirmOrder(PddOrder pddOrder) {
+        PddOrder order = pddOrderMapper.selectPddOrderById(pddOrder.getId());
         if(order == null) return -1;
         else if(order.getAuditStatus() != 0) return -2;
         else if(order.getRefundStatus() != 1) return -3;
-
+        if(pddOrder.getShipType() != 0 && pddOrder.getShipType() != 1){
+            // 1 供应商发货 0 仓库发货
+            return -5;
+        }
         // 判断是否存在
         ErpOrder erpo = erpOrderMapper.selectErpOrderByNum(order.getOrderSn());
         if(erpo !=null ) return -4;
@@ -143,7 +148,8 @@ public class PddOrderServiceImpl implements IPddOrderService
         so.setOrderNum(order.getOrderSn());
         so.setShopId(order.getShopId().intValue());
         so.setShopType(5);
-        so.setRemark(remark);
+        so.setShipType(pddOrder.getShipType());
+        so.setRemark(order.getRemark());
         so.setBuyerMemo(order.getBuyerMemo());
         so.setTag(order.getTag());
         so.setRefundStatus(1);
@@ -167,13 +173,18 @@ public class PddOrderServiceImpl implements IPddOrderService
         so.setTown(order.getTown());
         so.setConfirmTime(new Date());
         so.setCreateTime(new Date());
-        so.setCreateBy(createBy);
+        so.setCreateBy(pddOrder.getUpdateBy());
         erpOrderMapper.insertErpOrder(so);
 
+        // 添加Erp_order_item
+        List<PddOrderItem> orderItems = pddOrderMapper.selectOrderItemByOrderId(pddOrder.getId());
         List<ErpOrderItem> items = new ArrayList<>();
-        for (var i:order.getPddOrderItemList()) {
+        for (var i:orderItems) {
+            Goods goods = goodsMapper.selectGoodsById(i.getErpGoodsId());
             ErpOrderItem item = new ErpOrderItem();
             item.setOrderId(so.getId());
+            item.setOrderItemNum(i.getId()+"");
+            item.setSupplierId(goods.getSupplierId().intValue());
             item.setGoodsId(i.getErpGoodsId());
             item.setSpecId(i.getErpSpecId());
             item.setGoodsTitle(i.getGoodsName());
@@ -187,16 +198,104 @@ public class PddOrderServiceImpl implements IPddOrderService
             item.setIsGift(i.getIsGift().intValue());
             item.setRefundCount(0);
             item.setRefundStatus(1);
-            item.setCreateBy(createBy);
+            item.setCreateBy(pddOrder.getUpdateBy());
             item.setCreateTime(new Date());
             items.add(item);
         }
-        erpOrderMapper.batchErpOrderItem(items);
+        // 添加了赠品
+        if(pddOrder.getPddOrderItemList()!=null && !pddOrder.getPddOrderItemList().isEmpty()) {
+            for (var i : pddOrder.getPddOrderItemList()) {
+                Goods goods = goodsMapper.selectGoodsById(i.getErpGoodsId());
+                ErpOrderItem item = new ErpOrderItem();
+                item.setOrderId(so.getId());
+                item.setOrderItemNum(pddOrder.getId()+"_");
+                item.setSupplierId(goods.getSupplierId().intValue());
+                item.setGoodsId(i.getErpGoodsId());
+                item.setSpecId(i.getErpSpecId());
+                item.setGoodsTitle(i.getGoodsName());
+                item.setGoodsImg(i.getGoodsImage());
+                item.setGoodsNum(i.getGoodsNum());
+                item.setSpecNum(i.getSpecNum());
+                item.setGoodsSpec(i.getGoodsSpec());
+                item.setGoodsPrice(BigDecimal.valueOf(i.getGoodsPrice()));
+                item.setItemAmount(BigDecimal.valueOf(i.getItemAmount()));
+                item.setQuantity(i.getQuantity().intValue());
+                item.setIsGift(i.getIsGift().intValue());
+                item.setRefundCount(0);
+                item.setRefundStatus(1);
+                item.setCreateBy(pddOrder.getUpdateBy());
+                item.setCreateTime(new Date());
+                items.add(item);
+            }
+        }
+//        erpOrderMapper.batchErpOrderItem(items);
+        // 新增代发表
+        if(pddOrder.getShipType() == 1){
+            for (ErpOrderItem it: items) {
+                // 添加Erp_order_item
+                erpOrderMapper.insertErpOrderItem(it);
+                ScmSupplierAgentShipping agentShipping = new ScmSupplierAgentShipping();
+                agentShipping.setShopId(order.getShopId());
+                agentShipping.setShopType(5L);
+                agentShipping.setSupplierId(it.getSupplierId().longValue());
+                agentShipping.setOrderNum(order.getOrderSn());
+                agentShipping.setOrderItemId(it.getId().toString());
+                try {
+                    agentShipping.setOrderDate(order.getCreatedTime());
+                }catch (Exception e){}
+
+                agentShipping.setGoodsId(it.getGoodsId());
+                agentShipping.setSpecId(it.getSpecId());
+                agentShipping.setGoodsTitle(it.getGoodsTitle());
+                agentShipping.setGoodsImg(it.getGoodsImg());
+                agentShipping.setGoodsNum(it.getGoodsNum());
+                agentShipping.setGoodsSpec(it.getGoodsSpec());
+                agentShipping.setSpecNum(it.getSpecNum());
+                agentShipping.setGoodsPrice(it.getGoodsPrice());
+                agentShipping.setQuantity(it.getQuantity().longValue());
+                agentShipping.setItemAmount(it.getItemAmount());
+                agentShipping.setStatus(0L);
+                agentShipping.setCreateTime(new Date());
+                agentShipping.setCreateBy(pddOrder.getUpdateBy());
+
+                agentShippingMapper.insertScmSupplierAgentShipping(agentShipping);
+            }
+        }else {
+            // 仓库发货
+            for (ErpOrderItem it: items) {
+                erpOrderMapper.insertErpOrderItem(it);
+
+                WmsOrderShipping shipping = new WmsOrderShipping();
+                shipping.setShopId(order.getShopId());
+                shipping.setShopType(5L);
+                shipping.setOrderNum(order.getOrderSn());
+
+                shipping.setOrderItemId(it.getId().toString());
+                try {
+                    shipping.setOrderDate(order.getCreatedTime());
+                }catch (Exception e){}
+                shipping.setGoodsId(it.getGoodsId());
+                shipping.setSpecId(it.getSpecId());
+                shipping.setGoodsTitle(it.getGoodsTitle());
+                shipping.setGoodsImg(it.getGoodsImg());
+                shipping.setGoodsNum(it.getGoodsNum());
+                shipping.setGoodsSpec(it.getGoodsSpec());
+                shipping.setSpecNum(it.getSpecNum());
+                shipping.setQuantity(it.getQuantity().longValue());
+                shipping.setStatus(0L);
+                shipping.setCreateTime(new Date());
+                shipping.setCreateBy(pddOrder.getUpdateBy());
+                orderShippingMapper.insertWmsOrderShipping(shipping);
+            }
+        }
+        //更新自己
 
         //更新自己
         PddOrder po =new PddOrder();
         po.setId(order.getId());
         po.setAuditStatus(1L);
+        po.setUpdateBy(pddOrder.getUpdateBy());
+        po.setUpdateTime(new Date());
         pddOrderMapper.updatePddOrder(po);
         return 1;
     }
