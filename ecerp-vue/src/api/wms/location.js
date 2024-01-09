@@ -8,6 +8,14 @@ export function listLocation(query) {
     params: query
   })
 }
+export function searchLocation(query) {
+  return request({
+    url: '/wms/location/search',
+    method: 'get',
+    params: query
+  })
+}
+
 
 // 查询仓库货架详细
 export function getLocation(id) {

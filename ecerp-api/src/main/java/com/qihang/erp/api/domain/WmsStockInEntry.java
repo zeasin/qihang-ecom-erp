@@ -56,9 +56,18 @@ public class WmsStockInEntry extends BaseEntity
     private String stockInOperator;
 
     /** 入库时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "入库时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date stockInTime;
+    private Integer status;//状态（0待入库1部分入库2全部入库）
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     /** 入库单明细信息 */
     private List<WmsStockInEntryItem> wmsStockInEntryItemList;

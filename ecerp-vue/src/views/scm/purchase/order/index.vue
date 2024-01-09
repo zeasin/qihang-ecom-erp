@@ -5,17 +5,13 @@
         <el-select
           v-model="queryParams.contactId"
           filterable
-          remote
-          reserve-keyword
-          placeholder="请输入供应商名称"
-          :remote-method="searchSupplier"
-          :loading="supplierLoading">
+          placeholder="请选择供应商">
           <el-option
             v-for="item in supplierList"
             :key="item.id"
             :label="item.name"
             :value="item.id">
-          </el-option>  
+          </el-option>
         </el-select>
         <!-- <el-input
           v-model="queryParams.contactId"
@@ -40,7 +36,7 @@
           placeholder="请选择订单日期">
         </el-date-picker>
       </el-form-item>
-      
+
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -72,17 +68,27 @@
     </el-row>
 
     <el-table v-loading="loading" :data="purchaseOrderList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
+<!--      <el-table-column type="selection" width="55" align="center" />-->
       <el-table-column label="ID" align="center" prop="id" />
-      <el-table-column label="供应商" align="center" prop="contactId" />
-      <el-table-column label="订单编号" align="center" prop="orderNo" />
-      <el-table-column label="订单日期" align="center" prop="orderDate" width="180">
+      <el-table-column label="供应商" align="center" prop="contactId" >
+        <template slot-scope="scope">
+          <span>{{ supplierList.find(x=>x.id === scope.row.contactId)?supplierList.find(x=>x.id === scope.row.contactId).name :'' }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="单号" align="center" prop="orderNo" />
+      <el-table-column label="下单日期" align="center" prop="orderDate" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.orderDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="订单总金额" align="center" prop="orderAmount" />
+      <el-table-column label="总金额" align="center" prop="orderAmount" />
+      <el-table-column label="审核人" align="center" prop="auditUser" />
+      <el-table-column label="审核时间" align="center" prop="auditTime" >
+        <template slot-scope="scope">
+          {{ dateToString(scope.row.auditTime) }}
+        </template>
+      </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="状态" align="center" prop="status" >
         <template slot-scope="scope">
@@ -92,12 +98,7 @@
           <el-tag v-if="scope.row.status === 102">供应商已发货</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="审核人" align="center" prop="auditUser" />
-      <el-table-column label="审核时间" align="center" prop="auditTime" >
-        <template slot-scope="scope">
-          {{ dateToString(scope.row.auditTime) }}
-        </template>
-        </el-table-column>
+
 
       <el-table-column label="供应商发货时间" align="center" prop="supplierDeliveryTime" width="180">
         <template slot-scope="scope">
@@ -157,7 +158,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -197,7 +198,7 @@
         <el-form-item label="审核时间" prop="auditTime" v-if="form.optionType !== 'audit'">
           <el-input v-model="form.auditTime" placeholder="请输入审核时间" :disabled=" form.optionType !== 'audit' " />
         </el-form-item>
-        
+
         <el-form-item label="供应商发货时间" prop="supplierDeliveryTime" v-if="form.optionType === 'SupplierShip'">
           <el-date-picker clearable
             v-model="form.supplierDeliveryTime"
@@ -279,7 +280,7 @@ export default {
         shipCost:null,
         totalAmount:null
       },
-      
+
       // 表单校验
       rules: {
       },
@@ -288,8 +289,12 @@ export default {
     };
   },
   created() {
+    listSupplier({}).then(response => {
+      this.supplierList = response.rows;
+      // this.supplierLoading = false;
+    });
     this.getList();
-  }, 
+  },
   methods: {
     amountChange(nv){
       this.form.totalAmount = parseFloat(this.form.orderAmount)+parseFloat(this.form.shipCost)
@@ -298,16 +303,16 @@ export default {
       var date = new Date(timespan * 1000);
       return date.toLocaleString();
     },
-    searchSupplier(query){
-      this.supplierLoading = true;
-      const qw = {
-        name:query
-      }
-      listSupplier(qw).then(response => {
-        this.supplierList = response.rows;
-        this.supplierLoading = false;
-      });
-    },
+    // searchSupplier(query){
+    //   this.supplierLoading = true;
+    //   const qw = {
+    //     name:query
+    //   }
+    //   listSupplier(qw).then(response => {
+    //     this.supplierList = response.rows;
+    //     this.supplierLoading = false;
+    //   });
+    // },
     /** 查询采购订单列表 */
     getList() {
       this.loading = true;
@@ -382,17 +387,17 @@ export default {
 
       this.form.auditUser = row.auditUser
       this.form.auditTime = this.dateToString(row.auditTime)
-      
+
       this.open = true;
 
       if ('audit' === optionType){
         this.form.optionType = 'audit'
-        
-        
+
+
         this.title = "审核采购订单";
       }else if (optionType === 'SupplierShip'){
         this.form.optionType = 'SupplierShip'
-        
+
         this.title = "供应商发货";
       }
       else if (optionType === 'confirm'){
@@ -427,7 +432,7 @@ export default {
               this.$message.error("请填写供应商发货物流费用")
               return
             }
-            
+
           }else if(this.form.optionType === 'confirm'){
             if(!this.form.totalAmount){
               this.$message.error("请填写采购实际金额")
@@ -437,7 +442,7 @@ export default {
               this.$message.error("请填写采购单确认人")
               return
             }
-            
+
           }
 
           updatePurchaseOrder(this.form).then(response => {
@@ -472,7 +477,7 @@ export default {
                 this.$message.error("确认失败！"+ response.msg)
               }
             }
-            
+
           });
         }
       });

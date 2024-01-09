@@ -2,6 +2,8 @@ package com.qihang.erp.api.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.qihang.erp.api.domain.WmsStockInEntry;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -91,6 +93,13 @@ public class WmsStockLocationController extends BaseController
         return toAjax(wmsStockLocationService.updateWmsStockLocation(wmsStockLocation));
     }
 
+    @GetMapping("/search")
+    public TableDataInfo searchBy(String number)
+    {
+        startPage();
+        List<WmsStockLocation> list = wmsStockLocationService.search(number);
+        return getDataTable(list);
+    }
     /**
      * 删除仓库货架
      */

@@ -38,7 +38,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="isDelete != null "> and isDelete = #{isDelete}</if>
         </where>
     </select>
-    
+    <select id="search" parameterType="String" resultMap="WmsStockLocationResult">
+        <include refid="selectWmsStockLocationVo"/>
+        where `number` like concat(#{number}, '%')
+    </select>
     <select id="selectWmsStockLocationById" parameterType="Long" resultMap="WmsStockLocationResult">
         <include refid="selectWmsStockLocationVo"/>
         where id = #{id}

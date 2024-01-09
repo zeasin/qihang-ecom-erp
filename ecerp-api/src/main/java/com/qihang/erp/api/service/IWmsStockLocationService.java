@@ -26,6 +26,7 @@ public interface IWmsStockLocationService
      * @return 仓库货架集合
      */
     public List<WmsStockLocation> selectWmsStockLocationList(WmsStockLocation wmsStockLocation);
+    public List<WmsStockLocation> search(String number);
 
     /**
      * 新增仓库货架
