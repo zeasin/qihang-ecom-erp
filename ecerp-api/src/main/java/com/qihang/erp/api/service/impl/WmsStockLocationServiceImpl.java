@@ -44,6 +44,11 @@ public class WmsStockLocationServiceImpl implements IWmsStockLocationService
         return wmsStockLocationMapper.selectWmsStockLocationList(wmsStockLocation);
     }
 
+    @Override
+    public List<WmsStockLocation> search(String number) {
+        return wmsStockLocationMapper.search(number);
+    }
+
     /**
      * 新增仓库货架
      * 

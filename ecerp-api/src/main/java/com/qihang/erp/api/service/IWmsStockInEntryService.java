@@ -36,12 +36,13 @@ public interface IWmsStockInEntryService
     public int insertWmsStockInEntry(WmsStockInEntry wmsStockInEntry);
 
     /**
-     * 修改入库单
+     * 入库操作
      * 
      * @param wmsStockInEntry 入库单
      * @return 结果
      */
-    public int updateWmsStockInEntry(WmsStockInEntry wmsStockInEntry);
+    public int stockIn(WmsStockInEntry wmsStockInEntry);
+    public int complete(Long id,String updateBy);
 
     /**
      * 批量删除入库单

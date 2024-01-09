@@ -59,8 +59,10 @@ public class WmsStockInEntryItem extends BaseEntity
     private Long originalQuantity;
 
     /** 入库数量 */
-    @Excel(name = "入库数量")
+    @Excel(name = "已入库数量")
     private Long inQuantity;
+    private Long quantity;
+    private Long totalQuantity;
 
     /** 入库仓位 */
     @Excel(name = "入库仓位")
@@ -69,6 +71,31 @@ public class WmsStockInEntryItem extends BaseEntity
     /** 入库仓位编码 */
     @Excel(name = "入库仓位编码")
     private String locationNum;
+    private Integer status;//状态（0待入库1部分入库2全部入库）
+
+    public Long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
+    }
+
+    public Long getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(Long totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public String getGoodsName() {
         return goodsName;

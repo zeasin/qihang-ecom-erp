@@ -29,6 +29,8 @@ public interface WmsStockInEntryMapper
      * @return 入库单集合
      */
     public List<WmsStockInEntry> selectWmsStockInEntryList(WmsStockInEntry wmsStockInEntry);
+    public List<WmsStockInEntryItem> selectWmsStockInEntryItemByEntryId(Long entryId);
+
 
     /**
      * 新增入库单
@@ -45,6 +47,7 @@ public interface WmsStockInEntryMapper
      * @return 结果
      */
     public int updateWmsStockInEntry(WmsStockInEntry wmsStockInEntry);
+    public int updateWmsStockInEntryItem(WmsStockInEntryItem item);
 
     /**
      * 删除入库单

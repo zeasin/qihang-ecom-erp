@@ -131,7 +131,7 @@ public class ScmPurchaseOrderShipServiceImpl implements IScmPurchaseOrderShipSer
                     entryItem.setSizeValue(item.getSizeValue());
                     entryItem.setStyleValue(item.getStyleValue());
                     entryItem.setOriginalQuantity(item.getQuantity());
-                    entryItem.setInQuantity(item.getInQty());
+                    entryItem.setInQuantity(0L);
                     entryItem.setCreateBy(bo.getCreateBy());
                     entryItem.setCreateTime(new Date());
                     entryItem.setRemark("");

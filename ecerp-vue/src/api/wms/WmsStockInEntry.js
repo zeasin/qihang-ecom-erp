@@ -18,27 +18,18 @@ export function getWmsStockInEntry(id) {
 }
 
 // 新增入库单
-export function addWmsStockInEntry(data) {
+export function stockIn(data) {
   return request({
-    url: '/wms/WmsStockInEntry',
+    url: '/wms/WmsStockInEntry/stockIn',
     method: 'post',
     data: data
   })
 }
 
-// 修改入库单
-export function updateWmsStockInEntry(data) {
+export function complete(id) {
   return request({
-    url: '/wms/WmsStockInEntry',
-    method: 'put',
-    data: data
+    url: '/wms/WmsStockInEntry/complete/' + id,
+    method: 'get'
   })
 }
 
-// 删除入库单
-export function delWmsStockInEntry(id) {
-  return request({
-    url: '/wms/WmsStockInEntry/' + id,
-    method: 'delete'
-  })
-}
