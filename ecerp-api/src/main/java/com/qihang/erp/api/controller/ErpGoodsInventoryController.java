@@ -69,36 +69,36 @@ public class ErpGoodsInventoryController extends BaseController
         return success(erpGoodsInventoryService.selectErpGoodsInventoryById(id));
     }
 
-    /**
-     * 新增商品库存
-     */
-    @PreAuthorize("@ss.hasPermi('api:goodsInventory:add')")
-    @Log(title = "商品库存", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody ErpGoodsInventory erpGoodsInventory)
-    {
-        return toAjax(erpGoodsInventoryService.insertErpGoodsInventory(erpGoodsInventory));
-    }
+//    /**
+//     * 新增商品库存
+//     */
+//    @PreAuthorize("@ss.hasPermi('api:goodsInventory:add')")
+//    @Log(title = "商品库存", businessType = BusinessType.INSERT)
+//    @PostMapping
+//    public AjaxResult add(@RequestBody ErpGoodsInventory erpGoodsInventory)
+//    {
+//        return toAjax(erpGoodsInventoryService.insertErpGoodsInventory(erpGoodsInventory));
+//    }
+//
+//    /**
+//     * 修改商品库存
+//     */
+//    @PreAuthorize("@ss.hasPermi('api:goodsInventory:edit')")
+//    @Log(title = "商品库存", businessType = BusinessType.UPDATE)
+//    @PutMapping
+//    public AjaxResult edit(@RequestBody ErpGoodsInventory erpGoodsInventory)
+//    {
+//        return toAjax(erpGoodsInventoryService.updateErpGoodsInventory(erpGoodsInventory));
+//    }
 
-    /**
-     * 修改商品库存
-     */
-    @PreAuthorize("@ss.hasPermi('api:goodsInventory:edit')")
-    @Log(title = "商品库存", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody ErpGoodsInventory erpGoodsInventory)
-    {
-        return toAjax(erpGoodsInventoryService.updateErpGoodsInventory(erpGoodsInventory));
-    }
-
-    /**
-     * 删除商品库存
-     */
-    @PreAuthorize("@ss.hasPermi('api:goodsInventory:remove')")
-    @Log(title = "商品库存", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(erpGoodsInventoryService.deleteErpGoodsInventoryByIds(ids));
-    }
+//    /**
+//     * 删除商品库存
+//     */
+//    @PreAuthorize("@ss.hasPermi('api:goodsInventory:remove')")
+//    @Log(title = "商品库存", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(erpGoodsInventoryService.deleteErpGoodsInventoryByIds(ids));
+//    }
 }
