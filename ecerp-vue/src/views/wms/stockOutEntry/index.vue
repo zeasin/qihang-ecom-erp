@@ -1,15 +1,15 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="出库单编号" prop="stockOutNum">
+      <el-form-item label="出库单号" prop="stockOutNum">
         <el-input
           v-model="queryParams.stockOutNum"
-          placeholder="请输入出库单编号"
+          placeholder="请输入出库单号"
           clearable
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="来源单据号" prop="sourceNo">
+      <el-form-item label="源单号" prop="sourceNo">
         <el-input
           v-model="queryParams.sourceNo"
           placeholder="请输入来源单据号"
@@ -17,7 +17,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="来源单据Id" prop="sourceId">
+      <el-form-item label="源单据Id" prop="sourceId">
         <el-input
           v-model="queryParams.sourceId"
           placeholder="请输入来源单据Id"
@@ -41,94 +41,7 @@
           placeholder="请选择创建日期">
         </el-date-picker>
       </el-form-item>
-      <el-form-item label="创建人" prop="createBy">
-        <el-input
-          v-model="queryParams.createBy"
-          placeholder="请输入创建人"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="更新时间" prop="updateTime">
-        <el-date-picker clearable
-          v-model="queryParams.updateTime"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择更新时间">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="更新人" prop="updateBy">
-        <el-input
-          v-model="queryParams.updateBy"
-          placeholder="请输入更新人"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="完成出库时间" prop="completeTime">
-        <el-date-picker clearable
-          v-model="queryParams.completeTime"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择完成出库时间">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="出库操作人userid" prop="stockOutOperatorId">
-        <el-input
-          v-model="queryParams.stockOutOperatorId"
-          placeholder="请输入出库操作人userid"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="出库操作人" prop="stockOutOperatorName">
-        <el-input
-          v-model="queryParams.stockOutOperatorName"
-          placeholder="请输入出库操作人"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="出库时间" prop="stockOutTime">
-        <el-date-picker clearable
-          v-model="queryParams.stockOutTime"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择出库时间">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="是否删除0未删除1已删除" prop="isDelete">
-        <el-input
-          v-model="queryParams.isDelete"
-          placeholder="请输入是否删除0未删除1已删除"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="商品数" prop="goodsUnit">
-        <el-input
-          v-model="queryParams.goodsUnit"
-          placeholder="请输入商品数"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="商品规格数" prop="specUnit">
-        <el-input
-          v-model="queryParams.specUnit"
-          placeholder="请输入商品规格数"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="总件数" prop="specUnitTotal">
-        <el-input
-          v-model="queryParams.specUnitTotal"
-          placeholder="请输入总件数"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+     
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -183,11 +96,18 @@
 
     <el-table v-loading="loading" :data="stockOutEntryList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="${comment}" align="center" prop="id" />
-      <el-table-column label="出库单编号" align="center" prop="stockOutNum" />
-      <el-table-column label="来源单据号" align="center" prop="sourceNo" />
-      <el-table-column label="来源单据Id" align="center" prop="sourceId" />
-      <el-table-column label="出库类型1订单拣货出库2采购退货出库3盘点出库4报损出库" align="center" prop="stockOutType" />
+      <el-table-column label="ID" align="center" prop="id" />
+      <el-table-column label="出库单号" align="center" prop="stockOutNum" />
+      <el-table-column label="源单号" align="center" prop="sourceNo" />
+      <el-table-column label="源单Id" align="center" prop="sourceId" />
+      <el-table-column label="出库类型" align="center" prop="stockOutType" >
+        <template slot-scope="scope">
+          <el-tag size="small" v-if="scope.row.stockOutType === 1">订单拣货出库</el-tag>
+          <el-tag size="small" v-if="scope.row.stockOutType === 2">采购退货出库</el-tag>
+          <el-tag size="small" v-if="scope.row.stockOutType === 3">盘点出库</el-tag>
+          <el-tag size="small" v-if="scope.row.stockOutType === 4">报损出库</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="状态：0待拣货1拣货中2拣货完成3已出库" align="center" prop="status" />
       <el-table-column label="打印状态：是否打印1已打印0未打印" align="center" prop="printStatus" />
       <el-table-column label="打印时间" align="center" prop="printTime" width="180">
@@ -536,12 +456,6 @@ export default {
       this.ids = selection.map(item => item.id)
       this.single = selection.length!==1
       this.multiple = !selection.length
-    },
-    /** 新增按钮操作 */
-    handleAdd() {
-      this.reset();
-      this.open = true;
-      this.title = "添加出库单";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
