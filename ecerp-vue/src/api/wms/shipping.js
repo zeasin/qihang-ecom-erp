@@ -18,9 +18,9 @@ export function getShipping(id) {
 }
 
 // 新增仓库订单发货
-export function addShipping(data) {
+export function stockingAdd(data) {
   return request({
-    url: '/wms/shipping',
+    url: '/wms/shipping/stockingAdd',
     method: 'post',
     data: data
   })

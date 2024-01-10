@@ -28,6 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="outPosition"    column="out_position"    />
         <result property="outTime"    column="out_time"    />
         <result property="status"    column="status"    />
+        <result property="inventory"    column="inventory"    />
         <result property="createTime"    column="create_time"    />
         <result property="createBy"    column="create_by"    />
         <result property="updateBy"    column="update_by"    />
@@ -35,7 +36,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectWmsOrderShippingVo">
-        select id, shop_id, shop_type, order_num, order_item_id, order_date, goods_id, spec_id, goods_title, goods_img, goods_num, goods_spec, spec_num, quantity, remark, ship_company, ship_no, ship_cost, ship_time, out_operator, out_position, out_time, status, create_time, create_by, update_by, update_time from wms_order_shipping
+        select id, shop_id, shop_type, order_num, order_item_id, order_date, goods_id, spec_id, goods_title, goods_img, goods_num, goods_spec, spec_num,
+               quantity, remark, ship_company, ship_no, ship_cost, ship_time, out_operator, out_position, out_time, status, create_time, create_by,
+               update_by, update_time
+                ,IFNULL((select SUM((currentQty-lockedQty)) from erp_goods_inventory where specId=spec_id),0) as inventory
+        from wms_order_shipping
     </sql>
 
     <select id="selectWmsOrderShippingList" parameterType="WmsOrderShipping" resultMap="WmsOrderShippingResult">

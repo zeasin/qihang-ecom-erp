@@ -104,8 +104,17 @@ public class WmsOrderShipping extends BaseEntity
     /** 状态（0未处理1已出库2已发货） */
     @Excel(name = "状态", readConverterExp = "0=未处理1已出库2已发货")
     private Long status;
+    private Long inventory;
 
-    public void setId(Long id) 
+    public Long getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Long inventory) {
+        this.inventory = inventory;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }
