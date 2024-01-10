@@ -2,6 +2,7 @@ package com.qihang.erp.api.service;
 
 import java.util.List;
 import com.qihang.erp.api.domain.WmsOrderShipping;
+import com.qihang.erp.api.domain.bo.StockingAddVo;
 
 /**
  * 仓库订单发货Service接口
@@ -18,6 +19,13 @@ public interface IWmsOrderShippingService
      * @return 仓库订单发货
      */
     public WmsOrderShipping selectWmsOrderShippingById(Long id);
+
+    /**
+     * 生成拣货单
+     * @param addVo
+     * @return
+     */
+    int stockingAdd(StockingAddVo addVo);
 
     /**
      * 查询仓库订单发货列表

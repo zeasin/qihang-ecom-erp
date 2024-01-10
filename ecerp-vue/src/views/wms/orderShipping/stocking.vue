@@ -361,24 +361,15 @@ export default {
     },
     /** 提交按钮 */
     submitForm() {
-      console.log("=============提交===",this.ids)
+      // console.log("=============提交===",this.ids)
       this.$refs["form"].validate(valid => {
         if (valid) {
           if(!this.skuList || this.skuList.length === 0){
             this.$modal.msgError("请选择备货商品");
           }
-          // for(let i=0;i<this.skuList.length;i++){
-          //   const item = this.skuList[0];
-          //   if(item.quantity > item.inventory){
-          //     this.$modal.msgError(item.specNum + "仓库库存不足！")
-          //     return
-          //   }
-          // }
           this.form.ids = this.ids;
-
-
           stockingAdd(this.form).then(response => {
-            this.$modal.msgSuccess("新增成功");
+            this.$modal.msgSuccess("拣货单生成成功");
             this.open = false;
             this.getList();
           });

@@ -72,15 +72,15 @@ public class WmsStockOutEntry extends BaseEntity
 
     /** 商品数 */
     @Excel(name = "商品数")
-    private Long goodsUnit;
+    private Integer goodsUnit;
 
     /** 商品规格数 */
     @Excel(name = "商品规格数")
-    private Long specUnit;
+    private Integer specUnit;
 
     /** 总件数 */
     @Excel(name = "总件数")
-    private Long specUnitTotal;
+    private Integer specUnitTotal;
 
     /** 出库单明细信息 */
     private List<WmsStockOutEntryItem> wmsStockOutEntryItemList;
@@ -202,30 +202,30 @@ public class WmsStockOutEntry extends BaseEntity
     {
         return isDelete;
     }
-    public void setGoodsUnit(Long goodsUnit) 
+    public void setGoodsUnit(Integer goodsUnit)
     {
         this.goodsUnit = goodsUnit;
     }
 
-    public Long getGoodsUnit() 
+    public Integer getGoodsUnit()
     {
         return goodsUnit;
     }
-    public void setSpecUnit(Long specUnit) 
+    public void setSpecUnit(Integer specUnit)
     {
         this.specUnit = specUnit;
     }
 
-    public Long getSpecUnit() 
+    public Integer getSpecUnit()
     {
         return specUnit;
     }
-    public void setSpecUnitTotal(Long specUnitTotal) 
+    public void setSpecUnitTotal(Integer specUnitTotal)
     {
         this.specUnitTotal = specUnitTotal;
     }
 
-    public Long getSpecUnitTotal() 
+    public Integer getSpecUnitTotal()
     {
         return specUnitTotal;
     }
