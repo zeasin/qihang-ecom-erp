@@ -69,16 +69,16 @@ public class WmsStockOutEntryController extends BaseController
         return success(wmsStockOutEntryService.selectWmsStockOutEntryById(id));
     }
 
-    /**
-     * 新增出库单
-     */
-    @PreAuthorize("@ss.hasPermi('wms:stockOutEntry:add')")
-    @Log(title = "出库单", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody WmsStockOutEntry wmsStockOutEntry)
-    {
-        return toAjax(wmsStockOutEntryService.insertWmsStockOutEntry(wmsStockOutEntry));
-    }
+//    /**
+//     * 新增出库单
+//     */
+//    @PreAuthorize("@ss.hasPermi('wms:stockOutEntry:add')")
+//    @Log(title = "出库单", businessType = BusinessType.INSERT)
+//    @PostMapping
+//    public AjaxResult add(@RequestBody WmsStockOutEntry wmsStockOutEntry)
+//    {
+//        return toAjax(wmsStockOutEntryService.insertWmsStockOutEntry(wmsStockOutEntry));
+//    }
 
     /**
      * 修改出库单
@@ -91,14 +91,14 @@ public class WmsStockOutEntryController extends BaseController
         return toAjax(wmsStockOutEntryService.updateWmsStockOutEntry(wmsStockOutEntry));
     }
 
-    /**
-     * 删除出库单
-     */
-    @PreAuthorize("@ss.hasPermi('wms:stockOutEntry:remove')")
-    @Log(title = "出库单", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(wmsStockOutEntryService.deleteWmsStockOutEntryByIds(ids));
-    }
+//    /**
+//     * 删除出库单
+//     */
+//    @PreAuthorize("@ss.hasPermi('wms:stockOutEntry:remove')")
+//    @Log(title = "出库单", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(wmsStockOutEntryService.deleteWmsStockOutEntryByIds(ids));
+//    }
 }
