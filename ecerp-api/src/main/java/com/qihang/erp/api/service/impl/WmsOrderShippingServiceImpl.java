@@ -1,5 +1,7 @@
 package com.qihang.erp.api.service.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.qihang.erp.api.mapper.WmsOrderShippingMapper;
 import com.qihang.erp.api.domain.WmsOrderShipping;
 import com.qihang.erp.api.service.IWmsOrderShippingService;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 仓库订单发货Service业务层处理
@@ -42,6 +45,7 @@ public class WmsOrderShippingServiceImpl implements IWmsOrderShippingService
         return wmsOrderShippingMapper.selectWmsOrderShippingById(id);
     }
 
+    @Transactional
     @Override
     public int stockingAdd(StockingAddVo addVo) {
         List<WmsOrderShipping> shipList = wmsOrderShippingMapper.selectWmsOrderShippingVoByIds(addVo.getIds());
@@ -64,6 +68,8 @@ public class WmsOrderShippingServiceImpl implements IWmsOrderShippingService
         Long sum = shipList.stream().mapToLong(WmsOrderShipping::getQuantity).sum();
         // 插入数据 出库单主表
         WmsStockOutEntry entry = new WmsStockOutEntry();
+        entry.setStockOutNum(addVo.getStockOutNum());
+        entry.setCreateTime(new Date());
         entry.setStockOutType(1L);
         entry.setStatus(0L);
         entry.setPrintStatus(0L);
@@ -74,10 +80,29 @@ public class WmsOrderShippingServiceImpl implements IWmsOrderShippingService
         entry.setSpecUnitTotal(sum.intValue());
         stockOutEntryMapper.insertWmsStockOutEntry(entry);
         // 插入数据 出库单item
+        List<WmsStockOutEntryItem> entryItems = new ArrayList<>();
         for (var ship:shipList) {
             WmsStockOutEntryItem item = new WmsStockOutEntryItem();
             item.setEntryId(entry.getId());
+            item.setSourceOrderId(ship.getErpOrderId());
+            item.setSourceOrderNo(ship.getOrderNum());
+            item.setSourceOrderItemId(ship.getErpOrderItemId());
+            item.setGoodsId(ship.getGoodsId());
+            item.setSpecId(ship.getSpecId());
+            item.setSpecNum(ship.getSpecNum());
+            item.setOriginalQuantity(ship.getQuantity());
+            item.setOutQuantity(0L);
+            item.setStatus(0L);
+            entryItems.add(item);
+            // 更新自己
+            WmsOrderShipping update = new WmsOrderShipping();
+            update.setId(ship.getId());
+            update.setStatus(1L);
+            update.setUpdateTime(new Date());
+            update.setUpdateBy(addVo.getCreateBy());
+            wmsOrderShippingMapper.updateWmsOrderShipping(update);
         }
+        stockOutEntryMapper.batchWmsStockOutEntryItem(entryItems);
 
 
         return 1;

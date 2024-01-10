@@ -32,7 +32,8 @@ public class WmsOrderShipping extends BaseEntity
 
     /** 子订单编号 */
     @Excel(name = "子订单编号")
-    private String orderItemId;
+    private Long erpOrderItemId;
+    private Long erpOrderId;
 
     /** 订单日期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -106,6 +107,22 @@ public class WmsOrderShipping extends BaseEntity
     private Long status;
     private Long inventory;
 
+    public Long getErpOrderItemId() {
+        return erpOrderItemId;
+    }
+
+    public void setErpOrderItemId(Long erpOrderItemId) {
+        this.erpOrderItemId = erpOrderItemId;
+    }
+
+    public Long getErpOrderId() {
+        return erpOrderId;
+    }
+
+    public void setErpOrderId(Long erpOrderId) {
+        this.erpOrderId = erpOrderId;
+    }
+
     public Long getInventory() {
         return inventory;
     }
@@ -149,15 +166,6 @@ public class WmsOrderShipping extends BaseEntity
     public String getOrderNum() 
     {
         return orderNum;
-    }
-    public void setOrderItemId(String orderItemId) 
-    {
-        this.orderItemId = orderItemId;
-    }
-
-    public String getOrderItemId() 
-    {
-        return orderItemId;
     }
     public void setOrderDate(Date orderDate) 
     {

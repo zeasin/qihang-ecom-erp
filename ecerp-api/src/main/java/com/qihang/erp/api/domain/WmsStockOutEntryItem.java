@@ -3,6 +3,8 @@ package com.qihang.erp.api.domain;
 import com.zhijian.common.annotation.Excel;
 import com.zhijian.common.core.domain.BaseEntity;
 
+import java.util.Date;
+
 /**
  * 出库单明细对象 wms_stock_out_entry_item
  * 
@@ -54,11 +56,11 @@ public class WmsStockOutEntryItem extends BaseEntity
 
     /** 完成出库时间 */
     @Excel(name = "完成出库时间")
-    private Long completeTime;
+    private Date completeTime;
 
     /** 完成拣货时间 */
     @Excel(name = "完成拣货时间")
-    private Long pickedTime;
+    private Date pickedTime;
 
     /** 状态：0待拣货1拣货中2拣货完成3已出库 */
     @Excel(name = "状态：0待拣货1拣货中2拣货完成3已出库")
@@ -154,25 +156,24 @@ public class WmsStockOutEntryItem extends BaseEntity
     {
         return outQuantity;
     }
-    public void setCompleteTime(Long completeTime) 
-    {
+
+    public Date getCompleteTime() {
+        return completeTime;
+    }
+
+    public void setCompleteTime(Date completeTime) {
         this.completeTime = completeTime;
     }
 
-    public Long getCompleteTime() 
-    {
-        return completeTime;
+    public Date getPickedTime() {
+        return pickedTime;
     }
-    public void setPickedTime(Long pickedTime) 
-    {
+
+    public void setPickedTime(Date pickedTime) {
         this.pickedTime = pickedTime;
     }
 
-    public Long getPickedTime() 
-    {
-        return pickedTime;
-    }
-    public void setStatus(Long status) 
+    public void setStatus(Long status)
     {
         this.status = status;
     }
