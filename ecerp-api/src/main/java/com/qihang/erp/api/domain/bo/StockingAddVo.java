@@ -5,7 +5,16 @@ import java.util.Date;
 public class StockingAddVo {
     private String stockOutNum;
     private Date createTime;
+    private String createBy;
     private Long[] ids;
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
 
     public String getStockOutNum() {
         return stockOutNum;

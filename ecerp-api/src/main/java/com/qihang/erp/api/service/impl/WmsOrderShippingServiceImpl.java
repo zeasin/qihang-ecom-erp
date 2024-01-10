@@ -1,6 +1,13 @@
 package com.qihang.erp.api.service.impl;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import com.qihang.erp.api.domain.WmsStockOutEntry;
+import com.qihang.erp.api.domain.WmsStockOutEntryItem;
+import com.qihang.erp.api.domain.bo.StockingAddVo;
+import com.qihang.erp.api.mapper.WmsStockOutEntryMapper;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +26,9 @@ public class WmsOrderShippingServiceImpl implements IWmsOrderShippingService
 {
     @Autowired
     private WmsOrderShippingMapper wmsOrderShippingMapper;
+    @Autowired
+    private WmsStockOutEntryMapper stockOutEntryMapper;
+
 
     /**
      * 查询仓库订单发货
@@ -30,6 +40,47 @@ public class WmsOrderShippingServiceImpl implements IWmsOrderShippingService
     public WmsOrderShipping selectWmsOrderShippingById(Long id)
     {
         return wmsOrderShippingMapper.selectWmsOrderShippingById(id);
+    }
+
+    @Override
+    public int stockingAdd(StockingAddVo addVo) {
+        List<WmsOrderShipping> shipList = wmsOrderShippingMapper.selectWmsOrderShippingVoByIds(addVo.getIds());
+        if(shipList == null) return -9;
+        for (var ship:shipList) {
+            // 判断状态
+            if(ship.getStatus().intValue() != 0) return -1;//状态不对不能生成拣货单
+        }
+
+        // 判断库存
+        Map<Long, Long> specQty = shipList.stream().collect(Collectors.groupingBy(WmsOrderShipping::getSpecId, Collectors.summingLong(WmsOrderShipping::getQuantity)));
+        for (Map.Entry<Long, Long> entry : specQty.entrySet()) {
+            WmsOrderShipping specShip = shipList.stream().filter(x -> x.getSpecId() == entry.getKey()).findFirst().get();
+            if(specShip.getInventory() < entry.getValue()){
+                return -2;
+            }
+        }
+
+        Map<Long, List<WmsOrderShipping>> goodsGroup = shipList.stream().collect(Collectors.groupingBy(WmsOrderShipping::getGoodsId));
+        Long sum = shipList.stream().mapToLong(WmsOrderShipping::getQuantity).sum();
+        // 插入数据 出库单主表
+        WmsStockOutEntry entry = new WmsStockOutEntry();
+        entry.setStockOutType(1L);
+        entry.setStatus(0L);
+        entry.setPrintStatus(0L);
+        entry.setCreateBy(addVo.getCreateBy());
+        entry.setIsDelete(0L);
+        entry.setSpecUnit(specQty.size());
+        entry.setGoodsUnit(goodsGroup.size());
+        entry.setSpecUnitTotal(sum.intValue());
+        stockOutEntryMapper.insertWmsStockOutEntry(entry);
+        // 插入数据 出库单item
+        for (var ship:shipList) {
+            WmsStockOutEntryItem item = new WmsStockOutEntryItem();
+            item.setEntryId(entry.getId());
+        }
+
+
+        return 1;
     }
 
     /**

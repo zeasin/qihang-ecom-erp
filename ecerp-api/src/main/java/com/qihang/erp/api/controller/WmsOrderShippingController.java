@@ -81,7 +81,14 @@ public class WmsOrderShippingController extends BaseController
     @PostMapping("/stockingAdd")
     public AjaxResult stockingAdd(@RequestBody StockingAddVo addVo)
     {
-        return toAjax(1);
+        addVo.setCreateBy(getUsername());
+        if(addVo.getIds() == null || addVo.getIds().length ==0) return new AjaxResult(502,"没有选择备货商品");
+        int result = wmsOrderShippingService.stockingAdd(addVo);
+        if(result == -1) return new AjaxResult(501,"状态不是待处理的，无法生成拣货单！");
+        else if(result == -2) return new AjaxResult(503,"商品库存不足！");
+        else if(result == -9) return new AjaxResult(509,"没有选择备货商品！");
+
+        return toAjax(result);
     }
 
 //    /**

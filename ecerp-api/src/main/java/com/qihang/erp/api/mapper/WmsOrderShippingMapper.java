@@ -28,6 +28,7 @@ public interface WmsOrderShippingMapper
      * @return 仓库订单发货集合
      */
     public List<WmsOrderShipping> selectWmsOrderShippingList(WmsOrderShipping wmsOrderShipping);
+    public List<WmsOrderShipping> selectWmsOrderShippingVoByIds(Long[] ids);
 
     /**
      * 新增仓库订单发货

@@ -43,6 +43,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from wms_order_shipping
     </sql>
 
+    <select id="selectWmsOrderShippingVoByIds" parameterType="String" resultMap="WmsOrderShippingResult">
+        <include refid="selectWmsOrderShippingVo"/>
+               where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
     <select id="selectWmsOrderShippingList" parameterType="WmsOrderShipping" resultMap="WmsOrderShippingResult">
         <include refid="selectWmsOrderShippingVo"/>
         <where>  
