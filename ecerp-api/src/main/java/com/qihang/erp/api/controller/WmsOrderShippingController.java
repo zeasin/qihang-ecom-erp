@@ -2,6 +2,8 @@ package com.qihang.erp.api.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.qihang.erp.api.domain.bo.StockingAddVo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,6 +71,19 @@ public class WmsOrderShippingController extends BaseController
         return success(wmsOrderShippingService.selectWmsOrderShippingById(id));
     }
 
+    /**
+     * 生成拣货单
+     * @param addVo
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('wms:shipping:add')")
+    @Log(title = "仓库订单发货", businessType = BusinessType.INSERT)
+    @PostMapping("/stockingAdd")
+    public AjaxResult stockingAdd(@RequestBody StockingAddVo addVo)
+    {
+        return toAjax(1);
+    }
+
 //    /**
 //     * 新增仓库订单发货
 //     */
@@ -91,14 +106,14 @@ public class WmsOrderShippingController extends BaseController
 //        return toAjax(wmsOrderShippingService.updateWmsOrderShipping(wmsOrderShipping));
 //    }
 
-    /**
-     * 删除仓库订单发货
-     */
-    @PreAuthorize("@ss.hasPermi('wms:shipping:remove')")
-    @Log(title = "仓库订单发货", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(wmsOrderShippingService.deleteWmsOrderShippingByIds(ids));
-    }
+//    /**
+//     * 删除仓库订单发货
+//     */
+//    @PreAuthorize("@ss.hasPermi('wms:shipping:remove')")
+//    @Log(title = "仓库订单发货", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(wmsOrderShippingService.deleteWmsOrderShippingByIds(ids));
+//    }
 }
