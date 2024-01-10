@@ -10,7 +10,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="shopType"    column="shop_type"    />
         <result property="supplierId"    column="supplier_id"    />
         <result property="orderNum"    column="order_num"    />
-        <result property="orderItemId"    column="order_item_id"    />
+        <result property="erpOrderItemId"    column="erp_order_item_id"    />
+        <result property="erpOrderId"    column="erp_order_id"    />
         <result property="orderDate"    column="order_date"    />
         <result property="goodsId"    column="goods_id"    />
         <result property="specId"    column="spec_id"    />
@@ -35,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectScmSupplierAgentShippingVo">
-        select id, shop_id, shop_type, supplier_id, order_num, order_item_id, order_date, goods_id, spec_id, goods_title, goods_img, goods_num, goods_spec, spec_num, goods_price, quantity, remark, ship_company, ship_no, ship_cost, ship_time, status, item_amount, create_time, create_by, update_by, update_time from scm_supplier_agent_shipping
+        select id, shop_id, shop_type, supplier_id, order_num,erp_order_id, erp_order_item_id, order_date, goods_id, spec_id, goods_title, goods_img, goods_num, goods_spec, spec_num, goods_price, quantity, remark, ship_company, ship_no, ship_cost, ship_time, status, item_amount, create_time, create_by, update_by, update_time from scm_supplier_agent_shipping
     </sql>
 
     <select id="selectScmSupplierAgentShippingList" parameterType="ScmSupplierAgentShipping" resultMap="ScmSupplierAgentShippingResult">
@@ -45,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shopType != null "> and shop_type = #{shopType}</if>
             <if test="supplierId != null "> and supplier_id = #{supplierId}</if>
             <if test="orderNum != null  and orderNum != ''"> and order_num = #{orderNum}</if>
-            <if test="orderItemId != null  and orderItemId != ''"> and order_item_id = #{orderItemId}</if>
+
             <if test="orderDate != null "> and order_date = #{orderDate}</if>
             <if test="goodsId != null "> and goods_id = #{goodsId}</if>
             <if test="specId != null "> and spec_id = #{specId}</if>
@@ -77,7 +78,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shopType != null">shop_type,</if>
             <if test="supplierId != null">supplier_id,</if>
             <if test="orderNum != null and orderNum != ''">order_num,</if>
-            <if test="orderItemId != null and orderItemId != ''">order_item_id,</if>
+            <if test="erpOrderId != null and erpOrderId != ''">erp_order_id,</if>
+            <if test="erpOrderItemId != null and erpOrderItemId != ''">erp_order_item_id,</if>
             <if test="orderDate != null">order_date,</if>
             <if test="goodsId != null">goods_id,</if>
             <if test="specId != null">spec_id,</if>
@@ -105,7 +107,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shopType != null">#{shopType},</if>
             <if test="supplierId != null">#{supplierId},</if>
             <if test="orderNum != null and orderNum != ''">#{orderNum},</if>
-            <if test="orderItemId != null and orderItemId != ''">#{orderItemId},</if>
+            <if test="erpOrderId != null and erpOrderId != ''">#{erpOrderId},</if>
+            <if test="erpOrderItemId != null and erpOrderItemId != ''">#{erpOrderItemId},</if>
             <if test="orderDate != null">#{orderDate},</if>
             <if test="goodsId != null">#{goodsId},</if>
             <if test="specId != null">#{specId},</if>
@@ -137,7 +140,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shopType != null">shop_type = #{shopType},</if>
             <if test="supplierId != null">supplier_id = #{supplierId},</if>
             <if test="orderNum != null and orderNum != ''">order_num = #{orderNum},</if>
-            <if test="orderItemId != null and orderItemId != ''">order_item_id = #{orderItemId},</if>
+
             <if test="orderDate != null">order_date = #{orderDate},</if>
             <if test="goodsId != null">goods_id = #{goodsId},</if>
             <if test="specId != null">spec_id = #{specId},</if>

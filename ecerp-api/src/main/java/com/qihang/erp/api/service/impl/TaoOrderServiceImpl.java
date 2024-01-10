@@ -228,9 +228,8 @@ public class TaoOrderServiceImpl implements ITaoOrderService
                 agentShipping.setShopType(4L);
                 agentShipping.setSupplierId(it.getSupplierId().longValue());
                 agentShipping.setOrderNum(original.getId());
-                agentShipping.setOrderId(so.getId());
-//                agentShipping.setOrderItemId(it.getOrderItemNum());
-                agentShipping.setOrderItemId(it.getId().toString());
+                agentShipping.setErpOrderId(so.getId());
+                agentShipping.setErpOrderItemId(it.getId());
                 agentShipping.setOrderDate(original.getOrderCreateTime());
                 agentShipping.setGoodsId(it.getGoodsId());
                 agentShipping.setSpecId(it.getSpecId());
@@ -257,9 +256,8 @@ public class TaoOrderServiceImpl implements ITaoOrderService
                 shipping.setShopId(original.getShopId());
                 shipping.setShopType(4L);
                 shipping.setOrderNum(original.getId());
-                shipping.setOrderId(so.getId());
-//                shipping.setOrderItemId(it.getOrderItemNum());
-                shipping.setOrderItemId(it.getId().toString());
+                shipping.setErpOrderId(so.getId());
+                shipping.setErpOrderItemId(it.getId());
                 shipping.setOrderDate(original.getOrderCreateTime());
                 shipping.setGoodsId(it.getGoodsId());
                 shipping.setSpecId(it.getSpecId());

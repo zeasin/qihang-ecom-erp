@@ -211,7 +211,9 @@ public class DouOrderServiceImpl implements IDouOrderService
                 agentShipping.setShopType(6L);
                 agentShipping.setSupplierId(it.getSupplierId().longValue());
                 agentShipping.setOrderNum(original.getOrderId());
-                agentShipping.setOrderItemId(it.getId().toString());
+                agentShipping.setErpOrderId(so.getId());
+                agentShipping.setErpOrderItemId(it.getId());
+//                agentShipping.setOrderItemId(it.getId().toString());
                 try {
                     agentShipping.setOrderDate(original.getOrderCreateTime());
                 }catch (Exception e){}
@@ -241,8 +243,9 @@ public class DouOrderServiceImpl implements IDouOrderService
                 shipping.setShopId(original.getShopId());
                 shipping.setShopType(6L);
                 shipping.setOrderNum(original.getOrderId());
-
-                shipping.setOrderItemId(it.getId().toString());
+                shipping.setErpOrderId(so.getId());
+                shipping.setErpOrderItemId(it.getId());
+//                shipping.setOrderItemId(it.getId().toString());
                 try {
                     shipping.setOrderDate(original.getOrderCreateTime());
                 }catch (Exception e){}

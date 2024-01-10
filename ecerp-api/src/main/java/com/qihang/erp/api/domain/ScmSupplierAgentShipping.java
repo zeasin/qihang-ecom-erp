@@ -36,8 +36,9 @@ public class ScmSupplierAgentShipping extends BaseEntity
     private String orderNum;
 
     /** 子订单编号 */
-    @Excel(name = "子订单编号")
-    private String orderItemId;
+    @Excel(name = "子订单ID")
+    private Long erpOrderItemId;
+    private Long erpOrderId;
 
     /** 订单日期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -91,6 +92,22 @@ public class ScmSupplierAgentShipping extends BaseEntity
     /** 运费 */
     @Excel(name = "运费")
     private Long shipCost;
+
+    public Long getErpOrderItemId() {
+        return erpOrderItemId;
+    }
+
+    public void setErpOrderItemId(Long erpOrderItemId) {
+        this.erpOrderItemId = erpOrderItemId;
+    }
+
+    public Long getErpOrderId() {
+        return erpOrderId;
+    }
+
+    public void setErpOrderId(Long erpOrderId) {
+        this.erpOrderId = erpOrderId;
+    }
 
     /** 运送时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -149,15 +166,6 @@ public class ScmSupplierAgentShipping extends BaseEntity
     public String getOrderNum() 
     {
         return orderNum;
-    }
-    public void setOrderItemId(String orderItemId) 
-    {
-        this.orderItemId = orderItemId;
-    }
-
-    public String getOrderItemId() 
-    {
-        return orderItemId;
     }
     public void setOrderDate(Date orderDate) 
     {

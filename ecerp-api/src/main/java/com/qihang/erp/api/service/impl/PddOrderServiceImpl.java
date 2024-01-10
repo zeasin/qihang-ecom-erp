@@ -239,7 +239,8 @@ public class PddOrderServiceImpl implements IPddOrderService
                 agentShipping.setShopType(5L);
                 agentShipping.setSupplierId(it.getSupplierId().longValue());
                 agentShipping.setOrderNum(original.getOrderSn());
-                agentShipping.setOrderItemId(it.getId().toString());
+                agentShipping.setErpOrderId(so.getId());
+                agentShipping.setErpOrderItemId(it.getId());
                 try {
                     agentShipping.setOrderDate(original.getCreatedTime());
                 }catch (Exception e){}
@@ -269,8 +270,8 @@ public class PddOrderServiceImpl implements IPddOrderService
                 shipping.setShopId(original.getShopId());
                 shipping.setShopType(5L);
                 shipping.setOrderNum(original.getOrderSn());
-
-                shipping.setOrderItemId(it.getId().toString());
+                shipping.setErpOrderId(so.getId());
+                shipping.setErpOrderItemId(it.getId());
                 try {
                     shipping.setOrderDate(original.getCreatedTime());
                 }catch (Exception e){}

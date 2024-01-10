@@ -241,7 +241,9 @@ public class XhsOrderServiceImpl implements IXhsOrderService
                 agentShipping.setShopType(6L);
                 agentShipping.setSupplierId(it.getSupplierId().longValue());
                 agentShipping.setOrderNum(original.getOrderId());
-                agentShipping.setOrderItemId(it.getId().toString());
+//                agentShipping.setOrderItemId(it.getId().toString());
+                agentShipping.setErpOrderId(so.getId());
+                agentShipping.setErpOrderItemId(it.getId());
                 try {
                     agentShipping.setOrderDate(new Date(original.getOrderCreatedTime()));
                 }catch (Exception e){}
@@ -271,8 +273,9 @@ public class XhsOrderServiceImpl implements IXhsOrderService
                 shipping.setShopId(original.getShopId());
                 shipping.setShopType(6L);
                 shipping.setOrderNum(original.getOrderId());
-
-                shipping.setOrderItemId(it.getId().toString());
+                shipping.setErpOrderId(so.getId());
+                shipping.setErpOrderItemId(it.getId());
+//                shipping.setOrderItemId(it.getId().toString());
                 try {
                     shipping.setOrderDate(new Date(original.getOrderCreatedTime()));
                 }catch (Exception e){}
