@@ -1,6 +1,8 @@
 package com.qihang.erp.api.service.impl;
 
 import java.util.List;
+
+import com.qihang.erp.api.mapper.ErpGoodsInventoryMapper;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,8 @@ public class WmsStockOutEntryServiceImpl implements IWmsStockOutEntryService
 {
     @Autowired
     private WmsStockOutEntryMapper wmsStockOutEntryMapper;
-
+    @Autowired
+    private ErpGoodsInventoryMapper erpGoodsInventoryMapper;
     /**
      * 查询出库单
      * 
@@ -33,7 +36,14 @@ public class WmsStockOutEntryServiceImpl implements IWmsStockOutEntryService
     @Override
     public WmsStockOutEntry selectWmsStockOutEntryById(Long id)
     {
-        return wmsStockOutEntryMapper.selectWmsStockOutEntryById(id);
+        WmsStockOutEntry entry = wmsStockOutEntryMapper.selectWmsStockOutEntryById(id);
+        if(entry.getWmsStockOutEntryItemList() !=null && !entry.getWmsStockOutEntryItemList().isEmpty()){
+            for (WmsStockOutEntryItem item:entry.getWmsStockOutEntryItemList()) {
+                item.setInventoryDetails(erpGoodsInventoryMapper.selectErpGoodsInventoryDetailBySpecId(item.getSpecId()));
+
+            }
+        }
+        return entry;
     }
 
     /**

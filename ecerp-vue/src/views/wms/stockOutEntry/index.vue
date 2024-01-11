@@ -49,38 +49,38 @@
     </el-form>
 
     <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="el-icon-plus"
-          size="mini"
-          @click="handleAdd"
-          v-hasPermi="['wms:stockOutEntry:add']"
-        >新增</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['wms:stockOutEntry:edit']"
-        >修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['wms:stockOutEntry:remove']"
-        >删除</el-button>
-      </el-col>
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--          type="primary"-->
+<!--          plain-->
+<!--          icon="el-icon-plus"-->
+<!--          size="mini"-->
+<!--          @click="handleAdd"-->
+<!--          v-hasPermi="['wms:stockOutEntry:add']"-->
+<!--        >新增</el-button>-->
+<!--      </el-col>-->
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--          type="success"-->
+<!--          plain-->
+<!--          icon="el-icon-edit"-->
+<!--          size="mini"-->
+<!--          :disabled="single"-->
+<!--          @click="handleUpdate"-->
+<!--          v-hasPermi="['wms:stockOutEntry:edit']"-->
+<!--        >修改</el-button>-->
+<!--      </el-col>-->
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--          type="danger"-->
+<!--          plain-->
+<!--          icon="el-icon-delete"-->
+<!--          size="mini"-->
+<!--          :disabled="multiple"-->
+<!--          @click="handleDelete"-->
+<!--          v-hasPermi="['wms:stockOutEntry:remove']"-->
+<!--        >删除</el-button>-->
+<!--      </el-col>-->
       <el-col :span="1.5">
         <el-button
           type="warning"
@@ -208,8 +208,8 @@
 <!--          </el-col>-->
 <!--        </el-row>-->
         <el-table :data="wmsStockOutEntryItemList" :row-class-name="rowWmsStockOutEntryItemIndex" @selection-change="handleWmsStockOutEntryItemSelectionChange" ref="wmsStockOutEntryItem">
-          <el-table-column type="selection" width="50" align="center" />
-<!--          <el-table-column label="序号" align="center" prop="index" width="50"/>-->
+<!--          <el-table-column type="selection" width="50" align="center" />-->
+          <el-table-column label="序号" align="center" prop="index" width="50"/>
           <el-table-column label="商品图片" prop="colorImage" >
             <template slot-scope="scope">
               <el-image style="width: 70px; height: 70px" :src="scope.row.colorImage"></el-image>
@@ -221,15 +221,33 @@
               <el-tag size="small">{{scope.row.colorValue}} {{scope.row.sizeValue}} {{scope.row.styleValue}}</el-tag>
             </template>
           </el-table-column>
-
           <el-table-column label="数量" prop="originalQuantity"></el-table-column>
           <el-table-column label="已出库数量" prop="outQuantity"></el-table-column>
+
+          <el-table-column label="出库仓位" prop="inventoryId" width="150">
+            <template slot-scope="scope">
+              <el-select v-model="scope.row.inventoryId" placeholder="请选择出库仓位">
+                <el-option v-for="item in scope.row.inventoryDetails" :key="item.inLocation" :label="item.locationNum" :value="item.inLocation">
+                  <span style="float: left">{{ item.locationNum }}</span>
+                  <span style="float: right; color: #8492a6; font-size: 13px"  >{{ item.currentQty }}</span>
+
+                </el-option>
+
+              </el-select>
+            </template>
+          </el-table-column>
+          <el-table-column label="出库数量" prop="outQty" width="150">
+            <template slot-scope="scope">
+              <el-input v-model="scope.row.outQty" placeholder="出库数量" />
+            </template>
+          </el-table-column>
           <el-table-column label="出库操作" prop="outQuantity" width="150">
           <template slot-scope="scope">
           <el-button
             size="mini"
             plain
             type="danger"
+            @click="stockOutSubmit(scope.row)"
             icon="el-icon-d-arrow-right"
           >出库</el-button>
         </template>
@@ -253,10 +271,7 @@
 <!--          </el-table-column>-->
         </el-table>
       </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
-      </div>
+
     </el-dialog>
   </div>
 </template>
@@ -309,42 +324,14 @@ export default {
         stockOutOperatorId: null,
         stockOutOperatorName: null,
         stockOutTime: null,
-        isDelete: null,
-        goodsUnit: null,
-        specUnit: null,
-        specUnitTotal: null
       },
       // 表单参数
-      form: {},
+      form: {
+        inventoryId:null
+      },
       // 表单校验
       rules: {
-        stockOutNum: [
-          { required: true, message: "出库单编号不能为空", trigger: "blur" }
-        ],
-        stockOutType: [
-          { required: true, message: "出库类型1订单拣货出库2采购退货出库3盘点出库4报损出库不能为空", trigger: "change" }
-        ],
-        status: [
-          { required: true, message: "状态：0待拣货1拣货中2拣货完成3已出库不能为空", trigger: "change" }
-        ],
-        printStatus: [
-          { required: true, message: "打印状态：是否打印1已打印0未打印不能为空", trigger: "change" }
-        ],
-        createTime: [
-          { required: true, message: "创建日期不能为空", trigger: "blur" }
-        ],
-        isDelete: [
-          { required: true, message: "是否删除0未删除1已删除不能为空", trigger: "blur" }
-        ],
-        goodsUnit: [
-          { required: true, message: "商品数不能为空", trigger: "blur" }
-        ],
-        specUnit: [
-          { required: true, message: "商品规格数不能为空", trigger: "blur" }
-        ],
-        specUnitTotal: [
-          { required: true, message: "总件数不能为空", trigger: "blur" }
-        ]
+        inventoryId:[{ required: true, message: '请填写收货信息' }],
       }
     };
   },
@@ -417,12 +404,28 @@ export default {
       getStockOutEntry(id).then(response => {
         this.form = response.data;
         this.wmsStockOutEntryItemList = response.data.wmsStockOutEntryItemList;
+        this.wmsStockOutEntryItemList.forEach(x=>{
+          x.inventoryId = null;
+          x.outQty = null
+        })
         this.open = true;
         this.title = "出库操作";
       });
     },
     /** 提交按钮 */
-    submitForm() {
+    stockOutSubmit(row) {
+      console.log("=====提交出库操作====",row)
+      if(!row.outQty && row.outQty <= 0){
+        this.$modal.msgError("请填写要出库的库存");
+        return
+      }
+      if(!row.inventoryId){
+        this.$modal.msgError("请选择库存仓位");
+        return
+      }else{
+        // 判断填写的数量是否小于等于当前仓位库存
+
+      }
       this.$refs["form"].validate(valid => {
         if (valid) {
           this.form.wmsStockOutEntryItemList = this.wmsStockOutEntryItemList;

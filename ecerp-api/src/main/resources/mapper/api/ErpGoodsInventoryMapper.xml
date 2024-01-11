@@ -36,6 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="specId"    column="sub_specId"    />
         <result property="goodsId"    column="sub_goodsId"    />
         <result property="inLocation"    column="sub_inLocation"    />
+        <result property="locationNum"    column="location_num"    />
         <result property="createTime"    column="sub_createTime"    />
         <result property="createBy"    column="sub_createBy"    />
     </resultMap>
@@ -76,6 +77,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
         where a.specId = #{specId}
     </select>
+    <select id="selectErpGoodsInventoryDetailBySpecId" parameterType="Long" resultMap="ErpGoodsInventoryDetailResult">
+        select
+               b.id as sub_id, b.inventoryId as sub_inventoryId, b.inQty as sub_inQty, b.originQty as sub_originQty, b.currentQty as sub_currentQty, b.purPrice as sub_purPrice,
+               b.entryId as sub_entryId, b.entryItemId as sub_entryItemId, b.remark as sub_remark, b.specId as sub_specId, b.goodsId as sub_goodsId, b.inLocation as sub_inLocation,
+               b.createTime as sub_createTime, b.createBy as sub_createBy
+                ,c.number as location_num
+        from  erp_goods_inventory_detail b
+        left join wms_stock_location as c on c.id=b.inLocation
+
+        where b.specId = #{specId} and b.currentQty > 0
+    </select>
+
+
+
     <insert id="insertErpGoodsInventory" parameterType="ErpGoodsInventory" useGeneratedKeys="true" keyProperty="id">
         insert into erp_goods_inventory
         <trim prefix="(" suffix=")" suffixOverrides=",">

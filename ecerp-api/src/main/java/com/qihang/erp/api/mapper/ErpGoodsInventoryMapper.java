@@ -3,6 +3,7 @@ package com.qihang.erp.api.mapper;
 import java.util.List;
 import com.qihang.erp.api.domain.ErpGoodsInventory;
 import com.qihang.erp.api.domain.ErpGoodsInventoryDetail;
+import com.qihang.erp.api.domain.WmsStockOutEntryItem;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -22,6 +23,7 @@ public interface ErpGoodsInventoryMapper
      */
     public ErpGoodsInventory selectErpGoodsInventoryById(Long id);
     public ErpGoodsInventory selectErpGoodsInventoryBySpecId(Long id);
+    List<ErpGoodsInventoryDetail> selectErpGoodsInventoryDetailBySpecId(Long id);
 
     /**
      * 查询商品库存列表

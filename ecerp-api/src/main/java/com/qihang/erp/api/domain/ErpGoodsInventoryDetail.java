@@ -55,8 +55,17 @@ public class ErpGoodsInventoryDetail extends BaseEntity
     /** 入库仓位id */
     @Excel(name = "入库仓位id")
     private Long inLocation;
+    private String locationNum;
 
-    public void setId(Long id) 
+    public String getLocationNum() {
+        return locationNum;
+    }
+
+    public void setLocationNum(String locationNum) {
+        this.locationNum = locationNum;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }
