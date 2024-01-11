@@ -4,6 +4,7 @@ import com.zhijian.common.annotation.Excel;
 import com.zhijian.common.core.domain.BaseEntity;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 出库单明细对象 wms_stock_out_entry_item
@@ -103,7 +104,17 @@ public class WmsStockOutEntryItem extends BaseEntity
     @Excel(name = "状态：0待拣货1拣货中2拣货完成3已出库")
     private Long status;
 
-    public void setId(Long id) 
+    private List<ErpGoodsInventoryDetail> inventoryDetails;
+
+    public List<ErpGoodsInventoryDetail> getInventoryDetails() {
+        return inventoryDetails;
+    }
+
+    public void setInventoryDetails(List<ErpGoodsInventoryDetail> inventoryDetails) {
+        this.inventoryDetails = inventoryDetails;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }
