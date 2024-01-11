@@ -80,16 +80,16 @@ public class WmsStockOutEntryController extends BaseController
 //        return toAjax(wmsStockOutEntryService.insertWmsStockOutEntry(wmsStockOutEntry));
 //    }
 
-    /**
-     * 修改出库单
-     */
-    @PreAuthorize("@ss.hasPermi('wms:stockOutEntry:edit')")
-    @Log(title = "出库单", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody WmsStockOutEntry wmsStockOutEntry)
-    {
-        return toAjax(wmsStockOutEntryService.updateWmsStockOutEntry(wmsStockOutEntry));
-    }
+//    /**
+//     * 修改出库单
+//     */
+//    @PreAuthorize("@ss.hasPermi('wms:stockOutEntry:edit')")
+//    @Log(title = "出库单", businessType = BusinessType.UPDATE)
+//    @PutMapping
+//    public AjaxResult edit(@RequestBody WmsStockOutEntry wmsStockOutEntry)
+//    {
+//        return toAjax(wmsStockOutEntryService.updateWmsStockOutEntry(wmsStockOutEntry));
+//    }
 
 //    /**
 //     * 删除出库单
