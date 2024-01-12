@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.qihang.erp.api.domain.ScmPurchaseOrder;
 import com.qihang.erp.api.domain.WmsStockInEntry;
 import com.qihang.erp.api.domain.WmsStockInEntryItem;
 import com.qihang.erp.api.domain.bo.PurchaseOrderStockInBo;
+import com.qihang.erp.api.mapper.ScmPurchaseOrderMapper;
 import com.qihang.erp.api.mapper.WmsStockInEntryMapper;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ public class ScmPurchaseOrderShipServiceImpl implements IScmPurchaseOrderShipSer
 {
     @Autowired
     private ScmPurchaseOrderShipMapper scmPurchaseOrderShipMapper;
+    @Autowired
+    private ScmPurchaseOrderMapper purchaseOrderMapper;
     @Autowired
     private WmsStockInEntryMapper stockInEntryMapper;
 
@@ -73,15 +77,29 @@ public class ScmPurchaseOrderShipServiceImpl implements IScmPurchaseOrderShipSer
      * @param scmPurchaseOrderShip 采购订单物流
      * @return 结果
      */
+    @Transactional
     @Override
     public int updateScmPurchaseOrderShip(ScmPurchaseOrderShip scmPurchaseOrderShip)
     {
+        ScmPurchaseOrderShip ship = scmPurchaseOrderShipMapper.selectScmPurchaseOrderShipById(scmPurchaseOrderShip.getId());
+        if(ship== null) return -1;
+        else if(ship.getStatus()!=0)return -2;
+        // 更新采购单状态
+        ScmPurchaseOrder order = new ScmPurchaseOrder();
+        order.setId(scmPurchaseOrderShip.getId());
+        order.setStatus(2);
+        order.setReceivedTime(scmPurchaseOrderShip.getReceiptTime());
+        order.setUpdateTime(DateUtils.getNowDate());
+        order.setUpdateBy(scmPurchaseOrderShip.getUpdateBy());
+        purchaseOrderMapper.updateScmPurchaseOrder(order);
+        //更新
         ScmPurchaseOrderShip update = new ScmPurchaseOrderShip();
         update.setUpdateTime(DateUtils.getNowDate());
         update.setUpdateBy(scmPurchaseOrderShip.getUpdateBy());
         update.setStatus(1L);
         update.setRemark(scmPurchaseOrderShip.getRemark());
-        update.setReceiptTime(DateUtils.getNowDate());
+        update.setReceiptTime(scmPurchaseOrderShip.getReceiptTime());
+//        update.setReceiptTime(DateUtils.getNowDate());
         update.setId(scmPurchaseOrderShip.getId());
         return scmPurchaseOrderShipMapper.updateScmPurchaseOrderShip(update);
     }
@@ -107,6 +125,7 @@ public class ScmPurchaseOrderShipServiceImpl implements IScmPurchaseOrderShipSer
             entry.setSourceGoodsUnit(ship.getOrderGoodsUnit());
             entry.setSourceSpecUnitTotal(ship.getOrderSpecUnitTotal());
             entry.setSourceType(1L);
+            entry.setStatus(0);
             entry.setCreateBy(bo.getCreateBy());
             entry.setCreateTime(new Date());
             stockInEntryMapper.insertWmsStockInEntry(entry);
@@ -135,7 +154,8 @@ public class ScmPurchaseOrderShipServiceImpl implements IScmPurchaseOrderShipSer
                     entryItem.setCreateBy(bo.getCreateBy());
                     entryItem.setCreateTime(new Date());
                     entryItem.setRemark("");
-                    entryItem.setLocationId(0L);
+//                    entryItem.setLocationId(0L);
+                    entryItem.setStatus(0);
                     items.add(entryItem);
                 }
                 stockInEntryMapper.batchWmsStockInEntryItem(items);
@@ -144,10 +164,22 @@ public class ScmPurchaseOrderShipServiceImpl implements IScmPurchaseOrderShipSer
             // 更新表状态
             ScmPurchaseOrderShip update = new ScmPurchaseOrderShip();
             update.setUpdateTime(DateUtils.getNowDate());
+            update.setStockInTime(DateUtils.getNowDate());
             update.setUpdateBy(bo.getCreateBy());
             update.setStatus(2L);
             update.setId(ship.getId());
             scmPurchaseOrderShipMapper.updateScmPurchaseOrderShip(update);
+
+            //更新 采购订单
+            // 更新采购单状态
+            ScmPurchaseOrder order = new ScmPurchaseOrder();
+            order.setId(bo.getId());
+            order.setStatus(3);
+            order.setStockInTime(DateUtils.getNowDate());
+            order.setUpdateTime(DateUtils.getNowDate());
+            order.setUpdateBy(bo.getUpdateBy());
+            purchaseOrderMapper.updateScmPurchaseOrder(order);
+
             return 1;
         }
         else return -4;

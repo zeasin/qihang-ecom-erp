@@ -2,8 +2,8 @@
   <div class="app-container">
     <el-form :model="form" ref="form" size="small" :rules="rules" :inline="true" label-width="98px">
       <el-form-item label="供应商" prop="contactId">
-        <el-select v-model="form.contactId" filterable remote reserve-keyword placeholder="请输入供应商名称"
-          :remote-method="searchSupplier" :loading="supplierLoading">
+        <el-select v-model="form.contactId" filterable  placeholder="请选择供应商名称"
+          >
           <el-option v-for="item in supplierList" :key="item.id" :label="item.name" :value="item.id">
           </el-option>
         </el-select>
@@ -146,6 +146,10 @@ export default {
     };
   },
   created() {
+    listSupplier({}).then(response => {
+      this.supplierList = response.rows;
+      // this.supplierLoading = false;
+    });
     this.form.orderDate = this.getDate()
   },
   methods: {
@@ -264,7 +268,7 @@ export default {
             a.qty = this.goodsForm.qty
             a.amount = this.goodsForm.amount
 
-            
+
           }
           this.goodsFormAdd = true
           this.goodsFormOpen = false
@@ -306,7 +310,7 @@ export default {
             this.$store.dispatch("tagsView/delView", this.$route);
             this.$router.push('/scm/purchase/order');
           });
-          
+
         }
       });
     }

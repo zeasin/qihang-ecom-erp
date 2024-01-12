@@ -98,7 +98,7 @@
       <el-table-column label="物流单号" align="center" prop="shipNo" />
       <el-table-column label="运费" align="center" prop="freight" />
       <el-table-column
-        label="运送时间"
+        label="发货时间"
         align="center"
         prop="shipTime"
         width="180"
