@@ -2,6 +2,8 @@ package com.qihang.erp.api.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.qihang.erp.api.domain.bo.StockOutBo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,6 +69,27 @@ public class WmsStockOutEntryController extends BaseController
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
         return success(wmsStockOutEntryService.selectWmsStockOutEntryById(id));
+    }
+
+    /**
+     * 出库操作
+     * @param bo
+     * @return
+     */
+    @Log(title = "出库单", businessType = BusinessType.INSERT)
+    @PostMapping("/stockOut")
+    public AjaxResult stockOut(@RequestBody StockOutBo bo)
+    {
+        bo.setOperatorId(getUserId());
+        bo.setOperatorName(getUsername());
+        int result = wmsStockOutEntryService.stockOut(bo);
+        if(result == -1) return new AjaxResult(501,"数据错误！");
+        else if(result == -2) return new AjaxResult(502,"状态错误！");
+        else if(result == -3) return new AjaxResult(503,"已全部出库！");
+        else if(result == -4) return new AjaxResult(504,"出库数量超出！");
+        else if(result == -11) return new AjaxResult(511,"库存数据不存在！");
+        else if(result == -12) return new AjaxResult(512,"仓位库存不足！");
+        return toAjax(1);
     }
 
 //    /**

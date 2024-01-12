@@ -23,7 +23,8 @@ public interface ErpGoodsInventoryMapper
      */
     public ErpGoodsInventory selectErpGoodsInventoryById(Long id);
     public ErpGoodsInventory selectErpGoodsInventoryBySpecId(Long id);
-    List<ErpGoodsInventoryDetail> selectErpGoodsInventoryDetailBySpecId(Long id);
+    List<ErpGoodsInventoryDetail> selectErpGoodsInventoryDetailBySpecId(Long specId);
+    ErpGoodsInventoryDetail selectErpGoodsInventoryDetailById(Long id);
 
     /**
      * 查询商品库存列表
@@ -48,6 +49,7 @@ public interface ErpGoodsInventoryMapper
      * @return 结果
      */
     public int updateErpGoodsInventory(ErpGoodsInventory erpGoodsInventory);
+    public int updateErpGoodsInventoryDetail(ErpGoodsInventoryDetail detail);
 
     /**
      * 删除商品库存

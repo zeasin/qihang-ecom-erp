@@ -26,6 +26,16 @@ export function addOrder(data) {
   })
 }
 
+export function shipOrder(data) {
+  return request({
+    url: '/api/order/ship',
+    method: 'post',
+    data: data
+  })
+}
+
+
+
 // 修改店铺订单
 export function updateOrder(data) {
   return request({

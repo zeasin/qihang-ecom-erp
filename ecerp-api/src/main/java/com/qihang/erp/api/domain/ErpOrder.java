@@ -125,6 +125,12 @@ public class ErpOrder extends BaseEntity
     @Excel(name = "物流公司")
     private String shippingCompany;
 
+    private String shippingMan;
+    private Float length;
+    private Float width;
+    private Float height;
+    private Float weight;
+
     /** 订单明细信息 */
     private List<ErpOrderItem> itemList;
     private List<ErpOrderItem> erpOrderItemList;
@@ -135,6 +141,46 @@ public class ErpOrder extends BaseEntity
 
     public void setErpOrderItemList(List<ErpOrderItem> erpOrderItemList) {
         this.erpOrderItemList = erpOrderItemList;
+    }
+
+    public String getShippingMan() {
+        return shippingMan;
+    }
+
+    public void setShippingMan(String shippingMan) {
+        this.shippingMan = shippingMan;
+    }
+
+    public Float getLength() {
+        return length;
+    }
+
+    public void setLength(Float length) {
+        this.length = length;
+    }
+
+    public Float getWidth() {
+        return width;
+    }
+
+    public void setWidth(Float width) {
+        this.width = width;
+    }
+
+    public Float getHeight() {
+        return height;
+    }
+
+    public void setHeight(Float height) {
+        this.height = height;
+    }
+
+    public Float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Float weight) {
+        this.weight = weight;
     }
 
     public void setId(Long id)

@@ -109,7 +109,7 @@
           <el-table-column label="入库仓位id" prop="inLocation" width="100"></el-table-column>
           <el-table-column label="入库前数量" prop="originQty" width="100">
           </el-table-column>
-          <el-table-column label="入库后数量" prop="currentQty" width="100">
+          <el-table-column label="当前库存" prop="currentQty" width="100">
           </el-table-column>
           <el-table-column label="备注" prop="remark" width="150">
           </el-table-column>

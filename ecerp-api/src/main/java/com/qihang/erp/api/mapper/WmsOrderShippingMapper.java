@@ -45,6 +45,7 @@ public interface WmsOrderShippingMapper
      * @return 结果
      */
     public int updateWmsOrderShipping(WmsOrderShipping wmsOrderShipping);
+    public int updateWmsOrderShippingStatusByErpOrderItemId(WmsOrderShipping wmsOrderShipping);
 
     /**
      * 删除仓库订单发货
