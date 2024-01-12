@@ -99,8 +99,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark != null">#{remark},</if>
             <if test="goodsId != null">#{goodsId},</if>
             <if test="goodsNum != null">#{goodsNum},</if>
+            <if test="goodsName != null">#{goodsName},</if>
             <if test="specId != null">#{specId},</if>
             <if test="specNum != null">#{specNum},</if>
+            <if test="colorValue != null">#{colorValue},</if>
+            <if test="colorImage != null">#{colorImage},</if>
+            <if test="sizeValue != null">#{sizeValue},</if>
+            <if test="styleValue != null">#{styleValue},</if>
             <if test="price != null">#{price},</if>
             <if test="disAmount != null">#{disAmount},</if>
             <if test="disRate != null">#{disRate},</if>

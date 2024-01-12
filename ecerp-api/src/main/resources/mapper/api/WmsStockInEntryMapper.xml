@@ -191,9 +191,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <insert id="batchWmsStockInEntryItem">
-        insert into wms_stock_in_entry_item( id, entry_id, source_type, source_id, source_item_id, goods_id, goods_num, spec_id, spec_num, original_quantity, in_quantity, remark, location_id, location_num, create_by, create_time, update_by, update_time,goods_name,color_value,color_image,size_value,style_value,status) values
+        insert into wms_stock_in_entry_item( id, entry_id, source_type, source_id, source_item_id, goods_id, goods_num, spec_id, spec_num, original_quantity, in_quantity, remark, create_by, create_time,goods_name,color_value,color_image,size_value,style_value,status) values
 		<foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.entryId}, #{item.sourceType}, #{item.sourceId}, #{item.sourceItemId}, #{item.goodsId}, #{item.goodsNum}, #{item.specId}, #{item.specNum}, #{item.originalQuantity}, #{item.inQuantity}, #{item.remark}, #{item.locationId}, #{item.locationNum}, #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime},#{item.goodsName},#{item.colorValue},#{item.colorImage},#{item.sizeValue},#{item.styleValue},#{status})
+            ( #{item.id}, #{item.entryId}, #{item.sourceType}, #{item.sourceId}, #{item.sourceItemId}, #{item.goodsId}, #{item.goodsNum}, #{item.specId}, #{item.specNum}, #{item.originalQuantity}, #{item.inQuantity}, #{item.remark}, #{item.createBy}, #{item.createTime}, #{item.goodsName},#{item.colorValue},#{item.colorImage},#{item.sizeValue},#{item.styleValue},#{item.status})
         </foreach>
     </insert>
 </mapper>

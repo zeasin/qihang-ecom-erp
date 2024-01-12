@@ -96,6 +96,8 @@
           <el-tag type="success" v-if="scope.row.status === 1">已审核</el-tag>
           <el-tag type="warning" v-if="scope.row.status === 101">已确认待供应商发货</el-tag>
           <el-tag v-if="scope.row.status === 102">供应商已发货</el-tag>
+          <el-tag type="primary" v-if="scope.row.status === 2">已收货</el-tag>
+          <el-tag type="primary" v-if="scope.row.status === 3">已入库</el-tag>
         </template>
       </el-table-column>
 
