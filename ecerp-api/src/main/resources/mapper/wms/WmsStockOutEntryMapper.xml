@@ -90,6 +90,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         left join erp_goods_spec gs on gs.id = b.specId
         where a.id = #{id}
     </select>
+
+    <select id="selectWmsStockOutEntryItemById" parameterType="Long" resultMap="WmsStockOutEntryItemResult">
+        select b.id as sub_id, b.entryId as sub_entryId, b.sourceOrderId as sub_sourceOrderId, b.sourceOrderNo as sub_sourceOrderNo, b.sourceOrderItemId as sub_sourceOrderItemId, b.goodsId as sub_goodsId, b.specId as sub_specId, b.specNum as sub_specNum, b.originalQuantity as sub_originalQuantity, b.outQuantity as sub_outQuantity, b.completeTime as sub_completeTime, b.pickedTime as sub_pickedTime, b.status as sub_status
+
+        from wms_stock_out_entry_item b
+
+        where b.id = #{id}
+    </select>
+
         
     <insert id="insertWmsStockOutEntry" parameterType="WmsStockOutEntry" useGeneratedKeys="true" keyProperty="id">
         insert into wms_stock_out_entry
@@ -138,6 +147,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="specUnitTotal != null">#{specUnitTotal},</if>
          </trim>
     </insert>
+
+    <update id="updateWmsStockOutEntryItem" parameterType="WmsStockOutEntryItem">
+        update wms_stock_out_entry_item
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="outQuantity != null and outQuantity != ''">outQuantity = #{outQuantity},</if>
+            <if test="completeTime != null">completeTime = #{completeTime},</if>
+            <if test="pickedTime != null">pickedTime = #{pickedTime},</if>
+            <if test="status != null">status = #{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
 
     <update id="updateWmsStockOutEntry" parameterType="WmsStockOutEntry">
         update wms_stock_out_entry

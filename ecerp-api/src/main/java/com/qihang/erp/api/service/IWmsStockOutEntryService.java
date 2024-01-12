@@ -2,6 +2,7 @@ package com.qihang.erp.api.service;
 
 import java.util.List;
 import com.qihang.erp.api.domain.WmsStockOutEntry;
+import com.qihang.erp.api.domain.bo.StockOutBo;
 
 /**
  * 出库单Service接口
@@ -34,6 +35,7 @@ public interface IWmsStockOutEntryService
      * @return 结果
      */
     public int insertWmsStockOutEntry(WmsStockOutEntry wmsStockOutEntry);
+    public int stockOut(StockOutBo bo);
 
     /**
      * 修改出库单

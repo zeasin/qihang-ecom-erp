@@ -21,6 +21,7 @@ public interface WmsStockOutEntryMapper
      * @return 出库单
      */
     public WmsStockOutEntry selectWmsStockOutEntryById(Long id);
+    public WmsStockOutEntryItem selectWmsStockOutEntryItemById(Long id);
 
     /**
      * 查询出库单列表
@@ -45,6 +46,7 @@ public interface WmsStockOutEntryMapper
      * @return 结果
      */
     public int updateWmsStockOutEntry(WmsStockOutEntry wmsStockOutEntry);
+    public int updateWmsStockOutEntryItem(WmsStockOutEntryItem entryItem);
 
     /**
      * 删除出库单

@@ -17,28 +17,12 @@ export function getStockOutEntry(id) {
   })
 }
 
-// 新增出库单
-export function addStockOutEntry(data) {
+// 出库
+export function stockOut(data) {
   return request({
-    url: '/wms/stockOutEntry',
+    url: '/wms/stockOutEntry/stockOut',
     method: 'post',
     data: data
   })
 }
 
-// 修改出库单
-export function updateStockOutEntry(data) {
-  return request({
-    url: '/wms/stockOutEntry',
-    method: 'put',
-    data: data
-  })
-}
-
-// 删除出库单
-export function delStockOutEntry(id) {
-  return request({
-    url: '/wms/stockOutEntry/' + id,
-    method: 'delete'
-  })
-}

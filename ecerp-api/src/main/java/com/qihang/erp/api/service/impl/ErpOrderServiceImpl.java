@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.qihang.erp.api.domain.TaoOrderItem;
+import com.qihang.erp.api.domain.WmsOrderShipping;
+import com.qihang.erp.api.mapper.WmsOrderShippingMapper;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class ErpOrderServiceImpl implements IErpOrderService
 {
     @Autowired
     private ErpOrderMapper erpOrderMapper;
+
+    @Autowired
+    private WmsOrderShippingMapper wmsOrderShippingMapper;
 
     /**
      * 查询订单
@@ -99,6 +104,50 @@ public class ErpOrderServiceImpl implements IErpOrderService
         insertErpOrderItem(erpOrder);
 //        insertSShopOrderItem(shopOrder);
         return rows;
+    }
+
+    /**
+     * 发货
+     * @param erpOrder
+     * @return
+     */
+    @Transactional
+    @Override
+    public int shipErpOrder(ErpOrder erpOrder) {
+        ErpOrder order = erpOrderMapper.selectErpOrderById(erpOrder.getId());
+        if (order==null) return -1;// 订单不存在
+        else if(order.getOrderStatus() != 2) return -2;//状态不对
+        // 发货
+        ErpOrder update = new ErpOrder();
+        update.setId(order.getId());
+        update.setUpdateTime(new Date());
+        update.setUpdateBy(erpOrder.getUpdateBy());
+        update.setShippingTime(new Date());
+        update.setShippingMan(erpOrder.getShippingMan());
+        update.setShippingCompany(erpOrder.getShippingCompany());
+        update.setShippingNumber(erpOrder.getShippingNumber());
+        update.setWidth(erpOrder.getWidth());
+        update.setWeight(erpOrder.getWeight());
+        update.setHeight(erpOrder.getHeight());
+        update.setLength(erpOrder.getLength());
+        update.setOrderStatus(3);
+        erpOrderMapper.updateErpOrder(update);
+
+        // 更新 wms_order_shipping
+        WmsOrderShipping select = new WmsOrderShipping();
+        select.setErpOrderId(order.getId());
+        List<WmsOrderShipping> shipList = wmsOrderShippingMapper.selectWmsOrderShippingList(select);
+        if(shipList!=null){
+            for (WmsOrderShipping ship:shipList) {
+                WmsOrderShipping up = new WmsOrderShipping();
+                up.setId(ship.getId());
+                up.setStatus(3L);
+                up.setUpdateTime(new Date());
+                up.setUpdateBy(erpOrder.getUpdateBy());
+                wmsOrderShippingMapper.updateWmsOrderShipping(up);
+            }
+        }
+        return 1;
     }
 
     /**

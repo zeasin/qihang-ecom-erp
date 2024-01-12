@@ -89,6 +89,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where b.specId = #{specId} and b.currentQty > 0
     </select>
 
+    <select id="selectErpGoodsInventoryDetailById" parameterType="Long" resultMap="ErpGoodsInventoryDetailResult">
+        select
+            b.id as sub_id, b.inventoryId as sub_inventoryId, b.inQty as sub_inQty, b.originQty as sub_originQty, b.currentQty as sub_currentQty, b.purPrice as sub_purPrice,
+            b.entryId as sub_entryId, b.entryItemId as sub_entryItemId, b.remark as sub_remark, b.specId as sub_specId, b.goodsId as sub_goodsId, b.inLocation as sub_inLocation,
+            b.createTime as sub_createTime, b.createBy as sub_createBy
+
+        from  erp_goods_inventory_detail b
+
+        where b.id = #{id}
+    </select>
+
+
 
 
     <insert id="insertErpGoodsInventory" parameterType="ErpGoodsInventory" useGeneratedKeys="true" keyProperty="id">
@@ -120,6 +132,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null">#{updateBy},</if>
          </trim>
     </insert>
+
+    <update id="updateErpGoodsInventoryDetail" parameterType="ErpGoodsInventoryDetail">
+        update erp_goods_inventory_detail
+        <trim prefix="SET" suffixOverrides=",">
+
+            <if test="currentQty != null">currentQty = #{currentQty},</if>
+
+        </trim>
+        where id = #{id}
+    </update>
 
     <update id="updateErpGoodsInventory" parameterType="ErpGoodsInventory">
         update erp_goods_inventory

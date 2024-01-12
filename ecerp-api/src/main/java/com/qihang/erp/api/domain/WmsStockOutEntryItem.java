@@ -43,10 +43,29 @@ public class WmsStockOutEntryItem extends BaseEntity
     @Excel(name = "商品规格id")
     private Long specId;
 
+    private Integer inventoryDetailId;
+    private Long outQty;
+
     private String colorImage;
     private String colorValue;
     private String sizeValue;
     private String styleValue;
+
+    public Integer getInventoryDetailId() {
+        return inventoryDetailId;
+    }
+
+    public void setInventoryDetailId(Integer inventoryDetailId) {
+        this.inventoryDetailId = inventoryDetailId;
+    }
+
+    public Long getOutQty() {
+        return outQty;
+    }
+
+    public void setOutQty(Long outQty) {
+        this.outQty = outQty;
+    }
 
     public String getColorValue() {
         return colorValue;

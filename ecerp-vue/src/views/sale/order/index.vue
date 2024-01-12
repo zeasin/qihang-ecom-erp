@@ -26,7 +26,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-    <!--   
+    <!--
       <el-form-item label="标签" prop="tag">
         <el-input
           v-model="queryParams.tag"
@@ -52,7 +52,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-     
+
      <!--  <el-form-item label="城市" prop="city">
         <el-input
           v-model="queryParams.city"
@@ -69,7 +69,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item> -->
-      
+
       <el-form-item label="快递单号" prop="shippingNumber">
         <el-input
           v-model="queryParams.shippingNumber"
@@ -78,7 +78,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      
+
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -118,11 +118,11 @@
           <span>{{ shopList.find(x=>x.id === scope.row.shopId).name  }}</span>
         </template>
       </el-table-column>
-  
+
       <el-table-column label="商品" width="350">
           <template slot-scope="scope">
             <el-row v-for="item in scope.row.itemList" :key="item.id" :gutter="20">
-              
+
             <div style="float: left;display: flex;align-items: center;" >
               <el-image  style="width: 70px; height: 70px;" :src="item.goodsImg"></el-image>
               <div style="margin-left:10px">
@@ -146,8 +146,9 @@
       <el-table-column label="状态" align="center" prop="orderStatus" >
         <template slot-scope="scope">
           <el-tag v-if="scope.row.orderStatus === 1" style="margin-bottom: 6px;">待发货</el-tag>
-          <el-tag v-if="scope.row.orderStatus === 2" style="margin-bottom: 6px;">已发货</el-tag>
-          <el-tag v-if="scope.row.orderStatus === 3" style="margin-bottom: 6px;">已签收</el-tag>
+          <el-tag v-if="scope.row.orderStatus === 2" style="margin-bottom: 6px;">已出库</el-tag>
+          <el-tag v-if="scope.row.orderStatus === 3" style="margin-bottom: 6px;">已发货</el-tag>
+          <el-tag v-if="scope.row.orderStatus === 4" style="margin-bottom: 6px;">已完成</el-tag>
           <br />
            <!-- 1：无售后或售后关闭，2：售后处理中，3：退款中，4： 退款成功 -->
            <el-tag v-if="scope.row.refundStatus === 1">无售后或售后关闭</el-tag>
@@ -186,11 +187,11 @@
             @click="handleDetail(scope.row)"
             v-hasPermi="['shop:order:edit']"
           >详情</el-button>
-          
+
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -201,12 +202,12 @@
 
     <!-- 订单详情对话框 -->
     <el-dialog :title="detailTitle" :visible.sync="detailOpen" width="1100px" append-to-body>
-      
+
       <el-form ref="form" :model="form" :rules="rules" label-width="80px" inline>
         <el-descriptions title="订单信息">
             <el-descriptions-item label="ID">{{form.id}}</el-descriptions-item>
             <el-descriptions-item label="订单号">{{form.orderNum}}</el-descriptions-item>
-            
+
             <el-descriptions-item label="店铺">
               {{ shopList.find(x=>x.id === form.shopId)?shopList.find(x=>x.id === form.shopId).name:'' }}
               <el-tag size="small" v-if="form.shopType === 4">淘宝天猫</el-tag>
@@ -216,8 +217,8 @@
               <el-tag size="small" v-if="form.shopType === 13">快手小店</el-tag>
               <el-tag size="small" v-if="form.shopType === 99">其他</el-tag>
             </el-descriptions-item>
-            
-            
+
+
             <el-descriptions-item label="标签">
               <el-tag size="small" v-if="form.tag ==='1' ">实售</el-tag>
               <el-tag size="small" v-if="form.tag ==='2' ">淘宝客</el-tag>
@@ -230,7 +231,7 @@
             <el-descriptions-item label="备注">
               {{form.remark}}
             </el-descriptions-item>
-            <el-descriptions-item label="创建时间"> 
+            <el-descriptions-item label="创建时间">
               {{ form.createTime }}
               <!-- <el-date-picker
               disabled
@@ -252,9 +253,9 @@
               <el-tag v-if="form.refundStatus === 1">无售后或售后关闭</el-tag>
               <el-tag v-if="form.refundStatus === 2">售后处理中</el-tag>
                <el-tag v-if="form.refundStatus === 3">退款中</el-tag>
-               <el-tag v-if="form.refundStatus === 4">退款成功</el-tag>  
+               <el-tag v-if="form.refundStatus === 4">退款成功</el-tag>
             </el-descriptions-item>
-            
+
         </el-descriptions>
         <el-descriptions title="付款信息">
             <el-descriptions-item label="商品总额">{{form.goodsAmount}}</el-descriptions-item>
@@ -263,7 +264,7 @@
             <el-descriptions-item label="实际支付金额">{{form.amount}}</el-descriptions-item>
         </el-descriptions>
 
-       
+
          <el-descriptions title="收货信息">
           <el-descriptions-item label="收件人姓名">{{form.receiverName}}</el-descriptions-item>
           <el-descriptions-item label="收件人手机号">{{form.receiverPhone}}</el-descriptions-item>
@@ -279,12 +280,12 @@
             <el-descriptions-item label="物流单号">{{form.shippingNumber}}</el-descriptions-item>
             <el-descriptions-item label="发货时间">{{form.shippingTime}}</el-descriptions-item>
         </el-descriptions>
-        
+
         <el-divider content-position="center">订单商品</el-divider>
         <el-table :data="form.erpOrderItemList"  style="margin-bottom: 10px;">
           <!-- <el-table-column type="selection" width="50" align="center" /> -->
           <el-table-column label="序号" align="center" type="index" width="50"/>
-          
+
           <el-table-column label="商品图片" prop="goodsImg" width="80">
             <template slot-scope="scope">
               <el-image style="width: 70px; height: 70px" :src="scope.row.goodsImg"></el-image>
@@ -358,7 +359,7 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        
+
       }
     };
   },

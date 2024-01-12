@@ -82,5 +82,20 @@ public class ErpOrderController extends BaseController
         return toAjax(result);
     }
 
+    /**
+     * 订单发货
+     * @param order
+     * @return
+     */
+    @Log(title = "店铺订单", businessType = BusinessType.UPDATE)
+    @PostMapping("/ship")
+    public AjaxResult ship(@RequestBody ErpOrder order)
+    {
+        order.setUpdateBy(getUsername());
+        int result = orderService.shipErpOrder(order);
+        if(result == -1) return new AjaxResult(501,"订单不存在！");
+        else if(result == -2) return new AjaxResult(502,"订单号已存在！");
+        return toAjax(result);
+    }
 
 }

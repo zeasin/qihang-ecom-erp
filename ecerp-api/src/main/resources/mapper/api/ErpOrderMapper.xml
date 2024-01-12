@@ -217,6 +217,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shippingTime != null">shipping_time = #{shippingTime},</if>
             <if test="shippingNumber != null">shipping_number = #{shippingNumber},</if>
             <if test="shippingCompany != null">shipping_company = #{shippingCompany},</if>
+            <if test="shippingMan != null">shipping_man = #{shippingMan},</if>
+            <if test="length != null">length = #{length},</if>
+            <if test="length != null">width = #{width},</if>
+            <if test="length != null">height = #{height},</if>
+            <if test="length != null">weight = #{weight},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>

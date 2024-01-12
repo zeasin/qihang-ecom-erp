@@ -58,7 +58,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shopId != null "> and shop_id = #{shopId}</if>
             <if test="shopType != null "> and shop_type = #{shopType}</if>
             <if test="orderNum != null  and orderNum != ''"> and order_num = #{orderNum}</if>
-
+            <if test="erpOrderId != null  and erpOrderId != ''"> and erp_order_id = #{erpOrderId}</if>
+            <if test="erpOrderItemId != null  and erpOrderItemId != ''"> and erp_order_item_id = #{erpOrderItemId}</if>
             <if test="orderDate != null "> and order_date = #{orderDate}</if>
             <if test="goodsId != null "> and goods_id = #{goodsId}</if>
             <if test="specId != null "> and spec_id = #{specId}</if>
@@ -177,6 +178,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
         where id = #{id}
+    </update>
+
+    <update id="updateWmsOrderShippingStatusByErpOrderItemId" parameterType="WmsOrderShipping">
+        update wms_order_shipping
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="shipCompany != null">ship_company = #{shipCompany},</if>
+            <if test="shipNo != null">ship_no = #{shipNo},</if>
+            <if test="shipCost != null">ship_cost = #{shipCost},</if>
+            <if test="shipTime != null">ship_time = #{shipTime},</if>
+            <if test="outOperator != null">out_operator = #{outOperator},</if>
+            <if test="outPosition != null">out_position = #{outPosition},</if>
+            <if test="outTime != null">out_time = #{outTime},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where erp_order_item_id = #{erpOrderItemId}
     </update>
 
     <delete id="deleteWmsOrderShippingById" parameterType="Long">
