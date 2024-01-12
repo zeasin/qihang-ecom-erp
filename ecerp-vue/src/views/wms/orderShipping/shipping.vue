@@ -389,11 +389,18 @@
         </el-form-item>
         <el-row>
           <el-col>
-            <el-form-item label="物流公司" prop="shippingNumber">
-              <el-input v-model="form.shippingNumber" placeholder="请输入物流公司" style="width:300px" />
+            <el-form-item label="物流公司" prop="shippingCompany">
+<!--              <el-input v-model="form.shippingCompany" placeholder="请输入物流公司" style="width:300px" />-->
+              <el-select v-model="form.shippingCompany" filterable r placeholder="选择快递公司" >
+                <el-option v-for="item in logisticsList" :key="item.id" :label="item.name" :value="item.name">
+                  <span style="float: left">{{ item.name }}</span>
+                  <span style="float: right; color: #8492a6; font-size: 13px" >{{item.number}}</span>
+
+                </el-option>
+              </el-select>
             </el-form-item>
-            <el-form-item label="物流单号" prop="shippingCompany">
-              <el-input v-model="form.shippingCompany" placeholder="请输入物流单号" style="width:300px" />
+            <el-form-item label="物流单号" prop="shippingNumber">
+              <el-input v-model="form.shippingNumber" placeholder="请输入物流单号" style="width:300px" />
             </el-form-item>
             <el-form-item label="发货人" prop="shippingMan">
               <el-input v-model="form.shippingMan" placeholder="请输入发货人" style="width:300px" />
@@ -412,6 +419,7 @@
 <script>
 import { listOrder, getOrder, shipOrder } from "@/api/shop/order";
 import { listShop } from "@/api/shop/shop";
+import { listLogistics } from "@/api/api/logistics";
 export default {
   name: "Order",
   data() {
@@ -457,6 +465,7 @@ export default {
         shippingTime: null,
         shippingNumber: null,
       },
+      logisticsList:[],
       // 表单参数
       form: {},
       // 表单校验
@@ -473,6 +482,9 @@ export default {
     listShop({}).then(response => {
       this.shopList = response.rows;
     });
+    listLogistics({}).then(resp=>{
+      this.logisticsList = resp.rows
+    })
     this.getList();
   },
   methods: {
