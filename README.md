@@ -133,13 +133,9 @@ A[查询备货清单] -->B(生成拣货单)
 + 启动Redis
   + 进入项目redis文件夹
   + 启动：双击`start.bat`
-+ 启动MinIO
-  + 进入项目minio文件夹
-  + 启动服务`minio.exe server data`
-  + 访问服务`http://127.0.0.1:9000`
 
 ### 1、启动后端`ecerp-api`
-+ 启动项目
++ IDEA启动项目
 
 ### 2、启动前端 `ecerp-vue`
 + `npm install`
