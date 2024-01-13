@@ -25,10 +25,10 @@ import com.zhijian.common.core.page.TableDataInfo;
  * 小红书订单退款Controller
  * 
  * @author qihang
- * @date 2024-01-03
+ * @date 2024-01-13
  */
 @RestController
-@RequestMapping("/xhs/refund")
+@RequestMapping("/xhs/xhsRefund")
 public class XhsRefundController extends BaseController
 {
     @Autowired
@@ -37,7 +37,7 @@ public class XhsRefundController extends BaseController
     /**
      * 查询小红书订单退款列表
      */
-    @PreAuthorize("@ss.hasPermi('xhs:refund:list')")
+    @PreAuthorize("@ss.hasPermi('xhs:xhsRefund:list')")
     @GetMapping("/list")
     public TableDataInfo list(XhsRefund xhsRefund)
     {
@@ -49,7 +49,7 @@ public class XhsRefundController extends BaseController
     /**
      * 导出小红书订单退款列表
      */
-    @PreAuthorize("@ss.hasPermi('xhs:refund:export')")
+    @PreAuthorize("@ss.hasPermi('xhs:xhsRefund:export')")
     @Log(title = "小红书订单退款", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, XhsRefund xhsRefund)
@@ -62,43 +62,43 @@ public class XhsRefundController extends BaseController
     /**
      * 获取小红书订单退款详细信息
      */
-    @PreAuthorize("@ss.hasPermi('xhs:refund:query')")
+    @PreAuthorize("@ss.hasPermi('xhs:xhsRefund:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
         return success(xhsRefundService.selectXhsRefundById(id));
     }
 
-    /**
-     * 新增小红书订单退款
-     */
-    @PreAuthorize("@ss.hasPermi('xhs:refund:add')")
-    @Log(title = "小红书订单退款", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody XhsRefund xhsRefund)
-    {
-        return toAjax(xhsRefundService.insertXhsRefund(xhsRefund));
-    }
-
-    /**
-     * 修改小红书订单退款
-     */
-    @PreAuthorize("@ss.hasPermi('xhs:refund:edit')")
-    @Log(title = "小红书订单退款", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody XhsRefund xhsRefund)
-    {
-        return toAjax(xhsRefundService.updateXhsRefund(xhsRefund));
-    }
-
-    /**
-     * 删除小红书订单退款
-     */
-    @PreAuthorize("@ss.hasPermi('xhs:refund:remove')")
-    @Log(title = "小红书订单退款", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(xhsRefundService.deleteXhsRefundByIds(ids));
-    }
+//    /**
+//     * 新增小红书订单退款
+//     */
+//    @PreAuthorize("@ss.hasPermi('xhs:xhsRefund:add')")
+//    @Log(title = "小红书订单退款", businessType = BusinessType.INSERT)
+//    @PostMapping
+//    public AjaxResult add(@RequestBody XhsRefund xhsRefund)
+//    {
+//        return toAjax(xhsRefundService.insertXhsRefund(xhsRefund));
+//    }
+//
+//    /**
+//     * 修改小红书订单退款
+//     */
+//    @PreAuthorize("@ss.hasPermi('xhs:xhsRefund:edit')")
+//    @Log(title = "小红书订单退款", businessType = BusinessType.UPDATE)
+//    @PutMapping
+//    public AjaxResult edit(@RequestBody XhsRefund xhsRefund)
+//    {
+//        return toAjax(xhsRefundService.updateXhsRefund(xhsRefund));
+//    }
+//
+//    /**
+//     * 删除小红书订单退款
+//     */
+//    @PreAuthorize("@ss.hasPermi('xhs:xhsRefund:remove')")
+//    @Log(title = "小红书订单退款", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(xhsRefundService.deleteXhsRefundByIds(ids));
+//    }
 }

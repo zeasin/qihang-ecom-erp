@@ -10,7 +10,7 @@ import com.zhijian.common.core.domain.BaseEntity;
  * 淘宝退款订单对象 s_tao_order_refund
  * 
  * @author qihang
- * @date 2024-01-03
+ * @date 2024-01-13
  */
 public class TaoOrderRefund extends BaseEntity
 {

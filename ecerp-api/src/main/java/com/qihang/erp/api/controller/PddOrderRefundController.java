@@ -25,10 +25,10 @@ import com.zhijian.common.core.page.TableDataInfo;
  * 拼多多订单退款Controller
  * 
  * @author qihang
- * @date 2024-01-02
+ * @date 2024-01-13
  */
 @RestController
-@RequestMapping("/pdd/orderRefund")
+@RequestMapping("/pdd/pddRefund")
 public class PddOrderRefundController extends BaseController
 {
     @Autowired
@@ -37,7 +37,7 @@ public class PddOrderRefundController extends BaseController
     /**
      * 查询拼多多订单退款列表
      */
-    @PreAuthorize("@ss.hasPermi('pdd:orderRefund:list')")
+    @PreAuthorize("@ss.hasPermi('pdd:pddRefund:list')")
     @GetMapping("/list")
     public TableDataInfo list(PddOrderRefund pddOrderRefund)
     {
@@ -49,7 +49,7 @@ public class PddOrderRefundController extends BaseController
     /**
      * 导出拼多多订单退款列表
      */
-    @PreAuthorize("@ss.hasPermi('pdd:orderRefund:export')")
+    @PreAuthorize("@ss.hasPermi('pdd:pddRefund:export')")
     @Log(title = "拼多多订单退款", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, PddOrderRefund pddOrderRefund)
@@ -62,43 +62,43 @@ public class PddOrderRefundController extends BaseController
     /**
      * 获取拼多多订单退款详细信息
      */
-    @PreAuthorize("@ss.hasPermi('pdd:orderRefund:query')")
+    @PreAuthorize("@ss.hasPermi('pdd:pddRefund:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
         return success(pddOrderRefundService.selectPddOrderRefundById(id));
     }
 
-    /**
-     * 新增拼多多订单退款
-     */
-    @PreAuthorize("@ss.hasPermi('pdd:orderRefund:add')")
-    @Log(title = "拼多多订单退款", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody PddOrderRefund pddOrderRefund)
-    {
-        return toAjax(pddOrderRefundService.insertPddOrderRefund(pddOrderRefund));
-    }
-
-    /**
-     * 修改拼多多订单退款
-     */
-    @PreAuthorize("@ss.hasPermi('pdd:orderRefund:edit')")
-    @Log(title = "拼多多订单退款", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody PddOrderRefund pddOrderRefund)
-    {
-        return toAjax(pddOrderRefundService.updatePddOrderRefund(pddOrderRefund));
-    }
-
-    /**
-     * 删除拼多多订单退款
-     */
-    @PreAuthorize("@ss.hasPermi('pdd:orderRefund:remove')")
-    @Log(title = "拼多多订单退款", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(pddOrderRefundService.deletePddOrderRefundByIds(ids));
-    }
+//    /**
+//     * 新增拼多多订单退款
+//     */
+//    @PreAuthorize("@ss.hasPermi('pdd:pddRefund:add')")
+//    @Log(title = "拼多多订单退款", businessType = BusinessType.INSERT)
+//    @PostMapping
+//    public AjaxResult add(@RequestBody PddOrderRefund pddOrderRefund)
+//    {
+//        return toAjax(pddOrderRefundService.insertPddOrderRefund(pddOrderRefund));
+//    }
+//
+//    /**
+//     * 修改拼多多订单退款
+//     */
+//    @PreAuthorize("@ss.hasPermi('pdd:pddRefund:edit')")
+//    @Log(title = "拼多多订单退款", businessType = BusinessType.UPDATE)
+//    @PutMapping
+//    public AjaxResult edit(@RequestBody PddOrderRefund pddOrderRefund)
+//    {
+//        return toAjax(pddOrderRefundService.updatePddOrderRefund(pddOrderRefund));
+//    }
+//
+//    /**
+//     * 删除拼多多订单退款
+//     */
+//    @PreAuthorize("@ss.hasPermi('pdd:pddRefund:remove')")
+//    @Log(title = "拼多多订单退款", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(pddOrderRefundService.deletePddOrderRefundByIds(ids));
+//    }
 }

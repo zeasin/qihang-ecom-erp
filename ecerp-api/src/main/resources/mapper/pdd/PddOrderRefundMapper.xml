@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectPddOrderRefundVo">
-        select id, order_sn, shopId, after_sales_type, after_sales_status, after_sale_reason, confirm_time, created_time, discount_amount, order_amount, refund_amount, goods_image, goods_id, sku_id, goods_name, goods_number, sku_number, sku_info, quantity, goods_price, updated_time, tracking_number, tracking_company, audit_status, audit_time, describe, remark, shipping_status, user_shipping_status, erp_order_return_num, erp_order_return_id, sign from s_pdd_order_refund
+        select id, order_sn, shopId, after_sales_type, after_sales_status, after_sale_reason, confirm_time, created_time, discount_amount, order_amount, refund_amount, goods_image, goods_id, sku_id, goods_name, goods_number, sku_number, sku_info, quantity, goods_price, updated_time, tracking_number, tracking_company, audit_status, audit_time, `describe`, remark, shipping_status, user_shipping_status, erp_order_return_num, erp_order_return_id, sign from s_pdd_order_refund
     </sql>
 
     <select id="selectPddOrderRefundList" parameterType="PddOrderRefund" resultMap="PddOrderRefundResult">

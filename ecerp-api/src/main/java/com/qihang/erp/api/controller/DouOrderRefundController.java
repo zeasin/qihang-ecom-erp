@@ -25,10 +25,10 @@ import com.zhijian.common.core.page.TableDataInfo;
  * 抖店订单退款Controller
  * 
  * @author qihang
- * @date 2024-01-02
+ * @date 2024-01-13
  */
 @RestController
-@RequestMapping("/dou/refund")
+@RequestMapping("/dou/douRefund")
 public class DouOrderRefundController extends BaseController
 {
     @Autowired
@@ -37,7 +37,7 @@ public class DouOrderRefundController extends BaseController
     /**
      * 查询抖店订单退款列表
      */
-    @PreAuthorize("@ss.hasPermi('dou:refund:list')")
+    @PreAuthorize("@ss.hasPermi('dou:douRefund:list')")
     @GetMapping("/list")
     public TableDataInfo list(DouOrderRefund douOrderRefund)
     {
@@ -49,7 +49,7 @@ public class DouOrderRefundController extends BaseController
     /**
      * 导出抖店订单退款列表
      */
-    @PreAuthorize("@ss.hasPermi('dou:refund:export')")
+    @PreAuthorize("@ss.hasPermi('dou:douRefund:export')")
     @Log(title = "抖店订单退款", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, DouOrderRefund douOrderRefund)
@@ -62,43 +62,43 @@ public class DouOrderRefundController extends BaseController
     /**
      * 获取抖店订单退款详细信息
      */
-    @PreAuthorize("@ss.hasPermi('dou:refund:query')")
+    @PreAuthorize("@ss.hasPermi('dou:douRefund:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
         return success(douOrderRefundService.selectDouOrderRefundById(id));
     }
-
-    /**
-     * 新增抖店订单退款
-     */
-    @PreAuthorize("@ss.hasPermi('dou:refund:add')")
-    @Log(title = "抖店订单退款", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody DouOrderRefund douOrderRefund)
-    {
-        return toAjax(douOrderRefundService.insertDouOrderRefund(douOrderRefund));
-    }
-
-    /**
-     * 修改抖店订单退款
-     */
-    @PreAuthorize("@ss.hasPermi('dou:refund:edit')")
-    @Log(title = "抖店订单退款", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody DouOrderRefund douOrderRefund)
-    {
-        return toAjax(douOrderRefundService.updateDouOrderRefund(douOrderRefund));
-    }
-
-    /**
-     * 删除抖店订单退款
-     */
-    @PreAuthorize("@ss.hasPermi('dou:refund:remove')")
-    @Log(title = "抖店订单退款", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(douOrderRefundService.deleteDouOrderRefundByIds(ids));
-    }
+//
+//    /**
+//     * 新增抖店订单退款
+//     */
+//    @PreAuthorize("@ss.hasPermi('dou:douRefund:add')")
+//    @Log(title = "抖店订单退款", businessType = BusinessType.INSERT)
+//    @PostMapping
+//    public AjaxResult add(@RequestBody DouOrderRefund douOrderRefund)
+//    {
+//        return toAjax(douOrderRefundService.insertDouOrderRefund(douOrderRefund));
+//    }
+//
+//    /**
+//     * 修改抖店订单退款
+//     */
+//    @PreAuthorize("@ss.hasPermi('dou:douRefund:edit')")
+//    @Log(title = "抖店订单退款", businessType = BusinessType.UPDATE)
+//    @PutMapping
+//    public AjaxResult edit(@RequestBody DouOrderRefund douOrderRefund)
+//    {
+//        return toAjax(douOrderRefundService.updateDouOrderRefund(douOrderRefund));
+//    }
+//
+//    /**
+//     * 删除抖店订单退款
+//     */
+//    @PreAuthorize("@ss.hasPermi('dou:douRefund:remove')")
+//    @Log(title = "抖店订单退款", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(douOrderRefundService.deleteDouOrderRefundByIds(ids));
+//    }
 }

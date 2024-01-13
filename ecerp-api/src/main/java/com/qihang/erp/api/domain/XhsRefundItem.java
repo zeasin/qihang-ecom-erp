@@ -7,7 +7,7 @@ import com.zhijian.common.core.domain.BaseEntity;
  * 小红书订单退款明细对象 s_xhs_refund_item
  * 
  * @author qihang
- * @date 2024-01-03
+ * @date 2024-01-13
  */
 public class XhsRefundItem extends BaseEntity
 {
@@ -220,6 +220,5 @@ public class XhsRefundItem extends BaseEntity
     {
         return exchangeSkucode;
     }
-
 
 }
