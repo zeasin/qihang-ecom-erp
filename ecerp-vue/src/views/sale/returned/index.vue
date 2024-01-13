@@ -17,30 +17,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="店铺id" prop="shopId">
-        <el-input
-          v-model="queryParams.shopId"
-          placeholder="请输入店铺id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="订单id" prop="orderId">
-        <el-input
-          v-model="queryParams.orderId"
-          placeholder="请输入订单id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="子订单id" prop="orderTimeId">
-        <el-input
-          v-model="queryParams.orderTimeId"
-          placeholder="请输入子订单id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+     
       <el-form-item label="商品id" prop="goodsId">
         <el-input
           v-model="queryParams.goodsId"
@@ -49,14 +26,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="规格id" prop="specId">
-        <el-input
-          v-model="queryParams.specId"
-          placeholder="请输入规格id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+      
       <el-form-item label="商品编码" prop="goodsNum">
         <el-input
           v-model="queryParams.goodsNum"
@@ -73,38 +43,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="商品名称" prop="goodsName">
-        <el-input
-          v-model="queryParams.goodsName"
-          placeholder="请输入商品名称"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="商品规格" prop="goodsSpec">
-        <el-input
-          v-model="queryParams.goodsSpec"
-          placeholder="请输入商品规格"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="退货数量" prop="quantity">
-        <el-input
-          v-model="queryParams.quantity"
-          placeholder="请输入退货数量"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="物流公司" prop="logisticsCompany">
-        <el-input
-          v-model="queryParams.logisticsCompany"
-          placeholder="请输入物流公司"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+      
       <el-form-item label="物流单号" prop="logisticsCode">
         <el-input
           v-model="queryParams.logisticsCode"
@@ -113,38 +52,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="收货时间" prop="receiveTime">
-        <el-date-picker clearable
-          v-model="queryParams.receiveTime"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择收货时间">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="发货人" prop="contactPerson">
-        <el-input
-          v-model="queryParams.contactPerson"
-          placeholder="请输入发货人"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="发货人手机号" prop="mobile">
-        <el-input
-          v-model="queryParams.mobile"
-          placeholder="请输入发货人手机号"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="发货地址" prop="address">
-        <el-input
-          v-model="queryParams.address"
-          placeholder="请输入发货地址"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+      
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -152,7 +60,7 @@
     </el-form>
 
     <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
+      <!-- <el-col :span="1.5">
         <el-button
           type="primary"
           plain
@@ -161,8 +69,8 @@
           @click="handleAdd"
           v-hasPermi="['api:returned:add']"
         >新增</el-button>
-      </el-col>
-      <el-col :span="1.5">
+      </el-col> -->
+      <!-- <el-col :span="1.5">
         <el-button
           type="success"
           plain
@@ -183,7 +91,7 @@
           @click="handleDelete"
           v-hasPermi="['api:returned:remove']"
         >删除</el-button>
-      </el-col>
+      </el-col> -->
       <el-col :span="1.5">
         <el-button
           type="warning"
@@ -198,18 +106,23 @@
     </el-row>
 
     <el-table v-loading="loading" :data="returnedList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="${comment}" align="center" prop="id" />
+      <!-- <el-table-column type="selection" width="55" align="center" /> -->
+      <el-table-column label="ID" align="center" prop="id" />
       <el-table-column label="退货单号" align="center" prop="returnedNum" />
-      <el-table-column label="退货类型" align="center" prop="returnedType" />
+      <el-table-column label="退货类型" align="center" prop="returnedType" >
+        <template slot-scope="scope">
+          <el-tag size="small" v-if="scope.row.returnedType === 1"> 退货</el-tag>
+          <el-tag size="small" v-if="scope.row.returnedType === 2"> 换货</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="源订单号" align="center" prop="orderNum" />
-      <el-table-column label="店铺id" align="center" prop="shopId" />
-      <el-table-column label="店铺类型" align="center" prop="shopType" />
-      <el-table-column label="订单id" align="center" prop="orderId" />
-      <el-table-column label="子订单id" align="center" prop="orderTimeId" />
-      <el-table-column label="商品id" align="center" prop="goodsId" />
-      <el-table-column label="规格id" align="center" prop="specId" />
-      <el-table-column label="商品编码" align="center" prop="goodsNum" />
+      <!-- <el-table-column label="店铺id" align="center" prop="shopId" /> -->
+      <!-- <el-table-column label="店铺类型" align="center" prop="shopType" /> -->
+      <!-- <el-table-column label="订单id" align="center" prop="orderId" /> -->
+      <!-- <el-table-column label="子订单id" align="center" prop="orderItemId" /> -->
+      <!-- <el-table-column label="商品id" align="center" prop="goodsId" /> -->
+      <!-- <el-table-column label="规格id" align="center" prop="specId" /> -->
+      <!-- <el-table-column label="商品编码" align="center" prop="goodsNum" /> -->
       <el-table-column label="规格编码" align="center" prop="specNum" />
       <el-table-column label="商品名称" align="center" prop="goodsName" />
       <el-table-column label="商品规格" align="center" prop="goodsSpec" />
@@ -219,7 +132,7 @@
         </template>
       </el-table-column>
       <el-table-column label="退货数量" align="center" prop="quantity" />
-      <el-table-column label="物流公司" align="center" prop="logisticsCompany" />
+      <!-- <el-table-column label="物流公司" align="center" prop="logisticsCompany" /> -->
       <el-table-column label="物流单号" align="center" prop="logisticsCode" />
       <el-table-column label="收货时间" align="center" prop="receiveTime" width="180">
         <template slot-scope="scope">
@@ -227,26 +140,34 @@
         </template>
       </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" />
-      <el-table-column label="发货人" align="center" prop="contactPerson" />
+      <!-- <el-table-column label="发货人" align="center" prop="contactPerson" />
       <el-table-column label="发货人手机号" align="center" prop="mobile" />
-      <el-table-column label="发货地址" align="center" prop="address" />
-      <el-table-column label="状态" align="center" prop="status" />
+      <el-table-column label="发货地址" align="center" prop="address" /> -->
+      <el-table-column label="状态" align="center" prop="status" >
+        <template slot-scope="scope">
+          <el-tag size="small" v-if="scope.row.status === 1"> 待收货</el-tag>
+          <el-tag size="small" v-if="scope.row.status === 2"> 已收货</el-tag>
+          <el-tag size="small" v-if="scope.row.status === 3"> 已完成</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
+           v-if="scope.row.status === 1"
             size="mini"
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['api:returned:edit']"
-          >修改</el-button>
+          >确认收货</el-button>
           <el-button
+           v-if="scope.row.status === 2"
             size="mini"
             type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['api:returned:remove']"
-          >删除</el-button>
+            icon="el-icon-edit"
+            @click="handleUpdate(scope.row)"
+            v-hasPermi="['api:returned:edit']"
+          >入库</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -481,12 +402,7 @@ export default {
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
-    /** 新增按钮操作 */
-    handleAdd() {
-      this.reset();
-      this.open = true;
-      this.title = "添加退换货";
-    },
+
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
@@ -517,16 +433,7 @@ export default {
         }
       });
     },
-    /** 删除按钮操作 */
-    handleDelete(row) {
-      const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除退换货编号为"' + ids + '"的数据项？').then(function() {
-        return delReturned(ids);
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
-    },
+
     /** 导出按钮操作 */
     handleExport() {
       this.download('api/returned/export', {

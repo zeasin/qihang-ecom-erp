@@ -83,17 +83,22 @@ public class TaoOrderRefundController extends BaseController
         else if(result == -2) return new AjaxResult(502,"子订单已经在售后中！请勿重复提交！");
         return toAjax(1);
     }
-//
-//    /**
-//     * 修改淘宝退款订单
-//     */
-//    @PreAuthorize("@ss.hasPermi('tao:taoRefund:edit')")
-//    @Log(title = "淘宝退款订单", businessType = BusinessType.UPDATE)
-//    @PutMapping
-//    public AjaxResult edit(@RequestBody TaoOrderRefund taoOrderRefund)
-//    {
-//        return toAjax(taoOrderRefundService.updateTaoOrderRefund(taoOrderRefund));
-//    }
+
+    /**
+     * 修改淘宝退款订单
+     */
+    @PreAuthorize("@ss.hasPermi('tao:taoRefund:edit')")
+    @Log(title = "淘宝退款订单", businessType = BusinessType.UPDATE)
+    @PutMapping
+    public AjaxResult edit(@RequestBody TaoOrderRefund taoOrderRefund)
+    {
+        taoOrderRefund.setUpdateBy(getUsername());
+        int result = taoOrderRefundService.confirmRefund(taoOrderRefund);
+        if(result == -1) return new AjaxResult(501,"数据不存在");
+        else if(result == -2) return new AjaxResult(502,"已处理！请勿重复提交！");
+        else if(result == -11) return new AjaxResult(511,"specNumber编码找不到数据！");
+        return toAjax(1);
+    }
 //
 //    /**
 //     * 删除淘宝退款订单

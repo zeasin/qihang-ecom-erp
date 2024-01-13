@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="shopId"    column="shop_id"    />
         <result property="shopType"    column="shop_type"    />
         <result property="orderId"    column="order_id"    />
-        <result property="orderTimeId"    column="order_time_id"    />
+        <result property="orderItemId"    column="order_item_id"    />
         <result property="goodsId"    column="goods_id"    />
         <result property="specId"    column="spec_id"    />
         <result property="goodsNum"    column="goods_num"    />
@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectErpOrderReturnedVo">
-        select id, returned_num, returned_type, order_num, shop_id, shop_type, order_id, order_time_id, goods_id, spec_id, goods_num, spec_num, goods_name, goods_spec, goods_image, quantity, logistics_company, logistics_code, receive_time, remark, contactPerson, mobile, address, status, create_time, create_by, update_time, update_by from erp_order_returned
+        select id, returned_num, returned_type, order_num, shop_id, shop_type, order_id, order_item_id, goods_id, spec_id, goods_num, spec_num, goods_name, goods_spec, goods_image, quantity, logistics_company, logistics_code, receive_time, remark, contactPerson, mobile, address, status, create_time, create_by, update_time, update_by from erp_order_returned
     </sql>
 
     <select id="selectErpOrderReturnedList" parameterType="ErpOrderReturned" resultMap="ErpOrderReturnedResult">
@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shopId != null "> and shop_id = #{shopId}</if>
             <if test="shopType != null "> and shop_type = #{shopType}</if>
             <if test="orderId != null "> and order_id = #{orderId}</if>
-            <if test="orderTimeId != null "> and order_time_id = #{orderTimeId}</if>
+            <if test="orderItemId != null "> and order_item_id = #{orderItemId}</if>
             <if test="goodsId != null "> and goods_id = #{goodsId}</if>
             <if test="specId != null "> and spec_id = #{specId}</if>
             <if test="goodsNum != null  and goodsNum != ''"> and goods_num = #{goodsNum}</if>
@@ -81,7 +81,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shopId != null">shop_id,</if>
             <if test="shopType != null">shop_type,</if>
             <if test="orderId != null">order_id,</if>
-            <if test="orderTimeId != null">order_time_id,</if>
+            <if test="orderItemId != null">order_item_id,</if>
             <if test="goodsId != null">goods_id,</if>
             <if test="specId != null">spec_id,</if>
             <if test="goodsNum != null">goods_num,</if>
@@ -110,7 +110,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shopId != null">#{shopId},</if>
             <if test="shopType != null">#{shopType},</if>
             <if test="orderId != null">#{orderId},</if>
-            <if test="orderTimeId != null">#{orderTimeId},</if>
+            <if test="orderItemId != null">#{orderItemId},</if>
             <if test="goodsId != null">#{goodsId},</if>
             <if test="specId != null">#{specId},</if>
             <if test="goodsNum != null">#{goodsNum},</if>
@@ -143,7 +143,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shopId != null">shop_id = #{shopId},</if>
             <if test="shopType != null">shop_type = #{shopType},</if>
             <if test="orderId != null">order_id = #{orderId},</if>
-            <if test="orderTimeId != null">order_time_id = #{orderTimeId},</if>
+            <if test="orderItemId != null">order_item_id = #{orderItemId},</if>
             <if test="goodsId != null">goods_id = #{goodsId},</if>
             <if test="specId != null">spec_id = #{specId},</if>
             <if test="goodsNum != null">goods_num = #{goodsNum},</if>

@@ -3,13 +3,13 @@ package com.qihang.erp.api.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import com.qihang.erp.api.domain.TaoOrder;
-import com.qihang.erp.api.domain.TaoOrderItem;
+import com.qihang.erp.api.domain.*;
+import com.qihang.erp.api.mapper.ErpOrderReturnedMapper;
+import com.qihang.erp.api.mapper.GoodsSpecMapper;
 import com.qihang.erp.api.mapper.TaoOrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.qihang.erp.api.mapper.TaoOrderRefundMapper;
-import com.qihang.erp.api.domain.TaoOrderRefund;
 import com.qihang.erp.api.service.ITaoOrderRefundService;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +26,10 @@ public class TaoOrderRefundServiceImpl implements ITaoOrderRefundService
     private TaoOrderRefundMapper taoOrderRefundMapper;
     @Autowired
     private TaoOrderMapper taoOrderMapper;
+    @Autowired
+    private GoodsSpecMapper goodsSpecMapper;
+    @Autowired
+    private ErpOrderReturnedMapper erpOrderReturnedMapper;
 
     /**
      * 查询淘宝退款订单
@@ -64,7 +68,7 @@ public class TaoOrderRefundServiceImpl implements ITaoOrderRefundService
         // 查询
         TaoOrderItem taoOrderItem = taoOrderMapper.selectOrderItemBySubItemIdId(taoOrderRefund.getOid());
         if(taoOrderItem == null) return -1;
-//        else if(taoOrderItem.getRefundStatus()!=0) return -2;
+        else if(taoOrderItem.getRefundStatus()!=0) return -2;
         TaoOrder taoOrder = taoOrderMapper.selectTaoOrderById(taoOrderItem.getOrderId());
         // 插入数据
         TaoOrderRefund refund = new TaoOrderRefund();
@@ -108,9 +112,58 @@ public class TaoOrderRefundServiceImpl implements ITaoOrderRefundService
      * @return 结果
      */
     @Override
-    public int updateTaoOrderRefund(TaoOrderRefund taoOrderRefund)
+    public int confirmRefund(TaoOrderRefund taoOrderRefund)
     {
-        return taoOrderRefundMapper.updateTaoOrderRefund(taoOrderRefund);
+        TaoOrderRefund refund = taoOrderRefundMapper.selectTaoOrderRefundById(taoOrderRefund.getId());
+        if (refund == null) return -1;
+        else if(refund.getAuditStatus() != 0) return -2;
+        // 查询erp_goods_spec
+        GoodsSpec goodsSpec = new GoodsSpec();
+        goodsSpec.setSpecNum(taoOrderRefund.getSpecNumber());
+        List<GoodsSpec> goodsSpecs = goodsSpecMapper.selectGoodsSpecList(goodsSpec);
+        if(goodsSpecs==null || goodsSpecs.size() ==0) return -11;
+        // 插入到erp_order_returned
+        ErpOrderReturned returned = new ErpOrderReturned();
+        returned.setReturnedNum(refund.getRefundId());
+        if(refund.getAfterSalesType() == 1){
+            returned.setReturnedType(1L);
+        }else if(refund.getAfterSalesType() == 3){
+            returned.setReturnedType(2L);
+        }
+        returned.setOrderNum(refund.getTid()+"");
+        returned.setOrderId(refund.getTid());
+        returned.setOrderItemId(refund.getOid());
+        returned.setShopId(refund.getShopId());
+        returned.setShopType(4L);
+        returned.setGoodsId(goodsSpecs.get(0).getGoodsId());
+        returned.setSpecId(goodsSpecs.get(0).getId());
+        returned.setGoodsNum(refund.getGoodsNumber());
+        returned.setSpecNum(refund.getSpecNumber());
+        returned.setGoodsName(refund.getGoodsTitle());
+        returned.setGoodsSpec(refund.getSkuInfo());
+        returned.setGoodsImage(refund.getProductImgUrl());
+        returned.setQuantity(refund.getNum());
+        returned.setLogisticsCompany(taoOrderRefund.getLogisticsCompany());
+        returned.setLogisticsCode(taoOrderRefund.getLogisticsCode());
+        returned.setRemark(taoOrderRefund.getRemark());
+        returned.setStatus(1L);
+        returned.setCreateBy(taoOrderRefund.getUpdateBy());
+        returned.setCreateTime(new Date());
+        erpOrderReturnedMapper.insertErpOrderReturned(returned);
+
+        // 更新自己
+        TaoOrderRefund up = new TaoOrderRefund();
+        up.setId(taoOrderRefund.getId());
+        up.setAuditStatus(1L);
+        up.setAuditTime(new Date());
+        up.setUpdateBy(taoOrderRefund.getUpdateBy());
+        up.setUpdateTime(new Date());
+        up.setLogisticsCompany(taoOrderRefund.getLogisticsCompany());
+        up.setLogisticsCode(taoOrderRefund.getLogisticsCode());
+        up.setSendTime(taoOrderRefund.getSendTime());
+        taoOrderRefundMapper.updateTaoOrderRefund(up);
+
+        return 1;
     }
 
     /**

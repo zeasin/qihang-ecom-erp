@@ -192,14 +192,15 @@
       <!-- <el-table-column label="退款阶段，可选值：onsale/aftersale" align="center" prop="refundPhase" /> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <!-- <el-button
+          <el-button
+          v-if="scope.row.auditStatus === 0 && scope.row.afterSalesType === 1 "
             size="mini"
             type="text"
             icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
+            @click="handleConfirm(scope.row)"
             v-hasPermi="['tao:taoRefund:edit']"
-          >修改</el-button>
-          <el-button
+          >退货确认</el-button>
+          <!-- <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
@@ -221,44 +222,20 @@
     <!-- 添加或修改淘宝退款订单对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="退款id" prop="refundId">
-          <el-input v-model="form.refundId" placeholder="请输入退款id" />
+        <el-form-item label="退款ID" prop="refundId">
+          <el-input v-model="form.refundId" placeholder="请输入退款id" disabled/>
         </el-form-item>
-        <el-form-item label="淘宝交易单号" prop="tid">
-          <el-input v-model="form.tid" placeholder="请输入淘宝交易单号" />
+        <el-form-item label="订单单号" prop="tid">
+          <el-input v-model="form.tid" placeholder="请输入淘宝交易单号" disabled/>
         </el-form-item>
-        <el-form-item label="子订单号。如果是单笔交易oid会等于tid" prop="oid">
-          <el-input v-model="form.oid" placeholder="请输入子订单号。如果是单笔交易oid会等于tid" />
+        <el-form-item label="退还金额" prop="refundFee">
+          <el-input v-model="form.refundFee" placeholder="请输入退还金额(退还给买家的金额)。精确到2位小数;单位:元。如:200.07，表示:200元7分" disabled/>
         </el-form-item>
-        <el-form-item label="买家昵称" prop="buyerNick">
-          <el-input v-model="form.buyerNick" placeholder="请输入买家昵称" />
-        </el-form-item>
-        <el-form-item label="交易总金额。精确到2位小数;单位:元。如:200.07，表示:200元7分" prop="totalFee">
-          <el-input v-model="form.totalFee" placeholder="请输入交易总金额。精确到2位小数;单位:元。如:200.07，表示:200元7分" />
-        </el-form-item>
-        <el-form-item label="支付给卖家的金额(交易总金额-退还给买家的金额)。精确到2位小数;单位:元。如:200.07，表示:200元7分" prop="payment">
-          <el-input v-model="form.payment" placeholder="请输入支付给卖家的金额(交易总金额-退还给买家的金额)。精确到2位小数;单位:元。如:200.07，表示:200元7分" />
-        </el-form-item>
-        <el-form-item label="退还金额(退还给买家的金额)。精确到2位小数;单位:元。如:200.07，表示:200元7分" prop="refundFee">
-          <el-input v-model="form.refundFee" placeholder="请输入退还金额(退还给买家的金额)。精确到2位小数;单位:元。如:200.07，表示:200元7分" />
-        </el-form-item>
-        <el-form-item label="退款申请时间。" prop="created">
-          <el-input v-model="form.created" placeholder="请输入退款申请时间。" />
-        </el-form-item>
-        <el-form-item label="更新时间。" prop="modified">
-          <el-input v-model="form.modified" placeholder="请输入更新时间。" />
+        <el-form-item label="sku编号" prop="specNumber">
+          <el-input v-model="form.specNumber" placeholder="请输入sku编号" />
         </el-form-item>
         <el-form-item label="退货数量" prop="num">
-          <el-input v-model="form.num" placeholder="请输入退货数量" />
-        </el-form-item>
-        <el-form-item label="买家是否需要退货。可选值:true(是),false(否)" prop="hasGoodReturn">
-          <el-input v-model="form.hasGoodReturn" placeholder="请输入买家是否需要退货。可选值:true(是),false(否)" />
-        </el-form-item>
-        <el-form-item label="退款原因" prop="reason">
-          <el-input v-model="form.reason" placeholder="请输入退款原因" />
-        </el-form-item>
-        <el-form-item label="退款说明" prop="desc">
-          <el-input v-model="form.desc" placeholder="请输入退款说明" />
+          <el-input v-model="form.num" placeholder="请输入退货数量" disabled/>
         </el-form-item>
         <el-form-item label="物流公司" prop="logisticsCompany">
           <el-input v-model="form.logisticsCompany" placeholder="请输入物流公司" />
@@ -266,49 +243,21 @@
         <el-form-item label="物流单号" prop="logisticsCode">
           <el-input v-model="form.logisticsCode" placeholder="请输入物流单号" />
         </el-form-item>
-        <el-form-item label="${comment}" prop="sendTime">
-          <el-input v-model="form.sendTime" placeholder="请输入${comment}" />
-        </el-form-item>
-        <el-form-item label="${comment}" prop="auditTime">
+        <el-form-item label="发货时间" prop="sendTime">
           <el-date-picker clearable
-            v-model="form.auditTime"
+            v-model="form.sendTime"
             type="date"
             value-format="yyyy-MM-dd"
-            placeholder="请选择${comment}">
+            placeholder="请选择发货时间">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="收货时间" prop="receivedTime">
-          <el-date-picker clearable
-            v-model="form.receivedTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择收货时间">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="${comment}" prop="address">
-          <el-input v-model="form.address" placeholder="请输入${comment}" />
-        </el-form-item>
+       
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="系统创建时间" prop="createOn">
-          <el-input v-model="form.createOn" placeholder="请输入系统创建时间" />
-        </el-form-item>
-        <el-form-item label="店铺id" prop="shopId">
-          <el-input v-model="form.shopId" placeholder="请输入店铺id" />
-        </el-form-item>
-        <el-form-item label="${comment}" prop="erpGoodsId">
-          <el-input v-model="form.erpGoodsId" placeholder="请输入${comment}" />
-        </el-form-item>
-        <el-form-item label="${comment}" prop="erpGoodsSpecId">
-          <el-input v-model="form.erpGoodsSpecId" placeholder="请输入${comment}" />
-        </el-form-item>
-        <el-form-item label="sku编号" prop="specNumber">
-          <el-input v-model="form.specNumber" placeholder="请输入sku编号" />
-        </el-form-item>
-        <el-form-item label="退款阶段，可选值：onsale/aftersale" prop="refundPhase">
-          <el-input v-model="form.refundPhase" placeholder="请输入退款阶段，可选值：onsale/aftersale" />
-        </el-form-item>
+        
+        
+        
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -383,17 +332,17 @@ export default {
       form: {},
       // 表单校验
       rules: {
-        afterSalesType: [
-          { required: true, message: "类型不能为空", trigger: "change" }
-        ],
         num: [
           { required: true, message: "退货数量不能为空", trigger: "blur" }
         ],
-        auditStatus: [
-          { required: true, message: "2已签收9供应商已退款不能为空", trigger: "change" }
+        logisticsCompany: [
+          { required: true, message: "不能为空", trigger: "change" }
         ],
-        createOn: [
-          { required: true, message: "系统创建时间不能为空", trigger: "blur" }
+        logisticsCode: [
+          { required: true, message: "不能为空", trigger: "blur" }
+        ],
+        sendTime: [
+          { required: true, message: "不能为空", trigger: "blur" }
         ],
       }
     };
@@ -480,7 +429,7 @@ export default {
       this.title = "添加淘宝退款订单";
     },
     /** 修改按钮操作 */
-    handleUpdate(row) {
+    handleConfirm(row) {
       this.reset();
       const id = row.id || this.ids
       getTaoRefund(id).then(response => {
@@ -493,31 +442,13 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.id != null) {
             updateTaoRefund(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
+              this.$modal.msgSuccess("确认成功");
               this.open = false;
               this.getList();
             });
-          } else {
-            addTaoRefund(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
-              this.open = false;
-              this.getList();
-            });
-          }
         }
       });
-    },
-    /** 删除按钮操作 */
-    handleDelete(row) {
-      const ids = row.id || this.ids;
-      this.$modal.confirm('是否确认删除淘宝退款订单编号为"' + ids + '"的数据项？').then(function() {
-        return delTaoRefund(ids);
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
     },
     /** 导出按钮操作 */
     handleExport() {
