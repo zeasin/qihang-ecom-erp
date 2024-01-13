@@ -32,6 +32,7 @@ public interface TaoOrderMapper
      */
     public List<TaoOrder> selectTaoOrderList(TaoOrder taoOrder);
     List<TaoOrderItem> selectOrderItemByOrderId(String orderId);
+    TaoOrderItem selectOrderItemBySubItemIdId(Long subItemId);
     /**
      * 新增淘宝订单
      * 
@@ -47,6 +48,7 @@ public interface TaoOrderMapper
      * @return 结果
      */
     public int updateTaoOrder(TaoOrder taoOrder);
+    public int updateTaoOrderItem(TaoOrderItem taoOrderItem);
 
     /**
      * 删除淘宝订单

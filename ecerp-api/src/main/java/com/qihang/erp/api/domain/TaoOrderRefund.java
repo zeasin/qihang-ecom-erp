@@ -27,6 +27,10 @@ public class TaoOrderRefund extends BaseEntity
     @Excel(name = "类型", readConverterExp = "1=退货3换货")
     private Long afterSalesType;
 
+    /** 店铺id */
+    @Excel(name = "店铺id")
+    private Long shopId;
+
     /** 淘宝交易单号（订单号） */
     @Excel(name = "淘宝交易单号", readConverterExp = "订=单号")
     private Long tid;
@@ -35,33 +39,17 @@ public class TaoOrderRefund extends BaseEntity
     @Excel(name = "子订单号。如果是单笔交易oid会等于tid")
     private Long oid;
 
-    /** 买家昵称 */
-    @Excel(name = "买家昵称")
-    private String buyerNick;
-
-    /** 交易总金额。精确到2位小数;单位:元。如:200.07，表示:200元7分 */
-    @Excel(name = "交易总金额。精确到2位小数;单位:元。如:200.07，表示:200元7分")
-    private String totalFee;
-
-    /** 支付给卖家的金额(交易总金额-退还给买家的金额)。精确到2位小数;单位:元。如:200.07，表示:200元7分 */
-    @Excel(name = "支付给卖家的金额(交易总金额-退还给买家的金额)。精确到2位小数;单位:元。如:200.07，表示:200元7分")
-    private String payment;
-
     /** 退还金额(退还给买家的金额)。精确到2位小数;单位:元。如:200.07，表示:200元7分 */
     @Excel(name = "退还金额(退还给买家的金额)。精确到2位小数;单位:元。如:200.07，表示:200元7分")
     private BigDecimal refundFee;
 
-    /** 退款申请时间。 */
-    @Excel(name = "退款申请时间。")
+    /** 退款申请时间 */
+    @Excel(name = "退款申请时间")
     private Long created;
 
-    /** 更新时间。 */
-    @Excel(name = "更新时间。")
+    /** 更新时间 */
+    @Excel(name = "更新时间")
     private Long modified;
-
-    /** 退款对应的订单交易状态。 */
-    @Excel(name = "退款对应的订单交易状态。")
-    private String orderStatus;
 
     /** 退款状态。可选值WAIT_SELLER_AGREE(买家已经申请退款，等待卖家同意) WAIT_BUYER_RETURN_GOODS(卖家已经同意退款，等待买家退货) WAIT_SELLER_CONFIRM_GOODS(买家已经退货，等待卖家确认收货) SELLER_REFUSE_BUYER(卖家拒绝退款) CLOSED(退款关闭) SUCCESS(退款成功) */
     @Excel(name = "退款状态。可选值WAIT_SELLER_AGREE(买家已经申请退款，等待卖家同意) WAIT_BUYER_RETURN_GOODS(卖家已经同意退款，等待买家退货) WAIT_SELLER_CONFIRM_GOODS(买家已经退货，等待卖家确认收货) SELLER_REFUSE_BUYER(卖家拒绝退款) CLOSED(退款关闭) SUCCESS(退款成功)")
@@ -83,10 +71,6 @@ public class TaoOrderRefund extends BaseEntity
     @Excel(name = "退款原因")
     private String reason;
 
-    /** 退款说明 */
-    @Excel(name = "退款说明")
-    private String desc;
-
     /** 物流公司 */
     @Excel(name = "物流公司")
     private String logisticsCompany;
@@ -95,16 +79,17 @@ public class TaoOrderRefund extends BaseEntity
     @Excel(name = "物流单号")
     private String logisticsCode;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    /** 买家发货时间 */
+    @Excel(name = "买家发货时间")
     private String sendTime;
 
     /** 2已签收9供应商已退款 */
     @Excel(name = "2已签收9供应商已退款")
     private Long auditStatus;
 
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    /** 处理时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "处理时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date auditTime;
 
     /** 收货时间 */
@@ -114,27 +99,39 @@ public class TaoOrderRefund extends BaseEntity
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-    private String address;
-
-    /** 系统创建时间 */
-    @Excel(name = "系统创建时间")
-    private Long createOn;
-
-    /** 店铺id */
-    @Excel(name = "店铺id")
-    private Long shopId;
-
-    /** $column.columnComment */
-    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private Long erpGoodsId;
 
     /** $column.columnComment */
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
     private Long erpGoodsSpecId;
 
+    /** 天猫的商品Id */
+    @Excel(name = "天猫的商品Id")
+    private Long productId;
+
+    /** 天猫的SKUID */
+    @Excel(name = "天猫的SKUID")
+    private Long skuId;
+
+    /** 商品标题 */
+    @Excel(name = "商品标题")
+    private String goodsTitle;
+
+    /** 商品货号，对应系统商品编码 */
+    @Excel(name = "商品货号，对应系统商品编码")
+    private String goodsNumber;
+
     /** sku编号 */
     @Excel(name = "sku编号")
     private String specNumber;
+
+    /** 商品主图 */
+    @Excel(name = "商品主图")
+    private String productImgUrl;
+
+    /** SKU字符串 */
+    @Excel(name = "SKU字符串")
+    private String skuInfo;
 
     /** 退款阶段，可选值：onsale/aftersale */
     @Excel(name = "退款阶段，可选值：onsale/aftersale")
@@ -167,6 +164,15 @@ public class TaoOrderRefund extends BaseEntity
     {
         return afterSalesType;
     }
+    public void setShopId(Long shopId) 
+    {
+        this.shopId = shopId;
+    }
+
+    public Long getShopId() 
+    {
+        return shopId;
+    }
     public void setTid(Long tid) 
     {
         this.tid = tid;
@@ -184,33 +190,6 @@ public class TaoOrderRefund extends BaseEntity
     public Long getOid() 
     {
         return oid;
-    }
-    public void setBuyerNick(String buyerNick) 
-    {
-        this.buyerNick = buyerNick;
-    }
-
-    public String getBuyerNick() 
-    {
-        return buyerNick;
-    }
-    public void setTotalFee(String totalFee) 
-    {
-        this.totalFee = totalFee;
-    }
-
-    public String getTotalFee() 
-    {
-        return totalFee;
-    }
-    public void setPayment(String payment) 
-    {
-        this.payment = payment;
-    }
-
-    public String getPayment() 
-    {
-        return payment;
     }
     public void setRefundFee(BigDecimal refundFee) 
     {
@@ -238,15 +217,6 @@ public class TaoOrderRefund extends BaseEntity
     public Long getModified() 
     {
         return modified;
-    }
-    public void setOrderStatus(String orderStatus) 
-    {
-        this.orderStatus = orderStatus;
-    }
-
-    public String getOrderStatus() 
-    {
-        return orderStatus;
     }
     public void setStatus(Long status) 
     {
@@ -292,15 +262,6 @@ public class TaoOrderRefund extends BaseEntity
     public String getReason() 
     {
         return reason;
-    }
-    public void setDesc(String desc) 
-    {
-        this.desc = desc;
-    }
-
-    public String getDesc() 
-    {
-        return desc;
     }
     public void setLogisticsCompany(String logisticsCompany) 
     {
@@ -356,33 +317,6 @@ public class TaoOrderRefund extends BaseEntity
     {
         return receivedTime;
     }
-    public void setAddress(String address) 
-    {
-        this.address = address;
-    }
-
-    public String getAddress() 
-    {
-        return address;
-    }
-    public void setCreateOn(Long createOn) 
-    {
-        this.createOn = createOn;
-    }
-
-    public Long getCreateOn() 
-    {
-        return createOn;
-    }
-    public void setShopId(Long shopId) 
-    {
-        this.shopId = shopId;
-    }
-
-    public Long getShopId() 
-    {
-        return shopId;
-    }
     public void setErpGoodsId(Long erpGoodsId) 
     {
         this.erpGoodsId = erpGoodsId;
@@ -401,6 +335,42 @@ public class TaoOrderRefund extends BaseEntity
     {
         return erpGoodsSpecId;
     }
+    public void setProductId(Long productId) 
+    {
+        this.productId = productId;
+    }
+
+    public Long getProductId() 
+    {
+        return productId;
+    }
+    public void setSkuId(Long skuId) 
+    {
+        this.skuId = skuId;
+    }
+
+    public Long getSkuId() 
+    {
+        return skuId;
+    }
+    public void setGoodsTitle(String goodsTitle) 
+    {
+        this.goodsTitle = goodsTitle;
+    }
+
+    public String getGoodsTitle() 
+    {
+        return goodsTitle;
+    }
+    public void setGoodsNumber(String goodsNumber) 
+    {
+        this.goodsNumber = goodsNumber;
+    }
+
+    public String getGoodsNumber() 
+    {
+        return goodsNumber;
+    }
     public void setSpecNumber(String specNumber) 
     {
         this.specNumber = specNumber;
@@ -409,6 +379,24 @@ public class TaoOrderRefund extends BaseEntity
     public String getSpecNumber() 
     {
         return specNumber;
+    }
+    public void setProductImgUrl(String productImgUrl) 
+    {
+        this.productImgUrl = productImgUrl;
+    }
+
+    public String getProductImgUrl() 
+    {
+        return productImgUrl;
+    }
+    public void setSkuInfo(String skuInfo) 
+    {
+        this.skuInfo = skuInfo;
+    }
+
+    public String getSkuInfo() 
+    {
+        return skuInfo;
     }
     public void setRefundPhase(String refundPhase) 
     {
