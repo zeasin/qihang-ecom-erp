@@ -34,6 +34,8 @@ public interface ErpOrderMapper
 
     List<ErpOrderItem> selectOrderItemByOrderId(Long orderId);
 
+    ErpOrderItem selectOrderItemByOrderItemNum(ErpOrderItem orderItem);
+
     /**
      * 新增订单
      * 

@@ -4,12 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import com.qihang.erp.api.domain.*;
-import com.qihang.erp.api.mapper.ErpOrderReturnedMapper;
-import com.qihang.erp.api.mapper.GoodsSpecMapper;
-import com.qihang.erp.api.mapper.TaoOrderMapper;
+import com.qihang.erp.api.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.qihang.erp.api.mapper.TaoOrderRefundMapper;
 import com.qihang.erp.api.service.ITaoOrderRefundService;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +27,9 @@ public class TaoOrderRefundServiceImpl implements ITaoOrderRefundService
     private GoodsSpecMapper goodsSpecMapper;
     @Autowired
     private ErpOrderReturnedMapper erpOrderReturnedMapper;
+
+    @Autowired
+    private ErpOrderMapper erpOrderMapper;
 
     /**
      * 查询淘宝退款订单
@@ -117,11 +117,20 @@ public class TaoOrderRefundServiceImpl implements ITaoOrderRefundService
         TaoOrderRefund refund = taoOrderRefundMapper.selectTaoOrderRefundById(taoOrderRefund.getId());
         if (refund == null) return -1;
         else if(refund.getAuditStatus() != 0) return -2;
-        // 查询erp_goods_spec
-        GoodsSpec goodsSpec = new GoodsSpec();
-        goodsSpec.setSpecNum(taoOrderRefund.getSpecNumber());
-        List<GoodsSpec> goodsSpecs = goodsSpecMapper.selectGoodsSpecList(goodsSpec);
-        if(goodsSpecs==null || goodsSpecs.size() ==0) return -11;
+
+        // 查询erp_order_item
+        ErpOrderItem select = new ErpOrderItem();
+        select.setOrderItemNum(refund.getOid().toString());
+        select.setShopId(refund.getShopId().intValue());
+        ErpOrderItem erpOrderItem = erpOrderMapper.selectOrderItemByOrderItemNum(select);
+        if(erpOrderItem == null) return -21;
+
+//        // 查询erp_goods_spec
+//        GoodsSpec goodsSpec = new GoodsSpec();
+//        goodsSpec.setSpecNum(taoOrderRefund.getSpecNumber());
+//        List<GoodsSpec> goodsSpecs = goodsSpecMapper.selectGoodsSpecList(goodsSpec);
+//        if(goodsSpecs==null || goodsSpecs.size() ==0) return -11;
+
         // 插入到erp_order_returned
         ErpOrderReturned returned = new ErpOrderReturned();
         returned.setReturnedNum(refund.getRefundId());
@@ -131,12 +140,12 @@ public class TaoOrderRefundServiceImpl implements ITaoOrderRefundService
             returned.setReturnedType(2L);
         }
         returned.setOrderNum(refund.getTid()+"");
-        returned.setOrderId(refund.getTid());
-        returned.setOrderItemId(refund.getOid());
+        returned.setOrderId(erpOrderItem.getOrderId());
+        returned.setOrderItemId(erpOrderItem.getId());
         returned.setShopId(refund.getShopId());
         returned.setShopType(4L);
-        returned.setGoodsId(goodsSpecs.get(0).getGoodsId());
-        returned.setSpecId(goodsSpecs.get(0).getId());
+        returned.setGoodsId(erpOrderItem.getGoodsId());
+        returned.setSpecId(erpOrderItem.getSpecId());
         returned.setGoodsNum(refund.getGoodsNumber());
         returned.setSpecNum(refund.getSpecNumber());
         returned.setGoodsName(refund.getGoodsTitle());

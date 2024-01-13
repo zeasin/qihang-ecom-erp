@@ -100,6 +100,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
 
+    <select id="selectOrderItemByOrderItemNum" parameterType="ErpOrderItem" resultMap="ErpOrderItemResult">
+        select
+        b.id as sub_id, b.order_item_num as sub_order_item_num,b.supplier_id as sub_supplier_id,b.order_id as sub_order_id, b.goods_id as sub_goods_id, b.spec_id as sub_spec_id, b.goods_title as sub_goods_title, b.goods_img as sub_goods_img, b.goods_num as sub_goods_num, b.goods_spec as sub_goods_spec, b.spec_num as sub_spec_num, b.goods_price as sub_goods_price, b.item_amount as sub_item_amount, b.quantity as sub_quantity, b.remark as sub_remark, b.is_gift as sub_is_gift, b.refund_count as sub_refund_count, b.refund_status as sub_refund_status, b.create_time as sub_create_time, b.create_by as sub_create_by, b.update_time as sub_update_time, b.update_by as sub_update_by
+        from  erp_order_item b
+        left s_tao_order a on a.id = b.order_id
+        where b.order_item_num = #{orderItemNum} and shop_id = #{shopId}
+    </select>
 
     <select id="selectOrderItemByOrderId" parameterType="Long" resultMap="ErpOrderItemResult">
         select
