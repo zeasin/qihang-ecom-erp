@@ -125,6 +125,9 @@
               <p>{{item.skuInfo}}&nbsp;
                 <el-tag size="small">x {{item.quantity}}</el-tag>
                 </p>
+                <p v-if="scope.row.refundStatus === 0">
+                  <el-button type="text" size="mini" round @click="handleRefund(scope.row,item)">售后</el-button>
+                </p>
               </div>
             </div>
             </el-row>
@@ -288,12 +291,6 @@
         <el-form-item label="详细地址" prop="postAddr">
           <el-input v-model="form.address" placeholder="请输入详细地址" style="width:250px" />
         </el-form-item>
-
-
-
-
-
-
         <el-form-item label="卖家备忘信息" prop="sellerMemo">
           <el-input type="textarea" v-model="form.sellerMemo" placeholder="请输入卖家备忘信息" style="width:250px" />
         </el-form-item>
@@ -520,11 +517,66 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+
+    <!-- 售后对话框 -->
+    <el-dialog title="添加售后" :visible.sync="saleAfterOpen" width="500px" append-to-body :close-on-click-modal="false">
+      <el-form ref="refundForm" :model="saleAfterForm" :rules="saleAfterRules" label-width="80px" inline>
+        <el-form-item label="订单ID" prop="tid">
+          <el-input v-model.number="saleAfterForm.tid" placeholder="订单ID" style="width:250px" disabled />
+        </el-form-item>
+        <!-- <el-form-item label="子订单ID" prop="oid">
+          <el-input v-model="saleAfterForm.oid" placeholder="" style="width:250px" disabled />
+        </el-form-item> -->
+        <el-form-item label="商品图片" prop="productImgUrl">
+          <!-- <el-image style="width: 70px; height: 70px" :src="saleAfterForm.productImgUrl"></el-image> -->
+          <div style="float: left;display: flex;align-items: center;" >
+              <el-image  style="width: 70px; height: 70px;" :src="saleAfterForm.productImgUrl"></el-image>
+              <div style="margin-left:10px">
+              <p>{{saleAfterForm.goodsTitle}}</p>
+              <p>{{saleAfterForm.skuInfo}} </p>
+              </div>
+            </div>
+        </el-form-item>
+        <!-- <el-form-item label="商品名称" prop="goodsTitle">
+          <el-input v-model="saleAfterForm.goodsTitle" placeholder="" style="width:250px" disabled />
+        </el-form-item> -->
+        <el-form-item label="退款单号" prop="refundId">
+          <el-input v-model.number="saleAfterForm.refundId" placeholder="" style="width:250px" />
+        </el-form-item>
+        <el-form-item label="购买数量" prop="quantity">
+          <el-input v-model="saleAfterForm.quantity" placeholder="" style="width:250px" disabled />
+        </el-form-item>
+        <el-form-item label="退货数量" prop="num">
+          <el-input v-model.number="saleAfterForm.num" placeholder="" style="width:250px" />
+        </el-form-item>
+        <el-form-item label="总金额" prop="itemAmount">
+          <el-input v-model="saleAfterForm.itemAmount" placeholder="" style="width:250px" disabled/>
+        </el-form-item>
+        <el-form-item label="退款金额" prop="refundFee">
+          <el-input type="number" v-model.number="saleAfterForm.refundFee" placeholder="请输入退款金额" style="width:250px"/>
+        </el-form-item>
+        <el-form-item label="退款类型" prop="afterSalesType">
+          <el-select v-model="saleAfterForm.afterSalesType" placeholder="退款类型" style="width:250px" >
+           <el-option value="1" label="退货"></el-option>
+           <el-option value="3" label="换货"></el-option>
+           <el-option value="9" label="仅退款"></el-option>
+          </el-select>
+        </el-form-item>
+        <!-- <el-form-item label="实际支付金额" prop="payAmount">
+          <el-input v-model="form.payAmount" placeholder="请输入实际支付金额" style="width:250px"/>
+        </el-form-item> -->
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitRefundForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { listOrder, getOrder, delOrder, addOrder, confirmOrder } from "@/api/tao/order";
+import { addTaoRefund } from "@/api/tao/taoRefund";
 import { listShop } from "@/api/shop/shop";
 import { searchSku } from "@/api/goods/goods";
 import {
@@ -567,11 +619,12 @@ export default {
       open: false,
       detailTitle:'订单详情',
       detailOpen:false,
+      saleAfterOpen:false,
       // 查询参数
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        shopId: '6',
+        shopId: 6,
         orderSource: '1',
         totalAmount: null,
         shippingFee: null,
@@ -618,8 +671,21 @@ export default {
         city:null,
         town:null
       },
+      // 售后表单
+      saleAfterForm:{
+        num:null,
+        refundFee:null,
+        afterSalesType:null,
+        refundId:null
+      },
       pcaTextArr,
       // 表单校验
+      saleAfterRules:{
+        refundId: [{ required: true, message: "不能为空", trigger: "blur" }],
+        refundQty: [{ required: true, message: "不能为空", trigger: "blur" }],
+        refundFee: [{ required: true, message: "不能为空", trigger: "blur" }],
+        afterSalesType: [{ required: true, message: "不能为空", trigger: "change" }],
+      },
       rules: {
         id: [
           { required: true, message: "请输入淘宝订单ID", trigger: "blur" }
@@ -691,6 +757,7 @@ export default {
     cancel() {
       this.open = false;
       this.detailOpen = false;
+      this.saleAfterOpen = false
       this.reset();
     },
     // 表单重置
@@ -792,6 +859,32 @@ export default {
             this.detailOpen = false;
             this.getList();
           });
+        }
+      })
+    },
+    /** 售后按钮 */
+    handleRefund(row,item){
+      this.saleAfterForm.tid = row.id
+      this.saleAfterForm.oid = item.subItemId
+      this.saleAfterForm.productImgUrl = item.productImgUrl
+      this.saleAfterForm.goodsTitle = item.goodsTitle
+      this.saleAfterForm.skuInfo = item.skuInfo
+      this.saleAfterForm.num = item.quantity
+      this.saleAfterForm.quantity = item.quantity
+      this.saleAfterForm.itemAmount = item.itemAmount
+      this.saleAfterForm.refundFee = item.itemAmount
+      
+      console.log('售后====',row)
+      this.saleAfterOpen = true
+    },
+    submitRefundForm() {
+      this.$refs["refundForm"].validate(valid => {
+        if (valid) {
+          addTaoRefund(this.saleAfterForm).then(resp =>{
+            console.log('=====售后添加成功=====',resp)
+            this.$modal.msgSuccess("退款添加成功");
+            this.saleAfterOpen = false
+          })
         }
       })
     },

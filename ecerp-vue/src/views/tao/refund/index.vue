@@ -132,25 +132,43 @@
         </template>
       </el-table-column>
       <el-table-column label="订单号" align="center" prop="tid" />
+      <el-table-column label="商品" width="350">
+          <template slot-scope="scope">
+            <div style="float: left;display: flex;align-items: center;" >
+              <el-image  style="width: 70px; height: 70px;" :src="scope.row.productImgUrl"></el-image>
+              <div style="margin-left:10px">
+              <p>{{scope.row.goodsTitle}}</p>
+              <p>{{scope.row.skuInfo}}</p>
+              </div>
+            </div>
+          </template>
+      </el-table-column>
+      <el-table-column label="退货数量" align="center" prop="num" />
       <!-- <el-table-column label="子订单号。如果是单笔交易oid会等于tid" align="center" prop="oid" /> -->
       <!-- <el-table-column label="买家昵称" align="center" prop="buyerNick" /> -->
       <!-- <el-table-column label="交易总金额。精确到2位小数;单位:元。如:200.07，表示:200元7分" align="center" prop="totalFee" /> -->
       <!-- <el-table-column label="支付给卖家的金额(交易总金额-退还给买家的金额)。精确到2位小数;单位:元。如:200.07，表示:200元7分" align="center" prop="payment" /> -->
-      <el-table-column label="退还金额" align="center" prop="refundFee" />
+      <el-table-column label="退款金额" align="center" prop="refundFee" />
       <!-- <el-table-column label="退款申请时间。" align="center" prop="created" /> -->
       <!-- <el-table-column label="更新时间。" align="center" prop="modified" /> -->
       <!-- <el-table-column label="退款对应的订单交易状态。" align="center" prop="orderStatus" /> -->
       <!-- <el-table-column label="退款状态" align="center" prop="status" /> -->
       <!-- <el-table-column label="货物状态。可选值BUYER_NOT_RECEIVED (买家未收到货) BUYER_RECEIVED (买家已收到货) BUYER_RETURNED_GOODS (买家已退货)" align="center" prop="goodStatus" /> -->
-      <el-table-column label="退货数量" align="center" prop="num" />
+      
       <!-- <el-table-column label="买家是否需要退货。可选值:true(是),false(否)" align="center" prop="hasGoodReturn" /> -->
       <el-table-column label="退款原因" align="center" prop="reason" />
-      <el-table-column label="退款说明" align="center" prop="desc" />
-      <el-table-column label="物流公司" align="center" prop="logisticsCompany" />
-      <el-table-column label="物流单号" align="center" prop="logisticsCode" />
-      <el-table-column label="发货时间" align="center" prop="sendTime" />
-      <el-table-column label="2已签收9供应商已退款" align="center" prop="auditStatus" />
-      <el-table-column label="处理时间" align="center" prop="auditTime" width="180">
+      <!-- <el-table-column label="退款说明" align="center" prop="desc" /> -->
+      <!-- <el-table-column label="物流公司" align="center" prop="logisticsCompany" /> -->
+      <el-table-column label="退货物流" align="center" prop="logisticsCode" />
+      <!-- <el-table-column label="发货时间" align="center" prop="sendTime" /> -->
+      <el-table-column label="处理状态" align="center" prop="auditStatus" >
+        <template slot-scope="scope">
+          <el-tag size="small" v-if="scope.row.auditStatus === 0"> 未处理</el-tag>
+          <el-tag size="small" v-if="scope.row.auditStatus === 2"> 已签收</el-tag>
+          <el-tag size="small" v-if="scope.row.auditStatus === 9"> 供应商已退款</el-tag>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column label="处理时间" align="center" prop="auditTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.auditTime, '{y}-{m}-{d}') }}</span>
         </template>
@@ -159,14 +177,18 @@
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.receivedTime, '{y}-{m}-{d}') }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <!-- <el-table-column label="${comment}" align="center" prop="address" /> -->
       <el-table-column label="备注" align="center" prop="remark" />
-      <el-table-column label="创建时间" align="center" prop="createOn" />
-      <el-table-column label="店铺id" align="center" prop="shopId" />
+      <!-- <el-table-column label="创建时间" align="center" prop="createOn" /> -->
+      <el-table-column label="店铺" align="center" prop="shopId" >
+        <template slot-scope="scope">
+          <span v-if="scope.row.shopId==6">梦小妮牛仔裤</span>
+        </template>
+      </el-table-column>
       <!-- <el-table-column label="${comment}" align="center" prop="erpGoodsId" /> -->
       <!-- <el-table-column label="${comment}" align="center" prop="erpGoodsSpecId" /> -->
-      <el-table-column label="sku编号" align="center" prop="specNumber" />
+      <!-- <el-table-column label="sku编号" align="center" prop="specNumber" /> -->
       <!-- <el-table-column label="退款阶段，可选值：onsale/aftersale" align="center" prop="refundPhase" /> -->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">

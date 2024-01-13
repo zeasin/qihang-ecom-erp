@@ -91,23 +91,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectTaoOrderList" parameterType="TaoOrder" resultMap="TaoOrderResult">
         <include refid="selectTaoOrderVo"/>
         <where>  
+            <if test="id != null "> and id = #{id}</if>
             <if test="shopId != null "> and shopId = #{shopId}</if>
-            <if test="orderSource != null "> and orderSource = #{orderSource}</if>
-            <if test="buyerName != null  and buyerName != ''"> and buyerName like concat('%', #{buyerName}, '%')</if>
-            <if test="totalAmount != null "> and totalAmount = #{totalAmount}</if>
-            <if test="shippingFee != null "> and shippingFee = #{shippingFee}</if>
-            <if test="discountAmount != null "> and discountAmount = #{discountAmount}</if>
-            <if test="payAmount != null "> and payAmount = #{payAmount}</if>
-            <if test="discountRemark != null  and discountRemark != ''"> and discountRemark = #{discountRemark}</if>
+<!--            <if test="orderSource != null "> and orderSource = #{orderSource}</if>-->
+<!--            <if test="buyerName != null  and buyerName != ''"> and buyerName like concat('%', #{buyerName}, '%')</if>-->
+<!--            <if test="totalAmount != null "> and totalAmount = #{totalAmount}</if>-->
+<!--            <if test="shippingFee != null "> and shippingFee = #{shippingFee}</if>-->
+<!--            <if test="discountAmount != null "> and discountAmount = #{discountAmount}</if>-->
+<!--            <if test="payAmount != null "> and payAmount = #{payAmount}</if>-->
+<!--            <if test="discountRemark != null  and discountRemark != ''"> and discountRemark = #{discountRemark}</if>-->
             <if test="orderCreateTime != null "> and orderCreateTime = #{orderCreateTime}</if>
             <if test="orderModifyTime != null "> and orderModifyTime = #{orderModifyTime}</if>
             <if test="payTime != null "> and payTime = #{payTime}</if>
             <if test="confirmedTime != null "> and confirmedTime = #{confirmedTime}</if>
             <if test="deliveredTime != null "> and deliveredTime = #{deliveredTime}</if>
             <if test="completeTime != null "> and completeTime = #{completeTime}</if>
-            <if test="sellerMemo != null  and sellerMemo != ''"> and sellerMemo = #{sellerMemo}</if>
-            <if test="buyerFeedback != null  and buyerFeedback != ''"> and buyerFeedback = #{buyerFeedback}</if>
-            <if test="closeReason != null  and closeReason != ''"> and closeReason = #{closeReason}</if>
+<!--            <if test="sellerMemo != null  and sellerMemo != ''"> and sellerMemo = #{sellerMemo}</if>-->
+<!--            <if test="buyerFeedback != null  and buyerFeedback != ''"> and buyerFeedback = #{buyerFeedback}</if>-->
+<!--            <if test="closeReason != null  and closeReason != ''"> and closeReason = #{closeReason}</if>-->
             <if test="receivingTime != null "> and receivingTime = #{receivingTime}</if>
             <if test="statusStr != null  and statusStr != ''"> and statusStr = #{statusStr}</if>
             <if test="status != null "> and status = #{status}</if>
@@ -143,6 +144,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from  s_tao_order_item b
         where b.orderId = #{orderId}
     </select>
+    <select id="selectOrderItemBySubItemIdId" parameterType="Long" resultMap="TaoOrderItemResult" >
+        select b.id as sub_id, b.orderId as sub_orderId, b.subItemId as sub_subItemId, b.itemAmount as sub_itemAmount, b.discount_fee as sub_discount_fee, b.adjust_fee as sub_adjust_fee, b.goodsTitle as sub_goodsTitle, b.goodsNumber as sub_goodsNumber, b.productImgUrl as sub_productImgUrl, b.productUrl as sub_productUrl, b.productId as sub_productId, b.skuId as sub_skuId, b.specNumber as sub_specNumber, b.skuInfo as sub_skuInfo, b.price as sub_price, b.quantity as sub_quantity, b.status as sub_status, b.statusStr as sub_statusStr, b.refundStatus as sub_refundStatus, b.refundStatusStr as sub_refundStatusStr, b.refundAmount as sub_refundAmount, b.refundId as sub_refundId, b.logisticsStatus as sub_logisticsStatus, b.new_spec_id as sub_new_spec_id, b.new_spec_number as sub_new_spec_number, b.after_sale_state as sub_after_sale_state, b.erpGoodsId as sub_erpGoodsId, b.erpGoodsSpecId as sub_erpGoodsSpecId, b.remark as sub_remark, b.isGift as sub_isGift, b.isSwap as sub_isSwap
+        from  s_tao_order_item b
+        where b.subItemId = #{subItemId}
+    </select>
+
         
     <insert id="insertTaoOrder" parameterType="TaoOrder">
         insert into s_tao_order
@@ -230,6 +237,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
+    <update id="updateTaoOrderItem" parameterType="TaoOrderItem">
+    update s_tao_order_item
+    <trim prefix="SET" suffixOverrides=",">
+        <if test="refundStatus != null">refundStatus = #{refundStatus},</if>
+<!--        <if test="updateTime != null">updateTime = #{updateTime},</if>-->
+<!--        <if test="updateBy != null">updateBy = #{updateBy},</if>-->
+    </trim>
+        where id = #{id}
+    </update>
     <update id="updateTaoOrder" parameterType="TaoOrder">
         update s_tao_order
         <trim prefix="SET" suffixOverrides=",">
