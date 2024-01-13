@@ -69,16 +69,16 @@ public class ErpOrderReturnedController extends BaseController
         return success(erpOrderReturnedService.selectErpOrderReturnedById(id));
     }
 
-    /**
-     * 新增退换货
-     */
-    @PreAuthorize("@ss.hasPermi('api:returned:add')")
-    @Log(title = "退换货", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody ErpOrderReturned erpOrderReturned)
-    {
-        return toAjax(erpOrderReturnedService.insertErpOrderReturned(erpOrderReturned));
-    }
+//    /**
+//     * 新增退换货
+//     */
+//    @PreAuthorize("@ss.hasPermi('api:returned:add')")
+//    @Log(title = "退换货", businessType = BusinessType.INSERT)
+//    @PostMapping
+//    public AjaxResult add(@RequestBody ErpOrderReturned erpOrderReturned)
+//    {
+//        return toAjax(erpOrderReturnedService.insertErpOrderReturned(erpOrderReturned));
+//    }
 
     /**
      * 修改退换货
@@ -88,17 +88,18 @@ public class ErpOrderReturnedController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody ErpOrderReturned erpOrderReturned)
     {
-        return toAjax(erpOrderReturnedService.updateErpOrderReturned(erpOrderReturned));
+        //erpOrderReturnedService.updateErpOrderReturned(erpOrderReturned)
+        return toAjax(1);
     }
 
-    /**
-     * 删除退换货
-     */
-    @PreAuthorize("@ss.hasPermi('api:returned:remove')")
-    @Log(title = "退换货", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(erpOrderReturnedService.deleteErpOrderReturnedByIds(ids));
-    }
+//    /**
+//     * 删除退换货
+//     */
+//    @PreAuthorize("@ss.hasPermi('api:returned:remove')")
+//    @Log(title = "退换货", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(erpOrderReturnedService.deleteErpOrderReturnedByIds(ids));
+//    }
 }

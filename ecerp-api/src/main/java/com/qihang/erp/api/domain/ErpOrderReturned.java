@@ -44,7 +44,7 @@ public class ErpOrderReturned extends BaseEntity
 
     /** 子订单id */
     @Excel(name = "子订单id")
-    private Long orderTimeId;
+    private Long orderItemId;
 
     /** 商品id */
     @Excel(name = "商品id")
@@ -170,16 +170,16 @@ public class ErpOrderReturned extends BaseEntity
     {
         return orderId;
     }
-    public void setOrderTimeId(Long orderTimeId) 
-    {
-        this.orderTimeId = orderTimeId;
+
+    public Long getOrderItemId() {
+        return orderItemId;
     }
 
-    public Long getOrderTimeId() 
-    {
-        return orderTimeId;
+    public void setOrderItemId(Long orderItemId) {
+        this.orderItemId = orderItemId;
     }
-    public void setGoodsId(Long goodsId) 
+
+    public void setGoodsId(Long goodsId)
     {
         this.goodsId = goodsId;
     }

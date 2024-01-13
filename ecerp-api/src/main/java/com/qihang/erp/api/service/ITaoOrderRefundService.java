@@ -41,7 +41,7 @@ public interface ITaoOrderRefundService
      * @param taoOrderRefund 淘宝退款订单
      * @return 结果
      */
-    public int updateTaoOrderRefund(TaoOrderRefund taoOrderRefund);
+    public int confirmRefund(TaoOrderRefund taoOrderRefund);
 
     /**
      * 批量删除淘宝退款订单
