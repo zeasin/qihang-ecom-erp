@@ -96,7 +96,8 @@ public class TaoOrderRefundController extends BaseController
         int result = taoOrderRefundService.confirmRefund(taoOrderRefund);
         if(result == -1) return new AjaxResult(501,"数据不存在");
         else if(result == -2) return new AjaxResult(502,"已处理！请勿重复提交！");
-        else if(result == -11) return new AjaxResult(511,"specNumber编码找不到数据！");
+        else if(result == -11) return new AjaxResult(511,"数据错误：specNumber编码找不到数据！");
+        else if(result == -21) return new AjaxResult(521,"数据错误：ErpOrderItem未找到！");
         return toAjax(1);
     }
 //

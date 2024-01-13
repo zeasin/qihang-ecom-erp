@@ -21,7 +21,16 @@ public class ErpOrderItem extends BaseEntity
     @Excel(name = "订单ID")
     private Long orderId;
     private Integer supplierId;
+    private Integer shopId;
     private String orderItemNum;
+
+    public Integer getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
 
     public String getOrderItemNum() {
         return orderItemNum;
