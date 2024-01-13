@@ -207,7 +207,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['xhs:refund:add']"
+          v-hasPermi="['xhs:xhsRefund:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -218,7 +218,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['xhs:refund:edit']"
+          v-hasPermi="['xhs:xhsRefund:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -229,7 +229,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['xhs:refund:remove']"
+          v-hasPermi="['xhs:xhsRefund:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -239,13 +239,13 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['xhs:refund:export']"
+          v-hasPermi="['xhs:xhsRefund:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="refundList" @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data="xhsRefundList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="${comment}" align="center" prop="id" />
       <el-table-column label="小红书店铺售后id" align="center" prop="returnsId" />
@@ -293,14 +293,14 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['xhs:refund:edit']"
+            v-hasPermi="['xhs:xhsRefund:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['xhs:refund:remove']"
+            v-hasPermi="['xhs:xhsRefund:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -479,10 +479,10 @@
 </template>
 
 <script>
-import { listRefund, getRefund, delRefund, addRefund, updateRefund } from "@/api/xhs/refund";
+import { listXhsRefund, getXhsRefund, delXhsRefund, addXhsRefund, updateXhsRefund } from "@/api/xhs/xhsRefund";
 
 export default {
-  name: "Refund",
+  name: "XhsRefund",
   data() {
     return {
       // 遮罩层
@@ -500,7 +500,7 @@ export default {
       // 总条数
       total: 0,
       // 小红书订单退款表格数据
-      refundList: [],
+      xhsRefundList: [],
       // 小红书订单退款明细表格数据
       xhsRefundItemList: [],
       // 弹出层标题
@@ -622,8 +622,8 @@ export default {
     /** 查询小红书订单退款列表 */
     getList() {
       this.loading = true;
-      listRefund(this.queryParams).then(response => {
-        this.refundList = response.rows;
+      listXhsRefund(this.queryParams).then(response => {
+        this.xhsRefundList = response.rows;
         this.total = response.total;
         this.loading = false;
       });
@@ -697,7 +697,7 @@ export default {
     handleUpdate(row) {
       this.reset();
       const id = row.id || this.ids
-      getRefund(id).then(response => {
+      getXhsRefund(id).then(response => {
         this.form = response.data;
         this.xhsRefundItemList = response.data.xhsRefundItemList;
         this.open = true;
@@ -710,13 +710,13 @@ export default {
         if (valid) {
           this.form.xhsRefundItemList = this.xhsRefundItemList;
           if (this.form.id != null) {
-            updateRefund(this.form).then(response => {
+            updateXhsRefund(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
-            addRefund(this.form).then(response => {
+            addXhsRefund(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -729,7 +729,7 @@ export default {
     handleDelete(row) {
       const ids = row.id || this.ids;
       this.$modal.confirm('是否确认删除小红书订单退款编号为"' + ids + '"的数据项？').then(function() {
-        return delRefund(ids);
+        return delXhsRefund(ids);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
@@ -776,9 +776,9 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('xhs/refund/export', {
+      this.download('xhs/xhsRefund/export', {
         ...this.queryParams
-      }, `refund_${new Date().getTime()}.xlsx`)
+      }, `xhsRefund_${new Date().getTime()}.xlsx`)
     }
   }
 };

@@ -9,7 +9,7 @@ import com.zhijian.common.core.domain.BaseEntity;
  * 拼多多订单退款对象 s_pdd_order_refund
  * 
  * @author qihang
- * @date 2024-01-02
+ * @date 2024-01-13
  */
 public class PddOrderRefund extends BaseEntity
 {

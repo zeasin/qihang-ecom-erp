@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectTaoOrderRefundVo">
-        select id, refund_id, after_sales_type, tid, oid, buyer_nick, total_fee, payment, refund_fee, created, modified, order_status, status, good_status, num, has_good_return, reason, desc, logisticsCompany, logisticsCode, send_time, auditStatus, auditTime, receivedTime, address, remark, createOn, shopId, erpGoodsId, erpGoodsSpecId, specNumber, refund_phase from s_tao_order_refund
+        select id, refund_id, after_sales_type, tid, oid, buyer_nick, total_fee, payment, refund_fee, created, modified, order_status, status, good_status, num, has_good_return, reason, `desc`, logisticsCompany, logisticsCode, send_time, auditStatus, auditTime, receivedTime, address, remark, createOn, shopId, erpGoodsId, erpGoodsSpecId, specNumber, refund_phase from s_tao_order_refund
     </sql>
 
     <select id="selectTaoOrderRefundList" parameterType="TaoOrderRefund" resultMap="TaoOrderRefundResult">

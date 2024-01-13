@@ -7,7 +7,7 @@ import com.qihang.erp.api.domain.XhsRefund;
  * 小红书订单退款Service接口
  * 
  * @author qihang
- * @date 2024-01-03
+ * @date 2024-01-13
  */
 public interface IXhsRefundService 
 {

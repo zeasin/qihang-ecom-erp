@@ -25,10 +25,10 @@ import com.zhijian.common.core.page.TableDataInfo;
  * 淘宝退款订单Controller
  * 
  * @author qihang
- * @date 2024-01-03
+ * @date 2024-01-13
  */
 @RestController
-@RequestMapping("/tao/refund")
+@RequestMapping("/tao/taoRefund")
 public class TaoOrderRefundController extends BaseController
 {
     @Autowired
@@ -37,7 +37,7 @@ public class TaoOrderRefundController extends BaseController
     /**
      * 查询淘宝退款订单列表
      */
-    @PreAuthorize("@ss.hasPermi('tao:refund:list')")
+    @PreAuthorize("@ss.hasPermi('tao:taoRefund:list')")
     @GetMapping("/list")
     public TableDataInfo list(TaoOrderRefund taoOrderRefund)
     {
@@ -49,7 +49,7 @@ public class TaoOrderRefundController extends BaseController
     /**
      * 导出淘宝退款订单列表
      */
-    @PreAuthorize("@ss.hasPermi('tao:refund:export')")
+    @PreAuthorize("@ss.hasPermi('tao:taoRefund:export')")
     @Log(title = "淘宝退款订单", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, TaoOrderRefund taoOrderRefund)
@@ -62,43 +62,43 @@ public class TaoOrderRefundController extends BaseController
     /**
      * 获取淘宝退款订单详细信息
      */
-    @PreAuthorize("@ss.hasPermi('tao:refund:query')")
+    @PreAuthorize("@ss.hasPermi('tao:taoRefund:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
         return success(taoOrderRefundService.selectTaoOrderRefundById(id));
     }
 
-    /**
-     * 新增淘宝退款订单
-     */
-    @PreAuthorize("@ss.hasPermi('tao:refund:add')")
-    @Log(title = "淘宝退款订单", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody TaoOrderRefund taoOrderRefund)
-    {
-        return toAjax(taoOrderRefundService.insertTaoOrderRefund(taoOrderRefund));
-    }
-
-    /**
-     * 修改淘宝退款订单
-     */
-    @PreAuthorize("@ss.hasPermi('tao:refund:edit')")
-    @Log(title = "淘宝退款订单", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody TaoOrderRefund taoOrderRefund)
-    {
-        return toAjax(taoOrderRefundService.updateTaoOrderRefund(taoOrderRefund));
-    }
-
-    /**
-     * 删除淘宝退款订单
-     */
-    @PreAuthorize("@ss.hasPermi('tao:refund:remove')")
-    @Log(title = "淘宝退款订单", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(taoOrderRefundService.deleteTaoOrderRefundByIds(ids));
-    }
+//    /**
+//     * 新增淘宝退款订单
+//     */
+//    @PreAuthorize("@ss.hasPermi('tao:taoRefund:add')")
+//    @Log(title = "淘宝退款订单", businessType = BusinessType.INSERT)
+//    @PostMapping
+//    public AjaxResult add(@RequestBody TaoOrderRefund taoOrderRefund)
+//    {
+//        return toAjax(taoOrderRefundService.insertTaoOrderRefund(taoOrderRefund));
+//    }
+//
+//    /**
+//     * 修改淘宝退款订单
+//     */
+//    @PreAuthorize("@ss.hasPermi('tao:taoRefund:edit')")
+//    @Log(title = "淘宝退款订单", businessType = BusinessType.UPDATE)
+//    @PutMapping
+//    public AjaxResult edit(@RequestBody TaoOrderRefund taoOrderRefund)
+//    {
+//        return toAjax(taoOrderRefundService.updateTaoOrderRefund(taoOrderRefund));
+//    }
+//
+//    /**
+//     * 删除淘宝退款订单
+//     */
+//    @PreAuthorize("@ss.hasPermi('tao:taoRefund:remove')")
+//    @Log(title = "淘宝退款订单", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(taoOrderRefundService.deleteTaoOrderRefundByIds(ids));
+//    }
 }
