@@ -34,14 +34,14 @@
       </el-form-item>
       
 
-      <el-form-item label="退款原因" prop="reason">
+      <!-- <el-form-item label="退款原因" prop="reason">
         <el-input
           v-model="queryParams.reason"
           placeholder="请输入退款原因"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item> -->
      
       <el-form-item label="物流单号" prop="logisticsCode">
         <el-input
