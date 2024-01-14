@@ -75,8 +75,18 @@ public class PddOrderItem extends BaseEntity
     /** 已退货数量 */
     @Excel(name = "已退货数量")
     private Long refundCount;
+    /** 售后状态 1：无售后或售后关闭，2：售后处理中，3：退款中，4： 退款成功  */
+    private Long refundStatus;
 
-    public void setId(Long id) 
+    public Long getRefundStatus() {
+        return refundStatus;
+    }
+
+    public void setRefundStatus(Long refundStatus) {
+        this.refundStatus = refundStatus;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }

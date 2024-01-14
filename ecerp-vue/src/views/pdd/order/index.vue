@@ -21,15 +21,6 @@
         </el-select>
       </el-form-item>
 
-
-      <el-form-item label="收件人" prop="receiverName1">
-        <el-input
-          v-model="queryParams.receiverName1"
-          placeholder="请输入收件人姓名"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
       <el-form-item label="手机号" prop="receiverPhone1">
         <el-input
           v-model="queryParams.receiverPhone1"
@@ -168,6 +159,8 @@
               <p>{{item.goodsSpec}}</p>
               <p>
                 <el-tag size="small">x {{item.quantity}}</el-tag>
+
+                <el-button v-if="item.refundStatus === 1" type="text" size="mini" round @click="handleRefund(scope.row,item)">售后</el-button>
                 </p>
               </div>
             </div>
@@ -700,6 +693,61 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+
+    <!-- 售后对话框 -->
+    <el-dialog title="添加售后" :visible.sync="saleAfterOpen" width="500px" append-to-body :close-on-click-modal="false">
+      <el-form ref="refundForm" :model="saleAfterForm" :rules="saleAfterRules" label-width="80px" inline>
+        <el-form-item label="订单ID" prop="tid">
+          <el-input v-model.number="saleAfterForm.orderSn" placeholder="订单号" style="width:250px" disabled />
+        </el-form-item>
+        <!-- <el-form-item label="子订单ID" prop="oid">
+          <el-input v-model="saleAfterForm.oid" placeholder="" style="width:250px" disabled />
+        </el-form-item> -->
+        <el-form-item label="商品图片" prop="goodsImage">
+          <div style="float: left;display: flex;align-items: center;" >
+              <el-image  style="width: 70px; height: 70px;" :src="saleAfterForm.goodsImage"></el-image>
+              <div style="margin-left:10px">
+              <p>{{saleAfterForm.goodsName}}</p>
+              <p>{{saleAfterForm.goodsSpec}} </p>
+              </div>
+            </div>
+        </el-form-item>
+        <!-- <el-form-item label="商品名称" prop="goodsTitle">
+          <el-input v-model="saleAfterForm.goodsTitle" placeholder="" style="width:250px" disabled />
+        </el-form-item> -->
+        <el-form-item label="退款单号" prop="id">
+          <el-input v-model.number="saleAfterForm.id" placeholder="" style="width:250px" />
+        </el-form-item>
+        <el-form-item label="购买数量" prop="quantity">
+          <el-input v-model="saleAfterForm.quantity" placeholder="" style="width:250px" disabled />
+        </el-form-item>
+        <el-form-item label="退货数量" prop="refundQty">
+          <el-input v-model.number="saleAfterForm.refundQty" placeholder="" style="width:250px" />
+        </el-form-item>
+        <el-form-item label="总金额" prop="itemAmount">
+          <el-input v-model="saleAfterForm.itemAmount" placeholder="" style="width:250px" disabled/>
+        </el-form-item>
+        <el-form-item label="退款金额" prop="refundAmount">
+          <el-input type="number" v-model.number="saleAfterForm.refundAmount" placeholder="请输入退款金额" style="width:250px"/>
+        </el-form-item>
+        <el-form-item label="退款类型" prop="afterSalesType">
+          <el-select v-model="saleAfterForm.afterSalesType" placeholder="退款类型" style="width:250px" >
+           <el-option value="2" label="仅退款"></el-option>
+           <el-option value="3" label="退货退款"></el-option>
+           <el-option value="4" label="换货"></el-option>
+           <el-option value="5" label="缺货补寄"></el-option>
+           <el-option value="9" label="拦截退货"></el-option>
+          </el-select>
+        </el-form-item>
+        <!-- <el-form-item label="实际支付金额" prop="payAmount">
+          <el-input v-model="form.payAmount" placeholder="请输入实际支付金额" style="width:250px"/>
+        </el-form-item> -->
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitRefundForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -707,6 +755,7 @@
 import { listOrder, getOrder, addOrder, confirmOrder } from "@/api/pdd/order";
 import { listShop } from "@/api/shop/shop";
 import { searchSku } from "@/api/goods/goods";
+import { addPddRefund } from "@/api/pdd/pddRefund";
 import {
   provinceAndCityData,
   pcTextArr,
@@ -778,7 +827,21 @@ export default {
       pcaTextArr,
       skuListLoading:false,
       skuList:[],
+      saleAfterOpen:false,
+      // 售后表单
+      saleAfterForm:{
+        refundQty:null,
+        refundAmount:null,
+        afterSalesType:null,
+        id:null
+      },
       // 表单校验
+      saleAfterRules:{
+        id: [{ required: true, message: "不能为空", trigger: "blur" }],
+        refundQty: [{ required: true, message: "不能为空", trigger: "blur" }],
+        refundAmount: [{ required: true, message: "不能为空", trigger: "blur" }],
+        afterSalesType: [{ required: true, message: "不能为空", trigger: "change" }],
+      },
       rules: {
         orderSn: [
           { required: true, message: "订单编号不能为空", trigger: "blur" }
@@ -858,6 +921,7 @@ export default {
     cancel() {
       this.detailOpen = false;
       this.open = false;
+      this.saleAfterOpen = false
       this.reset();
     },
     // 表单重置
@@ -1121,6 +1185,34 @@ export default {
       })
       this.form.goodsAmount = goodsAmountNew
 
+    },
+        /** 售后按钮 */
+    handleRefund(row,item){
+      console.log('售后====',row,item)
+      this.saleAfterForm.orderId = item.orderId
+      this.saleAfterForm.orderItemId = item.id
+      this.saleAfterForm.orderSn = row.orderSn
+      this.saleAfterForm.goodsImage = item.goodsImage
+      this.saleAfterForm.goodsName = item.goodsName
+      this.saleAfterForm.goodsSpec = item.goodsSpec
+      this.saleAfterForm.refundQty = item.quantity
+      this.saleAfterForm.quantity = item.quantity
+      this.saleAfterForm.itemAmount = item.itemAmount
+      this.saleAfterForm.refundAmount = item.itemAmount
+      
+      
+      this.saleAfterOpen = true
+    },
+    submitRefundForm() {
+      this.$refs["refundForm"].validate(valid => {
+        if (valid) {
+          addPddRefund(this.saleAfterForm).then(resp =>{
+            console.log('=====售后添加成功=====',resp)
+            this.$modal.msgSuccess("退款添加成功");
+            this.saleAfterOpen = false
+          })
+        }
+      })
     },
   }
 };

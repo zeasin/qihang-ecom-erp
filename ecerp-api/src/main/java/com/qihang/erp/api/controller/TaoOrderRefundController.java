@@ -81,7 +81,7 @@ public class TaoOrderRefundController extends BaseController
         int result = taoOrderRefundService.insertTaoOrderRefund(taoOrderRefund);
         if(result == -1) return new AjaxResult(501,"子订单数据不存在");
         else if(result == -2) return new AjaxResult(502,"子订单已经在售后中！请勿重复提交！");
-        return toAjax(1);
+        return toAjax(result);
     }
 
     /**

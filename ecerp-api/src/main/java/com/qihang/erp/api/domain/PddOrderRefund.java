@@ -22,6 +22,25 @@ public class PddOrderRefund extends BaseEntity
     @Excel(name = "订单编号")
     private String orderSn;
 
+    private Long orderItemId;
+    private Integer refundQty;
+
+    public Long getOrderItemId() {
+        return orderItemId;
+    }
+
+    public void setOrderItemId(Long orderItemId) {
+        this.orderItemId = orderItemId;
+    }
+
+    public Integer getRefundQty() {
+        return refundQty;
+    }
+
+    public void setRefundQty(Integer refundQty) {
+        this.refundQty = refundQty;
+    }
+
     /** 内部店铺ID */
     @Excel(name = "内部店铺ID")
     private Long shopId;
@@ -48,11 +67,11 @@ public class PddOrderRefund extends BaseEntity
 
     /** 订单折扣金额（元） */
     @Excel(name = "订单折扣金额", readConverterExp = "元=")
-    private Long discountAmount;
+    private Double discountAmount;
 
     /** 订单金额（元） */
     @Excel(name = "订单金额", readConverterExp = "元=")
-    private Long orderAmount;
+    private Double orderAmount;
 
     /** 退款金额（元） */
     @Excel(name = "退款金额", readConverterExp = "元=")
@@ -80,19 +99,19 @@ public class PddOrderRefund extends BaseEntity
 
     /** 商品编码 */
     @Excel(name = "商品编码")
-    private String skuNumber;
+    private String specNumber;
 
     /** 商品规格 */
     @Excel(name = "商品规格")
-    private String skuInfo;
+    private String goodsSpec;
 
     /** 数量 */
     @Excel(name = "数量")
-    private Long quantity;
+    private Integer quantity;
 
     /** 商品价格，单位：元 */
     @Excel(name = "商品价格，单位：元")
-    private Long goodsPrice;
+    private Double goodsPrice;
 
     /** 更新时间 */
     @Excel(name = "更新时间")
@@ -211,21 +230,21 @@ public class PddOrderRefund extends BaseEntity
     {
         return createdTime;
     }
-    public void setDiscountAmount(Long discountAmount) 
+    public void setDiscountAmount(Double discountAmount)
     {
         this.discountAmount = discountAmount;
     }
 
-    public Long getDiscountAmount() 
+    public Double getDiscountAmount()
     {
         return discountAmount;
     }
-    public void setOrderAmount(Long orderAmount) 
+    public void setOrderAmount(Double orderAmount)
     {
         this.orderAmount = orderAmount;
     }
 
-    public Long getOrderAmount() 
+    public Double getOrderAmount()
     {
         return orderAmount;
     }
@@ -283,39 +302,38 @@ public class PddOrderRefund extends BaseEntity
     {
         return goodsNumber;
     }
-    public void setSkuNumber(String skuNumber) 
-    {
-        this.skuNumber = skuNumber;
+
+    public String getSpecNumber() {
+        return specNumber;
     }
 
-    public String getSkuNumber() 
-    {
-        return skuNumber;
-    }
-    public void setSkuInfo(String skuInfo) 
-    {
-        this.skuInfo = skuInfo;
+    public void setSpecNumber(String specNumber) {
+        this.specNumber = specNumber;
     }
 
-    public String getSkuInfo() 
-    {
-        return skuInfo;
+    public String getGoodsSpec() {
+        return goodsSpec;
     }
-    public void setQuantity(Long quantity) 
+
+    public void setGoodsSpec(String goodsSpec) {
+        this.goodsSpec = goodsSpec;
+    }
+
+    public void setQuantity(Integer quantity)
     {
         this.quantity = quantity;
     }
 
-    public Long getQuantity() 
+    public Integer getQuantity()
     {
         return quantity;
     }
-    public void setGoodsPrice(Long goodsPrice) 
+    public void setGoodsPrice(Double goodsPrice)
     {
         this.goodsPrice = goodsPrice;
     }
 
-    public Long getGoodsPrice() 
+    public Double getGoodsPrice()
     {
         return goodsPrice;
     }

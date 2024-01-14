@@ -107,6 +107,7 @@ public class PddOrderServiceImpl implements IPddOrderService
         List<PddOrderItem> list = new ArrayList<PddOrderItem>();
         for (PddOrderItem pddOrderItem : pddOrder.getPddOrderItemList()) {
             pddOrderItem.setOrderId(id);
+            pddOrderItem.setRefundStatus(pddOrder.getRefundStatus());
             list.add(pddOrderItem);
         }
 

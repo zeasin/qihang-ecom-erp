@@ -24,6 +24,7 @@ public interface PddOrderMapper
     PddOrder selectByOrderSn(String orderSn);
 
     List<PddOrderItem> selectOrderItemByOrderId(Long orderId);
+    PddOrderItem selectOrderItemByOrderItemId(Long orderItemId);
 
     /**
      * 查询拼多多订单列表
@@ -48,6 +49,7 @@ public interface PddOrderMapper
      * @return 结果
      */
     public int updatePddOrder(PddOrder pddOrder);
+    public int updatePddOrderItem(PddOrderItem item);
 
     /**
      * 删除拼多多订单
