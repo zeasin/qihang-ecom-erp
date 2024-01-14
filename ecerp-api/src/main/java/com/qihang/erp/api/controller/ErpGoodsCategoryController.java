@@ -41,7 +41,7 @@ public class ErpGoodsCategoryController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(ErpGoodsCategory erpGoodsCategory)
     {
-        startPage();
+//        startPage();
         List<ErpGoodsCategory> list = erpGoodsCategoryService.selectErpGoodsCategoryList(erpGoodsCategory);
         return getDataTable(list);
     }
