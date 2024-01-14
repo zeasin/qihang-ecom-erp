@@ -11,7 +11,7 @@
  Target Server Version : 80200
  File Encoding         : 65001
 
- Date: 14/01/2024 14:05:35
+ Date: 14/01/2024 15:13:22
 */
 
 SET NAMES utf8mb4;
@@ -10174,6 +10174,7 @@ INSERT INTO `sys_logininfor` VALUES (5, 'admin', '127.0.0.1', '内网IP', 'Chrom
 INSERT INTO `sys_logininfor` VALUES (6, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2024-01-14 11:05:33');
 INSERT INTO `sys_logininfor` VALUES (7, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2024-01-14 11:57:27');
 INSERT INTO `sys_logininfor` VALUES (8, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2024-01-14 12:57:19');
+INSERT INTO `sys_logininfor` VALUES (9, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2024-01-14 14:52:13');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -10312,8 +10313,8 @@ INSERT INTO `sys_menu` VALUES (2018, '账单管理', 0, 6, 'bill', '', '', 1, 0,
 INSERT INTO `sys_menu` VALUES (2019, '采购账单管理', 2018, 1, 'purchase', 'scm/purchase/cost', '', 1, 0, 'C', '0', '0', '', 'shopping', 'admin', '2023-12-29 17:09:32', 'admin', '2024-01-13 18:33:36', '');
 INSERT INTO `sys_menu` VALUES (2021, '创建采购订单', 4, 0, 'purchase/order/create', 'scm/purchase/order/create', '', 1, 0, 'C', '1', '0', '', 'edit', 'admin', '2023-12-29 21:23:45', 'admin', '2024-01-06 23:56:06', '');
 INSERT INTO `sys_menu` VALUES (2025, '采购订单详情', 4, 1, 'purchase/order/detail', 'scm/purchase/order/detail', '', 1, 0, 'C', '1', '0', '', 'button', 'admin', '2023-12-30 17:08:01', 'admin', '2023-12-30 17:09:38.154348', '');
-INSERT INTO `sys_menu` VALUES (2026, '库存管理', 0, 5, 'wms', '', '', 1, 0, 'M', '0', '0', '', 'lock', 'admin', '2023-12-31 12:14:33', 'admin', '2024-01-03 14:24:04', '');
-INSERT INTO `sys_menu` VALUES (2027, '入库管理', 2026, 0, 'stock_in_entry/list', 'wms/stockInEntry', '', 1, 0, 'C', '0', '0', 'wms:stock_in_entry:list', 'lock', 'admin', '2023-12-31 12:27:37', 'admin', '2024-01-12 09:48:50', '');
+INSERT INTO `sys_menu` VALUES (2026, '库存管理', 0, 5, 'wms', '', '', 1, 0, 'M', '0', '0', '', 'stock1', 'admin', '2023-12-31 12:14:33', 'admin', '2024-01-14 15:10:51', '');
+INSERT INTO `sys_menu` VALUES (2027, '入库管理', 2026, 0, 'stock_in_entry/list', 'wms/stockInEntry', '', 1, 0, 'C', '0', '0', 'wms:stock_in_entry:list', 'stockin', 'admin', '2023-12-31 12:27:37', 'admin', '2024-01-14 15:12:48', '');
 INSERT INTO `sys_menu` VALUES (2028, '生成采购入库单', 4, 3, 'purchase/ship/create_stock_in_entry', 'scm/purchase/ship/create_stock_in_entry', '', 1, 0, 'C', '1', '0', '', 'button', 'admin', '2023-12-31 12:31:32', 'admin', '2023-12-31 12:37:39.956753', '');
 INSERT INTO `sys_menu` VALUES (2029, '店铺售后管理', 2053, 1, 'refund', '', '', 1, 0, 'M', '0', '0', '', 'clipboard', 'admin', '2023-12-31 17:29:03', 'admin', '2024-01-13 10:18:17', '');
 INSERT INTO `sys_menu` VALUES (2030, '手动创建订单', 2014, 1, 'order/create', 'sale/order/create', '', 1, 0, 'C', '0', '0', '', 'documentation', 'admin', '2023-12-31 20:01:22', 'admin', '2024-01-04 14:36:11', '');
@@ -10439,6 +10440,9 @@ INSERT INTO `sys_oper_log` VALUES (32, '拼多多订单退款', 1, 'com.qihang.e
 INSERT INTO `sys_oper_log` VALUES (33, '拼多多订单退款', 1, 'com.qihang.erp.api.controller.PddOrderRefundController.add()', 'POST', 1, 'admin', NULL, '/pdd/pddRefund', '127.0.0.1', '内网IP', '{\"afterSalesType\":2,\"discountAmount\":null,\"goodsImage\":\"https://img.pddpic.com/mms-material-img/2022-07-23/b68b46a8-b269-4328-8909-7facf0a6354a.jpeg\",\"goodsName\":\"牛仔短裤辣妹高腰裤短款弹力紧身a字型抽绳绑带纯欲风学生潮流夏\",\"goodsPrice\":null,\"goodsSpec\":\"深灰色 黑灰色,S\",\"id\":1,\"orderAmount\":null,\"orderItemId\":3490,\"orderSn\":\"230405-342695669310441\",\"params\":{},\"quantity\":1,\"refundAmount\":32,\"refundQty\":1}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-14 12:09:37', 18522);
 INSERT INTO `sys_oper_log` VALUES (34, '抖店订单退款', 1, 'com.qihang.erp.api.controller.DouOrderRefundController.add()', 'POST', 1, 'admin', NULL, '/dou/douRefund', '127.0.0.1', '内网IP', '{\"aftersaleId\":7149891465417507000,\"aftersaleType\":1,\"comboAmount\":29.9,\"comboNum\":1,\"goodsSpec\":\"\\t浅蓝色;L\",\"orderAmount\":null,\"orderId\":\"5030436502888242865\",\"params\":{},\"productName\":\"\\t【夏款清仓】牛仔短裤女夏高腰宽松毛边牛仔裤甜欲风辣妹阔腿新款\",\"productPic\":\"http://img.huayiyungou.com/niuzaiduanku/HN8026.jpg\",\"subOrderId\":\"\\t5030436502888242865\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-14 13:43:00', 16479);
 INSERT INTO `sys_oper_log` VALUES (35, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"shop/goods\",\"createTime\":\"2023-12-29 17:02:42\",\"icon\":\"color\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2016,\"menuName\":\"店铺商品管理\",\"menuType\":\"C\",\"orderNum\":9,\"params\":{},\"parentId\":2014,\"path\":\"shop/goods\",\"perms\":\"shop:goods\",\"query\":\"\",\"status\":\"1\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-14 14:04:20', 15);
+INSERT INTO `sys_oper_log` VALUES (36, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"\",\"createTime\":\"2023-12-31 12:14:33\",\"icon\":\"stock\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2026,\"menuName\":\"库存管理\",\"menuType\":\"M\",\"orderNum\":5,\"params\":{},\"parentId\":0,\"path\":\"wms\",\"perms\":\"\",\"query\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-14 15:07:56', 7);
+INSERT INTO `sys_oper_log` VALUES (37, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"\",\"createTime\":\"2023-12-31 12:14:33\",\"icon\":\"stock1\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2026,\"menuName\":\"库存管理\",\"menuType\":\"M\",\"orderNum\":5,\"params\":{},\"parentId\":0,\"path\":\"wms\",\"perms\":\"\",\"query\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-14 15:10:51', 9);
+INSERT INTO `sys_oper_log` VALUES (38, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"wms/stockInEntry\",\"createTime\":\"2023-12-31 12:27:37\",\"icon\":\"stockin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2027,\"menuName\":\"入库管理\",\"menuType\":\"C\",\"orderNum\":0,\"params\":{},\"parentId\":2026,\"path\":\"stock_in_entry/list\",\"perms\":\"wms:stock_in_entry:list\",\"query\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-14 15:12:48', 9);
 
 -- ----------------------------
 -- Table structure for sys_oss
@@ -10666,7 +10670,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '至简', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-01-14 12:57:19', 'admin', '2023-08-07 19:31:37', '', '2024-01-14 12:57:19', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '至简', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-01-14 14:52:13', 'admin', '2023-08-07 19:31:37', '', '2024-01-14 14:52:13', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'qihang', 'qihang', '00', 'qihang@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2023-08-07 19:31:37', 'admin', '2023-08-07 19:31:37', 'admin', '2024-01-05 18:29:55', '测试员');
 
 -- ----------------------------
