@@ -36,7 +36,7 @@
     "url": "https://gitee.com/qiliping/zhijian.git"
   },
   "dependencies": {
-    "@riophae/vue-treeselect": "0.4.0",
+    "@riophae/vue-treeselect": "^0.4.0",
     "@smallwei/avue": "^2.10.15",
     "axios": "0.24.0",
     "clipboard": "2.0.8",

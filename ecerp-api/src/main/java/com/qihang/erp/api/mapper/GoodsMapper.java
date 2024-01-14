@@ -21,6 +21,7 @@ public interface GoodsMapper
      * @return 商品管理
      */
     public Goods selectGoodsById(Long id);
+    public Goods selectGoodsByNumber(String number);
 
     /**
      * 查询商品管理列表

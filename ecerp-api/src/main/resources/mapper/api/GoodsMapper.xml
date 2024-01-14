@@ -94,7 +94,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="highQty != null "> and high_qty = #{highQty}</if>
         </where>
     </select>
-    
+
+    <select id="selectGoodsByNumber" parameterType="String" resultMap="GoodsResult">
+        <include refid="selectGoodsVo"/>
+        where `number` = #{number}
+    </select>
     <select id="selectGoodsById" parameterType="Long" resultMap="GoodsResult">
         <include refid="selectGoodsVo"/>
         where id = #{id}

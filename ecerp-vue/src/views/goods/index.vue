@@ -52,14 +52,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="品牌id" prop="brandId">
-        <el-input
-          v-model="queryParams.brandId"
-          placeholder="请输入品牌id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+      
 
 
       <el-form-item>
@@ -77,9 +70,9 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['goods:goods:add']"
-        >新增</el-button>
+        >添加商品</el-button>
       </el-col>
-      <el-col :span="1.5">
+ <!--      <el-col :span="1.5">
         <el-button
           type="success"
           plain
@@ -100,7 +93,7 @@
           @click="handleDelete"
           v-hasPermi="['goods:goods:remove']"
         >删除</el-button>
-      </el-col>
+      </el-col> -->
       <el-col :span="1.5">
         <el-button
           type="warning"
@@ -386,6 +379,9 @@ export default {
         this.loading = false;
       });
     },
+    handleAdd(){
+      this.$router.push('/goods/create');
+    },
     // 取消按钮
     cancel() {
       this.open = false;
@@ -449,42 +445,7 @@ export default {
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
-    /** 新增按钮操作 */
-    handleAdd() {
-      this.reset();
-      this.open = true;
-      this.title = "添加商品管理";
-    },
-    /** 修改按钮操作 */
-    handleUpdate(row) {
-      this.reset();
-      const id = row.id || this.ids
-      getGoods(id).then(response => {
-        this.form = response.data;
-        this.open = true;
-        this.title = "修改商品管理";
-      });
-    },
-    /** 提交按钮 */
-    submitForm() {
-      this.$refs["form"].validate(valid => {
-        if (valid) {
-          if (this.form.id != null) {
-            updateGoods(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
-              this.open = false;
-              this.getList();
-            });
-          } else {
-            addGoods(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
-              this.open = false;
-              this.getList();
-            });
-          }
-        }
-      });
-    },
+  
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
