@@ -69,16 +69,19 @@ public class PddOrderRefundController extends BaseController
         return success(pddOrderRefundService.selectPddOrderRefundById(id));
     }
 
-//    /**
-//     * 新增拼多多订单退款
-//     */
-//    @PreAuthorize("@ss.hasPermi('pdd:pddRefund:add')")
-//    @Log(title = "拼多多订单退款", businessType = BusinessType.INSERT)
-//    @PostMapping
-//    public AjaxResult add(@RequestBody PddOrderRefund pddOrderRefund)
-//    {
-//        return toAjax(pddOrderRefundService.insertPddOrderRefund(pddOrderRefund));
-//    }
+    /**
+     * 新增拼多多订单退款
+     */
+    @PreAuthorize("@ss.hasPermi('pdd:pddRefund:add')")
+    @Log(title = "拼多多订单退款", businessType = BusinessType.INSERT)
+    @PostMapping
+    public AjaxResult add(@RequestBody PddOrderRefund pddOrderRefund)
+    {
+        int result = pddOrderRefundService.insertPddOrderRefund(pddOrderRefund);
+        if(result == -1) return new AjaxResult(501,"子订单数据不存在");
+        else if(result == -2) return new AjaxResult(502,"子订单已经在售后中！请勿重复提交！");
+        return toAjax(1);
+    }
 //
 //    /**
 //     * 修改拼多多订单退款

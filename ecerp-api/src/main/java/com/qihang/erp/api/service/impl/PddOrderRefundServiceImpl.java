@@ -1,6 +1,11 @@
 package com.qihang.erp.api.service.impl;
 
 import java.util.List;
+
+import com.qihang.erp.api.domain.PddOrder;
+import com.qihang.erp.api.domain.PddOrderItem;
+import com.qihang.erp.api.mapper.PddOrderMapper;
+import com.zhijian.core.web.domain.server.Sys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.qihang.erp.api.mapper.PddOrderRefundMapper;
@@ -18,6 +23,8 @@ public class PddOrderRefundServiceImpl implements IPddOrderRefundService
 {
     @Autowired
     private PddOrderRefundMapper pddOrderRefundMapper;
+    @Autowired
+    private PddOrderMapper pddOrderMapper;
 
     /**
      * 查询拼多多订单退款
@@ -52,7 +59,51 @@ public class PddOrderRefundServiceImpl implements IPddOrderRefundService
     @Override
     public int insertPddOrderRefund(PddOrderRefund pddOrderRefund)
     {
-        return pddOrderRefundMapper.insertPddOrderRefund(pddOrderRefund);
+        PddOrderItem orderItem = pddOrderMapper.selectOrderItemByOrderItemId(pddOrderRefund.getOrderItemId());
+        if(orderItem == null)  return -1;
+        else if(orderItem.getRefundStatus()!=1) return -2;
+        PddOrder pddOrder = pddOrderMapper.selectPddOrderById(orderItem.getOrderId());
+        PddOrderRefund insert = new PddOrderRefund();
+        insert.setId(pddOrderRefund.getId());
+        insert.setAfterSalesType(pddOrderRefund.getAfterSalesType());
+        insert.setOrderSn(pddOrder.getOrderSn());
+        insert.setShopId(pddOrder.getShopId());
+        if(pddOrderRefund.getAfterSalesType() == 2){
+            insert.setAfterSalesStatus(4L);
+        }else if(pddOrderRefund.getAfterSalesType() == 3){
+            insert.setAfterSalesStatus(7L);
+        }else if(pddOrderRefund.getAfterSalesType() == 4){
+            insert.setAfterSalesStatus(15L);
+        }else if(pddOrderRefund.getAfterSalesType() == 5){
+            insert.setAfterSalesStatus(32L);
+        }else if(pddOrderRefund.getAfterSalesType() == 9){
+            insert.setAfterSalesStatus(31L);
+        }
+        insert.setAfterSaleReason("");
+        insert.setConfirmTime(0L);
+        insert.setCreatedTime(System.currentTimeMillis() / 1000);
+        insert.setDiscountAmount(pddOrder.getDiscountAmount());
+        insert.setOrderAmount(pddOrder.getPayAmount());
+        insert.setRefundAmount(pddOrderRefund.getRefundAmount());
+        insert.setGoodsId(orderItem.getGoodId());
+        insert.setSkuId(orderItem.getSkuId());
+        insert.setGoodsImage(orderItem.getGoodsImage());
+        insert.setGoodsName(orderItem.getGoodsName());
+        insert.setGoodsNumber(orderItem.getGoodsNum());
+        insert.setSpecNumber(orderItem.getSpecNum());
+        insert.setGoodsSpec(orderItem.getGoodsSpec());
+        insert.setQuantity(pddOrderRefund.getRefundQty());
+        insert.setGoodsPrice(orderItem.getGoodsPrice());
+        insert.setAuditStatus(0L);
+        pddOrderRefundMapper.insertPddOrderRefund(insert);
+
+        // 更新 order_item 状态
+        PddOrderItem up = new PddOrderItem();
+        up.setId(orderItem.getId());
+        up.setRefundStatus(2L);
+        up.setRefundCount(pddOrderRefund.getRefundQty().longValue());
+        pddOrderMapper.updatePddOrderItem(up);
+        return 1;
     }
 
     /**

@@ -87,6 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="goodId"    column="good_id"    />
         <result property="skuId"    column="sku_id"    />
         <result property="refundCount"    column="refund_count"    />
+        <result property="refundStatus"    column="refund_status"    />
     </resultMap>
 
     <sql id="selectPddOrderVo">
@@ -183,7 +184,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          and order_id = #{orderId}
         </where>
     </select>
-        
+
+
+    <select id="selectOrderItemByOrderItemId" parameterType="Long" resultMap="PddOrderItemResult">
+
+        <include refid="selectPddOrderItemVo"/>
+        <where>
+            and id = #{orderItemId}
+        </where>
+    </select>
     <insert id="insertPddOrder" parameterType="PddOrder" useGeneratedKeys="true" keyProperty="id">
         insert into s_pdd_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -306,6 +315,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
+    <update id="updatePddOrderItem" parameterType="PddOrderItem">
+        update s_pdd_order_item
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="refundCount != null">refund_count = #{refundCount},</if>
+            <if test="refundStatus != null">refund_status = #{refundStatus},</if>
+
+        </trim>
+        where id = #{id}
+    </update>
+
     <update id="updatePddOrder" parameterType="PddOrder">
         update s_pdd_order
         <trim prefix="SET" suffixOverrides=",">
@@ -393,9 +412,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <insert id="batchPddOrderItem">
-        insert into s_pdd_order_item( id, order_id, erp_goods_id, erp_spec_id, goods_name, goods_image, goods_num, goods_spec, spec_num, goods_price, item_amount, quantity, remark, is_gift, good_id, sku_id, refund_count) values
+        insert into s_pdd_order_item( id, order_id, erp_goods_id, erp_spec_id, goods_name, goods_image, goods_num, goods_spec, spec_num, goods_price, item_amount, quantity, remark, is_gift, good_id, sku_id, refund_count,refund_status) values
 		<foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.orderId}, #{item.erpGoodsId}, #{item.erpSpecId}, #{item.goodsName}, #{item.goodsImage}, #{item.goodsNum}, #{item.goodsSpec}, #{item.specNum}, #{item.goodsPrice}, #{item.itemAmount}, #{item.quantity}, #{item.remark}, #{item.isGift}, #{item.goodId}, #{item.skuId}, #{item.refundCount})
+            ( #{item.id}, #{item.orderId}, #{item.erpGoodsId}, #{item.erpSpecId}, #{item.goodsName}, #{item.goodsImage}, #{item.goodsNum}, #{item.goodsSpec}, #{item.specNum}, #{item.goodsPrice}, #{item.itemAmount}, #{item.quantity}, #{item.remark}, #{item.isGift}, #{item.goodId}, #{item.skuId}, #{item.refundCount}, #{item.refundStatus})
         </foreach>
     </insert>
 </mapper>

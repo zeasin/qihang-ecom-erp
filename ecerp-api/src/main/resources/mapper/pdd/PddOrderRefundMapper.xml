@@ -21,8 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="skuId"    column="sku_id"    />
         <result property="goodsName"    column="goods_name"    />
         <result property="goodsNumber"    column="goods_number"    />
-        <result property="skuNumber"    column="sku_number"    />
-        <result property="skuInfo"    column="sku_info"    />
+        <result property="specNumber"    column="spec_number"    />
+        <result property="goodsSpec"    column="goods_spec"    />
         <result property="quantity"    column="quantity"    />
         <result property="goodsPrice"    column="goods_price"    />
         <result property="updatedTime"    column="updated_time"    />
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectPddOrderRefundVo">
-        select id, order_sn, shopId, after_sales_type, after_sales_status, after_sale_reason, confirm_time, created_time, discount_amount, order_amount, refund_amount, goods_image, goods_id, sku_id, goods_name, goods_number, sku_number, sku_info, quantity, goods_price, updated_time, tracking_number, tracking_company, audit_status, audit_time, `describe`, remark, shipping_status, user_shipping_status, erp_order_return_num, erp_order_return_id, sign from s_pdd_order_refund
+        select id, order_sn, shopId, after_sales_type, after_sales_status, after_sale_reason, confirm_time, created_time, discount_amount, order_amount, refund_amount, goods_image, goods_id, sku_id, goods_name, goods_number, spec_number, goods_spec, quantity, goods_price, updated_time, tracking_number, tracking_company, audit_status, audit_time, `describe`, remark, shipping_status, user_shipping_status, erp_order_return_num, erp_order_return_id, sign from s_pdd_order_refund
     </sql>
 
     <select id="selectPddOrderRefundList" parameterType="PddOrderRefund" resultMap="PddOrderRefundResult">
@@ -61,8 +61,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="skuId != null "> and sku_id = #{skuId}</if>
             <if test="goodsName != null  and goodsName != ''"> and goods_name like concat('%', #{goodsName}, '%')</if>
             <if test="goodsNumber != null  and goodsNumber != ''"> and goods_number = #{goodsNumber}</if>
-            <if test="skuNumber != null  and skuNumber != ''"> and sku_number = #{skuNumber}</if>
-            <if test="skuInfo != null  and skuInfo != ''"> and sku_info = #{skuInfo}</if>
+            <if test="specNumber != null  and specNumber != ''"> and spec_number = #{specNumber}</if>
+            <if test="goodsSpec != null  and goodsSpec != ''"> and goods_spec = #{goodsSpec}</if>
             <if test="quantity != null "> and quantity = #{quantity}</if>
             <if test="goodsPrice != null "> and goods_price = #{goodsPrice}</if>
             <if test="updatedTime != null  and updatedTime != ''"> and updated_time = #{updatedTime}</if>
@@ -103,8 +103,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="skuId != null">sku_id,</if>
             <if test="goodsName != null">goods_name,</if>
             <if test="goodsNumber != null">goods_number,</if>
-            <if test="skuNumber != null">sku_number,</if>
-            <if test="skuInfo != null">sku_info,</if>
+            <if test="specNumber != null">spec_number,</if>
+            <if test="goodsSpec != null">goods_spec,</if>
             <if test="quantity != null">quantity,</if>
             <if test="goodsPrice != null">goods_price,</if>
             <if test="updatedTime != null">updated_time,</if>
@@ -137,8 +137,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="skuId != null">#{skuId},</if>
             <if test="goodsName != null">#{goodsName},</if>
             <if test="goodsNumber != null">#{goodsNumber},</if>
-            <if test="skuNumber != null">#{skuNumber},</if>
-            <if test="skuInfo != null">#{skuInfo},</if>
+            <if test="specNumber != null">#{specNumber},</if>
+            <if test="goodsSpec != null">#{goodsSpec},</if>
             <if test="quantity != null">#{quantity},</if>
             <if test="goodsPrice != null">#{goodsPrice},</if>
             <if test="updatedTime != null">#{updatedTime},</if>
@@ -174,8 +174,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="skuId != null">sku_id = #{skuId},</if>
             <if test="goodsName != null">goods_name = #{goodsName},</if>
             <if test="goodsNumber != null">goods_number = #{goodsNumber},</if>
-            <if test="skuNumber != null">sku_number = #{skuNumber},</if>
-            <if test="skuInfo != null">sku_info = #{skuInfo},</if>
+            <if test="specNumber != null">spec_number = #{specNumber},</if>
+            <if test="goodsSpec != null">goods_spec = #{goodsSpec},</if>
             <if test="quantity != null">quantity = #{quantity},</if>
             <if test="goodsPrice != null">goods_price = #{goodsPrice},</if>
             <if test="updatedTime != null">updated_time = #{updatedTime},</if>
