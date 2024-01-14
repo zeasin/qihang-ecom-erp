@@ -17,37 +17,13 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="上架分类id" prop="parentId">
-        <el-input
-          v-model="queryParams.parentId"
-          placeholder="请输入上架分类id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="分类路径" prop="path">
-        <el-input
-          v-model="queryParams.path"
-          placeholder="请输入分类路径"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="排序值" prop="sort">
-        <el-input
-          v-model="queryParams.sort"
-          placeholder="请输入排序值"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="0正常  1删除" prop="isDelete">
-        <el-input
-          v-model="queryParams.isDelete"
-          placeholder="请输入0正常  1删除"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+      
+      <el-form-item label="是否删除" prop="isDelete">
+        
+        <el-select v-model="queryParams.isDelete" placeholder="是否删除" clearable @change="handleQuery">
+         <el-option value="0" label="否"></el-option>
+         <el-option value="1" label="是"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -62,11 +38,11 @@
           plain
           icon="el-icon-plus"
           size="mini"
-          @click="handleAdd"
+          @click="handleAdd(null)"
           v-hasPermi="['goods:category:add']"
         >新增</el-button>
       </el-col>
-      <el-col :span="1.5">
+     <!--  <el-col :span="1.5">
         <el-button
           type="success"
           plain
@@ -97,27 +73,39 @@
           @click="handleExport"
           v-hasPermi="['goods:category:export']"
         >导出</el-button>
-      </el-col>
+      </el-col> -->
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="categoryList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="${comment}" align="center" prop="id" />
+    <el-table v-loading="loading" :data="categoryList" row-key="id" :tree-props="{children: 'children'}"  >
+      <!-- <el-table-column type="selection" width="55" align="center" /> -->
+      <!-- <el-table-column label="ID" align="center" prop="id" /> -->
+      <el-table-column label="分类名称"  prop="name" />
       <el-table-column label="分类编码" align="center" prop="number" />
-      <el-table-column label="分类名称" align="center" prop="name" />
-      <el-table-column label="${comment}" align="center" prop="remark" />
-      <el-table-column label="上架分类id" align="center" prop="parentId" />
-      <el-table-column label="分类路径" align="center" prop="path" />
+      
+      <el-table-column label="备注" align="center" prop="remark" />
+    
       <el-table-column label="排序值" align="center" prop="sort" />
       <el-table-column label="图片" align="center" prop="image" width="100">
         <template slot-scope="scope">
           <image-preview :src="scope.row.image" :width="50" :height="50"/>
         </template>
       </el-table-column>
-      <el-table-column label="0正常  1删除" align="center" prop="isDelete" />
+      <el-table-column label="是否删除" align="center" prop="isDelete" >
+        <template slot-scope="scope">
+          <el-tag size="small" v-if="scope.row.isDelete === 0">正常</el-tag>
+          <el-tag size="small" v-if="scope.row.isDelete === 1">已删除</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
+          <el-button
+          type="text"
+          icon="el-icon-plus"
+          size="mini"
+          @click="handleAdd(scope.row)"
+          v-hasPermi="['goods:category:add']"
+        >新增</el-button>
           <el-button
             size="mini"
             type="text"
@@ -136,41 +124,44 @@
       </el-table-column>
     </el-table>
     
-    <pagination
+    <!-- <pagination
       v-show="total>0"
       :total="total"
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
       @pagination="getList"
-    />
+    /> -->
 
     <!-- 添加或修改商品分类对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="上级分类" prop="parentId">
+          <el-input v-model="form.parent" placeholder="" disabled />
+          <!-- <el-select v-model="form.parentId" placeholder="上级分类">
+            <el-option
+              v-for="item in shopList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select> -->
+        </el-form-item>
         <el-form-item label="分类编码" prop="number">
           <el-input v-model="form.number" placeholder="请输入分类编码" />
         </el-form-item>
         <el-form-item label="分类名称" prop="name">
           <el-input v-model="form.name" placeholder="请输入分类名称" />
         </el-form-item>
-        <el-form-item label="${comment}" prop="remark">
-          <el-input v-model="form.remark" placeholder="请输入${comment}" />
-        </el-form-item>
-        <el-form-item label="上架分类id" prop="parentId">
-          <el-input v-model="form.parentId" placeholder="请输入上架分类id" />
-        </el-form-item>
-        <el-form-item label="分类路径" prop="path">
-          <el-input v-model="form.path" placeholder="请输入分类路径" />
+        <el-form-item label="备注" prop="remark">
+          <el-input v-model="form.remark" type="textarea" placeholder="请输入备注" />
         </el-form-item>
         <el-form-item label="排序值" prop="sort">
-          <el-input v-model="form.sort" placeholder="请输入排序值" />
+          <el-input v-model.number="form.sort" placeholder="请输入排序值" />
         </el-form-item>
         <el-form-item label="图片" prop="image">
           <image-upload v-model="form.image"/>
         </el-form-item>
-        <el-form-item label="0正常  1删除" prop="isDelete">
-          <el-input v-model="form.isDelete" placeholder="请输入0正常  1删除" />
-        </el-form-item>
+        
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -218,12 +209,13 @@ export default {
         isDelete: null,
       },
       // 表单参数
-      form: {},
+      form: {
+        parent:null
+      },
       // 表单校验
       rules: {
-        path: [
-          { required: true, message: "分类路径不能为空", trigger: "blur" }
-        ],
+        number: [{ required: true, message: "不能为空", trigger: "blur" }],
+        name: [{ required: true, message: "不能为空", trigger: "blur" }],
       }
     };
   },
@@ -231,12 +223,32 @@ export default {
     this.getList();
   },
   methods: {
+    buildTree(list, parentId) {
+      let tree = [];
+      for (let i = 0; i < list.length; i++) {
+        if (list[i].parentId === parentId) {
+          let node = {
+            id: list[i].id,
+            name: list[i].name,
+            image:list[i].image,
+            sort:list[i].sort,
+            remark:list[i].remark,
+            isDelete:list[i].isDelete,
+            children: this.buildTree(list, list[i].id)
+          };
+          tree.push(node);
+        }
+      }
+      return tree;
+    },
+
     /** 查询商品分类列表 */
     getList() {
       this.loading = true;
       listCategory(this.queryParams).then(response => {
-        this.categoryList = response.rows;
-        this.total = response.total;
+        this.categoryList = this.buildTree(response.rows,0)
+        console.log("构建后的list",this.categoryList)
+        // this.total = response.total;
         this.loading = false;
       });
     },
@@ -274,15 +286,17 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    // 多选框选中数据
-    handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.id)
-      this.single = selection.length!==1
-      this.multiple = !selection.length
-    },
+    
     /** 新增按钮操作 */
-    handleAdd() {
+    handleAdd(row) {
       this.reset();
+      if(row){
+        this.form.parent = row.name
+        this.form.parentId = row.id
+      }else{
+        this.form.parent = '一级分类'
+        this.form.parentId = 0
+      }
       this.open = true;
       this.title = "添加商品分类";
     },
