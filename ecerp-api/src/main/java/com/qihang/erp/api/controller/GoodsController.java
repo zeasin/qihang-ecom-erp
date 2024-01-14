@@ -108,14 +108,14 @@ public class GoodsController extends BaseController
         return toAjax(goodsService.updateGoods(goods));
     }
 
-    /**
-     * 删除商品管理
-     */
-    @PreAuthorize("@ss.hasPermi('goods:goods:remove')")
-    @Log(title = "商品管理", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(goodsService.deleteGoodsByIds(ids));
-    }
+//    /**
+//     * 删除商品管理
+//     */
+//    @PreAuthorize("@ss.hasPermi('goods:goods:remove')")
+//    @Log(title = "商品管理", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(goodsService.deleteGoodsByIds(ids));
+//    }
 }

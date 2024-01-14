@@ -18,13 +18,20 @@
         />
       </el-form-item>
 
-      <el-form-item label="商品分类ID" prop="categoryId">
-        <el-input
+      <el-form-item label="商品分类" prop="categoryId">
+        <!-- <el-input
           v-model="queryParams.categoryId"
           placeholder="请输入商品分类ID"
           clearable
           @keyup.enter.native="handleQuery"
-        />
+        /> -->
+        <treeselect :options="categoryTree" placeholder="请选择上级菜单" v-model="queryParams.categoryId" style="width: 230px;"/>
+      </el-form-item>
+      <el-form-item label="供应商" prop="supplierId">
+        <el-select v-model="queryParams.supplierId" filterable  placeholder="请选择供应商名称">
+            <el-option v-for="item in supplierList" :key="item.id" :label="item.name" :value="item.id">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="条码" prop="barCode">
         <el-input
@@ -35,23 +42,16 @@
         />
       </el-form-item>
 
-      <el-form-item label="状态" prop="disable">
+      <!-- <el-form-item label="状态" prop="disable">
         <el-input
           v-model="queryParams.disable"
           placeholder="请输入0启用   1禁用"
           clearable
           @keyup.enter.native="handleQuery"
         />
-      </el-form-item>
+      </el-form-item> -->
 
-      <el-form-item label="供应商id" prop="supplierId">
-        <el-input
-          v-model="queryParams.supplierId"
-          placeholder="请输入供应商id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
+      
       
 
 
@@ -108,21 +108,25 @@
     </el-row>
 
     <el-table v-loading="loading" :data="goodsList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="主键id" align="center" prop="id" />
+      <!-- <el-table-column type="selection" width="55" align="center" /> -->
+      <el-table-column label="ID" align="center" prop="id" />
       <el-table-column label="商品名称" align="center" prop="name" />
-      <el-table-column label="商品图片地址" align="center" prop="image" width="100">
+      <el-table-column label="商品图片" align="center" prop="image" width="100">
         <template slot-scope="scope">
           <image-preview :src="scope.row.image" :width="50" :height="50"/>
         </template>
       </el-table-column>
       <el-table-column label="商品编号" align="center" prop="number" />
-      <el-table-column label="单位名称" align="center" prop="unitName" />
-      <el-table-column label="商品分类ID" align="center" prop="categoryId" />
-      <el-table-column label="条码" align="center" prop="barCode" />
+      <!-- <el-table-column label="单位名称" align="center" prop="unitName" /> -->
+      <el-table-column label="商品分类" align="center" prop="categoryId" >
+        <template slot-scope="scope">
+          <el-tag size="small">{{categoryList.find(x=>x.id === scope.row.categoryId).name}}</el-tag>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column label="条码" align="center" prop="barCode" /> -->
       <el-table-column label="备注" align="center" prop="remark" />
-      <el-table-column label="状态1销售中2已下架" align="center" prop="status" />
-      <el-table-column label="衣长/裙长/裤长" align="center" prop="length" />
+      
+      <!-- <el-table-column label="衣长/裙长/裤长" align="center" prop="length" />
       <el-table-column label="高度/袖长" align="center" prop="height" />
       <el-table-column label="宽度/胸阔(围)" align="center" prop="width" />
       <el-table-column label="肩阔" align="center" prop="width1" />
@@ -130,13 +134,17 @@
       <el-table-column label="臀阔" align="center" prop="width3" />
       <el-table-column label="重量" align="center" prop="weight" />
       <el-table-column label="0启用   1禁用" align="center" prop="disable" />
-      <el-table-column label="保质期" align="center" prop="period" />
+      <el-table-column label="保质期" align="center" prop="period" /> -->
       <el-table-column label="预计采购价格" align="center" prop="purPrice" />
       <el-table-column label="建议批发价" align="center" prop="wholePrice" />
       <el-table-column label="建议零售价" align="center" prop="retailPrice" />
-      <el-table-column label="单位成本" align="center" prop="unitCost" />
-      <el-table-column label="供应商id" align="center" prop="supplierId" />
-      <el-table-column label="品牌id" align="center" prop="brandId" />
+      <!-- <el-table-column label="单位成本" align="center" prop="unitCost" /> -->
+      <el-table-column label="供应商" align="center" prop="supplierId" >
+        <template slot-scope="scope">
+          <el-tag size="small">{{supplierList.find(x=>x.id === scope.row.supplierId).name}}</el-tag>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column label="品牌id" align="center" prop="brandId" />
       <el-table-column label="属性1：季节" align="center" prop="attr1" />
       <el-table-column label="属性2：分类" align="center" prop="attr2" />
       <el-table-column label="属性3：风格" align="center" prop="attr3" />
@@ -144,7 +152,13 @@
       <el-table-column label="属性5：面料" align="center" prop="attr5" />
       <el-table-column label="外链url" align="center" prop="linkUrl" />
       <el-table-column label="最低库存" align="center" prop="lowQty" />
-      <el-table-column label="最高库存" align="center" prop="highQty" />
+      <el-table-column label="最高库存" align="center" prop="highQty" /> -->
+      <el-table-column label="状态" align="center" prop="status" >
+        <template slot-scope="scope">
+          <el-tag size="small" v-if="scope.row.status === 1">销售中</el-tag>
+          <el-tag size="small" v-if="scope.row.status === 2">已下架</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -277,9 +291,13 @@
 
 <script>
 import { listGoods, getGoods, delGoods, addGoods, updateGoods } from "@/api/goods/goods";
-
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import { listCategory } from "@/api/goods/category";
+import { listSupplier } from "@/api/scm/supplier";
 export default {
   name: "Goods",
+  components: { Treeselect },
   data() {
     return {
       // 遮罩层
@@ -311,32 +329,16 @@ export default {
         categoryId: null,
         barCode: null,
         status: null,
-        length: null,
-        height: null,
-        width: null,
-        width1: null,
-        width2: null,
-        width3: null,
-        weight: null,
         disable: null,
-        period: null,
-        purPrice: null,
-        wholePrice: null,
-        retailPrice: null,
-        unitCost: null,
         supplierId: null,
         brandId: null,
-        attr1: null,
-        attr2: null,
-        attr3: null,
-        attr4: null,
-        attr5: null,
-        linkUrl: null,
-        lowQty: null,
-        highQty: null,
+
       },
       // 表单参数
       form: {},
+      supplierList: [],
+      categoryList: [],
+      categoryTree: [],
       // 表单校验
       rules: {
         status: [
@@ -367,9 +369,37 @@ export default {
     };
   },
   created() {
+    listCategory(this.queryParams).then(response => {
+        this.categoryList = response.rows
+        this.categoryTree = this.buildTree(response.rows,0)
+      });
+    listSupplier({}).then(response => {
+      this.supplierList = response.rows;
+      // this.supplierLoading = false;
+    });
     this.getList();
   },
   methods: {
+    normalizer(node) {
+      return {
+        id: node.id,
+        label: node.value
+      };
+    },
+    buildTree(list, parentId) {
+      let tree = [];
+      for (let i = 0; i < list.length; i++) {
+        if (list[i].parentId === parentId) {
+          let node = {
+            id: list[i].id,
+            label: list[i].name,
+            children: this.buildTree(list, list[i].id)
+          };
+          tree.push(node);
+        }
+      }
+      return tree;
+    },
     /** 查询商品管理列表 */
     getList() {
       this.loading = true;
