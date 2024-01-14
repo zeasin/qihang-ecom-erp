@@ -1,6 +1,9 @@
 package com.qihang.erp.api.domain;
 
 import java.math.BigDecimal;
+import java.util.List;
+
+import com.qihang.erp.api.domain.bo.GoodsSpecAddBo;
 import com.zhijian.common.annotation.Excel;
 import com.zhijian.common.core.domain.BaseEntity;
 
@@ -137,7 +140,44 @@ public class Goods extends BaseEntity
     @Excel(name = "最高库存", readConverterExp = "预=警")
     private Long highQty;
 
-    public void setId(Long id) 
+    private Long[] colorValues;
+    private Long[] sizeValues;
+    private Long[] styleValues;
+    private List<GoodsSpecAddBo> specList;
+
+    public Long[] getColorValues() {
+        return colorValues;
+    }
+
+    public void setColorValues(Long[] colorValues) {
+        this.colorValues = colorValues;
+    }
+
+    public Long[] getSizeValues() {
+        return sizeValues;
+    }
+
+    public void setSizeValues(Long[] sizeValues) {
+        this.sizeValues = sizeValues;
+    }
+
+    public Long[] getStyleValues() {
+        return styleValues;
+    }
+
+    public void setStyleValues(Long[] styleValues) {
+        this.styleValues = styleValues;
+    }
+
+    public List<GoodsSpecAddBo> getSpecList() {
+        return specList;
+    }
+
+    public void setSpecList(List<GoodsSpecAddBo> specList) {
+        this.specList = specList;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }

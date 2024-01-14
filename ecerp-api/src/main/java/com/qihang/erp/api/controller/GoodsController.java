@@ -91,7 +91,10 @@ public class GoodsController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody Goods goods)
     {
-        return toAjax(goodsService.insertGoods(goods));
+        goods.setCreateBy(getUsername());
+        int result = goodsService.insertGoods(goods);
+        if(result == -1) new AjaxResult(501,"商品编码已存在");
+        return toAjax(1);
     }
 
     /**
