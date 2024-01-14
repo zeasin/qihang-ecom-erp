@@ -1,6 +1,10 @@
 package com.qihang.erp.api.service.impl;
 
 import java.util.List;
+
+import com.qihang.erp.api.domain.DouOrder;
+import com.qihang.erp.api.domain.DouOrderItem;
+import com.qihang.erp.api.mapper.DouOrderMapper;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,8 @@ public class DouOrderRefundServiceImpl implements IDouOrderRefundService
 {
     @Autowired
     private DouOrderRefundMapper douOrderRefundMapper;
+    @Autowired
+    private DouOrderMapper douOrderMapper;
 
     /**
      * 查询抖店订单退款
@@ -53,8 +59,46 @@ public class DouOrderRefundServiceImpl implements IDouOrderRefundService
     @Override
     public int insertDouOrderRefund(DouOrderRefund douOrderRefund)
     {
-        douOrderRefund.setCreateTime(DateUtils.getNowDate());
-        return douOrderRefundMapper.insertDouOrderRefund(douOrderRefund);
+        DouOrderItem orderItem = douOrderMapper.selectDouOrderItemBySubOrderId(douOrderRefund.getSubOrderId());
+        if(orderItem == null)  return -1;
+        else if(orderItem.getItemStatus()!=0) return -2;
+        DouOrder order = douOrderMapper.selectDouOrderById(orderItem.getDouyinOrderId());
+
+        DouOrderRefund insert = new DouOrderRefund();
+        insert.setAftersaleId(douOrderRefund.getAftersaleId());
+        insert.setAftersaleType(douOrderRefund.getAftersaleType());
+        insert.setOrderId(orderItem.getOrderId());
+        insert.setSubOrderId(orderItem.getSubOrderId());
+        insert.setShopId(order.getShopId());
+        insert.setProductPic(orderItem.getProductPic());
+        insert.setProductId(orderItem.getProductId());
+        insert.setProductName(orderItem.getProductName());
+        insert.setGoodsNum(orderItem.getGoodsNum());
+        insert.setComboId(orderItem.getComboId());
+        insert.setGoodsSpec(orderItem.getGoodsSpec());
+        insert.setComboNum(douOrderRefund.getComboNum());
+        insert.setOrderAmount(orderItem.getTotalAmount().doubleValue());
+        insert.setComboAmount(douOrderRefund.getComboAmount());
+        insert.setAuditStatus(0L);
+        if(douOrderRefund.getAftersaleType() == 0){
+            insert.setRefundStatus(7L);
+        }else if(douOrderRefund.getAftersaleType() == 1){
+            insert.setRefundStatus(12L);
+        }else if(douOrderRefund.getAftersaleType() == 2){
+            insert.setRefundStatus(12L);
+        }else if(douOrderRefund.getAftersaleType() == 3){
+            insert.setRefundStatus(7L);
+        }else if(douOrderRefund.getAftersaleType() == 9){
+            insert.setRefundStatus(12L);
+        }
+        insert.setCreateTime(DateUtils.getNowDate());
+        douOrderRefundMapper.insertDouOrderRefund(insert);
+        // 更新 order_item 状态
+        DouOrderItem up=new DouOrderItem();
+        up.setId(orderItem.getId());
+        up.setItemStatus(2L);
+        douOrderMapper.updateDouOrderItem(up);
+        return 1;
     }
 
     /**

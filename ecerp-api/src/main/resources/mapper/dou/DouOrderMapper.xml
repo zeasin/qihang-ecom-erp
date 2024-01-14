@@ -182,6 +182,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         left join s_dou_order_item b on b.douyin_order_id = a.id
         where a.id = #{id}
     </select>
+
+
+
+    <select id="selectDouOrderItemBySubOrderId" parameterType="String" resultMap="DouOrderItemResult">
+        select
+        b.id as sub_id, b.douyin_order_id as sub_douyin_order_id, b.order_id as sub_order_id, b.sub_order_id as sub_sub_order_id, b.product_id as sub_product_id, b.product_name as sub_product_name, b.product_pic as sub_product_pic, b.combo_id as sub_combo_id, b.goods_num as sub_goods_num, b.spec_num as sub_spec_num, b.goods_spec as sub_goods_spec, b.combo_num as sub_combo_num, b.post_amount as sub_post_amount, b.coupon_amount as sub_coupon_amount, b.coupon_meta_id as sub_coupon_meta_id, b.coupon_info as sub_coupon_info, b.campaign_info as sub_campaign_info, b.total_amount as sub_total_amount, b.is_comment as sub_is_comment, b.erp_goods_id as sub_erp_goods_id, b.erp_spec_id as sub_erp_spec_id, b.remark as sub_remark, b.price as sub_price, b.is_gift as sub_is_gift, b.item_status as sub_item_status
+        from  s_dou_order_item b
+        where b.sub_order_id = #{subOrderId}
+    </select>
         
     <insert id="insertDouOrder" parameterType="DouOrder" useGeneratedKeys="true" keyProperty="id">
         insert into s_dou_order
@@ -362,6 +371,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="authorId != null">author_id = #{authorId},</if>
             <if test="authorName != null">author_name = #{authorName},</if>
             <if test="settlementStatus != null">settlement_status = #{settlementStatus},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="updateDouOrderItem" parameterType="DouOrderItem">
+        update s_dou_order_item
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="itemStatus != null">item_status = #{itemStatus},</if>
         </trim>
         where id = #{id}
     </update>
