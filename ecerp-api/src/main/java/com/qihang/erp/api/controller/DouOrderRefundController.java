@@ -68,17 +68,20 @@ public class DouOrderRefundController extends BaseController
     {
         return success(douOrderRefundService.selectDouOrderRefundById(id));
     }
-//
-//    /**
-//     * 新增抖店订单退款
-//     */
-//    @PreAuthorize("@ss.hasPermi('dou:douRefund:add')")
-//    @Log(title = "抖店订单退款", businessType = BusinessType.INSERT)
-//    @PostMapping
-//    public AjaxResult add(@RequestBody DouOrderRefund douOrderRefund)
-//    {
-//        return toAjax(douOrderRefundService.insertDouOrderRefund(douOrderRefund));
-//    }
+
+    /**
+     * 新增抖店订单退款
+     */
+    @PreAuthorize("@ss.hasPermi('dou:douRefund:add')")
+    @Log(title = "抖店订单退款", businessType = BusinessType.INSERT)
+    @PostMapping
+    public AjaxResult add(@RequestBody DouOrderRefund douOrderRefund)
+    {
+        int result = douOrderRefundService.insertDouOrderRefund(douOrderRefund);
+        if(result == -1) return new AjaxResult(501,"子订单数据不存在");
+        else if(result == -2) return new AjaxResult(502,"子订单已经在售后中！请勿重复提交！");
+        return toAjax(result);
+    }
 //
 //    /**
 //     * 修改抖店订单退款

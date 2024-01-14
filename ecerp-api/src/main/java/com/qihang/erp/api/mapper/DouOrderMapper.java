@@ -22,6 +22,7 @@ public interface DouOrderMapper
      * @return 抖店订单
      */
     public DouOrder selectDouOrderById(Long id);
+    public DouOrderItem selectDouOrderItemBySubOrderId(String subOrderId);
 
     /**
      * 查询抖店订单列表
@@ -47,6 +48,7 @@ public interface DouOrderMapper
      * @return 结果
      */
     public int updateDouOrder(DouOrder douOrder);
+    public int updateDouOrderItem(DouOrderItem douOrderItem);
 
     /**
      * 删除抖店订单

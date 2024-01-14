@@ -92,11 +92,11 @@ public class DouOrderRefund extends BaseEntity
 
     /** 父订单总金额 (单位: 分) 即用户实际支付金额, 不包含运费 */
     @Excel(name = "父订单总金额 (单位: 分) 即用户实际支付金额, 不包含运费")
-    private Long orderAmount;
+    private Double orderAmount;
 
     /** 金额 */
     @Excel(name = "金额")
-    private Long comboAmount;
+    private Double comboAmount;
 
     /** 售后理由 */
     @Excel(name = "售后理由")
@@ -299,21 +299,21 @@ public class DouOrderRefund extends BaseEntity
     {
         return cancelReason;
     }
-    public void setOrderAmount(Long orderAmount) 
+    public void setOrderAmount(Double orderAmount)
     {
         this.orderAmount = orderAmount;
     }
 
-    public Long getOrderAmount() 
+    public Double getOrderAmount()
     {
         return orderAmount;
     }
-    public void setComboAmount(Long comboAmount) 
+    public void setComboAmount(Double comboAmount)
     {
         this.comboAmount = comboAmount;
     }
 
-    public Long getComboAmount() 
+    public Double getComboAmount()
     {
         return comboAmount;
     }
