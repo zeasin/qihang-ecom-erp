@@ -4,7 +4,7 @@
 
         <el-form-item label="商品分类" prop="categoryId">
           <treeselect :options="dataList" placeholder="请选择上级菜单" v-model="form.categoryId" style="width:220px"/>
-        </el-form-item> 
+        </el-form-item>
         <el-form-item label="供应商id" prop="supplierId">
           <!-- <el-input v-model="form.supplierId" placeholder="请输入供应商id" /> -->
           <el-select v-model="form.supplierId" filterable  placeholder="请选择供应商名称">
@@ -16,7 +16,7 @@
           <el-input v-model="form.name" placeholder="请输入商品名称" />
         </el-form-item>
         <el-form-item label="商品图片" prop="image">
-          <!-- <image-upload v-model="form.image"/> -->
+           <image-upload v-model="form.image"/>
            <el-input v-model="form.image" placeholder="请输入商品图片" />
         </el-form-item>
         <el-form-item label="商品编号" prop="number" >
@@ -67,11 +67,11 @@
         <el-form-item label="保质期" prop="period">
           <el-input v-model="form.period" placeholder="请输入保质期" />
         </el-form-item> -->
-       
+
         <!-- <el-form-item label="单位成本" prop="unitCost">
           <el-input v-model="form.unitCost" placeholder="请输入单位成本" />
         </el-form-item> -->
-        
+
        <!--  <el-form-item label="品牌id" prop="brandId">
           <el-input v-model="form.brandId" placeholder="请输入品牌id" />
         </el-form-item> -->
@@ -125,10 +125,10 @@
               <treeselect :options="styleList" placeholder="款式" v-model="form.styleValues" :normalizer="normalizer" @input="onSpecChange" :multiple="true" />
             </el-col>
           </el-row>
-          
+
         </el-form-item>
         <!-- <el-divider content-position="center" style="margin-left: 98px;">商品信息</el-divider> -->
-        
+
         <el-table style="margin-left: 108px;" :data="form.specList" :row-class-name="rowSShopOrderItemIndex" ref="sShopOrderItem">
           <el-table-column label="序号" align="center" prop="index" width="50"/>
           <el-table-column label="颜色" prop="color" width="150">
@@ -210,7 +210,7 @@ export default {
         image: [{ required: true, message: '商品图片不能为空' }],
         number: [{ required: true, message: '商品编码不能为空' }],
         purPrice: [{ required: true, message: '请填写预计采购价' }],
-        
+
       },
       // 子表选中数据
       checkedSShopOrderItem: [],
@@ -349,7 +349,7 @@ export default {
       }
 
 
-      
+
     },
     /** ${subTable.functionName}序号 */
     rowSShopOrderItemIndex({ row, rowIndex }) {
@@ -373,8 +373,8 @@ export default {
                 return
               }
             }
-            
-          } 
+
+          }
 
           addGoods(this.form).then(response => {
               this.$modal.msgSuccess("商品添加成功");
@@ -390,10 +390,10 @@ export default {
         //     this.form.itemList.forEach(x=>{
         //       if(!x.goodsId || !x.quantity){
         //         this.$modal.msgError("请完善商品信息");
-        //         return 
+        //         return
         //       }
         //     })
-   
+
         //     console.log('======创建订单=====',this.form)
         //     addOrder(this.form).then(response => {
         //       this.$modal.msgSuccess("订单创建成功");
@@ -401,11 +401,11 @@ export default {
         //       this.$store.dispatch("tagsView/delView", this.$route);
         //       this.$router.push('/sale/order/list');
         //     });
-          
+
         // }else{
         //   this.$modal.msgError("请添加商品");
         // }
-          
+
         }
       });
     }

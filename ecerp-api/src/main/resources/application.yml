@@ -147,10 +147,11 @@ xss:
   urlPatterns: /system/*,/monitor/*,/tool/*
 
 minio:
-  url: 127.0.0.1:9000 #换成自己的minio服务端地址
-  access-key: minioadmin
-  secret-key: minioadmin
-  bucket-name: ding_server
+  endpoint: http://127.0.0.1:9000 #换成自己的minio服务端地址
+  accessKey: 0AksAWDtI20Lpb4qxq5S
+  secretKey: yOAZkOVwrhPooBRel5PB0GwS5uw8VAgmqYykHl3T
+  secure: false
+  bucketName: ecerp
 
 #spider:
 #  thread:
