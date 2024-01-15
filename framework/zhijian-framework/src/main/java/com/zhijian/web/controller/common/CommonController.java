@@ -1,12 +1,23 @@
 package com.zhijian.web.controller.common;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.zhijian.common.utils.file.MinioHelper;
+import com.zhijian.system.domain.SysOss;
+import com.zhijian.system.service.ISysOssService;
+import io.minio.ObjectWriteResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +45,12 @@ public class CommonController
 
     @Autowired
     private ServerConfig serverConfig;
-
+    @Autowired
+    private MinioHelper minioHelper;
+    @Autowired
+    private ISysOssService sysOssService;
+    @Value("${minio.endpoint:''}")
+    private String endpoint;
     private static final String FILE_DELIMETER = ",";
 
     /**
@@ -68,32 +84,73 @@ public class CommonController
             log.error("下载文件失败", e);
         }
     }
+//    @GetMapping("/preview/image")
+//    public void previewImage(HttpServletResponse response){
+//        minioHelper.previewImage("","upload/20231208173247.png",response);
+//    }
 
     /**
      * 通用上传请求（单个）
      */
     @PostMapping("/upload")
-    public AjaxResult uploadFile(MultipartFile file) throws Exception
-    {
-        try
-        {
+        public AjaxResult uploadFile(MultipartFile file) throws Exception {
+        try {
+
             // 上传文件路径
-            String filePath = ZhiJianConfig.getUploadPath();
+//            String filePath = ZhiJianConfig.getUploadPath();
             // 上传并返回新文件名称
-            String fileName = FileUploadUtils.upload(filePath, file);
-            String url = serverConfig.getUrl() + fileName;
-            AjaxResult ajax = AjaxResult.success();
-            ajax.put("url", url);
-            ajax.put("fileName", fileName);
-            ajax.put("newFileName", FileUtils.getName(fileName));
-            ajax.put("originalFilename", file.getOriginalFilename());
-            return ajax;
-        }
-        catch (Exception e)
-        {
+//            String fileName = FileUploadUtils.upload(filePath, file);
+            String fileName = file.getOriginalFilename();
+            String fileSuffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+//            InputStream inputStream = multipartToInputStream(file);
+            InputStream inputStream = null;
+            File file1 = null;
+            try {
+                // 创建临时文件
+                file1 = File.createTempFile("temp", null);
+                // 把multipartFile写入临时文件
+                file.transferTo(file1);
+                // 使用文件创建 inputStream 流
+                inputStream = new FileInputStream(file1);
+
+                ObjectWriteResponse resp = minioHelper.uploadImgFile("/images/", fileName, inputStream);
+                // TODO: 添加到 sys_oss
+                SysOss oss = new SysOss();
+                oss.setOriginalName(file.getOriginalFilename());
+                oss.setFileName(fileName);
+                oss.setFileSuffix(fileSuffix);
+                oss.setUrl(endpoint+resp.object());
+                oss.setObjectName(resp.object());
+                oss.setBucket(resp.bucket());
+                oss.setOrderNum(0L);
+                oss.setDelFlag("0");
+                oss.setCreateBy("");
+                oss.setCreateTime(new Date());
+                sysOssService.insertSysOss(oss);
+                String url = serverConfig.getUrl()+"/preview/images/" + oss.getOssId();
+                AjaxResult ajax = AjaxResult.success();
+                ajax.put("url", url);
+                ajax.put("fileName", fileName);
+                ajax.put("newFileName", FileUtils.getName(fileName));
+                ajax.put("originalFilename", file.getOriginalFilename());
+                return ajax;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                // 最后记得删除文件
+                file1.deleteOnExit();
+                // 关闭流
+                inputStream.close();
+            }
+            return AjaxResult.error("上传错误");
+        } catch (Exception e) {
             return AjaxResult.error(e.getMessage());
         }
+
     }
+
+
 
     /**
      * 通用上传请求（多个）
