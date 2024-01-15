@@ -121,7 +121,7 @@ A[查询备货清单] -->B(生成拣货单)
 + Java 17
 
 ### 2、存储栈
-+ MySQL8zz数据库
++ MySQL8数据库
 + minio文件存储
 + Redis（缓存：在线用户、字典、系统配置）
 
@@ -133,9 +133,12 @@ A[查询备货清单] -->B(生成拣货单)
 ### 0、开发环境配置
 + MySQL导入数据`db\sql\mysql\qihang-erp.sql`
 + 启动Redis
-  + 进入项目redis文件夹
+  + 进入项目redis文件夹`db\redis`
   + 启动：双击`start.bat`
-
++ 启动minio
+  + 进入项目minio文件夹`db\minio`
+  + 启动：CMD运行`minio.exe server data`
+  
 ### 1、启动后端`ecerp-api`
 + IDEA启动项目
 
