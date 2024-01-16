@@ -314,7 +314,7 @@
     <!-- 打包发货对话框 -->
     <el-dialog title="打包发货" :visible.sync="shipOpen" width="1100px" append-to-body>
 
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px" inline>
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px" >
         <el-descriptions title="订单信息">
           <el-descriptions-item label="ID">{{form.id}}</el-descriptions-item>
           <el-descriptions-item label="订单号">{{form.orderNum}}</el-descriptions-item>
@@ -391,16 +391,18 @@
           <el-col>
             <el-form-item label="物流公司" prop="shippingCompany">
 <!--              <el-input v-model="form.shippingCompany" placeholder="请输入物流公司" style="width:300px" />-->
-              <el-select v-model="form.shippingCompany" filterable r placeholder="选择快递公司" >
+              <el-select v-model="form.shippingCompany" filterable r placeholder="选择快递公司" style="width:300px">
                 <el-option v-for="item in logisticsList" :key="item.id" :label="item.name" :value="item.name">
                   <span style="float: left">{{ item.name }}</span>
                   <span style="float: right; color: #8492a6; font-size: 13px" >{{item.number}}</span>
-
                 </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="物流单号" prop="shippingNumber">
               <el-input v-model="form.shippingNumber" placeholder="请输入物流单号" style="width:300px" />
+            </el-form-item>
+            <el-form-item label="物流费用" prop="shippingCost">
+              <el-input v-model="form.shippingCost" placeholder="请输入物流费用" style="width:300px" />
             </el-form-item>
             <el-form-item label="发货人" prop="shippingMan">
               <el-input v-model="form.shippingMan" placeholder="请输入发货人" style="width:300px" />
@@ -474,6 +476,7 @@ export default {
         weight: [{ required: true, message: '不能为空' }],
         shippingNumber: [{ required: true, message: '不能为空' }],
         shippingCompany: [{ required: true, message: '不能为空' }],
+        shippingCost: [{ required: true, message: '不能为空' }],
         shippingMan: [{ required: true, message: '不能为空' }],
       }
     };

@@ -126,6 +126,7 @@ public class ErpOrderServiceImpl implements IErpOrderService
         update.setShippingMan(erpOrder.getShippingMan());
         update.setShippingCompany(erpOrder.getShippingCompany());
         update.setShippingNumber(erpOrder.getShippingNumber());
+        update.setShippingCost(erpOrder.getShippingCost());
         update.setWidth(erpOrder.getWidth());
         update.setWeight(erpOrder.getWeight());
         update.setHeight(erpOrder.getHeight());
