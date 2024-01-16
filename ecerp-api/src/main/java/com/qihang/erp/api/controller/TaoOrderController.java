@@ -99,6 +99,8 @@ public class TaoOrderController extends BaseController
         else if(result == -2) return new AjaxResult(502,"订单已存在！请勿重复确认！");
         else if(result == -3) return new AjaxResult(503,"请指定发货方式！");
         else if(result == -4) return new AjaxResult(504,"发货方式不支持！");
+        else if(result == -11) return new AjaxResult(511,"商品SKU编码不存在！");
+        else if(result == -12) return new AjaxResult(512,"商品信息不存在！");
 
 
         return toAjax(1);

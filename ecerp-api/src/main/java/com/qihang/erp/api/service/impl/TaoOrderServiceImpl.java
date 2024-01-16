@@ -33,6 +33,8 @@ public class TaoOrderServiceImpl implements ITaoOrderService
     @Autowired
     private GoodsMapper goodsMapper;
     @Autowired
+    private GoodsSpecMapper goodsSpecMapper;
+    @Autowired
     private ScmSupplierAgentShippingMapper agentShippingMapper;
 
     @Autowired
@@ -168,13 +170,18 @@ public class TaoOrderServiceImpl implements ITaoOrderService
         List<TaoOrderItem> taoOrderItems = taoOrderMapper.selectOrderItemByOrderId(taoOrder.getId());
         List<ErpOrderItem> items = new ArrayList<>();
         for (var i:taoOrderItems) {
-            Goods goods = goodsMapper.selectGoodsById(i.getErpGoodsId());
+            if(StringUtils.isEmpty(i.getSpecNumber())) return -11;
+            GoodsSpec spec = goodsSpecMapper.selectGoodsSpecBySpecNum(i.getSpecNumber());
+            if (spec == null) return -11;
+            Goods goods = goodsMapper.selectGoodsById(spec.getGoodsId());
+            if(goods == null) return -12;
+
             ErpOrderItem item = new ErpOrderItem();
             item.setOrderId(so.getId());
             item.setOrderItemNum(i.getSubItemId());
             item.setSupplierId(goods.getSupplierId().intValue());
-            item.setGoodsId(i.getErpGoodsId());
-            item.setSpecId(i.getErpGoodsSpecId());
+            item.setGoodsId(spec.getGoodsId());
+            item.setSpecId(spec.getId());
             item.setGoodsTitle(i.getGoodsTitle());
             item.setGoodsImg(i.getProductImgUrl());
             item.setGoodsNum(i.getGoodsNumber());
@@ -193,13 +200,18 @@ public class TaoOrderServiceImpl implements ITaoOrderService
         // 添加了赠品
         if(taoOrder.getTaoOrderItemList()!=null && !taoOrder.getTaoOrderItemList().isEmpty()){
             for (var g:taoOrder.getTaoOrderItemList()) {
-                Goods goods = goodsMapper.selectGoodsById(g.getErpGoodsId());
+                if(StringUtils.isEmpty(g.getSpecNumber())) return -11;
+                GoodsSpec spec = goodsSpecMapper.selectGoodsSpecBySpecNum(g.getSpecNumber());
+                if (spec == null) return -11;
+                Goods goods = goodsMapper.selectGoodsById(spec.getGoodsId());
+                if(goods == null) return -12;
+
                 ErpOrderItem item = new ErpOrderItem();
                 item.setOrderId(so.getId());
                 item.setOrderItemNum(original.getId()+"_");
                 item.setSupplierId(goods.getSupplierId().intValue());
-                item.setGoodsId(g.getErpGoodsId());
-                item.setSpecId(g.getErpGoodsSpecId());
+                item.setGoodsId(spec.getGoodsId());
+                item.setSpecId(spec.getId());
                 item.setGoodsTitle(g.getGoodsTitle());
                 item.setGoodsImg(g.getProductImgUrl());
                 item.setGoodsNum(g.getGoodsNumber());

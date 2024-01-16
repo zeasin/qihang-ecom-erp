@@ -125,6 +125,22 @@ public class TaoOrderItem extends BaseEntity
     @Excel(name = "erp系统商品规格id")
     private Long erpGoodsSpecId;
 
+    public Long getErpGoodsId() {
+        return erpGoodsId;
+    }
+
+    public void setErpGoodsId(Long erpGoodsId) {
+        this.erpGoodsId = erpGoodsId;
+    }
+
+    public Long getErpGoodsSpecId() {
+        return erpGoodsSpecId;
+    }
+
+    public void setErpGoodsSpecId(Long erpGoodsSpecId) {
+        this.erpGoodsSpecId = erpGoodsSpecId;
+    }
+
     /** 是否礼品0否1是 */
     @Excel(name = "是否礼品0否1是")
     private Integer isGift;
@@ -367,24 +383,24 @@ public class TaoOrderItem extends BaseEntity
     {
         return afterSaleState;
     }
-    public void setErpGoodsId(Long erpGoodsId) 
-    {
-        this.erpGoodsId = erpGoodsId;
-    }
-
-    public Long getErpGoodsId() 
-    {
-        return erpGoodsId;
-    }
-    public void setErpGoodsSpecId(Long erpGoodsSpecId) 
-    {
-        this.erpGoodsSpecId = erpGoodsSpecId;
-    }
-
-    public Long getErpGoodsSpecId() 
-    {
-        return erpGoodsSpecId;
-    }
+//    public void setErpGoodsId(Long erpGoodsId)
+//    {
+//        this.erpGoodsId = erpGoodsId;
+//    }
+//
+//    public Long getErpGoodsId()
+//    {
+//        return erpGoodsId;
+//    }
+//    public void setErpGoodsSpecId(Long erpGoodsSpecId)
+//    {
+//        this.erpGoodsSpecId = erpGoodsSpecId;
+//    }
+//
+//    public Long getErpGoodsSpecId()
+//    {
+//        return erpGoodsSpecId;
+//    }
     public void setIsGift(Integer isGift) 
     {
         this.isGift = isGift;

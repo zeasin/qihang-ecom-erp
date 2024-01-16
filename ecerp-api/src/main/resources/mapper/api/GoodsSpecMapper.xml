@@ -56,7 +56,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="disable != null "> and disable = #{disable}</if>
         </where>
     </select>
-    
+
+    <select id="selectGoodsSpecBySpecNum" parameterType="String" resultMap="GoodsSpecResult">
+        <include refid="selectGoodsSpecVo"/>
+        where spec_num = #{specNum}
+    </select>
+
     <select id="selectGoodsSpecById" parameterType="Long" resultMap="GoodsSpecResult">
         <include refid="selectGoodsSpecVo"/>
         where id = #{id}
