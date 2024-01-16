@@ -34,6 +34,8 @@ public class PddOrderServiceImpl implements IPddOrderService
     @Autowired
     private GoodsMapper goodsMapper;
     @Autowired
+    private GoodsSpecMapper goodsSpecMapper;
+    @Autowired
     private ScmSupplierAgentShippingMapper agentShippingMapper;
 
     @Autowired
@@ -181,13 +183,18 @@ public class PddOrderServiceImpl implements IPddOrderService
         List<PddOrderItem> orderItems = pddOrderMapper.selectOrderItemByOrderId(pddOrder.getId());
         List<ErpOrderItem> items = new ArrayList<>();
         for (var i:orderItems) {
-            Goods goods = goodsMapper.selectGoodsById(i.getErpGoodsId());
+            if(StringUtils.isEmpty(i.getSpecNum())) return -11;
+            GoodsSpec spec = goodsSpecMapper.selectGoodsSpecBySpecNum(i.getSpecNum());
+            if (spec == null) return -11;
+            Goods goods = goodsMapper.selectGoodsById(spec.getGoodsId());
+            if(goods == null) return -12;
+
             ErpOrderItem item = new ErpOrderItem();
             item.setOrderId(so.getId());
             item.setOrderItemNum(i.getId()+"");
             item.setSupplierId(goods.getSupplierId().intValue());
-            item.setGoodsId(i.getErpGoodsId());
-            item.setSpecId(i.getErpSpecId());
+            item.setGoodsId(spec.getGoodsId());
+            item.setSpecId(spec.getId());
             item.setGoodsTitle(i.getGoodsName());
             item.setGoodsImg(i.getGoodsImage());
             item.setGoodsNum(i.getGoodsNum());
@@ -206,13 +213,18 @@ public class PddOrderServiceImpl implements IPddOrderService
         // 添加了赠品
         if(pddOrder.getPddOrderItemList()!=null && !pddOrder.getPddOrderItemList().isEmpty()) {
             for (var i : pddOrder.getPddOrderItemList()) {
-                Goods goods = goodsMapper.selectGoodsById(i.getErpGoodsId());
+                if(StringUtils.isEmpty(i.getSpecNum())) return -11;
+                GoodsSpec spec = goodsSpecMapper.selectGoodsSpecBySpecNum(i.getSpecNum());
+                if (spec == null) return -11;
+                Goods goods = goodsMapper.selectGoodsById(spec.getGoodsId());
+                if(goods == null) return -12;
+
                 ErpOrderItem item = new ErpOrderItem();
                 item.setOrderId(so.getId());
                 item.setOrderItemNum(pddOrder.getId()+"_");
                 item.setSupplierId(goods.getSupplierId().intValue());
-                item.setGoodsId(i.getErpGoodsId());
-                item.setSpecId(i.getErpSpecId());
+                item.setGoodsId(spec.getGoodsId());
+                item.setSpecId(spec.getId());
                 item.setGoodsTitle(i.getGoodsName());
                 item.setGoodsImg(i.getGoodsImage());
                 item.setGoodsNum(i.getGoodsNum());

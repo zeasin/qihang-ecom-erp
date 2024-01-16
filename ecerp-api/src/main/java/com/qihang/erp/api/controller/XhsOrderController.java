@@ -94,6 +94,8 @@ public class XhsOrderController extends BaseController
         else if(result == -3) return new AjaxResult(507,"订单售后中！无法操作！");
         else if(result == -4) return new AjaxResult(508,"订单号确认过了！请检查订单号是否正确！");
         else if(result == -5) return new AjaxResult(509,"不支持的发货方式！");
+        else if(result == -11) return new AjaxResult(511,"商品SKU编码不存在！");
+        else if(result == -12) return new AjaxResult(512,"商品信息不存在！");
         return toAjax(result);
     }
 //    /**

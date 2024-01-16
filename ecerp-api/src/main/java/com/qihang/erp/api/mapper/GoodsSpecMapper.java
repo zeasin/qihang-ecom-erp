@@ -20,6 +20,7 @@ public interface GoodsSpecMapper
      * @return 商品规格
      */
     public GoodsSpec selectGoodsSpecById(Long id);
+    public GoodsSpec selectGoodsSpecBySpecNum(String specNum);
 
     /**
      * 查询商品规格列表

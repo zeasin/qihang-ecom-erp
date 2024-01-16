@@ -69,36 +69,36 @@ public class GoodsSpecController extends BaseController
         return success(goodsSpecService.selectGoodsSpecById(id));
     }
 
-    /**
-     * 新增商品规格
-     */
-    @PreAuthorize("@ss.hasPermi('goods:goodsSpec:add')")
-    @Log(title = "商品规格", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody GoodsSpec goodsSpec)
-    {
-        return toAjax(goodsSpecService.insertGoodsSpec(goodsSpec));
-    }
-
-    /**
-     * 修改商品规格
-     */
-    @PreAuthorize("@ss.hasPermi('goods:goodsSpec:edit')")
-    @Log(title = "商品规格", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public AjaxResult edit(@RequestBody GoodsSpec goodsSpec)
-    {
-        return toAjax(goodsSpecService.updateGoodsSpec(goodsSpec));
-    }
-
-    /**
-     * 删除商品规格
-     */
-    @PreAuthorize("@ss.hasPermi('goods:goodsSpec:remove')")
-    @Log(title = "商品规格", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
-    {
-        return toAjax(goodsSpecService.deleteGoodsSpecByIds(ids));
-    }
+//    /**
+//     * 新增商品规格
+//     */
+//    @PreAuthorize("@ss.hasPermi('goods:goodsSpec:add')")
+//    @Log(title = "商品规格", businessType = BusinessType.INSERT)
+//    @PostMapping
+//    public AjaxResult add(@RequestBody GoodsSpec goodsSpec)
+//    {
+//        return toAjax(goodsSpecService.insertGoodsSpec(goodsSpec));
+//    }
+//
+//    /**
+//     * 修改商品规格
+//     */
+//    @PreAuthorize("@ss.hasPermi('goods:goodsSpec:edit')")
+//    @Log(title = "商品规格", businessType = BusinessType.UPDATE)
+//    @PutMapping
+//    public AjaxResult edit(@RequestBody GoodsSpec goodsSpec)
+//    {
+//        return toAjax(goodsSpecService.updateGoodsSpec(goodsSpec));
+//    }
+//
+//    /**
+//     * 删除商品规格
+//     */
+//    @PreAuthorize("@ss.hasPermi('goods:goodsSpec:remove')")
+//    @Log(title = "商品规格", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(goodsSpecService.deleteGoodsSpecByIds(ids));
+//    }
 }

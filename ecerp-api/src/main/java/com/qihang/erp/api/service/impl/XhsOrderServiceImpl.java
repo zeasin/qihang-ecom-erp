@@ -32,6 +32,8 @@ public class XhsOrderServiceImpl implements IXhsOrderService
     @Autowired
     private GoodsMapper goodsMapper;
     @Autowired
+    private GoodsSpecMapper goodsSpecMapper;
+    @Autowired
     private ScmSupplierAgentShippingMapper agentShippingMapper;
 
     @Autowired
@@ -180,13 +182,18 @@ public class XhsOrderServiceImpl implements IXhsOrderService
         List<XhsOrderItem> orderItems = xhsOrderMapper.selectOrderItemByOrderId(original.getId());
         List<ErpOrderItem> items = new ArrayList<>();
         for (var i:orderItems) {
-            Goods goods = goodsMapper.selectGoodsById(i.getErpGoodsId());
+            if(StringUtils.isEmpty(i.getItemSpecCode())) return -11;
+            GoodsSpec spec = goodsSpecMapper.selectGoodsSpecBySpecNum(i.getItemSpecCode());
+            if (spec == null) return -11;
+            Goods goods = goodsMapper.selectGoodsById(spec.getGoodsId());
+            if(goods == null) return -12;
+
             ErpOrderItem item = new ErpOrderItem();
             item.setOrderId(so.getId());
             item.setOrderItemNum(i.getId()+"");
             item.setSupplierId(goods.getSupplierId().intValue());
-            item.setGoodsId(i.getErpGoodsId());
-            item.setSpecId(i.getErpGoodsSpecId());
+            item.setGoodsId(spec.getGoodsId());
+            item.setSpecId(spec.getId());
             item.setGoodsTitle(i.getItemName());
             item.setGoodsImg(i.getItemImage());
             item.setGoodsNum(i.getErpCode());
@@ -206,14 +213,18 @@ public class XhsOrderServiceImpl implements IXhsOrderService
         // 添加了赠品
         if(bo.getXhsOrderItemList()!=null && !bo.getXhsOrderItemList().isEmpty()) {
             for (var i : bo.getXhsOrderItemList()) {
-                Goods goods = goodsMapper.selectGoodsById(i.getErpGoodsId());
+                if(StringUtils.isEmpty(i.getItemSpecCode())) return -11;
+                GoodsSpec spec = goodsSpecMapper.selectGoodsSpecBySpecNum(i.getItemSpecCode());
+                if (spec == null) return -11;
+                Goods goods = goodsMapper.selectGoodsById(spec.getGoodsId());
+                if(goods == null) return -12;
+
                 ErpOrderItem item = new ErpOrderItem();
                 item.setOrderId(so.getId());
                 item.setOrderItemNum(original.getOrderId()+"_");
                 item.setSupplierId(goods.getSupplierId().intValue());
-                item.setGoodsId(i.getErpGoodsId());
-                item.setGoodsId(i.getErpGoodsId());
-                item.setSpecId(i.getErpGoodsSpecId());
+                item.setGoodsId(spec.getGoodsId());
+                item.setSpecId(spec.getId());
                 item.setGoodsTitle(i.getItemName());
                 item.setGoodsImg(i.getItemImage());
                 item.setGoodsNum(i.getErpCode());
