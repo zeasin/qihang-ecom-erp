@@ -123,7 +123,7 @@
           <span>{{ parseTime(scope.row.orderDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="商品" width="350">
+      <el-table-column label="商品" >
           <template slot-scope="scope">
             <el-row :gutter="20">
             <div style="float: left;display: flex;align-items: center;" >
@@ -138,6 +138,7 @@
             </el-row>
           </template>
       </el-table-column>
+      <el-table-column label="规格编码" align="center" prop="specNum" />
       <!-- <el-table-column label="erp系统商品id" align="center" prop="goodsId" />
       <el-table-column label="erp系统商品规格id" align="center" prop="specId" />
       <el-table-column label="商品标题" align="center" prop="goodsTitle" />
@@ -145,7 +146,7 @@
       <el-table-column label="商品编码" align="center" prop="goodsNum" />
       <el-table-column label="商品规格" align="center" prop="goodsSpec" />
       <el-table-column label="商品规格编码" align="center" prop="specNum" /> -->
-      <!-- <el-table-column label="商品数量" align="center" prop="quantity" /> -->
+       <el-table-column label="商品数量" align="center" prop="quantity" />
       <!-- <el-table-column label="备注" align="center" prop="remark" /> -->
       <!-- <el-table-column label="物流公司" align="center" prop="shipCompany" /> -->
 <!--      <el-table-column label="物流单号" align="center" prop="shipNo" />-->
@@ -162,15 +163,16 @@
 <!--          <span>{{ parseTime(scope.row.outTime, '{y}-{m}-{d}') }}</span>-->
 <!--        </template>-->
 <!--      </el-table-column>-->
+
+
+      <el-table-column label="仓库库存" align="center" prop="inventory" />
       <el-table-column label="状态" align="center" prop="status" >
         <template slot-scope="scope">
           <el-tag size="small" v-if="scope.row.status === 0">待备货</el-tag>
           <el-tag size="small" v-if="scope.row.status === 1">备货中</el-tag>
           <el-tag size="small" v-if="scope.row.status === 2">已出库</el-tag>
-         </template>
+        </template>
       </el-table-column>
-      <el-table-column label="规格编码" align="center" prop="specNum" />
-      <el-table-column label="仓库库存" align="center" prop="inventory" />
 <!--      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">-->
 <!--        <template slot-scope="scope">-->
 <!--          <el-button-->

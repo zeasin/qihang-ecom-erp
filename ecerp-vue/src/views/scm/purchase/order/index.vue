@@ -210,7 +210,13 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="物流公司"  v-if="form.optionType === 'SupplierShip'">
-          <el-input v-model="form.shipCompany" placeholder="请输入物流公司" />
+<!--          <el-input v-model="form.shipCompany" placeholder="请输入物流公司" />-->
+          <el-select v-model="form.shipCompany" filterable r placeholder="选择快递公司" >
+            <el-option v-for="item in logisticsList" :key="item.id" :label="item.name" :value="item.name">
+              <span style="float: left">{{ item.name }}</span>
+              <span style="float: right; color: #8492a6; font-size: 13px" >{{item.number}}</span>
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="物流单号" v-if="form.optionType === 'SupplierShip'">
           <el-input v-model="form.shipNo" placeholder="请输入物流公司" />
@@ -236,6 +242,7 @@
 <script>
 import { listPurchaseOrder, getPurchaseOrder, delPurchaseOrder, addPurchaseOrder, updatePurchaseOrder } from "@/api/purchase/purchaseOrder";
 import { listSupplier} from "@/api/scm/supplier";
+import { listLogistics } from "@/api/api/logistics";
 export default {
   name: "PurchaseOrder",
   data() {
@@ -287,7 +294,8 @@ export default {
       rules: {
       },
       supplierLoading:false,
-      supplierList:[]
+      supplierList:[],
+      logisticsList:[],
     };
   },
   created() {
@@ -295,6 +303,9 @@ export default {
       this.supplierList = response.rows;
       // this.supplierLoading = false;
     });
+    listLogistics({}).then(resp=>{
+      this.logisticsList = resp.rows
+    })
     this.getList();
   },
   methods: {
@@ -430,7 +441,7 @@ export default {
               this.$message.error("请填写供应商发货物流单号")
               return
             }
-            if(!this.form.shipCost){
+            if(this.form.shipCost === null || this.form.shipCost === undefined){
               this.$message.error("请填写供应商发货物流费用")
               return
             }
