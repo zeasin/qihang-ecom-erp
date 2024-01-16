@@ -2,6 +2,7 @@ package com.qihang.erp.api.domain;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.qihang.erp.api.domain.bo.GoodsSpecAddBo;
 import com.zhijian.common.annotation.Excel;
@@ -141,9 +142,19 @@ public class Goods extends BaseEntity
     private Long highQty;
 
     private Long[] colorValues;
+    private Map<Long,String> colorImages;
+//    private Map<Long,String> colorNames;
     private Long[] sizeValues;
     private Long[] styleValues;
     private List<GoodsSpecAddBo> specList;
+
+    public Map<Long, String> getColorImages() {
+        return colorImages;
+    }
+
+    public void setColorImages(Map<Long, String> colorImages) {
+        this.colorImages = colorImages;
+    }
 
     public Long[] getColorValues() {
         return colorValues;

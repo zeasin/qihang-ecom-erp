@@ -9,12 +9,14 @@ import com.qihang.erp.api.domain.vo.GoodsSpecListVo;
 import com.qihang.erp.api.mapper.GoodsSpecAttrMapper;
 import com.qihang.erp.api.mapper.GoodsSpecMapper;
 import com.zhijian.common.utils.DateUtils;
+import com.zhijian.common.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.qihang.erp.api.mapper.GoodsMapper;
 import com.qihang.erp.api.domain.Goods;
 import com.qihang.erp.api.service.IGoodsService;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * 商品管理Service业务层处理
@@ -82,7 +84,11 @@ public class GoodsServiceImpl implements IGoodsService
             spec.setSpecNum(bo.getSpecNum());
             spec.setColorId(bo.getColorId());
             spec.setColorValue(bo.getColorValue());
-            spec.setColorImage(goods.getImage());
+            if(goods.getColorImages()!=null && StringUtils.isNotEmpty(goods.getColorImages().get(bo.getColorId()))){
+                spec.setColorImage(goods.getColorImages().get(bo.getColorId()));
+            }else {
+                spec.setColorImage(goods.getImage());
+            }
             spec.setSizeId(bo.getSizeId());
             spec.setSizeValue(bo.getSizeValue());
             spec.setStyleId(bo.getStyleId());
@@ -132,6 +138,7 @@ public class GoodsServiceImpl implements IGoodsService
             }
 
         }
+//        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         return 1;
     }
 

@@ -16,7 +16,7 @@
           <el-input v-model="form.name" placeholder="请输入商品名称" />
         </el-form-item>
         <el-form-item label="商品图片" prop="image">
-           <image-upload v-model="form.image"/>
+           <image-upload v-model="form.image" :limit="1"/>
            <el-input v-model="form.image" placeholder="请输入商品图片" />
         </el-form-item>
         <el-form-item label="商品编号" prop="number" >
@@ -108,19 +108,47 @@
         </el-form-item>
         <el-form-item label="商品规格">
           <el-row :gutter="10" class="mb8" >
-            <el-col :span="1.5">颜色：</el-col>
+            <el-col :span="1.5" style="width: 56px">颜色：</el-col>
             <el-col :span="20">
               <treeselect :options="colorList" placeholder="颜色" v-model="form.colorValues" :normalizer="normalizer"  @input="onSpecChange" :multiple="true" />
             </el-col>
           </el-row>
           <el-row :gutter="10" class="mb8" >
-            <el-col :span="1.5">尺码：</el-col>
+
+            <el-col :span="24" style="margin-left: 60px;">
+              <ul style=" display: flex;list-style: none;padding: 0;">
+                <li v-for="color in form.colorValues" :key="color" style="margin-left: 20px;">
+                  <el-upload
+                    class="avatar-uploader"
+                    :action="uploadImgUrl"
+                    :show-file-list="false"
+                    :headers="headers"
+                    :on-success="(response, file, fileList) =>
+                handleUploadSuccess(
+                  response,
+                  file,
+                  fileList,
+                  color
+                )
+            "
+                    :before-upload="handleBeforeUpload">
+                    <img v-if="form.colorImages[color]" :src="form.colorImages[color]" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                  </el-upload>
+                  <span>{{form.colorNames[color]}}</span>
+                </li>
+              </ul>
+
+            </el-col>
+          </el-row>
+          <el-row :gutter="10" class="mb8" >
+            <el-col :span="1.5" style="width: 60px">尺码：</el-col>
             <el-col :span="20">
               <treeselect :options="sizeList" placeholder="尺码" v-model="form.sizeValues" :normalizer="normalizer" @input="onSpecChange" :multiple="true" />
             </el-col>
           </el-row>
           <el-row :gutter="10" class="mb8" >
-            <el-col :span="1.5">款式：</el-col>
+            <el-col :span="1.5" style="width: 60px">款式：</el-col>
             <el-col :span="20">
               <treeselect :options="styleList" placeholder="款式" v-model="form.styleValues" :normalizer="normalizer" @input="onSpecChange" :multiple="true" />
             </el-col>
@@ -156,6 +184,23 @@
               <el-input v-model.number="scope.row.purPrice" placeholder="预计采购价" />
             </template>
           </el-table-column>
+<!--          <el-table-column label="规格图片" prop="colorImage" width="150">-->
+<!--            <template slot-scope="scope">-->
+<!--&lt;!&ndash;              <image-upload v-model="scope.row.colorImage" :limit="1" style="width: 100px;height: 100px"/>&ndash;&gt;-->
+<!--              <el-upload-->
+<!--                class="avatar-uploader"-->
+<!--                :action="uploadImgUrl"-->
+<!--                :show-file-list="false"-->
+<!--                :headers="headers"-->
+<!--                :file-list="fileList"-->
+<!--                :on-success="handleUploadSuccess"-->
+<!--                :before-upload="handleBeforeUpload">-->
+<!--                <img v-if="scope.row.colorImage" :src="scope.row.colorImage" class="avatar">-->
+<!--                <i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
+<!--              </el-upload>-->
+<!--            </template>-->
+
+<!--          </el-table-column>-->
         </el-table>
       </el-form>
       <div slot="footer" class="dialog-footer" style="margin-left: 108px;margin-top:20px;margin-bottom: 50px;">
@@ -172,7 +217,7 @@ import { listCategory } from "@/api/goods/category";
 import { listSupplier } from "@/api/scm/supplier";
 import { listCategoryAttributeValue } from "@/api/goods/categoryAttributeValue";
 import { addGoods } from "@/api/goods/goods";
-
+import { getToken } from "@/utils/auth";
 import {
   provinceAndCityData,
   pcTextArr,
@@ -186,14 +231,25 @@ export default {
   components: { Treeselect },
   data() {
     return {
+      uploadImgUrl: process.env.VUE_APP_BASE_API + "/common/upload",
+      headers: {
+        Authorization: "Bearer " + getToken(),
+      },
+      // 文件类型, 例如['png', 'jpg', 'jpeg']
+      fileType: ["png", "jpg", "jpeg"],
+      uploadList: [],
+      fileList: [],
       // 表单参数
       form: {
         colorValues:undefined,
+        colorImages:{},
+        colorNames:{},
         sizeValues:undefined,
         styleValues:undefined,
         number:'',
         specList:[],
-        provinces: []
+        provinces: [],
+
       },
       supplierList: [],
       pcaTextArr,
@@ -220,6 +276,7 @@ export default {
       sizeList:[],
       //款式
       styleList:[],
+      privateData:{}
     };
   },
   created() {
@@ -239,6 +296,88 @@ export default {
     })
   },
   methods: {
+    getRowDate(row){
+
+    },
+    // 上传前loading加载
+    handleBeforeUpload(file) {
+      let isImg = false;
+      if (this.fileType.length) {
+        let fileExtension = "";
+        if (file.name.lastIndexOf(".") > -1) {
+          fileExtension = file.name.slice(file.name.lastIndexOf(".") + 1);
+        }
+        isImg = this.fileType.some(type => {
+          if (file.type.indexOf(type) > -1) return true;
+          if (fileExtension && fileExtension.indexOf(type) > -1) return true;
+          return false;
+        });
+      } else {
+        isImg = file.type.indexOf("image") > -1;
+      }
+
+      if (!isImg) {
+        this.$modal.msgError(`文件格式不正确, 请上传${this.fileType.join("/")}图片格式文件!`);
+        return false;
+      }
+      if (this.fileSize) {
+        const isLt = file.size / 1024 / 1024 < this.fileSize;
+        if (!isLt) {
+          this.$modal.msgError(`上传头像图片大小不能超过 ${this.fileSize} MB!`);
+          return false;
+        }
+      }
+      // this.$modal.loading("正在上传图片，请稍候...");
+      // this.number++;
+    },
+    // 文件个数超出
+    handleExceed() {
+      this.$modal.msgError(`上传文件数量不能超过 ${this.limit} 个!`);
+    },
+    // 上传成功回调
+    handleUploadSuccess(response, file,ty, color) {
+      // console.log('====上传成功回调====',file,response)
+      console.log('====上传成功回调====',color,response.url)
+      this.$nextTick(()=>{
+        this.form.colorImages[color] = response.url
+        console.log('=====上传回调赋值=====',this.form.colorImages)
+      })
+      this.form = { ...this.form, colorImages: { ...this.form.colorImages, [color]: response.url } };
+      // if (res.code ===   200) {
+      //
+      //   this.uploadList.push({ name: res.fileName, url: res.url });
+      //   this.uploadedSuccessfully();
+      // } else {
+      //   this.number--;
+      //   this.$modal.closeLoading();
+      //   this.$modal.msgError(res.msg);
+      //   this.$refs.imageUpload.handleRemove(file);
+      //   this.uploadedSuccessfully();
+      // }
+    },
+    // 删除图片
+    handleDelete(file) {
+      const findex = this.fileList.map(f => f.name).indexOf(file.name);
+      if(findex > -1) {
+        this.fileList.splice(findex, 1);
+        this.$emit("input", this.listToString(this.fileList));
+      }
+    },
+    // 上传失败
+    handleUploadError() {
+      this.$modal.msgError("上传图片失败，请重试");
+      this.$modal.closeLoading();
+    },
+    // 上传结束处理
+    uploadedSuccessfully() {
+      if (this.number > 0 && this.uploadList.length === this.number) {
+        this.fileList = this.fileList.concat(this.uploadList);
+        this.uploadList = [];
+        this.number = 0;
+        this.$emit("input", this.listToString(this.fileList));
+        this.$modal.closeLoading();
+      }
+    },
     normalizer(node) {
       return {
         id: node.id,
@@ -342,6 +481,12 @@ export default {
             })
           }
         }
+
+        this.form.colorNames = {}
+        this.form.colorValues.forEach(c=>{
+          const color = this.colorList.find(x=>x.id === c)
+          this.form.colorNames[c] = color.value
+        })
       }else{
         this.$modal.msgError("必须选择【颜色】")
         this.form.sizeValues = []
@@ -413,3 +558,28 @@ export default {
 };
 
 </script>
+<style>
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 78px;
+  height: 78px;
+  line-height: 78px;
+  text-align: center;
+}
+.avatar {
+  width: 78px;
+  height: 78px;
+  display: block;
+}
+</style>
