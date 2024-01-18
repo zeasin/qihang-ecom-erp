@@ -11,7 +11,7 @@
  Target Server Version : 80032
  File Encoding         : 65001
 
- Date: 18/01/2024 15:05:50
+ Date: 18/01/2024 20:44:50
 */
 
 SET NAMES utf8mb4;
@@ -2967,6 +2967,7 @@ CREATE TABLE `gen_table`  (
 INSERT INTO `gen_table` VALUES (52, 's_tao_order_refund', '淘宝退款订单表', NULL, NULL, 'TaoOrderRefund', 'crud', 'com.qihang.erp.api', 'tao', 'refund', '淘宝退款订单', 'qihang', '0', '/', '{}', 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16', NULL);
 INSERT INTO `gen_table` VALUES (53, 'sys_oss', '文件表', NULL, NULL, 'SysOss', 'crud', 'com.qihang.erp.api', 'api', 'oss', '文件', 'qihang', '0', '/', NULL, 'admin', '2024-01-15 15:25:41', '', NULL, NULL);
 INSERT INTO `gen_table` VALUES (54, 'erp_goods_spec', '商品规格库存管理', NULL, NULL, 'ErpGoodsSpec', 'crud', 'com.qihang.erp.api', 'api', 'goodsSpec', '商品规格库存管理', 'qihang', '0', '/', '{}', 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56', NULL);
+INSERT INTO `gen_table` VALUES (55, 's_shop_setting', '第三方平台设置', NULL, NULL, 'ShopSetting', 'crud', 'com.qihang.erp.api', 'shop', 'shopSetting', '第三方平台设置', 'qihang', '0', '/', '{}', 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02', NULL);
 
 -- ----------------------------
 -- Table structure for gen_table_column
@@ -3071,6 +3072,19 @@ INSERT INTO `gen_table_column` VALUES (1222, 54, 'status', '状态', 'tinyint(1)
 INSERT INTO `gen_table_column` VALUES (1223, 54, 'low_qty', '最低库存（预警）', 'int', 'Long', 'lowQty', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 19, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
 INSERT INTO `gen_table_column` VALUES (1224, 54, 'high_qty', '最高库存（预警）', 'int', 'Long', 'highQty', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 20, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
 INSERT INTO `gen_table_column` VALUES (1225, 54, 'disable', '0启用   1禁用', 'tinyint(1)', 'Integer', 'disable', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 21, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
+INSERT INTO `gen_table_column` VALUES (1226, 55, 'id', '主键', 'int', 'Long', 'id', '1', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
+INSERT INTO `gen_table_column` VALUES (1227, 55, 'name', '配置名', 'varchar(50)', 'String', 'name', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
+INSERT INTO `gen_table_column` VALUES (1228, 55, 'app_key', 'appKey', 'varchar(50)', 'String', 'appKey', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
+INSERT INTO `gen_table_column` VALUES (1229, 55, 'app_secret', 'appSecret', 'varchar(50)', 'String', 'appSecret', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
+INSERT INTO `gen_table_column` VALUES (1230, 55, 'access_token', '阿里access token', 'varchar(500)', 'String', 'accessToken', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'textarea', '', 5, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
+INSERT INTO `gen_table_column` VALUES (1231, 55, 'expires_in', '到期', 'bigint', 'Long', 'expiresIn', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
+INSERT INTO `gen_table_column` VALUES (1232, 55, 'access_token_begin', 'access_token开始时间', 'bigint', 'Long', 'accessTokenBegin', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
+INSERT INTO `gen_table_column` VALUES (1233, 55, 'refresh_token', '刷新token', 'varchar(500)', 'String', 'refreshToken', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'textarea', '', 8, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
+INSERT INTO `gen_table_column` VALUES (1234, 55, 'refresh_token_timeout', '刷新token过期时间', 'bigint', 'Long', 'refreshTokenTimeout', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
+INSERT INTO `gen_table_column` VALUES (1235, 55, 'modify_on', '更新时间', 'bigint', 'Long', 'modifyOn', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
+INSERT INTO `gen_table_column` VALUES (1236, 55, 'remark', '描述', 'varchar(50)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 11, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
+INSERT INTO `gen_table_column` VALUES (1237, 55, 'request_url', '请求url', 'varchar(100)', 'String', 'requestUrl', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 12, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
+INSERT INTO `gen_table_column` VALUES (1238, 55, 'third_id', '第三方店铺id', 'varchar(50)', 'String', 'thirdId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 13, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
 
 -- ----------------------------
 -- Table structure for s_dou_order
@@ -4493,21 +4507,26 @@ CREATE TABLE `s_shop`  (
   `remark` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
   `sellerUserId` bigint(0) NOT NULL DEFAULT 0 COMMENT '第三方平台店铺id，淘宝天猫开放平台使用',
   `sellerUserIdStr` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '卖家userId',
-  `sessionKey` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '第三方平台sessionKey',
-  `appkey` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Appkey暂时抖音用',
-  `appSercet` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Appsercet暂时抖音用',
+  `sessionKey` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '第三方平台sessionKey（access_token）',
+  `appkey` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Appkey',
+  `appSercet` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'Appsercet',
+  `expires_in` bigint(0) DEFAULT NULL COMMENT '到期',
+  `access_token_begin` bigint(0) DEFAULT NULL COMMENT 'access_token开始时间',
+  `refresh_token` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '刷新token',
+  `refresh_token_timeout` bigint(0) DEFAULT NULL COMMENT '刷新token过期时间',
+  `api_request_url` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '请求url',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '数据中心-店铺' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of s_shop
 -- ----------------------------
-INSERT INTO `s_shop` VALUES (1, '其他渠道', NULL, NULL, NULL, 99, NULL, 9, 0, 0, 1704416716, NULL, 0, NULL, NULL, NULL, NULL);
-INSERT INTO `s_shop` VALUES (5, '梦小妮潮流女装', '拼多多-梦小妮', 'pdd', '煜梦服饰', 5, NULL, 99, 0, 1, 1680698886, 'pdd10006159121', 100061591, '', '87f8044d2a5f45a489aa3a952785b0d35e61788a', NULL, NULL);
-INSERT INTO `s_shop` VALUES (6, '梦小妮牛仔裤', '淘宝-梦小妮', 'taobao', '煜梦服饰', 4, '', 98, 0, 1, 0, '', 2200787809358, '0', '610140071d1070a37cecea89f1c1f3d6e5d19bf4b58dd942200787809358', NULL, NULL);
-INSERT INTO `s_shop` VALUES (13, '梦小妮牛仔裤-快手', '快手小店', 'kuaishou', '华衣云商', 13, NULL, 9, 1, 0, 0, NULL, 0, '', NULL, NULL, NULL);
-INSERT INTO `s_shop` VALUES (21, '珍姐姐de衣柜的店', '启航家常菜的店-小红书', 'xhs', '启航', 7, 'https://ark.xiaohongshu.com/ark/open_api/v3/common_controller', 2, 0, 0, 1658303081, NULL, 21, '6255224c3801e1000190d3d0', 'token-0f3f8a5fc5aa465aa29a66d27c6cf170-dad68769d83e4e1a9f52a950a680b9f2', '621919dd99484598a69c', '1747d77da2ce58b97483932041c5503e');
-INSERT INTO `s_shop` VALUES (22, '梦小妮牛仔裤', '抖音-梦小妮', 'douyin', '华衣云商', 6, 'http://openapi.jinritemai.com', 87, 0, 1, 1653672695, NULL, 0, '0', '', '', '');
+INSERT INTO `s_shop` VALUES (1, '其他渠道', NULL, NULL, NULL, 99, NULL, 9, 0, 0, 1704416716, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `s_shop` VALUES (5, '梦小妮潮流女装', '拼多多-梦小妮', 'pdd', '煜梦服饰', 5, NULL, 99, 0, 1, 1680698886, 'pdd10006159121', 100061591, '', '87f8044d2a5f45a489aa3a952785b0d35e61788a', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `s_shop` VALUES (6, '梦小妮牛仔裤', '淘宝-梦小妮', 'taobao', '煜梦服饰', 4, '', 98, 0, 1, 0, '', 2200787809358, '0', '610140071d1070a37cecea89f1c1f3d6e5d19bf4b58dd942200787809358', '31014100', '7b0769269b0c0ca88949791c14eb3a5c', NULL, NULL, NULL, NULL, 'http://gw.api.taobao.com/router/rest');
+INSERT INTO `s_shop` VALUES (13, '梦小妮牛仔裤-快手', '快手小店', 'kuaishou', '华衣云商', 13, NULL, 9, 1, 0, 0, NULL, 0, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `s_shop` VALUES (21, '珍姐姐de衣柜的店', '启航家常菜的店-小红书', 'xhs', '启航', 7, 'https://ark.xiaohongshu.com/ark/open_api/v3/common_controller', 2, 0, 0, 1658303081, NULL, 21, '6255224c3801e1000190d3d0', 'token-0f3f8a5fc5aa465aa29a66d27c6cf170-dad68769d83e4e1a9f52a950a680b9f2', '621919dd99484598a69c', '1747d77da2ce58b97483932041c5503e', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `s_shop` VALUES (22, '梦小妮牛仔裤', '抖音-梦小妮', 'douyin', '华衣云商', 6, 'http://openapi.jinritemai.com', 87, 0, 1, 1653672695, NULL, 0, '0', '', '', '', NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for s_shop_goods
@@ -7471,7 +7490,7 @@ CREATE TABLE `s_tao_order_refund`  (
   `refund_fee` decimal(10, 2) DEFAULT NULL COMMENT '退还金额(退还给买家的金额)。精确到2位小数;单位:元。如:200.07，表示:200元7分',
   `created` bigint(0) DEFAULT NULL COMMENT '退款申请时间',
   `modified` bigint(0) DEFAULT NULL COMMENT '更新时间',
-  `status` int(0) DEFAULT NULL COMMENT '退款状态。可选值WAIT_SELLER_AGREE(买家已经申请退款，等待卖家同意) WAIT_BUYER_RETURN_GOODS(卖家已经同意退款，等待买家退货) WAIT_SELLER_CONFIRM_GOODS(买家已经退货，等待卖家确认收货) SELLER_REFUSE_BUYER(卖家拒绝退款) CLOSED(退款关闭) SUCCESS(退款成功)',
+  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '退款状态。可选值WAIT_SELLER_AGREE(买家已经申请退款，等待卖家同意) WAIT_BUYER_RETURN_GOODS(卖家已经同意退款，等待买家退货) WAIT_SELLER_CONFIRM_GOODS(买家已经退货，等待卖家确认收货) SELLER_REFUSE_BUYER(卖家拒绝退款) CLOSED(退款关闭) SUCCESS(退款成功)',
   `good_status` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT '货物状态。可选值BUYER_NOT_RECEIVED (买家未收到货) BUYER_RECEIVED (买家已收到货) BUYER_RETURNED_GOODS (买家已退货)',
   `num` bigint(0) NOT NULL DEFAULT 0 COMMENT '退货数量',
   `has_good_return` int(0) DEFAULT NULL COMMENT '买家是否需要退货。可选值:true(是),false(否)',
@@ -8596,6 +8615,8 @@ INSERT INTO `sys_logininfor` VALUES (17, 'admin', '127.0.0.1', '内网IP', 'Chro
 INSERT INTO `sys_logininfor` VALUES (18, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2024-01-15 21:13:41');
 INSERT INTO `sys_logininfor` VALUES (19, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2024-01-16 09:11:56');
 INSERT INTO `sys_logininfor` VALUES (20, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2024-01-16 13:42:46');
+INSERT INTO `sys_logininfor` VALUES (21, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-01-18 17:26:16');
+INSERT INTO `sys_logininfor` VALUES (22, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-01-18 18:56:13');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -8906,6 +8927,12 @@ INSERT INTO `sys_oper_log` VALUES (75, '菜单管理', 2, 'com.zhijian.web.contr
 INSERT INTO `sys_oper_log` VALUES (76, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createTime\":\"2024-01-12 18:35:55\",\"icon\":\"example\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2064,\"menuName\":\"店铺账单管理\",\"menuType\":\"M\",\"orderNum\":4,\"params\":{},\"parentId\":2018,\"path\":\"s\",\"perms\":\"\",\"status\":\"1\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-16 15:28:47', 12);
 INSERT INTO `sys_oper_log` VALUES (77, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createTime\":\"2024-01-12 18:35:02\",\"icon\":\"theme\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2062,\"menuName\":\"代发账单管理\",\"menuType\":\"C\",\"orderNum\":2,\"params\":{},\"parentId\":2018,\"path\":\"d\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-16 15:29:08', 13);
 INSERT INTO `sys_oper_log` VALUES (78, '店铺订单', 2, 'com.qihang.erp.api.controller.ErpOrderController.ship()', 'POST', 1, 'admin', NULL, '/api/order/ship', '127.0.0.1', '内网IP', '{\"address\":\"上海上海 上海市 徐汇区 天平路街道 建国西路382号三楼4室 \",\"amount\":29.92,\"city\":\"\",\"confirmTime\":\"2024-01-16\",\"country\":\"中国\",\"createBy\":\"admin\",\"createTime\":\"2024-01-16 15:04:52\",\"discountAmount\":0,\"erpOrderItemList\":[{\"createBy\":\"admin\",\"createTime\":\"2024-01-16 15:04:52\",\"goodsId\":9,\"goodsImg\":\"https://cbu01.alicdn.com/img/ibank/O1CN01AfNgvA2FOyAvwXZxv_!!2208857268871-0-cib.jpg\",\"goodsNum\":\"272021008026\",\"goodsPrice\":29.92,\"goodsSpec\":\"黑色,2XL\",\"goodsTitle\":\"8026牛仔短裤\",\"id\":13,\"isGift\":0,\"itemAmount\":29.92,\"orderId\":16,\"orderItemNum\":\"1642473483353670599\",\"params\":{},\"quantity\":1,\"refundCount\":0,\"refundStatus\":1,\"specId\":32,\"specNum\":\"2720210080260105\",\"supplierId\":26}],\"goodsAmount\":29.92,\"height\":19.0,\"id\":16,\"length\":20.0,\"orderNum\":\"1642473483353670599\",\"orderStatus\":2,\"params\":{},\"payTime\":\"2022-08-13\",\"postage\":0,\"province\":\"上海\",\"receiverName\":\"戴志兰\",\"receiverPhone\":\"17321293202\",\"refundStatus\":1,\"shipType\":0,\"shippingCompany\":\"菜鸟速递\",\"shippingCost\":3,\"shippingMan\":\"启航\",\"shippingNumber\":\"CN2210003552\",\"shopId\":6,\"shopType\":4,\"town\":\"\",\"updateBy\":\"admin\",\"updateTime\":\"2024-01-16 15:05:56\",\"weight\":409.0,\"width\":56.0}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-16 15:42:53', 17950);
+INSERT INTO `sys_oper_log` VALUES (79, '代码生成', 6, 'com.zhijian.generator.controller.GenController.importTableSave()', 'POST', 1, 'admin', NULL, '/tool/gen/importTable', '127.0.0.1', '内网IP', '{\"tables\":\"s_shop_setting\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-18 17:42:22', 344);
+INSERT INTO `sys_oper_log` VALUES (80, '代码生成', 2, 'com.zhijian.generator.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/tool/gen', '127.0.0.1', '内网IP', '{\"businessName\":\"shopSetting\",\"className\":\"ShopSetting\",\"columns\":[{\"capJavaField\":\"Id\",\"columnComment\":\"主键\",\"columnId\":1226,\"columnName\":\"id\",\"columnType\":\"int\",\"createBy\":\"admin\",\"createTime\":\"2024-01-18 17:42:22\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":55,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"Name\",\"columnComment\":\"配置名\",\"columnId\":1227,\"columnName\":\"name\",\"columnType\":\"varchar(50)\",\"createBy\":\"admin\",\"createTime\":\"2024-01-18 17:42:22\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"name\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"LIKE\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":55,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"AppKey\",\"columnComment\":\"appKey\",\"columnId\":1228,\"columnName\":\"app_key\",\"columnType\":\"varchar(50)\",\"createBy\":\"admin\",\"createTime\":\"2024-01-18 17:42:22\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"appKey\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":55,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"AppSecret\",\"columnComment\":\"appSecret\",\"columnId\":1229,\"columnName\":\"app_secret\",\"columnType\":\"varchar(50)\",\"createBy\":\"admin\",\"createTime\":\"2024-01-18 17:42:22\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"appSecre', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-18 17:43:02', 109);
+INSERT INTO `sys_oper_log` VALUES (81, '代码生成', 8, 'com.zhijian.generator.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":\"s_shop_setting\"}', NULL, 0, NULL, '2024-01-18 17:43:15', 534);
+INSERT INTO `sys_oper_log` VALUES (82, '店铺', 2, 'com.qihang.erp.api.controller.ShopController.edit()', 'PUT', 1, 'admin', NULL, '/shop/shop', '127.0.0.1', '内网IP', '{\"appSercet\":\"\",\"appkey\":\"\",\"company\":\"华衣云商\",\"ename\":\"douyin\",\"id\":22,\"isDelete\":0,\"isShow\":1,\"modifyOn\":1653672695,\"name\":\"梦小妮牛仔裤\",\"nickName\":\"抖音-梦小妮\",\"orderNum\":87,\"params\":{},\"sellerUserId\":0,\"sellerUserIdStr\":\"0\",\"sessionKey\":\"\",\"type\":6,\"url\":\"http://openapi.jinritemai.com\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-18 19:46:21', 21);
+INSERT INTO `sys_oper_log` VALUES (83, '店铺', 2, 'com.qihang.erp.api.controller.ShopController.edit()', 'PUT', 1, 'admin', NULL, '/shop/shop', '127.0.0.1', '内网IP', '{\"apiRequestUrl\":\"http://gw.api.taobao.com/router/rest\",\"appSercet\":\"7b0769269b0c0ca88949791c14eb3a5c\",\"appkey\":\"31014100\",\"company\":\"煜梦服饰\",\"ename\":\"taobao\",\"id\":6,\"isDelete\":0,\"isShow\":1,\"modifyOn\":0,\"name\":\"梦小妮牛仔裤\",\"nickName\":\"淘宝-梦小妮\",\"orderNum\":98,\"params\":{},\"remark\":\"\",\"sellerUserId\":2200787809358,\"sellerUserIdStr\":\"0\",\"sessionKey\":\"610140071d1070a37cecea89f1c1f3d6e5d19bf4b58dd942200787809358\",\"type\":4,\"url\":\"\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-18 19:56:00', 28);
+INSERT INTO `sys_oper_log` VALUES (84, '店铺', 2, 'com.qihang.erp.api.controller.ShopController.edit()', 'PUT', 1, 'admin', NULL, '/shop/shop', '127.0.0.1', '内网IP', '{\"apiRequestUrl\":\"http://gw.api.taobao.com/router/rest\",\"appSercet\":\"7b0769269b0c0ca88949791c14eb3a5c\",\"appkey\":\"31014100\",\"company\":\"煜梦服饰\",\"ename\":\"taobao\",\"id\":6,\"isDelete\":0,\"isShow\":1,\"modifyOn\":0,\"name\":\"梦小妮牛仔裤\",\"nickName\":\"淘宝-梦小妮\",\"orderNum\":98,\"params\":{},\"remark\":\"\",\"sellerUserId\":2200787809358,\"sellerUserIdStr\":\"0\",\"sessionKey\":\"610140071d1070a37cecea89f1c1f3d6e5d19bf4b58dd942200787809358\",\"type\":4,\"url\":\"\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-18 19:57:45', 27);
 
 -- ----------------------------
 -- Table structure for sys_oss
@@ -9182,7 +9209,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '至简', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-01-16 13:42:46', 'admin', '2023-08-07 19:31:37', '', '2024-01-16 13:42:46', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '至简', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-01-18 18:56:13', 'admin', '2023-08-07 19:31:37', '', '2024-01-18 18:56:12', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'qihang', 'qihang', '00', 'qihang@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2023-08-07 19:31:37', 'admin', '2023-08-07 19:31:37', 'admin', '2024-01-05 18:29:55', '测试员');
 
 -- ----------------------------
