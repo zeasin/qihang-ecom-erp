@@ -76,7 +76,61 @@ public class Shop extends BaseEntity
     @Excel(name = "Appsercet暂时抖音用")
     private String appSercet;
 
-    public void setId(Long id) 
+    // 到期
+    private Long expiresIn;
+
+    // access_token开始时间
+    private Long accessTokenBegin;
+
+    // 刷新token
+    private String refreshToken;
+
+    //刷新token过期时间
+    private Long refreshTokenTimeout;
+    // API request url 请求url
+    private String apiRequestUrl;
+
+    public Long getExpiresIn() {
+        return expiresIn;
+    }
+
+    public void setExpiresIn(Long expiresIn) {
+        this.expiresIn = expiresIn;
+    }
+
+    public Long getAccessTokenBegin() {
+        return accessTokenBegin;
+    }
+
+    public void setAccessTokenBegin(Long accessTokenBegin) {
+        this.accessTokenBegin = accessTokenBegin;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public Long getRefreshTokenTimeout() {
+        return refreshTokenTimeout;
+    }
+
+    public void setRefreshTokenTimeout(Long refreshTokenTimeout) {
+        this.refreshTokenTimeout = refreshTokenTimeout;
+    }
+
+    public String getApiRequestUrl() {
+        return apiRequestUrl;
+    }
+
+    public void setApiRequestUrl(String apiRequestUrl) {
+        this.apiRequestUrl = apiRequestUrl;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }

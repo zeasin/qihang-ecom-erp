@@ -58,4 +58,6 @@ public interface IShopService
      * @return 结果
      */
     public int deleteShopById(Long id);
+
+    void updateSessionKey(Long shopId, Long mallId, String sessionKey);
 }
