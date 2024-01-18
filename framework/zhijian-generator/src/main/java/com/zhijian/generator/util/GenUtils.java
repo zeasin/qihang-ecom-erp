@@ -216,7 +216,7 @@ public class GenUtils
      */
     public static String replaceText(String text)
     {
-        return RegExUtils.replaceAll(text, "(?:表|至简)", "");
+        return RegExUtils.replaceAll(text, "(?:表|启航)", "");
     }
 
     /**

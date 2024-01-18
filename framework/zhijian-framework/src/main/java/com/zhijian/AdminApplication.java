@@ -16,7 +16,7 @@
 //    {
 //        // System.setProperty("spring.devtools.restart.enabled", "false");
 //        SpringApplication.run(AdminApplication.class, args);
-//        System.out.println("(♥◠‿◠)ﾉﾞ  至简启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
+//        System.out.println("(♥◠‿◠)ﾉﾞ  启航电商启动成功   ლ(´ڡ`ლ)ﾞ  \n" +
 //                " .-------.       ____     __        \n" +
 //                " |  _ _   \\      \\   \\   /  /    \n" +
 //                " | ( ' )  |       \\  _. /  '       \n" +
