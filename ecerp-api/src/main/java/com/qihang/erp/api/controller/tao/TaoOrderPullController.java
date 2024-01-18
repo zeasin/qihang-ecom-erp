@@ -23,6 +23,7 @@ import com.taobao.api.request.UserSellerGetRequest;
 import com.taobao.api.response.RefundGetResponse;
 import com.taobao.api.response.TradeFullinfoGetResponse;
 import com.taobao.api.response.UserSellerGetResponse;
+import com.zhijian.core.config.ServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,8 @@ public class TaoOrderPullController {
     private ITaoOrderRefundService tmallOrderReturnService;
     @Autowired
     private IShopService shopService;
-
+    @Autowired
+    private ServerConfig serverConfig;
     /**
      * 更新前的检查
      *
@@ -58,47 +60,69 @@ public class TaoOrderPullController {
      * @return
      * @throws ApiException
      */
-    public ApiResult<ShopSetting> checkBefore(Long shopId) throws ApiException {
+    public ApiResult<ShopApiParams> checkBefore(Long shopId) throws ApiException {
         log.info("/**************主动更新tao 参数检查****************/");
         var shop = shopService.selectShopById(shopId);
 
         if (shop == null) return new ApiResult<>(EnumResultVo.ParamsError.getIndex(), "参数错误，没有找到店铺");
-        else if (shop.getType().intValue() != EnumShopType.Tmall.getIndex())
+
+        if (shop.getType().intValue() != EnumShopType.Tmall.getIndex())
             return new ApiResult<>(EnumResultVo.ParamsError.getIndex(), "参数错误，店铺不是淘系店铺");
-        else if (StringUtils.isEmpty(shop.getSessionKey()))
-            return new ApiResult<>(EnumResultVo.TokenFail.getIndex(), "Token已过期，请重新授权");
+
+        if(!StringUtils.hasText(shop.getAppkey())) return new ApiResult<>(EnumResultVo.ParamsError.getIndex(), "第三方平台配置错误，没有找到AppKey");
+        if(!StringUtils.hasText(shop.getAppSercet())) return new ApiResult<>(EnumResultVo.ParamsError.getIndex(), "第三方平台配置错误，没有找到AppSercet");
+        if(!StringUtils.hasText(shop.getApiRequestUrl())) return new ApiResult<>(EnumResultVo.ParamsError.getIndex(), "第三方平台配置错误，没有找到ApiRequestUrl");
+        if(shop.getSellerUserId()==null || shop.getSellerUserId()<=0) return new ApiResult<>(EnumResultVo.ParamsError.getIndex(), "第三方平台配置错误，没有找到SellerUserId");
+
+        ShopApiParams params = new ShopApiParams();
+        params.setAppKey(shop.getAppkey());
+        params.setAppSecret(shop.getAppSercet());
+        params.setAccessToken(shop.getSessionKey());
+        params.setTokenRequestUrl(serverConfig.getUrl()+"/taoapi2/tao_oauth");
+
+        if (!StringUtils.hasText(shop.getSessionKey()))
+            return new ApiResult<>(EnumResultVo.TokenFail.getIndex(), "Token已过期，请重新授权",params);
 
         String sessionKey = shop.getSessionKey();
 
-        var thirdConfig = shopSettingService.selectShopSettingById(shop.getType());
-        if (thirdConfig == null) return new ApiResult<>(EnumResultVo.SystemException.getIndex(), "系统错误，没有找到第三方平台的配置信息");
-        else if (StringUtils.isEmpty(thirdConfig.getAppKey()))
-            return new ApiResult<>(EnumResultVo.SystemException.getIndex(), "系统错误，第三方平台配置信息不完整，缺少appkey");
-        else if (StringUtils.isEmpty(thirdConfig.getAppSecret()))
-            return new ApiResult<>(EnumResultVo.SystemException.getIndex(), "系统错误，第三方平台配置信息不完整，缺少appSecret");
-        else if (StringUtils.isEmpty(thirdConfig.getRequestUrl()))
-            return new ApiResult<>(EnumResultVo.SystemException.getIndex(), "系统错误，第三方平台配置信息不完整，缺少request_url");
+//        var thirdConfig = shopSettingService.selectShopSettingById(shop.getType());
+//        if (thirdConfig == null) return new ApiResult<>(EnumResultVo.SystemException.getIndex(), "系统错误，没有找到第三方平台的配置信息");
+//        else if (StringUtils.isEmpty(thirdConfig.getAppKey()))
+//            return new ApiResult<>(EnumResultVo.SystemException.getIndex(), "系统错误，第三方平台配置信息不完整，缺少appkey");
+//        else if (StringUtils.isEmpty(thirdConfig.getAppSecret()))
+//            return new ApiResult<>(EnumResultVo.SystemException.getIndex(), "系统错误，第三方平台配置信息不完整，缺少appSecret");
+//        else if (StringUtils.isEmpty(thirdConfig.getRequestUrl()))
+//            return new ApiResult<>(EnumResultVo.SystemException.getIndex(), "系统错误，第三方平台配置信息不完整，缺少request_url");
 
-        thirdConfig.setAccessToken(sessionKey);
+//        thirdConfig.setAccessToken(sessionKey);
 
-        String url = thirdConfig.getRequestUrl();
-        String appkey = thirdConfig.getAppKey();
-        String secret = thirdConfig.getAppSecret();
+//        String url = thirdConfig.getRequestUrl();
+//        String appkey = thirdConfig.getAppKey();
+//        String secret = thirdConfig.getAppSecret();
+        String url = shop.getApiRequestUrl();
+        String appkey = shop.getAppkey();
+        String secret = shop.getAppSercet();
 
         /****************先查询卖家对不对***************/
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         UserSellerGetRequest reqSeller = new UserSellerGetRequest();
         reqSeller.setFields("nick,user_id");
         UserSellerGetResponse rsp = client.execute(reqSeller, sessionKey);
+        if(StringUtils.hasText(rsp.getErrorCode())){
+            if(rsp.getErrorCode().equals("27")){
+                return new ApiResult<>(EnumResultVo.TokenFail.getIndex(), "Token已过期，请重新授权",params);
+            }else
+                return new ApiResult<>(EnumResultVo.ParamsError.getIndex(), "参数错误！"+rsp.getSubMsg());
+        }
 //        System.out.println(rsp.getBody());
         if(rsp.getUser() == null || rsp.getUser().getUserId() == null){
-            return new ApiResult<>(EnumResultVo.ParamsError.getIndex(), "参数错误！请设置店铺SellerUserId值！");
+            return new ApiResult<>(EnumResultVo.ParamsError.getIndex(), "参数错误！请设置店铺SellerUserId值！",params);
         }
         else if (shop.getSellerUserId().longValue() != rsp.getUser().getUserId().longValue()) {
-            return new ApiResult<>(EnumResultVo.TokenFail.getIndex(), "当前用户是：" + rsp.getUser().getNick() + "，请重新授权");
+            return new ApiResult<>(EnumResultVo.TokenFail.getIndex(), "当前用户是：" + rsp.getUser().getNick() + "，请重新授权",params);
         }
 
-        return new ApiResult<>(EnumResultVo.SUCCESS.getIndex(), "", thirdConfig);
+        return new ApiResult<>(EnumResultVo.SUCCESS.getIndex(), "", params);
     }
 
     /**
@@ -110,17 +134,17 @@ public class TaoOrderPullController {
      */
     @GetMapping("/order/pull_order")
     @ResponseBody
-    public ApiResult<String> orderPull(TaoRequest req) throws ApiException {
+    public ApiResult<Object> orderPull(TaoRequest req) throws ApiException {
         log.info("/**************主动更新tao订单****************/");
         if (req.getShopId() == null || req.getShopId() <= 0) {
             return new ApiResult<>(EnumResultVo.ParamsError.getIndex(), "参数错误，没有店铺Id");
         }
         var checkResult = this.checkBefore(req.getShopId());
         if (checkResult.getCode() != EnumResultVo.SUCCESS.getIndex()) {
-            return new ApiResult<>(checkResult.getCode(), checkResult.getMsg());
+            return new ApiResult<>(checkResult.getCode(), checkResult.getMsg(),checkResult.getData());
         }
         String sessionKey = checkResult.getData().getAccessToken();
-        String url = checkResult.getData().getRequestUrl();
+        String url = checkResult.getData().getApiRequestUrl();
         String appKey = checkResult.getData().getAppKey();
         String appSecret = checkResult.getData().getAppSecret();
 
@@ -248,7 +272,7 @@ public class TaoOrderPullController {
         }
 
         String sessionKey = checkResult.getData().getAccessToken();
-        String url = checkResult.getData().getRequestUrl();
+        String url = checkResult.getData().getApiRequestUrl();
         String appKey = checkResult.getData().getAppKey();
         String appSecret = checkResult.getData().getAppSecret();
 
@@ -343,7 +367,7 @@ public class TaoOrderPullController {
         }
 
         String sessionKey = checkResult.getData().getAccessToken();
-        String url = checkResult.getData().getRequestUrl();
+        String url = checkResult.getData().getApiRequestUrl();
         String appKey = checkResult.getData().getAppKey();
         String appSecret = checkResult.getData().getAppSecret();
 
@@ -442,7 +466,7 @@ public class TaoOrderPullController {
         }
 
         String sessionKey = checkResult.getData().getAccessToken();
-        String url = checkResult.getData().getRequestUrl();
+        String url = checkResult.getData().getApiRequestUrl();
         String appKey = checkResult.getData().getAppKey();
         String appSecret = checkResult.getData().getAppSecret();
 

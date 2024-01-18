@@ -90,4 +90,20 @@ public class ShopServiceImpl implements IShopService
     {
         return shopMapper.deleteShopById(id);
     }
+
+    @Override
+    public void updateSessionKey(Long shopId, Long mallId, String sessionKey) {
+        Shop update = new Shop();
+        update.setId(shopId);
+        update.setSessionKey(sessionKey);
+        update.setModifyOn(System.currentTimeMillis()/1000);
+        shopMapper.updateShop(update);
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("UPDATE "+Tables.DcShop);
+//        sb.append(" SET ");
+//        sb.append(" sessionKey=?,modify_on=?");
+//        sb.append(" WHERE id= ? and sellerUserId = ?");
+//        jdbcTemplate.update(sb.toString(),sessionKey,System.currentTimeMillis()/1000,shopId,mallId);
+
+    }
 }

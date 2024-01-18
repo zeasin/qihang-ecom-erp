@@ -22,7 +22,7 @@ public enum EnumResultVo {
     HasAssociatedData("存在关联数据", 501),//存在关联数据
     Exist("已存在相同的数据", 502),//已存在相同的数据
     SystemException("系统异常", 505),//系统异常
-    TokenFail("token过期", 601),//ali token过期
+    TokenFail("token过期", 1401),//ali token过期
     Fail("失败", 1000);
 
     private String name;

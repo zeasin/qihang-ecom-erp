@@ -595,6 +595,8 @@ import {
   pcaTextArr,
   codeToText,
 } from "element-china-area-data";
+import {MessageBox} from "element-ui";
+import {isRelogin} from "../../../utils/request";
 
 export default {
   name: "Order",
@@ -826,7 +828,19 @@ export default {
       if(this.queryParams.shopId){
         pullOrder({shopId:this.queryParams.shopId,updType:0}).then(response => {
           console.log('拉取淘宝订单接口返回=====',response)
-          this.$modal.msgSuccess(JSON.stringify(response));
+          if(response.code === 1401) {
+              MessageBox.confirm('Token已过期，需要重新授权', '系统提示', { confirmButtonText: '重新授权', cancelButtonText: '取消', type: 'warning' }).then(() => {
+                isRelogin.show = false;
+                // store.dispatch('LogOut').then(() => {
+                location.href = response.data.tokenRequestUrl+'?shopId='+this.queryParams.shopId
+                // })
+              }).catch(() => {
+                isRelogin.show = false;
+              });
+
+            // return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
+          }else
+            this.$modal.msgSuccess(JSON.stringify(response));
         })
       }else{
         this.$modal.msgSuccess("请先选择店铺");
