@@ -82,6 +82,15 @@
           v-hasPermi="['tao:order:edit']"
         >Execl导入</el-button>
       </el-col>
+      <el-col :span="1.5">
+        <el-button
+          type="danger"
+          plain
+          icon="el-icon-download"
+          size="mini"
+          @click="handlePull"
+        >API拉取订单</el-button>
+      </el-col>
       <!-- <el-col :span="1.5">
         <el-button
           type="danger"
@@ -575,7 +584,7 @@
 </template>
 
 <script>
-import { listOrder, getOrder, delOrder, addOrder, confirmOrder } from "@/api/tao/order";
+import { listOrder, getOrder, pullOrder, addOrder, confirmOrder } from "@/api/tao/order";
 import { addTaoRefund } from "@/api/tao/taoRefund";
 import { listShop } from "@/api/shop/shop";
 import { searchSku } from "@/api/goods/goods";
@@ -586,6 +595,7 @@ import {
   pcaTextArr,
   codeToText,
 } from "element-china-area-data";
+
 export default {
   name: "Order",
   data() {
@@ -812,6 +822,18 @@ export default {
       this.open = true;
       this.title = "添加淘宝订单";
     },
+    handlePull() {
+      if(this.queryParams.shopId){
+        pullOrder({shopId:this.queryParams.shopId,updType:0}).then(response => {
+          console.log('拉取淘宝订单接口返回=====',response)
+          this.$modal.msgSuccess(JSON.stringify(response));
+        })
+      }else{
+        this.$modal.msgSuccess("请先选择店铺");
+      }
+
+      // this.$modal.msgSuccess("请先配置API");
+    },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
@@ -873,7 +895,7 @@ export default {
       this.saleAfterForm.quantity = item.quantity
       this.saleAfterForm.itemAmount = item.itemAmount
       this.saleAfterForm.refundFee = item.itemAmount
-      
+
       console.log('售后====',row)
       this.saleAfterOpen = true
     },

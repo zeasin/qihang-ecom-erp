@@ -165,7 +165,7 @@ public class TaoOrder extends BaseEntity
     private String phone;
     private String province;
     private String city;
-    private String town;
+    private String district;
     private String address;
     private Integer shipType;
 
@@ -212,12 +212,12 @@ public class TaoOrder extends BaseEntity
         this.city = city;
     }
 
-    public String getTown() {
-        return town;
+    public String getDistrict() {
+        return district;
     }
 
-    public void setTown(String town) {
-        this.town = town;
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getAddress() {

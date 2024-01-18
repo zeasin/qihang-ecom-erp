@@ -53,7 +53,7 @@ public class TaoOrderRefund extends BaseEntity
 
     /** 退款状态。可选值WAIT_SELLER_AGREE(买家已经申请退款，等待卖家同意) WAIT_BUYER_RETURN_GOODS(卖家已经同意退款，等待买家退货) WAIT_SELLER_CONFIRM_GOODS(买家已经退货，等待卖家确认收货) SELLER_REFUSE_BUYER(卖家拒绝退款) CLOSED(退款关闭) SUCCESS(退款成功) */
     @Excel(name = "退款状态。可选值WAIT_SELLER_AGREE(买家已经申请退款，等待卖家同意) WAIT_BUYER_RETURN_GOODS(卖家已经同意退款，等待买家退货) WAIT_SELLER_CONFIRM_GOODS(买家已经退货，等待卖家确认收货) SELLER_REFUSE_BUYER(卖家拒绝退款) CLOSED(退款关闭) SUCCESS(退款成功)")
-    private Long status;
+    private String status;
 
     /** 货物状态。可选值BUYER_NOT_RECEIVED (买家未收到货) BUYER_RECEIVED (买家已收到货) BUYER_RETURNED_GOODS (买家已退货) */
     @Excel(name = "货物状态。可选值BUYER_NOT_RECEIVED (买家未收到货) BUYER_RECEIVED (买家已收到货) BUYER_RETURNED_GOODS (买家已退货)")
@@ -65,7 +65,7 @@ public class TaoOrderRefund extends BaseEntity
 
     /** 买家是否需要退货。可选值:true(是),false(否) */
     @Excel(name = "买家是否需要退货。可选值:true(是),false(否)")
-    private Long hasGoodReturn;
+    private Integer hasGoodReturn;
 
     /** 退款原因 */
     @Excel(name = "退款原因")
@@ -218,12 +218,12 @@ public class TaoOrderRefund extends BaseEntity
     {
         return modified;
     }
-    public void setStatus(Long status) 
+    public void setStatus(String status)
     {
         this.status = status;
     }
 
-    public Long getStatus() 
+    public String getStatus()
     {
         return status;
     }
@@ -245,12 +245,12 @@ public class TaoOrderRefund extends BaseEntity
     {
         return num;
     }
-    public void setHasGoodReturn(Long hasGoodReturn) 
+    public void setHasGoodReturn(Integer hasGoodReturn)
     {
         this.hasGoodReturn = hasGoodReturn;
     }
 
-    public Long getHasGoodReturn() 
+    public Integer getHasGoodReturn()
     {
         return hasGoodReturn;
     }

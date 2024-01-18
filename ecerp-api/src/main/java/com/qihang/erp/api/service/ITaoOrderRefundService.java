@@ -58,4 +58,6 @@ public interface ITaoOrderRefundService
      * @return 结果
      */
     public int deleteTaoOrderRefundById(Long id);
+
+    Integer updOrderRefund(Long shopId,TaoOrderRefund refund);
 }
