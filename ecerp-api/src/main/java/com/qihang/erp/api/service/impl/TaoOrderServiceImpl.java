@@ -4,15 +4,19 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.qihang.erp.api.common.EnumResultVo;
+import com.qihang.erp.api.common.ResultVo;
 import com.qihang.erp.api.domain.*;
 import com.qihang.erp.api.mapper.*;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import com.zhijian.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import com.qihang.erp.api.service.ITaoOrderService;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * 淘宝订单Service业务层处理
@@ -55,7 +59,7 @@ public class TaoOrderServiceImpl implements ITaoOrderService
         taoOrder.setPhone(addr.getMobile());
         taoOrder.setProvince(addr.getProvince());
         taoOrder.setCity(addr.getCity());
-        taoOrder.setTown(addr.getTown());
+        taoOrder.setDistrict(addr.getTown());
         taoOrder.setAddress(addr.getAddress());
         return taoOrder;
     }
@@ -111,7 +115,7 @@ public class TaoOrderServiceImpl implements ITaoOrderService
         address.setMobile(taoOrder.getPhone());
         address.setProvince(taoOrder.getProvince());
         address.setCity(taoOrder.getCity());
-        address.setArea(taoOrder.getTown());
+        address.setArea(taoOrder.getDistrict());
         address.setAddress(taoOrder.getAddress());
         addressMapper.insertTaoOrderAddress(address);
         return rows;
@@ -323,6 +327,108 @@ public class TaoOrderServiceImpl implements ITaoOrderService
     {
         taoOrderMapper.deleteTaoOrderItemByOrderId(id);
         return taoOrderMapper.deleteTaoOrderById(id);
+    }
+
+    @Override
+    public ResultVo<Integer> updateTmallOrderForOpenTaobao(Long shopId, TaoOrder order) {
+        //查询订单是否存在
+//        var oList = jdbcTemplate.query("SELECT * FROM " + Tables.DcTmallOrder + " WHERE id=? ", new BeanPropertyRowMapper<>(DcTmallOrderEntity.class), Long.parseLong(order.getId()));
+//        if (oList != null && oList.size() > 0) {
+//            //存在，更新
+//            /**********1、更新订单状态**********/
+//            String updSQL = "UPDATE " + Tables.DcTmallOrder + " SET totalAmount=?,shippingFee=?,payAmount=?" +
+//                    ",createTime=?,modifyTime=?,payTime=?,sellerMemo=?,buyerFeedback=?,statusStr=?,status=?,is_comment=? WHERE id=?";
+//
+//            jdbcTemplate.update(updSQL, order.getTotalAmount(), order.getShippingFee(), order.getPayAmount(),
+//                    order.getCreateTime(), order.getModifyTime(), order.getPayTime(),
+//                    order.getSellerMemo(), order.getBuyerFeedback(), order.getStatusStr(), order.getStatus(),order.getIsComment(),order.getId());
+//
+//            /**********2、更新订单items**********/
+//
+//
+//            //重新添加dc_tmall_order_item
+//            String itemSQL1 = "UPDATE " + Tables.DcTmallOrderItem + " SET itemAmount=?" +
+//                    ",goodsTitle=?,goodsNumber=?,productImgUrl=?,productUrl=?,specNumber=?,skuInfo=?," +
+//                    "price=?,quantity=?,status=?,statusStr=?,refundStatus=?,refundStatusStr=?," +
+//                    "discount_fee=?,adjust_fee=?,productId=? WHERE subItemId=? AND orderId=? ";
+//
+////            Integer totalQuantity=0;//商品总数
+//            for (var item : order.getItems()) {
+//                /*******************2.2、添加tmall_order_item**************************/
+////                double itemAmount = item.getPrice().doubleValue() * item.getQuantity();
+//                jdbcTemplate.update(itemSQL1, item.getItemAmount(),
+//                        item.getGoodsTitle(), item.getGoodsNumber(), item.getProductImgUrl(), item.getProductUrl(), item.getSpecNumber(), item.getSkuInfo(),
+//                        item.getPrice(), item.getQuantity(), item.getStatus(), item.getStatusStr(), item.getRefundStatus(), item.getRefundStatusStr(),
+//                        item.getDiscountFee(), item.getAdjustFee(),item.getProductId(),
+//                        item.getSubItemId(), order.getId());
+//                //totalQuantity += item.getQuantity().intValue();
+//            }
+//
+//            /**********3、更新订单收货地址（暂时不做更新）**********/
+//
+//            return new ResultVo<>(EnumResultVo.DataExist, "订单已经存在，并且更新成功");
+//        } else {
+//            try {
+//                /**************1、新增tmall_order数据**********************/
+//                //不存在，新增订单
+//                String insertSQL = "INSERT INTO " + Tables.DcTmallOrder + " (id,buyerName,totalAmount,shippingFee,discountAmount,payAmount,discountRemark" +
+//                        ",createTime,modifyTime,payTime" +
+//                        ",sellerMemo,buyerFeedback,statusStr,status" +
+//                        ",auditStatus,orderSource,createOn,shopId,is_comment) " +
+//                        " VALUE (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+//
+//                jdbcTemplate.update(insertSQL, order.getId(), order.getBuyerName(), order.getTotalAmount(), order.getShippingFee(), 0.00, order.getPayAmount(), "",
+//                        order.getCreateTime(), order.getModifyTime(), order.getPayTime(),
+//                        order.getSellerMemo(), order.getBuyerFeedback(), order.getStatusStr(), order.getStatus(),
+//                        0, 0, System.currentTimeMillis() / 1000, shopId,order.getIsComment());
+//
+//                //添加订单收货地址ngc
+//                String addressSQL = "INSERT INTO " + Tables.DcTmallOrderAddress + " (orderId,contactPerson,mobile,province,city,area,address) VALUE (?,?,?,?,?,?,?)";
+//                jdbcTemplate.update(addressSQL, order.getId(),order.getContactPerson() ,order.getMobile(), order.getProvince(), order.getCity(), order.getArea(),order.getAddress());
+//
+////                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//                /*******************3、添加tmall_order_item**************************/
+//                //添加订单明细
+//                String itemSQL = "INSERT INTO " + Tables.DcTmallOrderItem + " (orderId,subItemId,itemAmount" +
+//                        ",goodsTitle,goodsNumber,productImgUrl,productUrl,productId,skuId,specNumber,skuInfo,price,quantity," +
+//                        "status,statusStr,refundStatus,refundStatusStr,discount_fee,adjust_fee,erpGoodsId,erpGoodsSpecId) VALUE (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+//
+//                Integer totalQuantity = 0;//商品总数
+//                double goodsTotalAmount = 0l;//商品总价
+//                for (var item : order.getItems()) {
+//
+//                    /*******************3、添加tmall_order_item**************************/
+//
+//                    /****查询sku*****/
+//                    Integer goodsId = 0;
+//                    Integer goodsSpecId = 0;
+//                    //查询erp商品规格信息
+//                    if(org.springframework.util.StringUtils.isEmpty(item.getSpecNumber())==false) {
+//                        try {
+//                            ErpGoodsSpecEntity erpGoodsSpec = jdbcTemplate.queryForObject("SELECT * FROM " + Tables.ErpGoodsSpec + " WHERE specNumber=?", new BeanPropertyRowMapper<>(ErpGoodsSpecEntity.class), item.getSpecNumber());
+//                            goodsId = erpGoodsSpec.getGoodsId();
+//                            goodsSpecId = erpGoodsSpec.getId();
+//                        } catch (Exception E) {
+//                        }
+//                    }
+//
+//                    jdbcTemplate.update(itemSQL, order.getId(), item.getSubItemId(), item.getItemAmount(),
+//                            item.getGoodsTitle(), item.getGoodsNumber(), item.getProductImgUrl(), item.getProductUrl(), Long.valueOf(item.getProductId()), 0, item.getSpecNumber(), item.getSkuInfo(),
+//                            item.getPrice(), item.getQuantity(), item.getStatus(), item.getStatusStr(), item.getRefundStatus(), item.getRefundStatusStr(), item.getDiscountFee(), item.getAdjustFee()
+//                            ,goodsId,goodsSpecId);
+//
+//                    totalQuantity += item.getQuantity().intValue();
+//                    goodsTotalAmount += item.getPrice().doubleValue() * item.getQuantity();
+//                }
+//
+//
+//            } catch (Exception e) {
+//                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//                return new ResultVo<>(EnumResultVo.SystemException, "系统异常：" + e.getMessage());
+//            }
+//        }
+//        return new ResultVo<>(EnumResultVo.SUCCESS, "SUCCESS");
+        return new ResultVo<>(EnumResultVo.SUCCESS, "SUCCESS");
     }
 
     /**

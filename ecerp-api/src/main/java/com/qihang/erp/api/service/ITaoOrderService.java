@@ -1,6 +1,8 @@
 package com.qihang.erp.api.service;
 
 import java.util.List;
+
+import com.qihang.erp.api.common.ResultVo;
 import com.qihang.erp.api.domain.TaoOrder;
 
 /**
@@ -52,4 +54,6 @@ public interface ITaoOrderService
      * @return 结果
      */
     public int deleteTaoOrderById(Long id);
+
+    ResultVo<Integer> updateTmallOrderForOpenTaobao(Long shopId, TaoOrder order);
 }

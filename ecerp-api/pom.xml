@@ -10,7 +10,7 @@
     <artifactId>ecerp-api</artifactId>
     <packaging>jar</packaging>
 
-    <name>zhijian-api</name>
+    <name>ecerp-api</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -113,7 +113,20 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>taobao</groupId>
+            <artifactId>taobao-sdk</artifactId>
+            <version>0.20200820</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/taobao/taobao-sdk-0.20200820.jar</systemPath>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>pinduoduo</groupId>-->
+<!--            <artifactId>pop-sdk-all</artifactId>-->
+<!--            <version>1.11.8</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/libs/pinduoduo/pop-sdk-all-1.11.8.jar</systemPath>-->
+<!--        </dependency>-->
 
     </dependencies>
 
