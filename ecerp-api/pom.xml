@@ -109,10 +109,10 @@
 <!--            <version>3.5.3.1</version>-->
 <!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>com.h2database</groupId>-->
-<!--            <artifactId>h2</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
 
 
     </dependencies>
@@ -123,6 +123,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <mainClass>com.qihang.erp.api.ApiApplication</mainClass>
                     <includeSystemScope>true</includeSystemScope>
                 </configuration>
                 <executions>
