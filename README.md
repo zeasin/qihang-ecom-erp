@@ -134,10 +134,18 @@ A[查询备货清单] -->B(生成拣货单)
 
 ## 三、如何使用？
 ### 0、开发环境配置
-+ MySQL导入数据`db\sql\mysql\qihang-erp.sql`
++ 运行MySQL脚本`db\sql\qihang-erp.sql`导入数据到主库`qihang-erp`
+
++ 运行MySQL脚本`db\sql\nacos.sql`导入数据到nacos库`nacos`
+
++ 启动nacos
+  + 进入nacos文件夹`db\nacos\bin`
+  + 双击`startup.cmd`
+  
 + 启动Redis
   + 进入项目redis文件夹`db\redis`
   + 启动：双击`start.bat`
+  
 + 启动minio
   + 进入项目minio文件夹`db\minio`
   + 启动：CMD运行`minio.exe server data`
