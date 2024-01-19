@@ -1,5 +1,7 @@
 package com.qihang.erp.api;
 
+
+import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 // @ComponentScan("com.zhijian")
 @Log
+@NacosPropertySource(dataId = "ecerp-dev.yaml", autoRefreshed = true)
 //@EnableTransactionManagement
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 public class ApiApplication  {
