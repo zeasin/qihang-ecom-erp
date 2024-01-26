@@ -81,22 +81,43 @@ public class TaoBaoOpenOrderUpdHelper {
                 order.setDistrict(trade.getReceiverDistrict());
                 order.setStatus(EnumTmallOrderStatus.getStatus(trade.getStatus()));
                 order.setStatusStr(trade.getStatus());
+                order.setReceiver(trade.getReceiverName());
+                order.setProvince(trade.getReceiverState());
+                order.setCity(trade.getReceiverCity());
+                order.setDistrict(trade.getReceiverDistrict());
+                order.setAddress(trade.getReceiverAddress());
+                order.setPhone(trade.getReceiverMobile());
                 List<TaoOrderItem> items = new ArrayList<>();
                 for (var item : trade.getOrders()) {
                     TaoOrderItem orderItem = new TaoOrderItem();
+                    orderItem.setOrderId(order.getId());
+                    orderItem.setSubItemId(item.getOid().toString());
+                    Long refundStatus = -1L;
+                    if(item.getRefundStatus().equals("NO_REFUND")){
+                        refundStatus = 0L;
+                    }else {
+                        refundStatus = 1L;
+                    }
+                    orderItem.setRefundStatus(refundStatus);
+                    orderItem.setProductId(item.getNumIid());
+                    orderItem.setSkuId(Long.parseLong(item.getSkuId()));
                     orderItem.setSpecNumber(item.getOuterSkuId());
                     orderItem.setGoodsNumber(item.getOuterIid());
                     orderItem.setProductImgUrl(item.getPicPath());
                     orderItem.setGoodsTitle(item.getTitle());
                     orderItem.setPrice(BigDecimal.valueOf(Double.parseDouble(item.getPrice())));
                     orderItem.setQuantity(item.getNum());
-                    orderItem.setSubItemId(item.getOid().toString());
+
                     orderItem.setSkuInfo(item.getSkuPropertiesName());
                     orderItem.setItemAmount(BigDecimal.valueOf(Double.parseDouble(item.getPayment())));
                     orderItem.setDiscountFee(new BigDecimal(item.getDiscountFee()));
                     orderItem.setAdjustFee(new BigDecimal(item.getAdjustFee()));
 
                     orderItem.setRefundStatusStr(item.getRefundStatus());
+
+                    orderItem.setNewSpecId(0L);
+                    orderItem.setIsGift(0);
+                    orderItem.setIsSwap(0);
                     items.add(orderItem);
                 }
                 order.setTaoOrderItemList(items);

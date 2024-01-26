@@ -329,9 +329,39 @@ public class TaoOrderServiceImpl implements ITaoOrderService
         return taoOrderMapper.deleteTaoOrderById(id);
     }
 
+    @Transactional
     @Override
     public ResultVo<Integer> updateTmallOrderForOpenTaobao(Long shopId, TaoOrder order) {
         //查询订单是否存在
+        TaoOrder taoOrder = taoOrderMapper.selectTaoOrderById(order.getId());
+        if(taoOrder == null){
+            // 不存在，新增
+            order.setCreateTime(new Date());
+            order.setAuditStatus(0L);
+            taoOrderMapper.insertTaoOrder(order);
+            // 添加收货地址
+            TaoOrderAddress  address = new TaoOrderAddress();
+            address.setContactPerson(order.getReceiver());
+            address.setProvince(order.getProvince());
+            address.setCity(order.getCity());
+            address.setTown(order.getDistrict());
+            address.setAddress(order.getAddress());
+            address.setMobile(order.getPhone());
+            address.setOrderId(order.getId());
+            addressMapper.insertTaoOrderAddress(address);
+            // 添加订单item
+//            for (TaoOrderItem orderItem:order.getTaoOrderItemList()) {
+//                orderItem.setNewSpecId(0L);
+//                orderItem.setIsGift(0);
+//                orderItem.setIsSwap(0);
+//            }
+            taoOrderMapper.batchTaoOrderItem(order.getTaoOrderItemList());
+
+        }else{
+            // 存在更新
+
+        }
+
 //        var oList = jdbcTemplate.query("SELECT * FROM " + Tables.DcTmallOrder + " WHERE id=? ", new BeanPropertyRowMapper<>(DcTmallOrderEntity.class), Long.parseLong(order.getId()));
 //        if (oList != null && oList.size() > 0) {
 //            //存在，更新
@@ -427,8 +457,8 @@ public class TaoOrderServiceImpl implements ITaoOrderService
 //                return new ResultVo<>(EnumResultVo.SystemException, "系统异常：" + e.getMessage());
 //            }
 //        }
-//        return new ResultVo<>(EnumResultVo.SUCCESS, "SUCCESS");
         return new ResultVo<>(EnumResultVo.SUCCESS, "SUCCESS");
+//        return new ResultVo<>(EnumResultVo.SUCCESS, "SUCCESS");
     }
 
     /**
