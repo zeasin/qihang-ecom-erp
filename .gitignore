@@ -5,7 +5,8 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 
-target/
+ecerp-api/target/
+framework/**/target
 !.mvn/wrapper/maven-wrapper.jar
 
 ######################################################################
@@ -51,7 +52,8 @@ nbdist/
 bin-debug/
 bin-release/
 [Oo]bj/
-[Bb]in/
+#[Bb]in/
+logs
 
 # Other files and folders
 .settings/
