@@ -1,5 +1,6 @@
 package com.qihang.erp.api.controller.tao;
 
+import com.qihang.erp.api.common.EnumResultVo;
 import com.qihang.erp.api.common.EnumTmallOrderStatus;
 import com.qihang.erp.api.domain.TaoOrder;
 import com.qihang.erp.api.domain.TaoOrderItem;
@@ -50,7 +51,11 @@ public class TaoBaoOpenOrderUpdHelper {
 //        req.setBuyerOpenId("AAHm5d-EAAeGwJedwSHpg8bT");
         TradesSoldGetResponse rsp = client.execute(req, sessionKey);
 //        System.out.println(rsp.getBody());
-
+        if(StringUtils.hasText(rsp.getErrorCode())){
+            if(rsp.getErrorCode().equals("27")){
+                return new TaoBaoOpenOrderUpdResult(EnumResultVo.TokenFail.getIndex(), "Token已过期，请重新授权");
+            }
+        }
         if (rsp.getTrades() == null) {
             //接口查询错误
             return new TaoBaoOpenOrderUpdResult(500, "接口调用错误：" + rsp.getMsg() + rsp.getSubMsg());

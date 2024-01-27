@@ -194,6 +194,9 @@ public class TaoOrderPullController {
 
         if (upResult.getCode().intValue() != 0) {
             log.info("/**************主动更新tao订单：第一次获取结果失败：" + upResult.getMsg() + "****************/");
+            if(upResult.getCode().intValue() == EnumResultVo.TokenFail.getIndex()){
+                return new ApiResult<>(EnumResultVo.TokenFail.getIndex(), "Token已过期，请重新授权",checkResult.getData());
+            }
             return new ApiResult<>(EnumResultVo.SystemException.getIndex(), upResult.getMsg());
         }
 
