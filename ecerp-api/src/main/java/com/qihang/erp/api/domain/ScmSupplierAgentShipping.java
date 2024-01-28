@@ -31,6 +31,7 @@ public class ScmSupplierAgentShipping extends BaseEntity
     @Excel(name = "供应商ID")
     private Long supplierId;
 
+
     /** 订单编号 */
     @Excel(name = "订单编号")
     private String orderNum;
@@ -91,7 +92,7 @@ public class ScmSupplierAgentShipping extends BaseEntity
 
     /** 运费 */
     @Excel(name = "运费")
-    private Long shipCost;
+    private Float shipCost;
 
     public Long getErpOrderItemId() {
         return erpOrderItemId;
@@ -111,7 +112,7 @@ public class ScmSupplierAgentShipping extends BaseEntity
 
     /** 运送时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "运送时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @Excel(name = "发货时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date shipTime;
 
     /** 状态（0未发货1已发货2已结算） */
@@ -121,8 +122,8 @@ public class ScmSupplierAgentShipping extends BaseEntity
     /** 子订单金额 */
     @Excel(name = "子订单金额")
     private BigDecimal itemAmount;
-
-    public void setId(Long id) 
+    
+    public void setId(Long id)
     {
         this.id = id;
     }
@@ -275,12 +276,12 @@ public class ScmSupplierAgentShipping extends BaseEntity
     {
         return shipNo;
     }
-    public void setShipCost(Long shipCost) 
+    public void setShipCost(Float shipCost)
     {
         this.shipCost = shipCost;
     }
 
-    public Long getShipCost() 
+    public Float getShipCost()
     {
         return shipCost;
     }
