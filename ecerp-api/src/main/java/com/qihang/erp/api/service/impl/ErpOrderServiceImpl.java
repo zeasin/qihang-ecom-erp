@@ -4,8 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import com.qihang.erp.api.domain.TaoOrderItem;
-import com.qihang.erp.api.domain.WmsOrderShipping;
+import com.qihang.erp.api.domain.*;
+import com.qihang.erp.api.mapper.FmsPayableShipFeeMapper;
+import com.qihang.erp.api.mapper.FmsReceivableOrderMapper;
 import com.qihang.erp.api.mapper.WmsOrderShippingMapper;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import com.zhijian.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
-import com.qihang.erp.api.domain.ErpOrderItem;
 import com.qihang.erp.api.mapper.ErpOrderMapper;
-import com.qihang.erp.api.domain.ErpOrder;
 import com.qihang.erp.api.service.IErpOrderService;
 
 /**
@@ -32,6 +31,10 @@ public class ErpOrderServiceImpl implements IErpOrderService
 
     @Autowired
     private WmsOrderShippingMapper wmsOrderShippingMapper;
+    @Autowired
+    private FmsReceivableOrderMapper fmsReceivableOrderMapper;
+    @Autowired
+    private FmsPayableShipFeeMapper fmsPayableShipFeeMapper;
 
     /**
      * 查询订单
@@ -148,6 +151,50 @@ public class ErpOrderServiceImpl implements IErpOrderService
                 wmsOrderShippingMapper.updateWmsOrderShipping(up);
             }
         }
+
+        // 生成订单收入fms_receivable_order
+        List<ErpOrderItem> erpOrderItems = erpOrderMapper.selectOrderItemByOrderId(erpOrder.getId());
+        for (ErpOrderItem item : erpOrderItems) {
+            FmsReceivableOrder fro = new FmsReceivableOrder();
+            fro.setDate(new Date());
+            fro.setOrderNum(order.getOrderNum());
+            fro.setOrderId(order.getId());
+            fro.setOrderItemId(item.getId());
+            fro.setGoodsId(item.getGoodsId());
+            fro.setGoodsName(item.getGoodsTitle());
+            fro.setSpecId(item.getSpecId());
+            fro.setSpecName(item.getGoodsSpec());
+            fro.setPrice(item.getGoodsPrice());
+            fro.setQuantity(item.getQuantity().longValue());
+            fro.setAmount(item.getItemAmount());
+            fro.setStatus(0L);
+            fro.setCreateTime(new Date());
+            fro.setCreateBy(erpOrder.getUpdateBy());
+            fmsReceivableOrderMapper.insertFmsReceivableOrder(fro);
+        }
+
+        // 生成物流费用 fms_payable_ship_fee
+        FmsPayableShipFee sf = new FmsPayableShipFee();
+        sf.setDate(new Date());
+        sf.setOrderNum(order.getOrderNum());
+        sf.setShopId(order.getShopId().longValue());
+        sf.setLogisticsCompany(erpOrder.getShippingCompany());
+        sf.setLogisticsNum(erpOrder.getShippingNumber());
+        sf.setAmount(erpOrder.getShippingCost());
+        sf.setStatus(0L);
+        sf.setCreateTime(new Date());
+        sf.setCreateBy(erpOrder.getUpdateBy());
+        sf.setWidth(erpOrder.getWidth());
+        sf.setWeight(erpOrder.getWeight());
+        sf.setHeight(erpOrder.getHeight());
+        sf.setLength(erpOrder.getLength());
+        sf.setReceiverName(order.getReceiverName());
+        sf.setReceiverPhone(order.getReceiverPhone());
+        sf.setProvince(order.getProvince());
+        sf.setCity(order.getCity());
+        sf.setTown(order.getTown());
+
+        fmsPayableShipFeeMapper.insertFmsPayableShipFee(sf);
         return 1;
     }
 
