@@ -43,6 +43,7 @@ public class ScmPurchaseOrder extends BaseEntity
     /** 订单总金额 */
     @Excel(name = "订单总金额")
     private BigDecimal orderAmount;
+    private BigDecimal shipAmount;
 
     /** 订单状态 0待审核1已审核101供应商已确认102供应商已发货200已入库 */
     @Excel(name = "订单状态 0待审核1已审核101供应商已确认102供应商已发货200已入库")
@@ -82,6 +83,14 @@ public class ScmPurchaseOrder extends BaseEntity
 
     public void setSupplier(String supplier) {
         this.supplier = supplier;
+    }
+
+    public BigDecimal getShipAmount() {
+        return shipAmount;
+    }
+
+    public void setShipAmount(BigDecimal shipAmount) {
+        this.shipAmount = shipAmount;
     }
 
     public void setId(Long id)
