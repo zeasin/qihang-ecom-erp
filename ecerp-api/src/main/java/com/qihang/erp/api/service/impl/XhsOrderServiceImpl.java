@@ -200,7 +200,7 @@ public class XhsOrderServiceImpl implements IXhsOrderService
             item.setSpecNum(i.getItemSpecCode());
             item.setGoodsSpec(i.getItemSpec());
             item.setGoodsPrice(i.getPrice());
-
+            item.setGoodsPurPrice(spec.getPurPrice());
             item.setItemAmount(BigDecimal.valueOf(i.getTotalPaidAmount()));
             item.setQuantity(i.getQuantity().intValue());
             item.setIsGift(i.getItemTag().intValue());
@@ -231,6 +231,7 @@ public class XhsOrderServiceImpl implements IXhsOrderService
                 item.setSpecNum(i.getItemSpecCode());
                 item.setGoodsSpec(i.getItemSpec());
                 item.setGoodsPrice(i.getPrice());
+                item.setGoodsPurPrice(spec.getPurPrice());
                 item.setItemAmount(BigDecimal.valueOf(i.getItemAmount()));
                 item.setQuantity(i.getQuantity().intValue());
                 item.setIsGift(1);
@@ -266,7 +267,7 @@ public class XhsOrderServiceImpl implements IXhsOrderService
                 agentShipping.setGoodsNum(it.getGoodsNum());
                 agentShipping.setGoodsSpec(it.getGoodsSpec());
                 agentShipping.setSpecNum(it.getSpecNum());
-                agentShipping.setGoodsPrice(it.getGoodsPrice());
+                agentShipping.setGoodsPrice(it.getGoodsPurPrice());
                 agentShipping.setQuantity(it.getQuantity().longValue());
                 agentShipping.setItemAmount(it.getItemAmount());
                 agentShipping.setStatus(0L);
@@ -304,8 +305,6 @@ public class XhsOrderServiceImpl implements IXhsOrderService
                 orderShippingMapper.insertWmsOrderShipping(shipping);
             }
         }
-        //更新自己
-
         //更新自己
         XhsOrder up =new XhsOrder();
         up.setId(original.getId());

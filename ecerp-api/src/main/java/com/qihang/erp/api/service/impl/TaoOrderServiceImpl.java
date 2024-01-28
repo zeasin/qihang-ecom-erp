@@ -192,6 +192,7 @@ public class TaoOrderServiceImpl implements ITaoOrderService
             item.setSpecNum(i.getSpecNumber());
             item.setGoodsSpec(i.getSkuInfo());
             item.setGoodsPrice(i.getPrice());
+            item.setGoodsPurPrice(spec.getPurPrice());
             item.setItemAmount(i.getItemAmount());
             item.setQuantity(i.getQuantity().intValue());
             item.setIsGift(i.getIsGift().intValue());
@@ -222,6 +223,7 @@ public class TaoOrderServiceImpl implements ITaoOrderService
                 item.setSpecNum(g.getSpecNumber());
                 item.setGoodsSpec(g.getSkuInfo());
                 item.setGoodsPrice(g.getPrice());
+                item.setGoodsPurPrice(spec.getPurPrice());
                 item.setItemAmount(g.getItemAmount());
                 item.setQuantity(g.getQuantity().intValue());
                 item.setIsGift(1);
@@ -254,7 +256,7 @@ public class TaoOrderServiceImpl implements ITaoOrderService
                 agentShipping.setGoodsNum(it.getGoodsNum());
                 agentShipping.setGoodsSpec(it.getGoodsSpec());
                 agentShipping.setSpecNum(it.getSpecNum());
-                agentShipping.setGoodsPrice(it.getGoodsPrice());
+                agentShipping.setGoodsPrice(it.getGoodsPurPrice());
                 agentShipping.setQuantity(it.getQuantity().longValue());
                 agentShipping.setItemAmount(it.getItemAmount());
                 agentShipping.setStatus(0L);

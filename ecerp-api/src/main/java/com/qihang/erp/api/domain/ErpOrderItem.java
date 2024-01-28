@@ -79,6 +79,8 @@ public class ErpOrderItem extends BaseEntity
     /** 商品单价 */
     @Excel(name = "商品单价")
     private BigDecimal goodsPrice;
+    /** 商品采购价 */
+    private BigDecimal goodsPurPrice;
 
     /** 子订单金额 */
     @Excel(name = "子订单金额")
@@ -100,7 +102,15 @@ public class ErpOrderItem extends BaseEntity
     @Excel(name = "售后状态 1：无售后或售后关闭，2：售后处理中，3：退款中，4： 退款成功 ")
     private Integer refundStatus;
 
-    public void setId(Long id) 
+    public BigDecimal getGoodsPurPrice() {
+        return goodsPurPrice;
+    }
+
+    public void setGoodsPurPrice(BigDecimal goodsPurPrice) {
+        this.goodsPurPrice = goodsPurPrice;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }

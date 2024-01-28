@@ -80,25 +80,31 @@ public class ScmSupplierAgentShippingController extends BaseController
 //        return toAjax(scmSupplierAgentShippingService.insertScmSupplierAgentShipping(scmSupplierAgentShipping));
 //    }
 
-//    /**
-//     * 修改供应商代发货
-//     */
-//    @PreAuthorize("@ss.hasPermi('scm:agentShipping:edit')")
-//    @Log(title = "供应商代发货", businessType = BusinessType.UPDATE)
-//    @PutMapping
-//    public AjaxResult edit(@RequestBody ScmSupplierAgentShipping scmSupplierAgentShipping)
-//    {
-//        return toAjax(scmSupplierAgentShippingService.updateScmSupplierAgentShipping(scmSupplierAgentShipping));
-//    }
-
     /**
-     * 删除供应商代发货
+     * 发货
      */
-    @PreAuthorize("@ss.hasPermi('scm:agentShipping:remove')")
-    @Log(title = "供应商代发货", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
+    @PreAuthorize("@ss.hasPermi('scm:agentShipping:edit')")
+    @Log(title = "供应商代发货", businessType = BusinessType.UPDATE)
+    @PutMapping
+    public AjaxResult edit(@RequestBody ScmSupplierAgentShipping scmSupplierAgentShipping)
     {
-        return toAjax(scmSupplierAgentShippingService.deleteScmSupplierAgentShippingByIds(ids));
+        scmSupplierAgentShipping.setUpdateBy(getUsername());
+        Integer result = scmSupplierAgentShippingService.updateScmSupplierAgentShipping(scmSupplierAgentShipping);
+        if(result == -1) return new AjaxResult(505,"订单号已存在");
+        else if(result == -2) return new AjaxResult(506,"该订单无需发货");
+        else if(result == -3) return new AjaxResult(507,"商品数据错误");
+
+        return toAjax(result);
     }
+
+//    /**
+//     * 删除供应商代发货
+//     */
+//    @PreAuthorize("@ss.hasPermi('scm:agentShipping:remove')")
+//    @Log(title = "供应商代发货", businessType = BusinessType.DELETE)
+//	@DeleteMapping("/{ids}")
+//    public AjaxResult remove(@PathVariable Long[] ids)
+//    {
+//        return toAjax(scmSupplierAgentShippingService.deleteScmSupplierAgentShippingByIds(ids));
+//    }
 }

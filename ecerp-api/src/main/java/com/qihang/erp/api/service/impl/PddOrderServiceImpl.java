@@ -201,6 +201,7 @@ public class PddOrderServiceImpl implements IPddOrderService
             item.setSpecNum(i.getSpecNum());
             item.setGoodsSpec(i.getGoodsSpec());
             item.setGoodsPrice(BigDecimal.valueOf(i.getGoodsPrice()));
+            item.setGoodsPurPrice(spec.getPurPrice());
             item.setItemAmount(BigDecimal.valueOf(i.getItemAmount()));
             item.setQuantity(i.getQuantity().intValue());
             item.setIsGift(i.getIsGift().intValue());
@@ -231,6 +232,7 @@ public class PddOrderServiceImpl implements IPddOrderService
                 item.setSpecNum(i.getSpecNum());
                 item.setGoodsSpec(i.getGoodsSpec());
                 item.setGoodsPrice(BigDecimal.valueOf(i.getGoodsPrice()));
+                item.setGoodsPurPrice(spec.getPurPrice());
                 item.setItemAmount(BigDecimal.valueOf(i.getItemAmount()));
                 item.setQuantity(i.getQuantity().intValue());
                 item.setIsGift(1);
@@ -242,7 +244,7 @@ public class PddOrderServiceImpl implements IPddOrderService
             }
         }
 //        erpOrderMapper.batchErpOrderItem(items);
-        // 新增代发表
+        // 新增代发表scm_supplier_agent_shipping
         if(pddOrder.getShipType() == 1){
             for (ErpOrderItem it: items) {
                 // 添加Erp_order_item
@@ -265,7 +267,7 @@ public class PddOrderServiceImpl implements IPddOrderService
                 agentShipping.setGoodsNum(it.getGoodsNum());
                 agentShipping.setGoodsSpec(it.getGoodsSpec());
                 agentShipping.setSpecNum(it.getSpecNum());
-                agentShipping.setGoodsPrice(it.getGoodsPrice());
+                agentShipping.setGoodsPrice(it.getGoodsPurPrice());
                 agentShipping.setQuantity(it.getQuantity().longValue());
                 agentShipping.setItemAmount(it.getItemAmount());
                 agentShipping.setStatus(0L);

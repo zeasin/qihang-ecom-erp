@@ -172,6 +172,7 @@ public class DouOrderServiceImpl implements IDouOrderService
             item.setSpecNum(i.getSpecNum());
             item.setGoodsSpec(i.getGoodsSpec());
             item.setGoodsPrice(i.getPrice());
+            item.setGoodsPurPrice(spec.getPurPrice());
             item.setItemAmount(i.getTotalAmount());
             item.setQuantity(i.getComboNum().intValue());
             item.setIsGift(i.getIsGift().intValue());
@@ -202,6 +203,7 @@ public class DouOrderServiceImpl implements IDouOrderService
                 item.setSpecNum(i.getSpecNum());
                 item.setGoodsSpec(i.getGoodsSpec());
                 item.setGoodsPrice(i.getPrice());
+                item.setGoodsPurPrice(spec.getPurPrice());
                 item.setItemAmount(i.getTotalAmount());
                 item.setQuantity(i.getComboNum().intValue());
                 item.setIsGift(1);
@@ -237,7 +239,7 @@ public class DouOrderServiceImpl implements IDouOrderService
                 agentShipping.setGoodsNum(it.getGoodsNum());
                 agentShipping.setGoodsSpec(it.getGoodsSpec());
                 agentShipping.setSpecNum(it.getSpecNum());
-                agentShipping.setGoodsPrice(it.getGoodsPrice());
+                agentShipping.setGoodsPrice(it.getGoodsPurPrice());
                 agentShipping.setQuantity(it.getQuantity().longValue());
                 agentShipping.setItemAmount(it.getItemAmount());
                 agentShipping.setStatus(0L);
