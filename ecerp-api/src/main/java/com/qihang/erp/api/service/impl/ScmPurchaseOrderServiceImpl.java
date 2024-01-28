@@ -8,19 +8,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
-import com.qihang.erp.api.domain.ScmPurchaseOrderCost;
-import com.qihang.erp.api.domain.ScmPurchaseOrderItem;
-import com.qihang.erp.api.domain.ScmPurchaseOrderShip;
+import com.qihang.erp.api.domain.*;
 import com.qihang.erp.api.domain.bo.PurchaseOrderAddBo;
 import com.qihang.erp.api.domain.bo.PurchaseOrderOptionBo;
-import com.qihang.erp.api.mapper.ScmPurchaseOrderCostMapper;
-import com.qihang.erp.api.mapper.ScmPurchaseOrderItemMapper;
-import com.qihang.erp.api.mapper.ScmPurchaseOrderShipMapper;
+import com.qihang.erp.api.mapper.*;
 import com.zhijian.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.qihang.erp.api.mapper.ScmPurchaseOrderMapper;
-import com.qihang.erp.api.domain.ScmPurchaseOrder;
 import com.qihang.erp.api.service.IScmPurchaseOrderService;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +35,10 @@ public class ScmPurchaseOrderServiceImpl implements IScmPurchaseOrderService
     private ScmPurchaseOrderCostMapper costMapper;
     @Autowired
     private ScmPurchaseOrderShipMapper shipMapper;
+    @Autowired
+    private ScmSupplierMapper  supplierMapper;
+    @Autowired
+    private FmsPayablePurchaseMapper  fmsPayablePurchaseMapper;
 
     /**
      * 查询采购订单
@@ -146,33 +144,33 @@ public class ScmPurchaseOrderServiceImpl implements IScmPurchaseOrderService
             return scmPurchaseOrderMapper.updateScmPurchaseOrder(scmPurchaseOrder);
         }else if (bo.getOptionType().equals("confirm")) {
             if(order.getStatus() !=1){
-                // 状态不是已审核的不能发货
+                // 状态不是已审核的不能确认
                 return -1;
             }
-            // 查询数据
-            ScmPurchaseOrderItem oi = new ScmPurchaseOrderItem();
-            oi.setOrderId(order.getId());
-            List<ScmPurchaseOrderItem> items = scmPurchaseOrderItemMapper.selectScmPurchaseOrderItemList(oi);
-            Map<Long, List<ScmPurchaseOrderItem>> goodsGroup = items.stream().collect(Collectors.groupingBy(x -> x.getGoodsId()));
-            Long total = items.stream().mapToLong(ScmPurchaseOrderItem::getQuantity).sum();
-            // 生成费用信息
-            ScmPurchaseOrderCost cost = new ScmPurchaseOrderCost();
-            cost.setId(order.getId());
-            cost.setOrderNo(order.getOrderNo());
-            cost.setOrderDate(order.getOrderDate());
-            cost.setOrderGoodsUnit(goodsGroup.size());
-            cost.setOrderSpecUnit(items.size());
-            cost.setOrderSpecUnitTotal(total);
-            cost.setOrderAmount(order.getOrderAmount());
-            cost.setActualAmount(bo.getTotalAmount());
-            cost.setFreight(BigDecimal.ZERO);
-            cost.setConfirmUser(bo.getConfirmUser());
-            cost.setConfirmTime(new Date());
-            cost.setCreateBy(bo.getUpdateBy());
-            cost.setPayAmount(BigDecimal.ZERO);
-            cost.setPayCount(0L);
-            cost.setStatus(0L);
-            costMapper.insertScmPurchaseOrderCost(cost);
+//            // 查询数据
+//            ScmPurchaseOrderItem oi = new ScmPurchaseOrderItem();
+//            oi.setOrderId(order.getId());
+//            List<ScmPurchaseOrderItem> items = scmPurchaseOrderItemMapper.selectScmPurchaseOrderItemList(oi);
+//            Map<Long, List<ScmPurchaseOrderItem>> goodsGroup = items.stream().collect(Collectors.groupingBy(x -> x.getGoodsId()));
+//            Long total = items.stream().mapToLong(ScmPurchaseOrderItem::getQuantity).sum();
+//            // 生成费用信息
+//            ScmPurchaseOrderCost cost = new ScmPurchaseOrderCost();
+//            cost.setId(order.getId());
+//            cost.setOrderNo(order.getOrderNo());
+//            cost.setOrderDate(order.getOrderDate());
+//            cost.setOrderGoodsUnit(goodsGroup.size());
+//            cost.setOrderSpecUnit(items.size());
+//            cost.setOrderSpecUnitTotal(total);
+//            cost.setOrderAmount(order.getOrderAmount());
+//            cost.setActualAmount(bo.getTotalAmount());
+//            cost.setFreight(BigDecimal.ZERO);
+//            cost.setConfirmUser(bo.getConfirmUser());
+//            cost.setConfirmTime(new Date());
+//            cost.setCreateBy(bo.getUpdateBy());
+//            cost.setPayAmount(BigDecimal.ZERO);
+//            cost.setPayCount(0L);
+//            cost.setStatus(0L);
+//            costMapper.insertScmPurchaseOrderCost(cost);
 
             // 更新主表
             ScmPurchaseOrder scmPurchaseOrder = new ScmPurchaseOrder();
@@ -213,11 +211,25 @@ public class ScmPurchaseOrderServiceImpl implements IScmPurchaseOrderService
             ship.setBackCount(0L);
             ship.setStockInCount(0L);
             shipMapper.insertScmPurchaseOrderShip(ship);
-            // 更新费用表
-            ScmPurchaseOrderCost cost = new ScmPurchaseOrderCost();
-            cost.setId(order.getId());
-            cost.setFreight(bo.getShipCost());
-            costMapper.updateScmPurchaseOrderCost(cost);
+//            // 更新费用表
+//            ScmPurchaseOrderCost cost = new ScmPurchaseOrderCost();
+//            cost.setId(order.getId());
+//            cost.setFreight(bo.getShipCost());
+//            costMapper.updateScmPurchaseOrderCost(cost);
+
+            ScmSupplier scmSupplier = supplierMapper.selectScmSupplierById(order.getContactId());
+            // 生成应付信息fms_payable_purchase
+            FmsPayablePurchase fmsPP = new FmsPayablePurchase();
+            fmsPP.setSupplierId(order.getContactId());
+            fmsPP.setSupplierName(scmSupplier!=null ? scmSupplier.getName():"数据库未找到供应商信息");
+            fmsPP.setAmount(order.getOrderAmount().add(bo.getShipCost()));
+            fmsPP.setDate(new Date());
+            fmsPP.setPurchaseOrderNo(order.getOrderNo());
+            fmsPP.setPurchaseDesc("{采购商品总数量:"+total+",不同款式:"+goodsGroup.size()+",不同SKU:"+items.size()+",商品总价:"+order.getOrderAmount()+",运费:"+bo.getShipCost()+"}");
+            fmsPP.setStatus(0L);
+            fmsPP.setCreateTime(new Date());
+            fmsPP.setCreateBy(bo.getUpdateBy());
+            fmsPayablePurchaseMapper.insertFmsPayablePurchase(fmsPP);
 
             // 更新主表
             ScmPurchaseOrder scmPurchaseOrder = new ScmPurchaseOrder();
@@ -226,6 +238,7 @@ public class ScmPurchaseOrderServiceImpl implements IScmPurchaseOrderService
             scmPurchaseOrder.setUpdateTime(DateUtils.getNowDate());
             scmPurchaseOrder.setStatus(102);
             scmPurchaseOrder.setSupplierDeliveryTime(new Date());
+            scmPurchaseOrder.setShipAmount(bo.getShipCost());
             scmPurchaseOrderMapper.updateScmPurchaseOrder(scmPurchaseOrder);
         }
         return 1;
