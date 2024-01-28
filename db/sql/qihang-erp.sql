@@ -11,7 +11,7 @@
  Target Server Version : 80200
  File Encoding         : 65001
 
- Date: 28/01/2024 15:23:49
+ Date: 28/01/2024 21:09:59
 */
 
 SET NAMES utf8mb4;
@@ -2874,6 +2874,7 @@ CREATE TABLE `erp_order`  (
 -- ----------------------------
 INSERT INTO `erp_order` VALUES (15, '1631273557325601885', 4, 6, NULL, NULL, NULL, 1, 2, 28.9, 0, 0, 28.9, '王淑芳', '18704389133', '吉林吉林省松原市扶余市 三井子镇 里', '中国', '吉林', '', '', '2022-07-31 18:14:00', '2024-01-16 13:44:26', 0, NULL, NULL, NULL, NULL, NULL, '2024-01-16 13:44:26', 'admin', '2024-01-16 14:52:43', 'admin', 0, 0, 0, NULL);
 INSERT INTO `erp_order` VALUES (16, '1642473483353670599', 4, 6, NULL, NULL, NULL, 1, 3, 29.92, 0, 0, 29.92, '戴志兰', '17321293202', '上海上海 上海市 徐汇区 天平路街道 建国西路382号三楼4室 ', '中国', '上海', '', '', '2022-08-13 19:09:13', '2024-01-16 15:04:52', 0, '2024-01-16 15:42:53', 'CN2210003552', '菜鸟速递', '启航', 3.00, '2024-01-16 15:04:52', 'admin', '2024-01-16 15:42:53', 'admin', 20, 56, 19, 409);
+INSERT INTO `erp_order` VALUES (17, '1635222253871665598', 4, 6, NULL, NULL, NULL, 1, 1, 29.92, 0, 0, 29.92, '小红', '15635244122', '上海上海 上海市 徐汇区 华泾镇 华发路368弄 馨宁公寓馨宁公寓368弄23号楼1501', '中国', '上海', '', '', '2022-08-05 18:48:51', '2024-01-28 19:55:37', 1, NULL, NULL, NULL, NULL, NULL, '2024-01-28 19:55:37', 'admin', NULL, NULL, 0, 0, 0, NULL);
 
 -- ----------------------------
 -- Table structure for erp_order_item
@@ -2912,6 +2913,7 @@ CREATE TABLE `erp_order_item`  (
 -- ----------------------------
 INSERT INTO `erp_order_item` VALUES (12, 15, 9, 32, '8026牛仔短裤', 'https://cbu01.alicdn.com/img/ibank/O1CN01AfNgvA2FOyAvwXZxv_!!2208857268871-0-cib.jpg', '272021008026', '黑色,2XL', '2720210080260105', 28.9, 28.9, 1, NULL, '1631273557325601885', 26, 0, 0, 1, '2024-01-16 13:44:26', 'admin', NULL, NULL);
 INSERT INTO `erp_order_item` VALUES (13, 16, 9, 32, '8026牛仔短裤', 'https://cbu01.alicdn.com/img/ibank/O1CN01AfNgvA2FOyAvwXZxv_!!2208857268871-0-cib.jpg', '272021008026', '黑色,2XL', '2720210080260105', 29.92, 29.92, 1, NULL, '1642473483353670599', 26, 0, 0, 1, '2024-01-16 15:04:52', 'admin', NULL, NULL);
+INSERT INTO `erp_order_item` VALUES (14, 17, 9, 40, '8026牛仔短裤', 'https://cbu01.alicdn.com/img/ibank/O1CN01PHFmsX2FOyB14fPie_!!2208857268871-0-cib.jpg', '272021008026', '浅蓝色,L', '2720210080260303', 29.92, 29.92, 1, NULL, '1635222253871665598', 26, 0, 0, 1, '2024-01-28 19:55:37', 'admin', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for erp_order_returned
@@ -2998,6 +3000,36 @@ CREATE TABLE `fms_inventory_report_detail`  (
 -- ----------------------------
 -- Records of fms_inventory_report_detail
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for fms_payable_agent_ship
+-- ----------------------------
+DROP TABLE IF EXISTS `fms_payable_agent_ship`;
+CREATE TABLE `fms_payable_agent_ship`  (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `order_num` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '订单号',
+  `shop_id` int NOT NULL COMMENT '店铺id',
+  `supplier_id` int NOT NULL COMMENT '供应商id',
+  `supplier_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '供应商名称',
+  `date` date NOT NULL COMMENT '日期',
+  `ship_company` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '物流公司',
+  `ship_no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '物流单号',
+  `amount` decimal(10, 2) NOT NULL COMMENT '应付总金额',
+  `ship_amount` decimal(5, 2) NOT NULL COMMENT '物流费用',
+  `goods_amount` decimal(10, 2) NOT NULL COMMENT '商品金额',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `status` int NOT NULL COMMENT '状态（0已生成1已结算)',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '订单创建时间',
+  `create_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `update_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '财务管理-应付款-代发账单' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of fms_payable_agent_ship
+-- ----------------------------
+INSERT INTO `fms_payable_agent_ship` VALUES (2, '1635222253871665598', 6, 26, '韩牛服饰', '2024-01-28', '菜鸟速递', 'CN52500021', 17.00, 2.00, 15.00, NULL, 0, '2024-01-28 21:06:44', 'admin', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for fms_payable_purchase
@@ -3129,6 +3161,7 @@ INSERT INTO `gen_table` VALUES (57, 'fms_inventory_report', '库存存货报表'
 INSERT INTO `gen_table` VALUES (58, 'fms_inventory_report_detail', '库存存货报表明细', NULL, NULL, 'FmsInventoryReportDetail', 'crud', 'com.qihang.erp.api', 'fms', 'reportDetail', '库存存货报明细', 'qihang', '0', '/', '{}', 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44', NULL);
 INSERT INTO `gen_table` VALUES (59, 'fms_receivable_order', '财务管理-应收款-订单收入', NULL, NULL, 'FmsReceivableOrder', 'crud', 'com.qihang.erp.api', 'fms', 'receivableOrder', '财务管理-应收款-订单收入', 'qihang', '0', '/', '{}', 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14', NULL);
 INSERT INTO `gen_table` VALUES (60, 'fms_payable_ship_fee', '财务管理-应付款-物流费用', NULL, NULL, 'FmsPayableShipFee', 'crud', 'com.qihang.erp.api', 'fms', 'shipFee', '财务管理-应付款-物流费用', 'qihang', '0', '/', '{}', 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39', NULL);
+INSERT INTO `gen_table` VALUES (61, 'fms_payable_agent_ship', '财务管理-应付款-代发账单', NULL, NULL, 'FmsPayableAgentShip', 'crud', 'com.qihang.erp.api', 'fms', 'agentShip', '财务管理-应付款-代发账单', 'qihang', '0', '/', '{}', 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59', NULL);
 
 -- ----------------------------
 -- Table structure for gen_table_column
@@ -3228,6 +3261,23 @@ INSERT INTO `gen_table_column` VALUES (1314, 60, 'receiver_phone', '收件人手
 INSERT INTO `gen_table_column` VALUES (1315, 60, 'province', '省', 'varchar(50)', 'String', 'province', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 21, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
 INSERT INTO `gen_table_column` VALUES (1316, 60, 'city', '市', 'varchar(50)', 'String', 'city', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 22, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
 INSERT INTO `gen_table_column` VALUES (1317, 60, 'town', '区', 'varchar(50)', 'String', 'town', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 23, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1318, 61, 'id', NULL, 'bigint', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1319, 61, 'order_num', '订单号', 'varchar(50)', 'String', 'orderNum', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1320, 61, 'shop_id', '店铺id', 'int', 'Long', 'shopId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1321, 61, 'supplier_id', '供应商id', 'int', 'Long', 'supplierId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1322, 61, 'supplier_name', '供应商名称', 'varchar(50)', 'String', 'supplierName', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 5, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1323, 61, 'date', '日期', 'date', 'Date', 'date', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 6, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1324, 61, 'ship_company', '物流公司', 'varchar(50)', 'String', 'shipCompany', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1325, 61, 'ship_no', '物流单号', 'varchar(50)', 'String', 'shipNo', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1326, 61, 'amount', '应付总金额', 'decimal(10,2)', 'BigDecimal', 'amount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1327, 61, 'ship_amount', '物流费用', 'decimal(5,2)', 'BigDecimal', 'shipAmount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1328, 61, 'goods_amount', '商品金额', 'decimal(10,2)', 'BigDecimal', 'goodsAmount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 11, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1329, 61, 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 12, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1330, 61, 'status', '状态（0已生成1已结算)', 'int', 'Long', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 13, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1331, 61, 'create_time', '订单创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 14, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1332, 61, 'create_by', '创建人', 'varchar(25)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 15, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1333, 61, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 16, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
+INSERT INTO `gen_table_column` VALUES (1334, 61, 'update_by', '更新人', 'varchar(25)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 17, 'admin', '2024-01-28 20:48:33', '', '2024-01-28 20:48:59');
 
 -- ----------------------------
 -- Table structure for s_dou_order
@@ -7206,7 +7256,7 @@ CREATE TABLE `s_tao_order`  (
 -- ----------------------------
 INSERT INTO `s_tao_order` VALUES (1631273557325601885, 6, 0, '', 28.90, 0.00, 0.00, 28.90, '', '2022-07-31 18:14:00', '2022-07-31 18:14:00', '2022-07-31 18:14:00', NULL, NULL, NULL, '', NULL, '', NULL, '等待买家确认收货', 3, '韵达速递', NULL, '432700565699461', NULL, NULL, NULL, 1, '2024-01-16 13:44:26', 0, '2022-07-31 19:55:48', NULL, NULL, NULL, 0, '2022-07-31 18:13:59', NULL, '2024-01-16 13:44:26', 'admin');
 INSERT INTO `s_tao_order` VALUES (1634650644223535380, 6, 0, '', 39.52, 0.00, 0.00, 39.52, '', '2022-08-05 18:54:56', '2022-08-05 18:54:56', '2022-08-05 18:54:56', NULL, NULL, NULL, '', NULL, '', NULL, '等待买家确认收货', 3, '韵达速递', NULL, '432709738409379', NULL, NULL, NULL, 0, '2022-08-05 18:54:56', 0, '2022-08-05 19:52:56', NULL, NULL, NULL, 0, '2022-08-05 18:54:56', NULL, '2022-08-05 19:52:56', NULL);
-INSERT INTO `s_tao_order` VALUES (1635222253871665598, 6, 0, '', 29.92, 0.00, 0.00, 29.92, '', '2022-08-05 18:48:51', '2022-08-05 18:48:51', '2022-08-05 18:48:51', NULL, NULL, NULL, '', NULL, '', NULL, '等待买家确认收货', 3, '韵达速递', NULL, '432709738409767', NULL, NULL, NULL, 0, '2022-08-05 18:48:51', 0, '2022-08-05 19:49:12', NULL, NULL, NULL, 0, '2022-08-05 18:48:51', NULL, '2022-08-05 19:49:12', NULL);
+INSERT INTO `s_tao_order` VALUES (1635222253871665598, 6, 0, '', 29.92, 0.00, 0.00, 29.92, '', '2022-08-05 18:48:51', '2022-08-05 18:48:51', '2022-08-05 18:48:51', NULL, NULL, NULL, '', NULL, '', NULL, '等待买家确认收货', 3, '韵达速递', NULL, '432709738409767', NULL, NULL, NULL, 1, '2024-01-28 19:55:37', 0, '2022-08-05 19:49:12', NULL, NULL, NULL, 0, '2022-08-05 18:48:51', NULL, '2024-01-28 19:55:37', 'admin');
 INSERT INTO `s_tao_order` VALUES (1635963673656309898, 6, 0, '', 39.52, 0.00, 0.00, 39.52, '', '2022-08-06 18:26:01', '2022-08-06 18:26:01', '2022-08-06 18:26:01', NULL, NULL, NULL, '', NULL, '', NULL, '等待买家确认收货', 3, '韵达速递', NULL, '432711322752762', NULL, NULL, NULL, 0, '2022-08-06 18:26:01', 0, '2022-08-09 19:19:10', NULL, NULL, NULL, 0, '2022-08-06 18:26:01', NULL, '2022-08-09 19:19:10', NULL);
 INSERT INTO `s_tao_order` VALUES (1638101679063535380, 6, 0, '', 39.52, 0.00, 0.00, 39.52, '', '2022-08-09 19:34:24', '2022-08-09 19:34:24', '2022-08-09 19:34:24', NULL, NULL, NULL, '', NULL, '', NULL, '等待买家确认收货', 3, '韵达速递', NULL, '432716874752516', NULL, NULL, NULL, 0, '2022-08-09 19:34:24', 0, '2022-08-09 22:45:55', NULL, NULL, NULL, 0, '2022-08-09 19:34:24', NULL, '2022-08-09 22:45:55', NULL);
 INSERT INTO `s_tao_order` VALUES (1638388920088435398, 6, 0, '', 29.92, 0.00, 0.00, 29.92, '', '2022-08-10 17:17:21', '2022-08-10 17:17:21', '2022-08-10 17:17:21', NULL, NULL, NULL, '', NULL, '', NULL, '等待买家确认收货', 3, '韵达速递', NULL, '432718792062072', NULL, NULL, NULL, 0, '2022-08-10 17:17:21', 0, '2022-08-10 19:47:37', NULL, NULL, NULL, 0, '2022-08-10 17:17:21', NULL, '2022-08-10 19:47:37', NULL);
@@ -8516,6 +8566,7 @@ CREATE TABLE `scm_supplier_agent_shipping`  (
 -- ----------------------------
 -- Records of scm_supplier_agent_shipping
 -- ----------------------------
+INSERT INTO `scm_supplier_agent_shipping` VALUES (1, 6, 4, 26, 17, 14, '1635222253871665598', '2022-08-05 18:48:51', 9, 40, '8026牛仔短裤', 'https://cbu01.alicdn.com/img/ibank/O1CN01PHFmsX2FOyB14fPie_!!2208857268871-0-cib.jpg', '272021008026', '浅蓝色,L', '2720210080260303', 16, 1, 29.92, NULL, '菜鸟速递', 'CN52500021', 2, '2024-01-28 00:00:00', 1, '2024-01-28 19:55:37', 'admin', 'admin', '2024-01-28 21:06:44');
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -8777,6 +8828,7 @@ INSERT INTO `sys_logininfor` VALUES (28, 'admin', '127.0.0.1', '内网IP', 'Chro
 INSERT INTO `sys_logininfor` VALUES (29, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-01-28 12:38:55');
 INSERT INTO `sys_logininfor` VALUES (30, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-01-28 13:09:27');
 INSERT INTO `sys_logininfor` VALUES (31, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-01-28 14:33:07');
+INSERT INTO `sys_logininfor` VALUES (32, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-01-28 19:19:58');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -8948,7 +9000,7 @@ INSERT INTO `sys_menu` VALUES (2058, '代发结算', 4, 6, 'daifajiesuan', NULL,
 INSERT INTO `sys_menu` VALUES (2059, '备货清单', 2034, 1, 'stocking', 'wms/orderShipping/stocking', '{\"status\":0}', 1, 0, 'C', '0', '0', '', 'component', 'admin', '2024-01-09 11:51:52', 'admin', '2024-01-11 19:59:40', '');
 INSERT INTO `sys_menu` VALUES (2060, '拣货出库', 2034, 2, 'stockout', 'wms/orderShipping/stockOut', NULL, 1, 0, 'C', '0', '0', '', 'bug', 'admin', '2024-01-09 13:39:00', 'admin', '2024-01-12 15:51:56', '');
 INSERT INTO `sys_menu` VALUES (2061, '库位管理', 2026, 99, 'stock_location', 'wms/location', NULL, 1, 0, 'C', '0', '0', '', 'education', 'admin', '2024-01-09 13:54:30', 'admin', '2024-01-09 14:50:33', '');
-INSERT INTO `sys_menu` VALUES (2062, '代发账单', 2072, 3, 'daifa', NULL, NULL, 1, 0, 'C', '0', '0', '', 'theme', 'admin', '2024-01-12 18:35:02', 'admin', '2024-01-28 11:32:39', '');
+INSERT INTO `sys_menu` VALUES (2062, '代发账单', 2072, 3, 'agentShip', 'fms/payable/agentShip', NULL, 1, 0, 'C', '0', '0', '', 'theme', 'admin', '2024-01-12 18:35:02', 'admin', '2024-01-28 20:57:13', '');
 INSERT INTO `sys_menu` VALUES (2063, '物流费用', 2072, 3, 'shipFee', 'fms/payable/shipFee', NULL, 1, 0, 'C', '0', '0', '', 'guide', 'admin', '2024-01-12 18:35:31', 'admin', '2024-01-28 15:16:13', '');
 INSERT INTO `sys_menu` VALUES (2064, '店铺账单管理', 2018, 4, 's', NULL, NULL, 1, 0, 'M', '0', '1', '', 'example', 'admin', '2024-01-12 18:35:55', 'admin', '2024-01-16 15:28:47', '');
 INSERT INTO `sys_menu` VALUES (2066, '添加商品', 2006, 2, 'create', 'goods/create', NULL, 1, 0, 'C', '0', '0', NULL, 'component', 'admin', '2024-01-14 19:42:11', '', NULL, '');
@@ -8956,12 +9008,12 @@ INSERT INTO `sys_menu` VALUES (2067, '商品规格查询', 2006, 3, 'spec_list',
 INSERT INTO `sys_menu` VALUES (2068, '应收管理', 2018, 1, 'receivable', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'example', 'admin', '2024-01-28 11:23:36', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2069, '订单收入', 2068, 1, 'order', 'fms/receivable/order', NULL, 1, 0, 'C', '0', '0', '', 'checkbox', 'admin', '2024-01-28 11:24:35', 'admin', '2024-01-28 14:48:11', '');
 INSERT INTO `sys_menu` VALUES (2070, '退款款项', 2068, 2, 'refund', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'bug', 'admin', '2024-01-28 11:26:55', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (2071, '平台服务费', 2068, 3, 'service_fee', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'cascader', 'admin', '2024-01-28 11:28:03', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2071, '平台服务费', 2068, 3, 'service_fee', NULL, NULL, 1, 0, 'M', '0', '1', '', 'cascader', 'admin', '2024-01-28 11:28:03', 'admin', '2024-01-28 19:35:31', '');
 INSERT INTO `sys_menu` VALUES (2072, '应付管理', 2018, 2, 'payable', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'clipboard', 'admin', '2024-01-28 11:29:21', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2073, '采购应付', 2072, 1, 'purchase', 'fms/payable/purchase', NULL, 1, 0, 'C', '0', '0', '', 'component', 'admin', '2024-01-28 11:30:49', 'admin', '2024-01-28 11:55:53', '');
 INSERT INTO `sys_menu` VALUES (2074, '采购退货', 2072, 2, 'return', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'cascader', 'admin', '2024-01-28 11:32:21', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2075, '营销费用', 2072, 5, 'market_fee', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'cascader', 'admin', '2024-01-28 11:33:36', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (2076, '其他费用', 2072, 6, 'other_fee', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'clipboard', 'admin', '2024-01-28 11:34:01', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2076, '其他费用', 2072, 6, 'other_fee', NULL, NULL, 1, 0, 'C', '0', '1', '', 'clipboard', 'admin', '2024-01-28 11:34:01', 'admin', '2024-01-28 19:49:00', '');
 INSERT INTO `sys_menu` VALUES (2077, '存货报表', 2018, 3, 'inventory_report', 'fms/inventoryReport', NULL, 1, 0, 'C', '0', '0', '', 'druid', 'admin', '2024-01-28 11:36:05', 'admin', '2024-01-28 14:49:01', '');
 
 -- ----------------------------
@@ -9159,6 +9211,16 @@ INSERT INTO `sys_oper_log` VALUES (137, '代码生成', 6, 'com.zhijian.generato
 INSERT INTO `sys_oper_log` VALUES (138, '代码生成', 2, 'com.zhijian.generator.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/tool/gen', '127.0.0.1', '内网IP', '{\"businessName\":\"shipFee\",\"className\":\"FmsPayableShipFee\",\"columns\":[{\"capJavaField\":\"Id\",\"columnId\":1295,\"columnName\":\"id\",\"columnType\":\"bigint\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 15:11:12\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":60,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"LogisticsCompany\",\"columnComment\":\"物流公司\",\"columnId\":1296,\"columnName\":\"logistics_company\",\"columnType\":\"varchar(50)\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 15:11:12\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"logisticsCompany\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":60,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"LogisticsCompanyId\",\"columnComment\":\"物流公司id\",\"columnId\":1297,\"columnName\":\"logistics_company_id\",\"columnType\":\"varchar(10)\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 15:11:12\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"javaField\":\"logisticsCompanyId\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":false,\"sort\":3,\"superColumn\":false,\"tableId\":60,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"LogisticsNum\",\"columnComment\":\"物流单号\",\"columnId\":1298,\"columnName\":\"logistics_num\",\"columnType\":\"varchar(50)\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 15:11:12\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 15:11:39', 45);
 INSERT INTO `sys_oper_log` VALUES (139, '代码生成', 8, 'com.zhijian.generator.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":\"fms_payable_ship_fee\"}', NULL, 0, NULL, '2024-01-28 15:11:48', 204);
 INSERT INTO `sys_oper_log` VALUES (140, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"fms/payable/shipFee\",\"createTime\":\"2024-01-12 18:35:31\",\"icon\":\"guide\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2063,\"menuName\":\"物流费用\",\"menuType\":\"C\",\"orderNum\":3,\"params\":{},\"parentId\":2072,\"path\":\"shipFee\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 15:16:13', 20);
+INSERT INTO `sys_oper_log` VALUES (141, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createTime\":\"2024-01-28 11:28:03\",\"icon\":\"cascader\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2071,\"menuName\":\"平台服务费\",\"menuType\":\"M\",\"orderNum\":3,\"params\":{},\"parentId\":2068,\"path\":\"service_fee\",\"perms\":\"\",\"status\":\"1\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 19:35:31', 28);
+INSERT INTO `sys_oper_log` VALUES (142, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createTime\":\"2024-01-28 11:34:01\",\"icon\":\"clipboard\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2076,\"menuName\":\"其他费用\",\"menuType\":\"C\",\"orderNum\":6,\"params\":{},\"parentId\":2072,\"path\":\"other_fee\",\"perms\":\"\",\"status\":\"1\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 19:49:00', 11);
+INSERT INTO `sys_oper_log` VALUES (143, '淘宝订单', 2, 'com.qihang.erp.api.controller.TaoOrderController.confirmOrder()', 'POST', 1, 'admin', NULL, '/tao/order/confirmOrder', '127.0.0.1', '内网IP', '{\"address\":\"上海上海 上海市 徐汇区 华泾镇 华发路368弄 馨宁公寓馨宁公寓368弄23号楼1501\",\"auditStatus\":0,\"auditTime\":\"2022-08-05\",\"buyerName\":\"\",\"city\":\"\",\"closeReason\":\"\",\"createTime\":\"2022-08-05 18:48:51\",\"discountAmount\":0,\"discountRemark\":\"\",\"id\":\"1635222253871665598\",\"isMerge\":0,\"logisticsCode\":\"432709738409767\",\"logisticsCompany\":\"韵达速递\",\"orderCreateTime\":\"2022-08-05\",\"orderModifyTime\":\"2022-08-05\",\"orderSource\":0,\"params\":{},\"payAmount\":29.92,\"payTime\":\"2022-08-05\",\"phone\":\"15635244122\",\"province\":\"上海\",\"receiver\":\"小红\",\"sellerMemo\":\"\",\"sendStatus\":0,\"sendTime\":\"2022-08-05\",\"shipType\":1,\"shippingFee\":0,\"shopId\":6,\"status\":3,\"statusStr\":\"等待买家确认收货\",\"taoOrderItemList\":[],\"totalAmount\":29.92,\"updateBy\":\"admin\",\"updateTime\":\"2022-08-05 19:49:12\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 19:55:37', 69);
+INSERT INTO `sys_oper_log` VALUES (144, '供应商代发货', 2, 'com.qihang.erp.api.controller.ScmSupplierAgentShippingController.edit()', 'PUT', 1, 'admin', NULL, '/scm/agentShipping', '127.0.0.1', '内网IP', '{\"createBy\":\"admin\",\"createTime\":\"2024-01-28 19:55:37\",\"erpOrderId\":17,\"erpOrderItemId\":14,\"goodsId\":9,\"goodsImg\":\"https://cbu01.alicdn.com/img/ibank/O1CN01PHFmsX2FOyB14fPie_!!2208857268871-0-cib.jpg\",\"goodsNum\":\"272021008026\",\"goodsPrice\":16,\"goodsSpec\":\"浅蓝色,L\",\"goodsTitle\":\"8026牛仔短裤\",\"id\":1,\"itemAmount\":29.92,\"orderDate\":\"2022-08-05\",\"orderNum\":\"1635222253871665598\",\"params\":{},\"quantity\":1,\"shipCompany\":\"菜鸟速递\",\"shipCost\":3,\"shipNo\":\"CN4550110\",\"shipTime\":\"2024-01-28\",\"shopId\":6,\"shopType\":4,\"specId\":40,\"specNum\":\"2720210080260303\",\"status\":0,\"supplierId\":26,\"updateTime\":\"2024-01-28 20:40:06\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 20:40:06', 326903);
+INSERT INTO `sys_oper_log` VALUES (145, '代码生成', 6, 'com.zhijian.generator.controller.GenController.importTableSave()', 'POST', 1, 'admin', NULL, '/tool/gen/importTable', '127.0.0.1', '内网IP', '{\"tables\":\"fms_payable_agent_ship\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 20:48:33', 156);
+INSERT INTO `sys_oper_log` VALUES (146, '代码生成', 2, 'com.zhijian.generator.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/tool/gen', '127.0.0.1', '内网IP', '{\"businessName\":\"agentShip\",\"className\":\"FmsPayableAgentShip\",\"columns\":[{\"capJavaField\":\"Id\",\"columnId\":1318,\"columnName\":\"id\",\"columnType\":\"bigint\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 20:48:33\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":61,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"OrderNum\",\"columnComment\":\"订单号\",\"columnId\":1319,\"columnName\":\"order_num\",\"columnType\":\"varchar(50)\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 20:48:33\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"orderNum\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":true,\"tableId\":61,\"updateBy\":\"\",\"usableColumn\":true},{\"capJavaField\":\"ShopId\",\"columnComment\":\"店铺id\",\"columnId\":1320,\"columnName\":\"shop_id\",\"columnType\":\"int\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 20:48:33\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"shopId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":61,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"SupplierId\",\"columnComment\":\"供应商id\",\"columnId\":1321,\"columnName\":\"supplier_id\",\"columnType\":\"int\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 20:48:33\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"supplierId\",\"javaType\":\"Long\",\"lis', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 20:48:59', 43);
+INSERT INTO `sys_oper_log` VALUES (147, '代码生成', 8, 'com.zhijian.generator.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":\"fms_payable_agent_ship\"}', NULL, 0, NULL, '2024-01-28 20:49:04', 287);
+INSERT INTO `sys_oper_log` VALUES (148, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"fms/payable/agentShip\",\"createTime\":\"2024-01-12 18:35:02\",\"icon\":\"theme\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2062,\"menuName\":\"代发账单\",\"menuType\":\"C\",\"orderNum\":3,\"params\":{},\"parentId\":2072,\"path\":\"agentShip\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 20:57:14', 23);
+INSERT INTO `sys_oper_log` VALUES (149, '供应商代发货', 2, 'com.qihang.erp.api.controller.ScmSupplierAgentShippingController.edit()', 'PUT', 1, 'admin', NULL, '/scm/agentShipping', '127.0.0.1', '内网IP', '{\"createBy\":\"admin\",\"createTime\":\"2024-01-28 19:55:37\",\"erpOrderId\":17,\"erpOrderItemId\":14,\"goodsId\":9,\"goodsImg\":\"https://cbu01.alicdn.com/img/ibank/O1CN01PHFmsX2FOyB14fPie_!!2208857268871-0-cib.jpg\",\"goodsNum\":\"272021008026\",\"goodsPrice\":16,\"goodsSpec\":\"浅蓝色,L\",\"goodsTitle\":\"8026牛仔短裤\",\"id\":1,\"itemAmount\":29.92,\"orderDate\":\"2022-08-05\",\"orderNum\":\"1635222253871665598\",\"params\":{},\"quantity\":1,\"shipCompany\":\"菜鸟速递\",\"shipCost\":2.0,\"shipNo\":\"CN52500021\",\"shipTime\":\"2024-01-28\",\"shopId\":6,\"shopType\":4,\"specId\":40,\"specNum\":\"2720210080260303\",\"status\":0,\"supplierId\":26,\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 21:06:20', 504629);
+INSERT INTO `sys_oper_log` VALUES (150, '供应商代发货', 2, 'com.qihang.erp.api.controller.ScmSupplierAgentShippingController.edit()', 'PUT', 1, 'admin', NULL, '/scm/agentShipping', '127.0.0.1', '内网IP', '{\"createBy\":\"admin\",\"createTime\":\"2024-01-28 19:55:37\",\"erpOrderId\":17,\"erpOrderItemId\":14,\"goodsId\":9,\"goodsImg\":\"https://cbu01.alicdn.com/img/ibank/O1CN01PHFmsX2FOyB14fPie_!!2208857268871-0-cib.jpg\",\"goodsNum\":\"272021008026\",\"goodsPrice\":16,\"goodsSpec\":\"浅蓝色,L\",\"goodsTitle\":\"8026牛仔短裤\",\"id\":1,\"itemAmount\":29.92,\"orderDate\":\"2022-08-05\",\"orderNum\":\"1635222253871665598\",\"params\":{},\"quantity\":1,\"shipCompany\":\"菜鸟速递\",\"shipCost\":2.0,\"shipNo\":\"CN52500021\",\"shipTime\":\"2024-01-28\",\"shopId\":6,\"shopType\":4,\"specId\":40,\"specNum\":\"2720210080260303\",\"status\":0,\"supplierId\":26,\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 21:06:44', 8276);
 
 -- ----------------------------
 -- Table structure for sys_oss
@@ -9435,7 +9497,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '至简', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-01-28 14:33:08', 'admin', '2023-08-07 19:31:37', '', '2024-01-28 14:33:07', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '至简', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-01-28 19:19:58', 'admin', '2023-08-07 19:31:37', '', '2024-01-28 19:19:58', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'qihang', 'qihang', '00', 'qihang@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2023-08-07 19:31:37', 'admin', '2023-08-07 19:31:37', 'admin', '2024-01-05 18:29:55', '测试员');
 
 -- ----------------------------
