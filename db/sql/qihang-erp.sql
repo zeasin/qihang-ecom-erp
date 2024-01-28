@@ -11,7 +11,7 @@
  Target Server Version : 80200
  File Encoding         : 65001
 
- Date: 28/01/2024 12:43:10
+ Date: 28/01/2024 15:23:49
 */
 
 SET NAMES utf8mb4;
@@ -2954,6 +2954,52 @@ CREATE TABLE `erp_order_returned`  (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for fms_inventory_report
+-- ----------------------------
+DROP TABLE IF EXISTS `fms_inventory_report`;
+CREATE TABLE `fms_inventory_report`  (
+  `id` bigint NOT NULL,
+  `date` date NOT NULL COMMENT '日期',
+  `total` int NOT NULL COMMENT '库存总数量',
+  `goods_count` int NOT NULL COMMENT '商品总数',
+  `sku_count` int NOT NULL COMMENT 'SKU总数',
+  `amount` decimal(10, 2) NOT NULL COMMENT '总货值',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '订单创建时间',
+  `create_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `update_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '库存存货报表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of fms_inventory_report
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for fms_inventory_report_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `fms_inventory_report_detail`;
+CREATE TABLE `fms_inventory_report_detail`  (
+  `id` bigint NOT NULL,
+  `report_id` bigint NOT NULL COMMENT 'Report外键ID',
+  `date` date NOT NULL COMMENT '日期',
+  `goods_id` int NOT NULL COMMENT '商品id',
+  `spec_id` int NOT NULL COMMENT '商品规格ID',
+  `total` int NOT NULL COMMENT '总数量',
+  `amount` decimal(10, 2) NOT NULL COMMENT '总货值',
+  `inventory_dist` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '库存分布',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '订单创建时间',
+  `create_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `update_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '库存存货报表明细' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of fms_inventory_report_detail
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for fms_payable_purchase
 -- ----------------------------
 DROP TABLE IF EXISTS `fms_payable_purchase`;
@@ -2979,6 +3025,74 @@ CREATE TABLE `fms_payable_purchase`  (
 -- Records of fms_payable_purchase
 -- ----------------------------
 INSERT INTO `fms_payable_purchase` VALUES (1, 33, '中山裤豪', 52.00, '2024-01-28', NULL, 'PUR20240128113656', '{采购商品总数量:2,不同款式:1,不同SKU:1,商品总价:42.00,运费:10}', NULL, 0, '2024-01-28 12:07:32', 'admin', NULL, NULL);
+
+-- ----------------------------
+-- Table structure for fms_payable_ship_fee
+-- ----------------------------
+DROP TABLE IF EXISTS `fms_payable_ship_fee`;
+CREATE TABLE `fms_payable_ship_fee`  (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `logistics_company` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '物流公司',
+  `logistics_company_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '物流公司id',
+  `logistics_num` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '物流单号',
+  `order_num` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '订单号',
+  `shop_id` int NULL DEFAULT NULL COMMENT '店铺id',
+  `amount` decimal(10, 2) NOT NULL COMMENT '应付金额',
+  `date` date NOT NULL COMMENT '应付日期',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `status` int NOT NULL COMMENT '状态（0已生成1已结算)',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '订单创建时间',
+  `create_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `update_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',
+  `length` float NULL DEFAULT 0 COMMENT '长',
+  `width` float NULL DEFAULT 0 COMMENT '宽',
+  `height` float NULL DEFAULT 0 COMMENT '高',
+  `weight` float NULL DEFAULT NULL COMMENT '重量',
+  `receiver_name` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '收件人姓名',
+  `receiver_phone` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '收件人手机号',
+  `province` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '省',
+  `city` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '市',
+  `town` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '区',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '财务管理-应付款-物流费用' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of fms_payable_ship_fee
+-- ----------------------------
+INSERT INTO `fms_payable_ship_fee` VALUES (1, '33', '中山裤豪', '', 'PUR20240128113656', NULL, 52.00, '2024-01-28', NULL, 0, '2024-01-28 12:07:32', 'admin', NULL, NULL, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- ----------------------------
+-- Table structure for fms_receivable_order
+-- ----------------------------
+DROP TABLE IF EXISTS `fms_receivable_order`;
+CREATE TABLE `fms_receivable_order`  (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL COMMENT '日期',
+  `order_num` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '订单号',
+  `order_id` bigint NOT NULL COMMENT '订单id',
+  `order_item_id` bigint NOT NULL COMMENT '子订单id',
+  `goods_id` int NOT NULL COMMENT '商品id',
+  `goods_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品名称',
+  `spec_id` int NOT NULL COMMENT '规格id',
+  `spec_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '规格名称',
+  `price` decimal(10, 2) NOT NULL COMMENT '单价',
+  `amount` decimal(10, 2) NOT NULL COMMENT '应收金额',
+  `quantity` int NOT NULL COMMENT '数量',
+  `invoice_no` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '发票号码',
+  `order_desc` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '订单说明',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `status` int NOT NULL COMMENT '状态（0已生成1已结算)',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '订单创建时间',
+  `create_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `update_by` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '财务管理-应收款-订单收入' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of fms_receivable_order
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for gen_table
@@ -3011,11 +3125,10 @@ CREATE TABLE `gen_table`  (
 -- ----------------------------
 -- Records of gen_table
 -- ----------------------------
-INSERT INTO `gen_table` VALUES (52, 's_tao_order_refund', '淘宝退款订单表', NULL, NULL, 'TaoOrderRefund', 'crud', 'com.qihang.erp.api', 'tao', 'refund', '淘宝退款订单', 'qihang', '0', '/', '{}', 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16', NULL);
-INSERT INTO `gen_table` VALUES (53, 'sys_oss', '文件表', NULL, NULL, 'SysOss', 'crud', 'com.qihang.erp.api', 'api', 'oss', '文件', 'qihang', '0', '/', NULL, 'admin', '2024-01-15 15:25:41', '', NULL, NULL);
-INSERT INTO `gen_table` VALUES (54, 'erp_goods_spec', '商品规格库存管理', NULL, NULL, 'ErpGoodsSpec', 'crud', 'com.qihang.erp.api', 'api', 'goodsSpec', '商品规格库存管理', 'qihang', '0', '/', '{}', 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56', NULL);
-INSERT INTO `gen_table` VALUES (55, 's_shop_setting', '第三方平台设置', NULL, NULL, 'ShopSetting', 'crud', 'com.qihang.erp.api', 'shop', 'shopSetting', '第三方平台设置', 'qihang', '0', '/', '{}', 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02', NULL);
-INSERT INTO `gen_table` VALUES (56, 'fms_payable_purchase', '财务管理-应付款-采购货款', NULL, NULL, 'FmsPayablePurchase', 'crud', 'com.qihang.erp.api', 'fms', 'payablePurchase', '财务管理-应付款-采购货款', 'qihang', '0', '/', '{}', 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30', NULL);
+INSERT INTO `gen_table` VALUES (57, 'fms_inventory_report', '库存存货报表', 'fms_inventory_report_detail', 'report_id', 'FmsInventoryReport', 'sub', 'com.qihang.erp.api', 'fms', 'inventoryReport', '库存存货报', 'qihang', '0', '/', '{}', 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:35:19', NULL);
+INSERT INTO `gen_table` VALUES (58, 'fms_inventory_report_detail', '库存存货报表明细', NULL, NULL, 'FmsInventoryReportDetail', 'crud', 'com.qihang.erp.api', 'fms', 'reportDetail', '库存存货报明细', 'qihang', '0', '/', '{}', 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44', NULL);
+INSERT INTO `gen_table` VALUES (59, 'fms_receivable_order', '财务管理-应收款-订单收入', NULL, NULL, 'FmsReceivableOrder', 'crud', 'com.qihang.erp.api', 'fms', 'receivableOrder', '财务管理-应收款-订单收入', 'qihang', '0', '/', '{}', 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14', NULL);
+INSERT INTO `gen_table` VALUES (60, 'fms_payable_ship_fee', '财务管理-应付款-物流费用', NULL, NULL, 'FmsPayableShipFee', 'crud', 'com.qihang.erp.api', 'fms', 'shipFee', '财务管理-应付款-物流费用', 'qihang', '0', '/', '{}', 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39', NULL);
 
 -- ----------------------------
 -- Table structure for gen_table_column
@@ -3050,103 +3163,71 @@ CREATE TABLE `gen_table_column`  (
 -- ----------------------------
 -- Records of gen_table_column
 -- ----------------------------
-INSERT INTO `gen_table_column` VALUES (1156, 52, 'id', NULL, 'bigint', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1157, 52, 'refund_id', '退款id', 'varchar(50)', 'String', 'refundId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1158, 52, 'after_sales_type', '类型（1退货3换货）', 'int', 'Long', 'afterSalesType', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 3, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1159, 52, 'shopId', '店铺id', 'int', 'Long', 'shopId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1160, 52, 'tid', '淘宝交易单号（订单号）', 'bigint', 'Long', 'tid', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1161, 52, 'oid', '子订单号。如果是单笔交易oid会等于tid', 'bigint', 'Long', 'oid', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1162, 52, 'refund_fee', '退还金额(退还给买家的金额)。精确到2位小数;单位:元。如:200.07，表示:200元7分', 'decimal(10,2)', 'BigDecimal', 'refundFee', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1163, 52, 'created', '退款申请时间', 'bigint', 'Long', 'created', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1164, 52, 'modified', '更新时间', 'bigint', 'Long', 'modified', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1165, 52, 'status', '退款状态。可选值WAIT_SELLER_AGREE(买家已经申请退款，等待卖家同意) WAIT_BUYER_RETURN_GOODS(卖家已经同意退款，等待买家退货) WAIT_SELLER_CONFIRM_GOODS(买家已经退货，等待卖家确认收货) SELLER_REFUSE_BUYER(卖家拒绝退款) CLOSED(退款关闭) SUCCESS(退款成功)', 'int', 'Long', 'status', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'radio', '', 10, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1166, 52, 'good_status', '货物状态。可选值BUYER_NOT_RECEIVED (买家未收到货) BUYER_RECEIVED (买家已收到货) BUYER_RETURNED_GOODS (买家已退货)', 'varchar(50)', 'String', 'goodStatus', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'radio', '', 11, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1167, 52, 'num', '退货数量', 'bigint', 'Long', 'num', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 12, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1168, 52, 'has_good_return', '买家是否需要退货。可选值:true(是),false(否)', 'int', 'Long', 'hasGoodReturn', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 13, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1169, 52, 'reason', '退款原因', 'varchar(100)', 'String', 'reason', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 14, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1170, 52, 'remark', '退款说明', 'varchar(1000)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'textarea', '', 15, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1171, 52, 'logisticsCompany', '物流公司', 'varchar(50)', 'String', 'logisticsCompany', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 16, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1172, 52, 'logisticsCode', '物流单号', 'varchar(50)', 'String', 'logisticsCode', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 17, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1173, 52, 'send_time', '买家发货时间', 'varchar(25)', 'String', 'sendTime', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 18, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1174, 52, 'auditStatus', '2已签收9供应商已退款', 'int', 'Long', 'auditStatus', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 19, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1175, 52, 'auditTime', '处理时间', 'datetime', 'Date', 'auditTime', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'datetime', '', 20, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1176, 52, 'receivedTime', '收货时间', 'datetime', 'Date', 'receivedTime', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'datetime', '', 21, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1177, 52, 'erpGoodsId', NULL, 'int', 'Long', 'erpGoodsId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 22, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1178, 52, 'erpGoodsSpecId', NULL, 'int', 'Long', 'erpGoodsSpecId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 23, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1179, 52, 'productId', '天猫的商品Id', 'bigint', 'Long', 'productId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 24, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1180, 52, 'skuId', '天猫的SKUID', 'bigint', 'Long', 'skuId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 25, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1181, 52, 'goodsTitle', '商品标题', 'varchar(50)', 'String', 'goodsTitle', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 26, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1182, 52, 'goodsNumber', '商品货号，对应系统商品编码', 'varchar(30)', 'String', 'goodsNumber', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 27, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1183, 52, 'specNumber', 'sku编号', 'varchar(50)', 'String', 'specNumber', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 28, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1184, 52, 'productImgUrl', '商品主图', 'varchar(200)', 'String', 'productImgUrl', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 29, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1185, 52, 'skuInfo', 'SKU字符串', 'varchar(100)', 'String', 'skuInfo', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 30, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1186, 52, 'refund_phase', '退款阶段，可选值：onsale/aftersale', 'varchar(15)', 'String', 'refundPhase', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 31, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1187, 52, 'create_time', '订单创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 32, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1188, 52, 'create_by', '创建人', 'varchar(25)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 33, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1189, 52, 'update_by', '更新人', 'varchar(25)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 34, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1190, 52, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 35, 'admin', '2024-01-13 21:27:53', '', '2024-01-13 21:28:16');
-INSERT INTO `gen_table_column` VALUES (1191, 53, 'oss_id', '文件id', 'bigint', 'Long', 'ossId', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1192, 53, 'file_name', '文件名', 'varchar(100)', 'String', 'fileName', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1193, 53, 'original_name', '原名', 'varchar(100)', 'String', 'originalName', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1194, 53, 'file_suffix', '文件后缀名', 'varchar(100)', 'String', 'fileSuffix', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1195, 53, 'url', 'URL地址', 'varchar(300)', 'String', 'url', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1196, 53, 'object_name', '对象名', 'varchar(300)', 'String', 'objectName', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 6, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1197, 53, 'bucket', '桶名', 'varchar(100)', 'String', 'bucket', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1198, 53, 'order_num', '显示顺序', 'int', 'Long', 'orderNum', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1199, 53, 'status', '状态（0正常 1停用）', 'char(1)', 'String', 'status', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'radio', '', 9, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1200, 53, 'del_flag', '删除标志（0代表存在 2代表删除）', 'char(1)', 'String', 'delFlag', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 10, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1201, 53, 'create_by', '创建者', 'varchar(64)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 11, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1202, 53, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 12, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1203, 53, 'update_by', '更新者', 'varchar(64)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 13, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1204, 53, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 14, 'admin', '2024-01-15 15:25:41', '', NULL);
-INSERT INTO `gen_table_column` VALUES (1205, 54, 'id', '主键id', 'bigint', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1206, 54, 'goods_id', '商品id', 'bigint', 'Long', 'goodsId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1207, 54, 'spec_name', '规格名', 'varchar(50)', 'String', 'specName', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1208, 54, 'spec_num', '规格编码', 'varchar(25)', 'String', 'specNum', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1209, 54, 'color_id', '颜色id', 'int', 'Long', 'colorId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1210, 54, 'color_value', '颜色值', 'varchar(50)', 'String', 'colorValue', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1211, 54, 'color_image', '颜色图片', 'varchar(100)', 'String', 'colorImage', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'imageUpload', '', 7, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1212, 54, 'size_id', '尺码id', 'int', 'Long', 'sizeId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1213, 54, 'size_value', '尺码值', 'varchar(50)', 'String', 'sizeValue', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1214, 54, 'style_id', '款式id', 'int', 'Long', 'styleId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1215, 54, 'style_value', '款式值', 'varchar(50)', 'String', 'styleValue', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 11, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1216, 54, 'bar_code', '库存条形码', 'varchar(60)', 'String', 'barCode', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 12, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1217, 54, 'pur_price', '预计采购价', 'decimal(8,2)', 'BigDecimal', 'purPrice', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 13, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1218, 54, 'whole_price', '建议批发价', 'decimal(8,2)', 'BigDecimal', 'wholePrice', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 14, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1219, 54, 'retail_price', '建议零售价', 'decimal(8,2)', 'BigDecimal', 'retailPrice', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 15, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1220, 54, 'unit_cost', '单位成本', 'decimal(8,2)', 'BigDecimal', 'unitCost', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 16, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1221, 54, 'remark', '备注', 'varchar(50)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 17, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1222, 54, 'status', '状态', 'tinyint(1)', 'Integer', 'status', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'radio', '', 18, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1223, 54, 'low_qty', '最低库存（预警）', 'int', 'Long', 'lowQty', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 19, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1224, 54, 'high_qty', '最高库存（预警）', 'int', 'Long', 'highQty', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 20, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1225, 54, 'disable', '0启用   1禁用', 'tinyint(1)', 'Integer', 'disable', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 21, 'admin', '2024-01-16 14:12:38', '', '2024-01-16 14:12:56');
-INSERT INTO `gen_table_column` VALUES (1226, 55, 'id', '主键', 'int', 'Long', 'id', '1', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
-INSERT INTO `gen_table_column` VALUES (1227, 55, 'name', '配置名', 'varchar(50)', 'String', 'name', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
-INSERT INTO `gen_table_column` VALUES (1228, 55, 'app_key', 'appKey', 'varchar(50)', 'String', 'appKey', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
-INSERT INTO `gen_table_column` VALUES (1229, 55, 'app_secret', 'appSecret', 'varchar(50)', 'String', 'appSecret', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
-INSERT INTO `gen_table_column` VALUES (1230, 55, 'access_token', '阿里access token', 'varchar(500)', 'String', 'accessToken', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'textarea', '', 5, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
-INSERT INTO `gen_table_column` VALUES (1231, 55, 'expires_in', '到期', 'bigint', 'Long', 'expiresIn', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
-INSERT INTO `gen_table_column` VALUES (1232, 55, 'access_token_begin', 'access_token开始时间', 'bigint', 'Long', 'accessTokenBegin', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
-INSERT INTO `gen_table_column` VALUES (1233, 55, 'refresh_token', '刷新token', 'varchar(500)', 'String', 'refreshToken', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'textarea', '', 8, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
-INSERT INTO `gen_table_column` VALUES (1234, 55, 'refresh_token_timeout', '刷新token过期时间', 'bigint', 'Long', 'refreshTokenTimeout', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
-INSERT INTO `gen_table_column` VALUES (1235, 55, 'modify_on', '更新时间', 'bigint', 'Long', 'modifyOn', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
-INSERT INTO `gen_table_column` VALUES (1236, 55, 'remark', '描述', 'varchar(50)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 11, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
-INSERT INTO `gen_table_column` VALUES (1237, 55, 'request_url', '请求url', 'varchar(100)', 'String', 'requestUrl', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 12, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
-INSERT INTO `gen_table_column` VALUES (1238, 55, 'third_id', '第三方店铺id', 'varchar(50)', 'String', 'thirdId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 13, 'admin', '2024-01-18 17:42:22', '', '2024-01-18 17:43:02');
-INSERT INTO `gen_table_column` VALUES (1239, 56, 'id', NULL, 'bigint', 'Long', 'id', '1', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
-INSERT INTO `gen_table_column` VALUES (1240, 56, 'supplier_id', '供应商id', 'int', 'Long', 'supplierId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
-INSERT INTO `gen_table_column` VALUES (1241, 56, 'supplier_name', '供应商名称', 'varchar(255)', 'String', 'supplierName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
-INSERT INTO `gen_table_column` VALUES (1242, 56, 'amount', '应付金额', 'decimal(10,2)', 'BigDecimal', 'amount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
-INSERT INTO `gen_table_column` VALUES (1243, 56, 'date', '应付日期', 'date', 'Date', 'date', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 5, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
-INSERT INTO `gen_table_column` VALUES (1244, 56, 'invoice_no', '发票号码', 'varchar(50)', 'String', 'invoiceNo', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
-INSERT INTO `gen_table_column` VALUES (1245, 56, 'purchase_order_no', '采购单号', 'varchar(50)', 'String', 'purchaseOrderNo', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
-INSERT INTO `gen_table_column` VALUES (1246, 56, 'purchase_desc', '采购说明', 'varchar(500)', 'String', 'purchaseDesc', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'textarea', '', 8, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
-INSERT INTO `gen_table_column` VALUES (1247, 56, 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 9, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
-INSERT INTO `gen_table_column` VALUES (1248, 56, 'status', '状态（0已生成1已结算)', 'int', 'Long', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 10, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
-INSERT INTO `gen_table_column` VALUES (1249, 56, 'create_time', '订单创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 11, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
-INSERT INTO `gen_table_column` VALUES (1250, 56, 'create_by', '创建人', 'varchar(25)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 12, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
-INSERT INTO `gen_table_column` VALUES (1251, 56, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 13, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
-INSERT INTO `gen_table_column` VALUES (1252, 56, 'update_by', '更新人', 'varchar(25)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 14, 'admin', '2024-01-28 11:50:56', '', '2024-01-28 11:51:30');
+INSERT INTO `gen_table_column` VALUES (1253, 57, 'id', NULL, 'bigint', 'Long', 'id', '1', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:35:19');
+INSERT INTO `gen_table_column` VALUES (1254, 57, 'date', '日期', 'date', 'Date', 'date', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 2, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:35:19');
+INSERT INTO `gen_table_column` VALUES (1255, 57, 'total', '库存总数量', 'int', 'Long', 'total', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:35:19');
+INSERT INTO `gen_table_column` VALUES (1256, 57, 'goods_count', '商品总数', 'int', 'Long', 'goodsCount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:35:19');
+INSERT INTO `gen_table_column` VALUES (1257, 57, 'sku_count', 'SKU总数', 'int', 'Long', 'skuCount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:35:19');
+INSERT INTO `gen_table_column` VALUES (1258, 57, 'amount', '总货值', 'decimal(10,2)', 'BigDecimal', 'amount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:35:19');
+INSERT INTO `gen_table_column` VALUES (1259, 57, 'create_time', '订单创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 7, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:35:19');
+INSERT INTO `gen_table_column` VALUES (1260, 57, 'create_by', '创建人', 'varchar(25)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 8, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:35:19');
+INSERT INTO `gen_table_column` VALUES (1261, 57, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 9, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:35:19');
+INSERT INTO `gen_table_column` VALUES (1262, 57, 'update_by', '更新人', 'varchar(25)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 10, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:35:19');
+INSERT INTO `gen_table_column` VALUES (1263, 58, 'id', NULL, 'bigint', 'Long', 'id', '1', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44');
+INSERT INTO `gen_table_column` VALUES (1264, 58, 'report_id', 'Report外键ID', 'bigint', 'Long', 'reportId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44');
+INSERT INTO `gen_table_column` VALUES (1265, 58, 'date', '日期', 'date', 'Date', 'date', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 3, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44');
+INSERT INTO `gen_table_column` VALUES (1266, 58, 'goods_id', '商品id', 'int', 'Long', 'goodsId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44');
+INSERT INTO `gen_table_column` VALUES (1267, 58, 'spec_id', '商品规格ID', 'int', 'Long', 'specId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44');
+INSERT INTO `gen_table_column` VALUES (1268, 58, 'total', '总数量', 'int', 'Long', 'total', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44');
+INSERT INTO `gen_table_column` VALUES (1269, 58, 'amount', '总货值', 'decimal(10,2)', 'BigDecimal', 'amount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44');
+INSERT INTO `gen_table_column` VALUES (1270, 58, 'inventory_dist', '库存分布', 'varchar(500)', 'String', 'inventoryDist', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'textarea', '', 8, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44');
+INSERT INTO `gen_table_column` VALUES (1271, 58, 'create_time', '订单创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 9, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44');
+INSERT INTO `gen_table_column` VALUES (1272, 58, 'create_by', '创建人', 'varchar(25)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 10, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44');
+INSERT INTO `gen_table_column` VALUES (1273, 58, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 11, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44');
+INSERT INTO `gen_table_column` VALUES (1274, 58, 'update_by', '更新人', 'varchar(25)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 12, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:44');
+INSERT INTO `gen_table_column` VALUES (1275, 59, 'id', NULL, 'bigint', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1276, 59, 'date', '日期', 'date', 'Date', 'date', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 2, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1277, 59, 'order_num', '订单号', 'varchar(50)', 'String', 'orderNum', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1278, 59, 'order_id', '订单id', 'bigint', 'Long', 'orderId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1279, 59, 'order_item_id', '子订单id', 'bigint', 'Long', 'orderItemId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1280, 59, 'goods_id', '商品id', 'int', 'Long', 'goodsId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1281, 59, 'goods_name', '商品名称', 'varchar(255)', 'String', 'goodsName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 7, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1282, 59, 'spec_id', '规格id', 'int', 'Long', 'specId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1283, 59, 'spec_name', '规格名称', 'varchar(255)', 'String', 'specName', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 9, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1284, 59, 'price', '单价', 'decimal(10,2)', 'BigDecimal', 'price', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 10, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1285, 59, 'amount', '应收金额', 'decimal(10,2)', 'BigDecimal', 'amount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 11, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1286, 59, 'quantity', '数量', 'int', 'Long', 'quantity', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 12, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1287, 59, 'invoice_no', '发票号码', 'varchar(50)', 'String', 'invoiceNo', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 13, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1288, 59, 'order_desc', '订单说明', 'varchar(500)', 'String', 'orderDesc', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'textarea', '', 14, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1289, 59, 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 15, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1290, 59, 'status', '状态（0已生成1已结算)', 'int', 'Long', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 16, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1291, 59, 'create_time', '订单创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 17, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1292, 59, 'create_by', '创建人', 'varchar(25)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 18, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1293, 59, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 19, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1294, 59, 'update_by', '更新人', 'varchar(25)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 20, 'admin', '2024-01-28 14:33:45', '', '2024-01-28 14:34:14');
+INSERT INTO `gen_table_column` VALUES (1295, 60, 'id', NULL, 'bigint', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1296, 60, 'logistics_company', '物流公司', 'varchar(50)', 'String', 'logisticsCompany', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1297, 60, 'logistics_company_id', '物流公司id', 'varchar(10)', 'String', 'logisticsCompanyId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1298, 60, 'logistics_num', '物流单号', 'varchar(50)', 'String', 'logisticsNum', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1299, 60, 'order_num', '订单号', 'varchar(50)', 'String', 'orderNum', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1300, 60, 'shop_id', '店铺id', 'int', 'Long', 'shopId', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1301, 60, 'amount', '应付金额', 'decimal(10,2)', 'BigDecimal', 'amount', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1302, 60, 'date', '应付日期', 'date', 'Date', 'date', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 8, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1303, 60, 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 9, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1304, 60, 'status', '状态（0已生成1已结算)', 'int', 'Long', 'status', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'radio', '', 10, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1305, 60, 'create_time', '订单创建时间', 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 11, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1306, 60, 'create_by', '创建人', 'varchar(25)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 12, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1307, 60, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 13, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1308, 60, 'update_by', '更新人', 'varchar(25)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 14, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1309, 60, 'length', '长', 'float', 'Long', 'length', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 15, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1310, 60, 'width', '宽', 'float', 'Long', 'width', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 16, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1311, 60, 'height', '高', 'float', 'Long', 'height', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 17, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1312, 60, 'weight', '重量', 'float', 'Long', 'weight', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 18, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1313, 60, 'receiver_name', '收件人姓名', 'varchar(20)', 'String', 'receiverName', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 19, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1314, 60, 'receiver_phone', '收件人手机号', 'varchar(20)', 'String', 'receiverPhone', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 20, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1315, 60, 'province', '省', 'varchar(50)', 'String', 'province', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 21, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1316, 60, 'city', '市', 'varchar(50)', 'String', 'city', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 22, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
+INSERT INTO `gen_table_column` VALUES (1317, 60, 'town', '区', 'varchar(50)', 'String', 'town', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'input', '', 23, 'admin', '2024-01-28 15:11:12', '', '2024-01-28 15:11:39');
 
 -- ----------------------------
 -- Table structure for s_dou_order
@@ -8611,9 +8692,10 @@ CREATE TABLE `sys_job`  (
 -- ----------------------------
 -- Records of sys_job
 -- ----------------------------
-INSERT INTO `sys_job` VALUES (1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', '0/10 * * * * ?', '3', '1', '1', 'admin', '2023-08-07 19:31:38', '', NULL, '');
+INSERT INTO `sys_job` VALUES (1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', '0/10 * * * * ?', '1', '1', '1', 'admin', '2023-08-07 19:31:38', 'admin', '2024-01-28 13:30:18', '');
 INSERT INTO `sys_job` VALUES (2, '系统默认（有参）', 'DEFAULT', 'ryTask.ryParams(\'ry\')', '0/15 * * * * ?', '3', '1', '1', 'admin', '2023-08-07 19:31:38', '', NULL, '');
 INSERT INTO `sys_job` VALUES (3, '系统默认（多参）', 'DEFAULT', 'ryTask.ryMultipleParams(\'ry\', true, 2000L, 316.50D, 100)', '0/20 * * * * ?', '3', '1', '1', 'admin', '2023-08-07 19:31:38', '', NULL, '');
+INSERT INTO `sys_job` VALUES (100, '库存存货日报生成', 'SYSTEM', 'inventoryReportTask.run()', '0/30 * * * * ?', '1', '1', '1', 'admin', '2024-01-28 13:44:43', '', '2024-01-28 13:47:13', '');
 
 -- ----------------------------
 -- Table structure for sys_job_log
@@ -8634,6 +8716,13 @@ CREATE TABLE `sys_job_log`  (
 -- ----------------------------
 -- Records of sys_job_log
 -- ----------------------------
+INSERT INTO `sys_job_log` VALUES (1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', '系统默认（无参） 总共耗时：2毫秒', '0', '', '2024-01-28 13:30:00');
+INSERT INTO `sys_job_log` VALUES (2, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', '系统默认（无参） 总共耗时：0毫秒', '0', '', '2024-01-28 13:30:10');
+INSERT INTO `sys_job_log` VALUES (3, '库存存货日报生成', 'SYSTEM', 'inventoryReportTask.run()', '库存存货日报生成 总共耗时：2毫秒', '0', '', '2024-01-28 13:45:00');
+INSERT INTO `sys_job_log` VALUES (4, '库存存货日报生成', 'SYSTEM', 'inventoryReportTask.run()', '库存存货日报生成 总共耗时：0毫秒', '0', '', '2024-01-28 13:45:30');
+INSERT INTO `sys_job_log` VALUES (5, '库存存货日报生成', 'SYSTEM', 'inventoryReportTask.run()', '库存存货日报生成 总共耗时：2毫秒', '0', '', '2024-01-28 13:46:00');
+INSERT INTO `sys_job_log` VALUES (6, '库存存货日报生成', 'SYSTEM', 'inventoryReportTask.run()', '库存存货日报生成 总共耗时：0毫秒', '0', '', '2024-01-28 13:46:30');
+INSERT INTO `sys_job_log` VALUES (7, '库存存货日报生成', 'SYSTEM', 'inventoryReportTask.run()', '库存存货日报生成 总共耗时：0毫秒', '0', '', '2024-01-28 13:47:00');
 
 -- ----------------------------
 -- Table structure for sys_logininfor
@@ -8686,6 +8775,8 @@ INSERT INTO `sys_logininfor` VALUES (26, 'admin', '127.0.0.1', '内网IP', 'Chro
 INSERT INTO `sys_logininfor` VALUES (27, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-01-27 21:01:21');
 INSERT INTO `sys_logininfor` VALUES (28, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-01-28 11:03:32');
 INSERT INTO `sys_logininfor` VALUES (29, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-01-28 12:38:55');
+INSERT INTO `sys_logininfor` VALUES (30, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-01-28 13:09:27');
+INSERT INTO `sys_logininfor` VALUES (31, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-01-28 14:33:07');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -8858,12 +8949,12 @@ INSERT INTO `sys_menu` VALUES (2059, '备货清单', 2034, 1, 'stocking', 'wms/o
 INSERT INTO `sys_menu` VALUES (2060, '拣货出库', 2034, 2, 'stockout', 'wms/orderShipping/stockOut', NULL, 1, 0, 'C', '0', '0', '', 'bug', 'admin', '2024-01-09 13:39:00', 'admin', '2024-01-12 15:51:56', '');
 INSERT INTO `sys_menu` VALUES (2061, '库位管理', 2026, 99, 'stock_location', 'wms/location', NULL, 1, 0, 'C', '0', '0', '', 'education', 'admin', '2024-01-09 13:54:30', 'admin', '2024-01-09 14:50:33', '');
 INSERT INTO `sys_menu` VALUES (2062, '代发账单', 2072, 3, 'daifa', NULL, NULL, 1, 0, 'C', '0', '0', '', 'theme', 'admin', '2024-01-12 18:35:02', 'admin', '2024-01-28 11:32:39', '');
-INSERT INTO `sys_menu` VALUES (2063, '物流费用', 2072, 3, 'shipCost', 'bill/orderShipCost', NULL, 1, 0, 'C', '0', '0', '', 'guide', 'admin', '2024-01-12 18:35:31', 'admin', '2024-01-28 11:32:53', '');
+INSERT INTO `sys_menu` VALUES (2063, '物流费用', 2072, 3, 'shipFee', 'fms/payable/shipFee', NULL, 1, 0, 'C', '0', '0', '', 'guide', 'admin', '2024-01-12 18:35:31', 'admin', '2024-01-28 15:16:13', '');
 INSERT INTO `sys_menu` VALUES (2064, '店铺账单管理', 2018, 4, 's', NULL, NULL, 1, 0, 'M', '0', '1', '', 'example', 'admin', '2024-01-12 18:35:55', 'admin', '2024-01-16 15:28:47', '');
 INSERT INTO `sys_menu` VALUES (2066, '添加商品', 2006, 2, 'create', 'goods/create', NULL, 1, 0, 'C', '0', '0', NULL, 'component', 'admin', '2024-01-14 19:42:11', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2067, '商品规格查询', 2006, 3, 'spec_list', 'goods/spec', NULL, 1, 0, 'C', '0', '0', '', 'theme', 'admin', '2024-01-16 14:17:39', 'admin', '2024-01-16 14:18:10', '');
 INSERT INTO `sys_menu` VALUES (2068, '应收管理', 2018, 1, 'receivable', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'example', 'admin', '2024-01-28 11:23:36', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (2069, '订单收入', 2068, 1, 'order', NULL, NULL, 1, 0, 'C', '0', '0', '', 'checkbox', 'admin', '2024-01-28 11:24:35', 'admin', '2024-01-28 11:27:25', '');
+INSERT INTO `sys_menu` VALUES (2069, '订单收入', 2068, 1, 'order', 'fms/receivable/order', NULL, 1, 0, 'C', '0', '0', '', 'checkbox', 'admin', '2024-01-28 11:24:35', 'admin', '2024-01-28 14:48:11', '');
 INSERT INTO `sys_menu` VALUES (2070, '退款款项', 2068, 2, 'refund', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'bug', 'admin', '2024-01-28 11:26:55', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2071, '平台服务费', 2068, 3, 'service_fee', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'cascader', 'admin', '2024-01-28 11:28:03', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2072, '应付管理', 2018, 2, 'payable', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'clipboard', 'admin', '2024-01-28 11:29:21', '', NULL, '');
@@ -8871,7 +8962,7 @@ INSERT INTO `sys_menu` VALUES (2073, '采购应付', 2072, 1, 'purchase', 'fms/p
 INSERT INTO `sys_menu` VALUES (2074, '采购退货', 2072, 2, 'return', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'cascader', 'admin', '2024-01-28 11:32:21', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2075, '营销费用', 2072, 5, 'market_fee', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'cascader', 'admin', '2024-01-28 11:33:36', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2076, '其他费用', 2072, 6, 'other_fee', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'clipboard', 'admin', '2024-01-28 11:34:01', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (2077, '存货报表', 2018, 3, 'inventory_report', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'druid', 'admin', '2024-01-28 11:36:05', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2077, '存货报表', 2018, 3, 'inventory_report', 'fms/inventoryReport', NULL, 1, 0, 'C', '0', '0', '', 'druid', 'admin', '2024-01-28 11:36:05', 'admin', '2024-01-28 14:49:01', '');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -9045,6 +9136,29 @@ INSERT INTO `sys_oper_log` VALUES (114, '代码生成', 8, 'com.zhijian.generato
 INSERT INTO `sys_oper_log` VALUES (115, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"fms/payable/purchase\",\"createTime\":\"2024-01-28 11:30:49\",\"icon\":\"component\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2073,\"menuName\":\"采购应付\",\"menuType\":\"C\",\"orderNum\":1,\"params\":{},\"parentId\":2072,\"path\":\"purchase\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 11:55:53', 15);
 INSERT INTO `sys_oper_log` VALUES (116, '采购订单', 2, 'com.qihang.erp.api.controller.ScmPurchaseOrderController.edit()', 'PUT', 1, 'admin', NULL, '/purchase/purchaseOrder', '127.0.0.1', '内网IP', '{\"auditUser\":\"启航\",\"id\":467,\"optionType\":\"SupplierShip\",\"shipCompany\":\"菜鸟速递\",\"shipCost\":10,\"shipNo\":\"CN345565767\",\"supplierDeliveryTime\":\"2024-01-28 00:00:00\",\"updateBy\":\"admin\"}', NULL, 1, '\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'id\' doesn\'t have a default value\r\n### The error may exist in file [D:\\projects\\qihang.ecom.erp\\ecerp-api\\target\\classes\\mapper\\fms\\FmsPayablePurchaseMapper.xml]\r\n### The error may involve com.qihang.erp.api.mapper.FmsPayablePurchaseMapper.insertFmsPayablePurchase-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into fms_payable_purchase          ( supplier_id,             supplier_name,             amount,             date,                          purchase_order_no,             purchase_desc,                          status,             create_time,             create_by )           values ( ?,             ?,             ?,             ?,                          ?,             ?,                          ?,             ?,             ? )\r\n### Cause: java.sql.SQLException: Field \'id\' doesn\'t have a default value\n; Field \'id\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'id\' doesn\'t have a default value', '2024-01-28 12:07:03', 19882);
 INSERT INTO `sys_oper_log` VALUES (117, '采购订单', 2, 'com.qihang.erp.api.controller.ScmPurchaseOrderController.edit()', 'PUT', 1, 'admin', NULL, '/purchase/purchaseOrder', '127.0.0.1', '内网IP', '{\"auditUser\":\"启航\",\"id\":467,\"optionType\":\"SupplierShip\",\"shipCompany\":\"菜鸟速递\",\"shipCost\":10,\"shipNo\":\"CN345565767\",\"supplierDeliveryTime\":\"2024-01-28 00:00:00\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 12:07:31', 26);
+INSERT INTO `sys_oper_log` VALUES (118, '定时任务', 2, 'com.zhijian.quartz.controller.SysJobController.edit()', 'PUT', 1, 'admin', NULL, '/monitor/job', '127.0.0.1', '内网IP', '{\"concurrent\":\"1\",\"createBy\":\"admin\",\"createTime\":\"2023-08-07 19:31:38\",\"cronExpression\":\"0/10 * * * * ?\",\"invokeTarget\":\"ryTask.ryNoParams\",\"jobGroup\":\"DEFAULT\",\"jobId\":1,\"jobName\":\"系统默认（无参）\",\"misfirePolicy\":\"1\",\"nextValidTime\":\"2024-01-28 13:30:00\",\"params\":{},\"remark\":\"\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 13:29:54', 14);
+INSERT INTO `sys_oper_log` VALUES (119, '定时任务', 2, 'com.zhijian.quartz.controller.SysJobController.changeStatus()', 'PUT', 1, 'admin', NULL, '/monitor/job/changeStatus', '127.0.0.1', '内网IP', '{\"jobId\":1,\"misfirePolicy\":\"0\",\"params\":{},\"status\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 13:30:18', 7);
+INSERT INTO `sys_oper_log` VALUES (120, '定时任务', 1, 'com.zhijian.quartz.controller.SysJobController.add()', 'POST', 1, 'admin', NULL, '/monitor/job', '127.0.0.1', '内网IP', '{\"concurrent\":\"1\",\"cronExpression\":\"0/30 * * * * ?\",\"invokeTarget\":\"inventoryReportTask\",\"jobGroup\":\"SYSTEM\",\"jobName\":\"库存存货日报生成\",\"misfirePolicy\":\"1\",\"nextValidTime\":\"2024-01-28 13:33:00\",\"params\":{},\"status\":\"0\"}', NULL, 1, 'No bean named \'inventoryReportTask\' available', '2024-01-28 13:32:30', 0);
+INSERT INTO `sys_oper_log` VALUES (121, '定时任务', 1, 'com.zhijian.quartz.controller.SysJobController.add()', 'POST', 1, 'admin', NULL, '/monitor/job', '127.0.0.1', '内网IP', '{\"concurrent\":\"1\",\"cronExpression\":\"0/30 * * * * ?\",\"invokeTarget\":\"inventoryReportTask\",\"jobGroup\":\"SYSTEM\",\"jobName\":\"库存存货日报生成\",\"misfirePolicy\":\"1\",\"nextValidTime\":\"2024-01-28 13:34:30\",\"params\":{},\"status\":\"0\"}', NULL, 1, 'No bean named \'inventoryReportTask\' available', '2024-01-28 13:34:11', 0);
+INSERT INTO `sys_oper_log` VALUES (122, '定时任务', 1, 'com.zhijian.quartz.controller.SysJobController.add()', 'POST', 1, 'admin', NULL, '/monitor/job', '127.0.0.1', '内网IP', '{\"concurrent\":\"1\",\"cronExpression\":\"0/30 * * * * ?\",\"invokeTarget\":\"inventoryReportTask\",\"jobGroup\":\"SYSTEM\",\"jobName\":\"库存存货日报生成\",\"misfirePolicy\":\"1\",\"nextValidTime\":\"2024-01-28 13:36:00\",\"params\":{},\"status\":\"0\"}', NULL, 1, 'No bean named \'inventoryReportTask\' available', '2024-01-28 13:35:34', 1);
+INSERT INTO `sys_oper_log` VALUES (123, '定时任务', 1, 'com.zhijian.quartz.controller.SysJobController.add()', 'POST', 1, 'admin', NULL, '/monitor/job', '127.0.0.1', '内网IP', '{\"concurrent\":\"1\",\"cronExpression\":\"0/30 * * * * ?\",\"invokeTarget\":\"inventoryReportTask\",\"jobGroup\":\"SYSTEM\",\"jobName\":\"库存存货日报生成\",\"misfirePolicy\":\"1\",\"nextValidTime\":\"2024-01-28 13:36:00\",\"params\":{},\"status\":\"0\"}', NULL, 1, 'No bean named \'inventoryReportTask\' available', '2024-01-28 13:35:44', 1);
+INSERT INTO `sys_oper_log` VALUES (124, '定时任务', 1, 'com.zhijian.quartz.controller.SysJobController.add()', 'POST', 1, 'admin', NULL, '/monitor/job', '127.0.0.1', '内网IP', '{\"concurrent\":\"1\",\"cronExpression\":\"0/30 * * * * ?\",\"invokeTarget\":\"inventoryReportTask.run()\",\"jobGroup\":\"SYSTEM\",\"jobName\":\"库存存货日报生成\",\"misfirePolicy\":\"1\",\"nextValidTime\":\"2024-01-28 13:40:30\",\"params\":{},\"status\":\"0\"}', NULL, 1, 'No bean named \'inventoryReportTask\' available', '2024-01-28 13:40:24', 1);
+INSERT INTO `sys_oper_log` VALUES (125, '定时任务', 1, 'com.zhijian.quartz.controller.SysJobController.add()', 'POST', 1, 'admin', NULL, '/monitor/job', '127.0.0.1', '内网IP', '{\"concurrent\":\"1\",\"cronExpression\":\"0/30 * * * * ?\",\"invokeTarget\":\"inventoryReportTask.run()\",\"jobGroup\":\"SYSTEM\",\"jobName\":\"库存存货日报生成\",\"misfirePolicy\":\"1\",\"nextValidTime\":\"2024-01-28 13:42:00\",\"params\":{},\"status\":\"0\"}', '{\"msg\":\"新增任务\'库存存货日报生成\'失败，目标字符串不在白名单内\",\"code\":500}', 0, NULL, '2024-01-28 13:41:58', 7);
+INSERT INTO `sys_oper_log` VALUES (126, '定时任务', 1, 'com.zhijian.quartz.controller.SysJobController.add()', 'POST', 1, 'admin', NULL, '/monitor/job', '127.0.0.1', '内网IP', '{\"concurrent\":\"1\",\"createBy\":\"admin\",\"cronExpression\":\"0/30 * * * * ?\",\"invokeTarget\":\"inventoryReportTask.run()\",\"jobGroup\":\"SYSTEM\",\"jobId\":100,\"jobName\":\"库存存货日报生成\",\"misfirePolicy\":\"1\",\"nextValidTime\":\"2024-01-28 13:45:00\",\"params\":{},\"status\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 13:44:43', 114);
+INSERT INTO `sys_oper_log` VALUES (127, '定时任务', 2, 'com.zhijian.quartz.controller.SysJobController.changeStatus()', 'PUT', 1, 'admin', NULL, '/monitor/job/changeStatus', '127.0.0.1', '内网IP', '{\"jobId\":100,\"misfirePolicy\":\"0\",\"params\":{},\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 13:44:54', 13);
+INSERT INTO `sys_oper_log` VALUES (128, '定时任务', 2, 'com.zhijian.quartz.controller.SysJobController.changeStatus()', 'PUT', 1, 'admin', NULL, '/monitor/job/changeStatus', '127.0.0.1', '内网IP', '{\"jobId\":100,\"misfirePolicy\":\"0\",\"params\":{},\"status\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 13:47:14', 28);
+INSERT INTO `sys_oper_log` VALUES (129, '代码生成', 3, 'com.zhijian.generator.controller.GenController.remove()', 'DELETE', 1, 'admin', NULL, '/tool/gen/52,53,54,55,56', '127.0.0.1', '内网IP', '{}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 14:33:26', 10);
+INSERT INTO `sys_oper_log` VALUES (130, '代码生成', 6, 'com.zhijian.generator.controller.GenController.importTableSave()', 'POST', 1, 'admin', NULL, '/tool/gen/importTable', '127.0.0.1', '内网IP', '{\"tables\":\"fms_inventory_report,fms_inventory_report_detail,fms_receivable_order\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 14:33:45', 96);
+INSERT INTO `sys_oper_log` VALUES (131, '代码生成', 2, 'com.zhijian.generator.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/tool/gen', '127.0.0.1', '内网IP', '{\"businessName\":\"receivableOrder\",\"className\":\"FmsReceivableOrder\",\"columns\":[{\"capJavaField\":\"Id\",\"columnId\":1275,\"columnName\":\"id\",\"columnType\":\"bigint\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 14:33:45\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":59,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"Date\",\"columnComment\":\"日期\",\"columnId\":1276,\"columnName\":\"date\",\"columnType\":\"date\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 14:33:45\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"datetime\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"date\",\"javaType\":\"Date\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":59,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"OrderNum\",\"columnComment\":\"订单号\",\"columnId\":1277,\"columnName\":\"order_num\",\"columnType\":\"varchar(50)\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 14:33:45\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"orderNum\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":true,\"tableId\":59,\"updateBy\":\"\",\"usableColumn\":true},{\"capJavaField\":\"OrderId\",\"columnComment\":\"订单id\",\"columnId\":1278,\"columnName\":\"order_id\",\"columnType\":\"bigint\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 14:33:45\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"orderId\",\"javaType\":\"Long\",\"list\":true', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 14:34:14', 47);
+INSERT INTO `sys_oper_log` VALUES (132, '代码生成', 2, 'com.zhijian.generator.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/tool/gen', '127.0.0.1', '内网IP', '{\"businessName\":\"reportDetail\",\"className\":\"FmsInventoryReportDetail\",\"columns\":[{\"capJavaField\":\"Id\",\"columnId\":1263,\"columnName\":\"id\",\"columnType\":\"bigint\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 14:33:45\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":58,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"ReportId\",\"columnComment\":\"Report外键ID\",\"columnId\":1264,\"columnName\":\"report_id\",\"columnType\":\"bigint\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 14:33:45\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"reportId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":58,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"Date\",\"columnComment\":\"日期\",\"columnId\":1265,\"columnName\":\"date\",\"columnType\":\"date\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 14:33:45\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"datetime\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"date\",\"javaType\":\"Date\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":58,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"GoodsId\",\"columnComment\":\"商品id\",\"columnId\":1266,\"columnName\":\"goods_id\",\"columnType\":\"int\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 14:33:45\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"goodsId\",\"javaType\":\"Long\",\"list\":t', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 14:34:44', 26);
+INSERT INTO `sys_oper_log` VALUES (133, '代码生成', 2, 'com.zhijian.generator.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/tool/gen', '127.0.0.1', '内网IP', '{\"businessName\":\"inventoryReport\",\"className\":\"FmsInventoryReport\",\"columns\":[{\"capJavaField\":\"Id\",\"columnId\":1253,\"columnName\":\"id\",\"columnType\":\"bigint\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 14:33:45\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":57,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"Date\",\"columnComment\":\"日期\",\"columnId\":1254,\"columnName\":\"date\",\"columnType\":\"date\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 14:33:45\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"datetime\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"date\",\"javaType\":\"Date\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":57,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"Total\",\"columnComment\":\"库存总数量\",\"columnId\":1255,\"columnName\":\"total\",\"columnType\":\"int\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 14:33:45\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"total\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":57,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"GoodsCount\",\"columnComment\":\"商品总数\",\"columnId\":1256,\"columnName\":\"goods_count\",\"columnType\":\"int\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 14:33:45\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"goodsCount\",\"javaType\":\"Long\",\"list\":true,\"params\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 14:35:19', 17);
+INSERT INTO `sys_oper_log` VALUES (134, '代码生成', 8, 'com.zhijian.generator.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":\"fms_inventory_report,fms_receivable_order\"}', NULL, 0, NULL, '2024-01-28 14:35:30', 314);
+INSERT INTO `sys_oper_log` VALUES (135, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"fms/receivable/order\",\"createTime\":\"2024-01-28 11:24:35\",\"icon\":\"checkbox\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2069,\"menuName\":\"订单收入\",\"menuType\":\"C\",\"orderNum\":1,\"params\":{},\"parentId\":2068,\"path\":\"order\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 14:48:11', 18);
+INSERT INTO `sys_oper_log` VALUES (136, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"fms/inventoryReport\",\"createTime\":\"2024-01-28 11:36:05\",\"icon\":\"druid\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2077,\"menuName\":\"存货报表\",\"menuType\":\"C\",\"orderNum\":3,\"params\":{},\"parentId\":2018,\"path\":\"inventory_report\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 14:49:01', 11);
+INSERT INTO `sys_oper_log` VALUES (137, '代码生成', 6, 'com.zhijian.generator.controller.GenController.importTableSave()', 'POST', 1, 'admin', NULL, '/tool/gen/importTable', '127.0.0.1', '内网IP', '{\"tables\":\"fms_payable_ship_fee\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 15:11:12', 66);
+INSERT INTO `sys_oper_log` VALUES (138, '代码生成', 2, 'com.zhijian.generator.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/tool/gen', '127.0.0.1', '内网IP', '{\"businessName\":\"shipFee\",\"className\":\"FmsPayableShipFee\",\"columns\":[{\"capJavaField\":\"Id\",\"columnId\":1295,\"columnName\":\"id\",\"columnType\":\"bigint\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 15:11:12\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":60,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"LogisticsCompany\",\"columnComment\":\"物流公司\",\"columnId\":1296,\"columnName\":\"logistics_company\",\"columnType\":\"varchar(50)\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 15:11:12\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"logisticsCompany\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":60,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"LogisticsCompanyId\",\"columnComment\":\"物流公司id\",\"columnId\":1297,\"columnName\":\"logistics_company_id\",\"columnType\":\"varchar(10)\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 15:11:12\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"javaField\":\"logisticsCompanyId\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":false,\"sort\":3,\"superColumn\":false,\"tableId\":60,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"LogisticsNum\",\"columnComment\":\"物流单号\",\"columnId\":1298,\"columnName\":\"logistics_num\",\"columnType\":\"varchar(50)\",\"createBy\":\"admin\",\"createTime\":\"2024-01-28 15:11:12\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 15:11:39', 45);
+INSERT INTO `sys_oper_log` VALUES (139, '代码生成', 8, 'com.zhijian.generator.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":\"fms_payable_ship_fee\"}', NULL, 0, NULL, '2024-01-28 15:11:48', 204);
+INSERT INTO `sys_oper_log` VALUES (140, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"fms/payable/shipFee\",\"createTime\":\"2024-01-12 18:35:31\",\"icon\":\"guide\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2063,\"menuName\":\"物流费用\",\"menuType\":\"C\",\"orderNum\":3,\"params\":{},\"parentId\":2072,\"path\":\"shipFee\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-01-28 15:16:13', 20);
 
 -- ----------------------------
 -- Table structure for sys_oss
@@ -9321,7 +9435,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '至简', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-01-28 12:38:55', 'admin', '2023-08-07 19:31:37', '', '2024-01-28 12:38:55', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '至简', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-01-28 14:33:08', 'admin', '2023-08-07 19:31:37', '', '2024-01-28 14:33:07', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'qihang', 'qihang', '00', 'qihang@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2023-08-07 19:31:37', 'admin', '2023-08-07 19:31:37', 'admin', '2024-01-05 18:29:55', '测试员');
 
 -- ----------------------------
