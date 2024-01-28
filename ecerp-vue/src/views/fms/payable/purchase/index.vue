@@ -99,18 +99,20 @@
     </el-row>
 
     <el-table v-loading="loading" :data="payablePurchaseList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="ID" align="center" prop="id" />
-<!--      <el-table-column label="供应商id" align="center" prop="supplierId" />-->
-      <el-table-column label="供应商名称" align="center" prop="supplierName" />
-      <el-table-column label="应付金额" align="center" prop="amount" />
-      <el-table-column label="应付日期" align="center" prop="date" width="180">
+<!--      <el-table-column type="selection" width="55" align="center" />-->
+      <el-table-column label="日期" align="center" prop="date" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.date, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="发票号码" align="center" prop="invoiceNo" />
+<!--      <el-table-column label="ID" align="center" prop="id" />-->
+<!--      <el-table-column label="供应商id" align="center" prop="supplierId" />-->
+
+      <el-table-column label="应付金额" align="center" prop="amount"  :formatter="formatAmount"/>
       <el-table-column label="采购单号" align="center" prop="purchaseOrderNo" />
+      <el-table-column label="供应商名称" align="center" prop="supplierName" />
+      <el-table-column label="发票号码" align="center" prop="invoiceNo" />
+
       <el-table-column label="采购说明" align="center" prop="purchaseDesc" />
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="状态" align="center" prop="status" >
@@ -258,6 +260,9 @@ export default {
     this.getList();
   },
   methods: {
+    formatAmount(row, column) {
+      return '￥' + (row.amount).toFixed(2); // 假设金额是以分为单位保存的
+    },
     /** 查询财务管理-应付款-采购货款列表 */
     getList() {
       this.loading = true;
