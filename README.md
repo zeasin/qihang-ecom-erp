@@ -203,5 +203,5 @@ A[录入退款退货] -->B(仅退款)
 ![](./db/weixinzhifu.jpg=500x500)
 
 <div align=center>
-    <img src="./db/weixinzhifu.jpg" style="width: 500px;">
+    <img src="./db/weixinzhifu.jpg" style="width: 300px;">
 </div>
