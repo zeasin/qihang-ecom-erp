@@ -202,6 +202,4 @@ A[录入退款退货] -->B(仅退款)
 ![](./db/zhifubao.jpg=500x500)
 ![](./db/weixinzhifu.jpg=500x500)
 
-<div align=center>
-    <img src="./db/weixinzhifu.jpg" style="width: 300px;">
-</div>
+<img src="./db/weixinzhifu.jpg" style="width: 300px;" />
