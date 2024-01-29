@@ -199,7 +199,6 @@ A[录入退款退货] -->B(仅退款)
 ## 捐献作者
 作者为兼职做开源,平时还需要工作,如果帮到了您可以请作者吃个盒饭(目前还希望接收大家的捐献可以搭建一个演示环境！)
  
-![](./db/zhifubao.jpg=500x500)
-![](./db/weixinzhifu.jpg=500x500)
+
 <img src="./db/weixinzhifu.jpg" width="300px" />
 <img src="./db/zhifubao.jpg" width="300px" />
