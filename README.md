@@ -146,34 +146,43 @@ A[录入退款退货] -->B(仅退款)
 
 
 ## 三、如何使用？
-### 0、开发环境配置
-+ 运行MySQL脚本`db\sql\qihang-erp.sql`导入数据到主库`qihang-erp`
+### 3.1、开发环境配置
++ MySQL数据库创建
+  + 运行MySQL脚本`db\sql\qihang-erp.sql`导入数据到主库`qihang-erp`
 
-+ 运行MySQL脚本`db\sql\nacos.sql`导入数据到nacos库`nacos`
+  + 运行MySQL脚本`db\sql\nacos.sql`导入数据到nacos库`nacos`
 
 + 启动nacos
-  + 进入nacos文件夹`db\nacos\bin`
-  + 双击`startup.cmd`
+  + 修改Nacos数据库配置 `nacos\conf\application.properties`
+  ```
+  db.url.0=jdbc:mysql://127.0.0.1:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+  db.user.0=root
+  db.password.0=Andy_123
+  ```
+  + 启动Nacos（这里可以使用db文件夹下的nacos压缩包，其他都配置好了，数据库连接重新配置一下，双击`bin\startup.cmd`就可以运行了）
   
-+ 启动Redis
-  + 进入项目redis文件夹`db\redis`
-  + 启动：双击`start.bat`
++ 启动Redis（这里可以使用db文件夹下的redis压缩包，直接双击`start.bat`就可以启动了）
+
   
-+ 启动minio
++ 启动minio（以db文件夹下的minio压缩包为例）
   + 进入项目minio文件夹`db\minio`
   + 启动：CMD运行`minio.exe server data`
   
-### 1、启动后端`ecerp-api`
+### 3.2、启动后端`ecerp-api`
++ 进入Nacos进行Mysql数据库连接配置`http://127.0.0.1:8848/nacos` 
+  + 新建配置`ecerp-dev.yaml`
+  + 添加配置内容（从db\ecerp-dev.yaml复制修改）
+  + 发布配置
+  
 + IDEA启动项目
 
-### 2、启动前端 `ecerp-vue`
+### 3.3、启动前端 `ecerp-vue`
 + `npm install`
 + `npm run dev`
-
-### 3、访问web
-+ 访问地址：`http://localhost`
-+ 登录名：`admin`
-+ 登录密码：`admin123`
++ 访问web
+  + 访问地址：`http://localhost`
+  + 登录名：`admin`
+  + 登录密码：`admin123`
 
 ## 商业使用
 本软件允许商用，商用前请务必先提前测试有需要的功能，以免出现偏差。也可以找作者获得商用支持！
