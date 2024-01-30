@@ -116,10 +116,10 @@
 <!--            <version>3.5.3.1</version>-->
 <!--        </dependency>-->
 
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.h2database</groupId>-->
+<!--            <artifactId>h2</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>taobao</groupId>
             <artifactId>taobao-sdk</artifactId>
