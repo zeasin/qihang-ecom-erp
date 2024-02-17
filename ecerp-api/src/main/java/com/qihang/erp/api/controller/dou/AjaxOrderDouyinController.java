@@ -76,23 +76,32 @@ public class AjaxOrderDouyinController {
         String appKey = shop.getAppkey();
         String appSercet = shop.getAppSercet();
         if(!StringUtils.hasText(appKey) || !StringUtils.hasText(appSercet)) return new ApiResult<>(EnumResultVo.Fail.getIndex(), "参数错误：请设置appkey和serecet");
+        appKey = "7005157746437834253";
+        appSercet="8104c8b8-9085-4a80-9248-629759b4f1a3";
         String method = "order.list";
          method = "order.searchList";
         //设置appKey和appSecret，全局设置一次
         GlobalConfig.initAppKey(appKey);
         GlobalConfig.initAppSecret(appSercet);
-//入参为shopId
-        AccessToken accessToken = AccessTokenBuilder.build(123456L); //123456是shopId
+        //入参为shopId
+        AccessToken accessToken = AccessTokenBuilder.build(4463798L); //123456是shopId
+        if(accessToken.getCode().equals("30002")){
+            return new ApiResult<>(EnumResultVo.Fail.getIndex(),accessToken.getMsg());
+        }
+        if(!accessToken.getCode().equals("10000")){
+            return new ApiResult<>(EnumResultVo.Fail.getIndex(),accessToken.getMsg());
+        }
         OrderSearchListRequest orderReq = new OrderSearchListRequest();
         OrderSearchListParam orderParam = new OrderSearchListParam();
-        orderParam.setPage(0L);
-        orderParam.setSize(100L);
+        orderParam.setPage(1L);
+        orderParam.setSize(20L);
         orderParam.setOrderAsc(false);
+        orderReq.setParam(orderParam);
         OrderSearchListResponse orderRes = null;
         try {
             orderRes = orderReq.execute(accessToken);
         }catch (Exception e){
-
+            return new ApiResult<>(EnumResultVo.Fail.getIndex(),e.getMessage());
         }
 
         LinkedHashMap<String, Object> jsonMap =new LinkedHashMap<>();
