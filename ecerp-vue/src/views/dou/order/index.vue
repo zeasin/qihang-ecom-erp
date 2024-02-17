@@ -646,7 +646,7 @@
 </template>
 
 <script>
-import { listOrder, getOrder, delOrder, addOrder, confirmOrder } from "@/api/dou/order";
+import { listOrder, getOrder, delOrder, addOrder, confirmOrder,pullOrder } from "@/api/dou/order";
 import { addDouRefund } from "@/api/dou/douRefund";
 
 import { listShop } from "@/api/shop/shop";
@@ -658,6 +658,9 @@ import {
   pcaTextArr,
   codeToText,
 } from "element-china-area-data";
+
+import {MessageBox} from "element-ui";
+import {isRelogin} from "@/utils/request";
 export default {
   name: "Order",
   data() {
@@ -882,7 +885,28 @@ export default {
       this.title = "添加抖店订单";
     },
     handlePull(){
-      this.$modal.msgSuccess("请先配置API参数");
+
+      // this.$modal.msgSuccess("请先配置API参数");
+      if(this.queryParams.shopId){
+        pullOrder({shopId:this.queryParams.shopId,updType:0}).then(response => {
+          console.log('拉取淘宝订单接口返回=====',response)
+          if(response.code === 1401) {
+            MessageBox.confirm('Token已过期，需要重新授权', '系统提示', { confirmButtonText: '重新授权', cancelButtonText: '取消', type: 'warning' }).then(() => {
+              isRelogin.show = false;
+              // store.dispatch('LogOut').then(() => {
+              location.href = response.data.tokenRequestUrl+'?shopId='+this.queryParams.shopId
+              // })
+            }).catch(() => {
+              isRelogin.show = false;
+            });
+
+            // return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
+          }else
+            this.$modal.msgSuccess(JSON.stringify(response));
+        })
+      }else{
+        this.$modal.msgSuccess("请先选择店铺");
+      }
     },
     handleImport(){
       // this.$modal.msgSuccess("");
@@ -1073,7 +1097,7 @@ export default {
       console.log('售后====',row,item)
       this.saleAfterForm.orderId = item.orderId
       this.saleAfterForm.subOrderId = item.subOrderId
-      
+
       this.saleAfterForm.productPic = item.productPic
       this.saleAfterForm.productName = item.productName
       this.saleAfterForm.goodsSpec = item.goodsSpec
@@ -1081,8 +1105,8 @@ export default {
       this.saleAfterForm.comboNum = item.comboNum
       this.saleAfterForm.itemAmount = item.totalAmount
       this.saleAfterForm.comboAmount = item.totalAmount
-      
-      
+
+
       this.saleAfterOpen = true
     },
     submitRefundForm() {
