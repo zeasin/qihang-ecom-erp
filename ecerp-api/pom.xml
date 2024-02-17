@@ -127,6 +127,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/taobao/taobao-sdk-0.20200820.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>douyin</groupId>
+            <artifactId>doudian-sdk-java</artifactId>
+            <version>1.0.0-20210908152258</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/douyin/doudian-sdk-java-1.0.0-20210908152258.jar</systemPath>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>pinduoduo</groupId>-->
 <!--            <artifactId>pop-sdk-all</artifactId>-->
