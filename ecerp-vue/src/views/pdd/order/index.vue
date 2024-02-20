@@ -752,7 +752,7 @@
 </template>
 
 <script>
-import { listOrder, getOrder, addOrder, confirmOrder } from "@/api/pdd/order";
+import { listOrder, getOrder, addOrder, confirmOrder,pullOrder } from "@/api/pdd/order";
 import { listShop } from "@/api/shop/shop";
 import { searchSku } from "@/api/goods/goods";
 import { addPddRefund } from "@/api/pdd/pddRefund";
@@ -763,6 +763,8 @@ import {
   pcaTextArr,
   codeToText,
 } from "element-china-area-data";
+import {MessageBox} from "element-ui";
+import {isRelogin} from "@/utils/request";
 
 
 export default {
@@ -1054,14 +1056,28 @@ export default {
     },
     /** 删除按钮操作 */
     handlePull(row) {
-      this.$modal.msgSuccess("请先配置API");
-      // const ids = row.id || this.ids;
-      // this.$modal.confirm('是否确认删除拼多多订单编号为"' + ids + '"的数据项？').then(function() {
-      //   return delOrder(ids);
-      // }).then(() => {
-      //   this.getList();
-      //   this.$modal.msgSuccess("删除成功");
-      // }).catch(() => {});
+      if(this.queryParams.shopId){
+        pullOrder({shopId:this.queryParams.shopId,updType:0}).then(response => {
+          console.log('拉取pdd订单接口返回=====',response)
+          if(response.code === 1401) {
+            MessageBox.confirm('Token已过期，需要重新授权', '系统提示', { confirmButtonText: '重新授权', cancelButtonText: '取消', type: 'warning' }).then(() => {
+              isRelogin.show = false;
+              // store.dispatch('LogOut').then(() => {
+              location.href = response.data.tokenRequestUrl+'?shopId='+this.queryParams.shopId
+              // })
+            }).catch(() => {
+              isRelogin.show = false;
+            });
+
+            // return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
+          }else
+            this.$modal.msgSuccess(JSON.stringify(response));
+        })
+      }else{
+        this.$modal.msgSuccess("请先选择店铺");
+      }
+      // this.$modal.msgSuccess("请先配置API");
+
     },
     handleDetail(row){
       getOrder(row.id).then(response => {
@@ -1199,8 +1215,8 @@ export default {
       this.saleAfterForm.quantity = item.quantity
       this.saleAfterForm.itemAmount = item.itemAmount
       this.saleAfterForm.refundAmount = item.itemAmount
-      
-      
+
+
       this.saleAfterOpen = true
     },
     submitRefundForm() {
