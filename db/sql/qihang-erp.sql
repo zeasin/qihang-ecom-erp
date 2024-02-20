@@ -11,7 +11,7 @@
  Target Server Version : 80032
  File Encoding         : 65001
 
- Date: 20/02/2024 14:50:07
+ Date: 20/02/2024 18:01:26
 */
 
 SET NAMES utf8mb4;
@@ -4683,9 +4683,9 @@ CREATE TABLE `s_shop`  (
 -- Records of s_shop
 -- ----------------------------
 INSERT INTO `s_shop` VALUES (1, '其他渠道', NULL, NULL, NULL, 99, NULL, 9, 0, 0, 1704416716, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `s_shop` VALUES (5, '梦小妮潮流女装', '拼多多-梦小妮', 'pdd', '煜梦服饰', 5, NULL, 99, 0, 1, 1680698886, 'pdd10006159121', 100061591, '', '87f8044d2a5f45a489aa3a952785b0d35e61788a', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `s_shop` VALUES (5, '梦小妮潮流女装', '拼多多-梦小妮', 'pdd', '煜梦服饰', 5, NULL, 99, 0, 1, 1680698886, 'pdd10006159121', 100061591, '', '87f8044d2a5f45a489aa3a952785b0d35e61788a', 'dc953bcf16d24b27abf3e64a59e1ecd1', 'de296599e194a08cbfbb2b3b340e11fec7a1bacc', NULL, NULL, NULL, NULL, 'h');
 INSERT INTO `s_shop` VALUES (6, '梦小妮牛仔裤', '淘宝-梦小妮', 'taobao', '煜梦服饰', 4, '', 98, 0, 1, 0, '', 2200787809358, '0', '610140071d1070a37cecea89f1c1f3d6e5d19bf4b58dd942200787809358', '31014100', '7b0769269b0c0ca88949791c14eb3a5c', NULL, NULL, NULL, NULL, 'http://gw.api.taobao.com/router/rest');
-INSERT INTO `s_shop` VALUES (22, '梦小妮牛仔裤', '抖音-梦小妮', 'douyin', '华衣云商', 6, 'http://openapi.jinritemai.com', 87, 0, 1, 1653672695, NULL, 0, '0', '', '', '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `s_shop` VALUES (22, '梦小妮牛仔裤', '抖音-梦小妮', 'douyin', '华衣云商', 6, 'http://openapi.jinritemai.com', 87, 0, 1, 1653672695, NULL, 4463798, '0', '', '7005157746437834253', '8104c8b8-9085-4a80-9248-629759b4f1a3', NULL, NULL, NULL, NULL, 'h');
 
 -- ----------------------------
 -- Table structure for s_shop_goods
@@ -8811,6 +8811,9 @@ INSERT INTO `sys_logininfor` VALUES (33, 'admin', '127.0.0.1', '内网IP', 'Chro
 INSERT INTO `sys_logininfor` VALUES (34, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-02-02 15:28:30');
 INSERT INTO `sys_logininfor` VALUES (35, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-02-18 16:50:01');
 INSERT INTO `sys_logininfor` VALUES (36, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-02-20 14:22:05');
+INSERT INTO `sys_logininfor` VALUES (37, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-02-20 15:26:20');
+INSERT INTO `sys_logininfor` VALUES (38, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-02-20 16:50:40');
+INSERT INTO `sys_logininfor` VALUES (39, 'admin', '127.0.0.1', '内网IP', 'Chrome 12', 'Windows 10', '0', '登录成功', '2024-02-20 17:45:00');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -8943,7 +8946,7 @@ INSERT INTO `sys_menu` VALUES (2012, '采购物流管理', 4, 3, 'purchase/ship'
 INSERT INTO `sys_menu` VALUES (2013, '采购费用管理', 4, 4, 'purchase/cost', 'scm/purchase/cost', '', 1, 0, 'C', '0', '1', 'scm:purchase:cost', 'checkbox', 'admin', '2023-12-29 16:47:07', 'admin', '2024-01-13 18:32:21', '');
 INSERT INTO `sys_menu` VALUES (2014, '订单管理', 0, 2, 'sale', '', '', 1, 0, 'M', '0', '0', '', 'shopping', 'admin', '2023-12-29 16:53:03', 'admin', '2024-02-20 14:27:09', '');
 INSERT INTO `sys_menu` VALUES (2015, '店铺设置', 2084, 10, 'shop', 'shop/index', '', 1, 0, 'C', '0', '0', 'shop:list', 'example', 'admin', '2023-12-29 16:54:02', 'admin', '2024-02-20 14:45:26', '');
-INSERT INTO `sys_menu` VALUES (2016, '淘宝商品管理', 2084, 1, 'shop/goods', 'shop/goods', '', 1, 0, 'C', '0', '0', 'shop:goods', 'color', 'admin', '2023-12-29 17:02:42', 'admin', '2024-02-20 14:45:54', '');
+INSERT INTO `sys_menu` VALUES (2016, '淘宝商品', 2087, 1, 'tao_goods', 'shop/goods', '{\"shopType\":4}', 1, 0, 'C', '0', '0', 'shop:goods', 'color', 'admin', '2023-12-29 17:02:42', 'admin', '2024-02-20 17:49:39', '');
 INSERT INTO `sys_menu` VALUES (2017, '店铺数据统计', 2084, 8, 'data', 'shop/data', '', 1, 0, 'C', '0', '1', 'shop:data', 'chart', 'admin', '2023-12-29 17:04:08', 'admin', '2024-02-20 14:46:11', '');
 INSERT INTO `sys_menu` VALUES (2018, '财务管理', 0, 7, 'fms', '', '', 1, 0, 'M', '0', '0', '', 'money', 'admin', '2023-12-29 17:07:23', 'admin', '2024-02-20 14:43:30', '');
 INSERT INTO `sys_menu` VALUES (2019, '采购账单管理', 2018, 1, 'purchase', 'scm/purchase/cost', '', 1, 0, 'C', '0', '1', '', 'shopping', 'admin', '2023-12-29 17:09:32', 'admin', '2024-01-28 11:22:15', '');
@@ -9001,8 +9004,9 @@ INSERT INTO `sys_menu` VALUES (2078, '记账凭证管理', 2018, 9, 'voucher', N
 INSERT INTO `sys_menu` VALUES (2079, '凭证查询', 2078, 1, 'list', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'edit', 'admin', '2024-02-02 15:34:21', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2080, '科目设置', 2078, 3, 'AccountSubject', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'color', 'admin', '2024-02-02 15:36:15', '', NULL, '');
 INSERT INTO `sys_menu` VALUES (2084, '店铺管理', 0, 5, 'shop', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'international', 'admin', '2024-02-20 14:41:21', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (2085, '多多商品管理', 2084, 2, 'duoduo_goods', NULL, NULL, 1, 0, 'C', '0', '0', '', 'checkbox', 'admin', '2024-02-20 14:46:40', 'admin', '2024-02-20 14:47:51', '');
-INSERT INTO `sys_menu` VALUES (2086, '抖店商品管理', 2084, 3, 'doudian_goods', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'button', 'admin', '2024-02-20 14:47:24', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2085, '多多商品', 2087, 2, 'duoduo_goods', 'shop/goods', '{\"shopType\":5}', 1, 0, 'C', '0', '0', '', 'clipboard', 'admin', '2024-02-20 14:46:40', 'admin', '2024-02-20 18:00:14', '');
+INSERT INTO `sys_menu` VALUES (2086, '抖店商品', 2087, 3, 'doudian_goods', 'shop/goods', '{\"shopType\":6}', 1, 0, 'C', '0', '0', '', 'button', 'admin', '2024-02-20 14:47:24', 'admin', '2024-02-20 18:00:38', '');
+INSERT INTO `sys_menu` VALUES (2087, '店铺商品管理', 2084, 1, 'goods', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'job', 'admin', '2024-02-20 17:47:24', '', NULL, '');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -9249,6 +9253,14 @@ INSERT INTO `sys_oper_log` VALUES (187, '菜单管理', 1, 'com.zhijian.web.cont
 INSERT INTO `sys_oper_log` VALUES (188, '菜单管理', 1, 'com.zhijian.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"icon\":\"button\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"抖店商品管理\",\"menuType\":\"C\",\"orderNum\":3,\"params\":{},\"parentId\":2084,\"path\":\"doudian_goods\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-02-20 14:47:24', 7);
 INSERT INTO `sys_oper_log` VALUES (189, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createTime\":\"2024-02-20 14:46:40\",\"icon\":\"checkbox\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2085,\"menuName\":\"多多商品管理\",\"menuType\":\"C\",\"orderNum\":2,\"params\":{},\"parentId\":2084,\"path\":\"duoduo_goods\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-02-20 14:47:51', 5);
 INSERT INTO `sys_oper_log` VALUES (190, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"\",\"createTime\":\"2023-12-27 15:00:27\",\"icon\":\"monitor\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2,\"menuName\":\"系统监控\",\"menuType\":\"M\",\"orderNum\":100,\"params\":{},\"parentId\":0,\"path\":\"monitor\",\"perms\":\"\",\"query\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-02-20 14:48:54', 8);
+INSERT INTO `sys_oper_log` VALUES (191, '店铺', 2, 'com.qihang.erp.api.controller.ShopController.edit()', 'PUT', 1, 'admin', NULL, '/shop/shop', '127.0.0.1', '内网IP', '{\"apiRequestUrl\":\"h\",\"appSercet\":\"8104c8b8-9085-4a80-9248-629759b4f1a3\",\"appkey\":\"7005157746437834253\",\"company\":\"华衣云商\",\"ename\":\"douyin\",\"id\":22,\"isDelete\":0,\"isShow\":1,\"modifyOn\":1653672695,\"name\":\"梦小妮牛仔裤\",\"nickName\":\"抖音-梦小妮\",\"orderNum\":87,\"params\":{},\"sellerUserId\":4463798,\"sellerUserIdStr\":\"0\",\"sessionKey\":\"\",\"type\":6,\"url\":\"http://openapi.jinritemai.com\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-02-20 15:29:49', 46);
+INSERT INTO `sys_oper_log` VALUES (192, '店铺', 2, 'com.qihang.erp.api.controller.ShopController.edit()', 'PUT', 1, 'admin', NULL, '/shop/shop', '127.0.0.1', '内网IP', '{\"apiRequestUrl\":\"h\",\"appSercet\":\"de296599e194a08cbfbb2b3b340e11fec7a1bacc\",\"appkey\":\"dc953bcf16d24b27abf3e64a59e1ecd1\",\"company\":\"煜梦服饰\",\"ename\":\"pdd\",\"id\":5,\"isDelete\":0,\"isShow\":1,\"modifyOn\":1680698886,\"name\":\"梦小妮潮流女装\",\"nickName\":\"拼多多-梦小妮\",\"orderNum\":99,\"params\":{},\"remark\":\"pdd10006159121\",\"sellerUserId\":100061591,\"sellerUserIdStr\":\"\",\"sessionKey\":\"87f8044d2a5f45a489aa3a952785b0d35e61788a\",\"type\":5}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-02-20 16:53:16', 71);
+INSERT INTO `sys_oper_log` VALUES (193, '菜单管理', 1, 'com.zhijian.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"createBy\":\"admin\",\"icon\":\"job\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"店铺商品管理\",\"menuType\":\"M\",\"orderNum\":1,\"params\":{},\"parentId\":2084,\"path\":\"goods\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-02-20 17:47:24', 58);
+INSERT INTO `sys_oper_log` VALUES (194, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"shop/goods\",\"createTime\":\"2023-12-29 17:02:42\",\"icon\":\"color\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2016,\"menuName\":\"淘宝商品管理\",\"menuType\":\"C\",\"orderNum\":1,\"params\":{},\"parentId\":2087,\"path\":\"tao_goods\",\"perms\":\"shop:goods\",\"query\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-02-20 17:47:51', 21);
+INSERT INTO `sys_oper_log` VALUES (195, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"shop/goods\",\"createTime\":\"2023-12-29 17:02:42\",\"icon\":\"color\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2016,\"menuName\":\"淘宝商品\",\"menuType\":\"C\",\"orderNum\":1,\"params\":{},\"parentId\":2087,\"path\":\"tao_goods\",\"perms\":\"shop:goods\",\"query\":\"{\\\"shopType\\\":4}\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-02-20 17:49:39', 16);
+INSERT INTO `sys_oper_log` VALUES (196, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"shop/goods\",\"createTime\":\"2024-02-20 14:46:40\",\"icon\":\"clipboard\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2085,\"menuName\":\"多多商品管理\",\"menuType\":\"C\",\"orderNum\":2,\"params\":{},\"parentId\":2084,\"path\":\"duoduo_goods\",\"perms\":\"\",\"query\":\"{\\\"shopType\\\":5}\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-02-20 17:59:58', 90);
+INSERT INTO `sys_oper_log` VALUES (197, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"shop/goods\",\"createTime\":\"2024-02-20 14:46:40\",\"icon\":\"clipboard\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2085,\"menuName\":\"多多商品\",\"menuType\":\"C\",\"orderNum\":2,\"params\":{},\"parentId\":2087,\"path\":\"duoduo_goods\",\"perms\":\"\",\"query\":\"{\\\"shopType\\\":5}\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-02-20 18:00:14', 16);
+INSERT INTO `sys_oper_log` VALUES (198, '菜单管理', 2, 'com.zhijian.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '内网IP', '{\"children\":[],\"component\":\"shop/goods\",\"createTime\":\"2024-02-20 14:47:24\",\"icon\":\"button\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2086,\"menuName\":\"抖店商品\",\"menuType\":\"C\",\"orderNum\":3,\"params\":{},\"parentId\":2087,\"path\":\"doudian_goods\",\"perms\":\"\",\"query\":\"{\\\"shopType\\\":6}\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-02-20 18:00:38', 14);
 
 -- ----------------------------
 -- Table structure for sys_oss
@@ -9525,7 +9537,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '至简', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-02-20 14:22:06', 'admin', '2023-08-07 19:31:37', '', '2024-02-20 14:22:05', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '至简', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-02-20 17:45:00', 'admin', '2023-08-07 19:31:37', '', '2024-02-20 17:45:00', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'qihang', 'qihang', '00', 'qihang@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2023-08-07 19:31:37', 'admin', '2023-08-07 19:31:37', 'admin', '2024-01-05 18:29:55', '测试员');
 
 -- ----------------------------

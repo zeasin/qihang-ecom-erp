@@ -1,14 +1,29 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      
+<!--      <el-form-item label="平台" prop="shopType">-->
+<!--        <el-input-->
+<!--          v-model="queryParams.shopType"-->
+<!--          placeholder="请输入平台"-->
+<!--          clearable-->
+<!--          @keyup.enter.native="handleQuery"-->
+<!--        />-->
+<!--      </el-form-item>-->
       <el-form-item label="店铺" prop="shopId">
-        <el-input
-          v-model="queryParams.shopId"
-          placeholder="请输入店铺"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+<!--        <el-input-->
+<!--          v-model="queryParams.shopId"-->
+<!--          placeholder="请输入店铺"-->
+<!--          clearable-->
+<!--          @keyup.enter.native="handleQuery"-->
+<!--        />-->
+        <el-select v-model="queryParams.shopId" placeholder="请选择店铺" clearable @change="handleQuery">
+          <el-option
+            v-for="item in shopList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="商品编码" prop="goodsNum">
         <el-input
@@ -26,7 +41,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-     
+
       <el-form-item label="发布日期" prop="publishTime">
         <el-date-picker clearable
           v-model="queryParams.publishTime"
@@ -35,7 +50,7 @@
           placeholder="请选择发布日期">
         </el-date-picker>
       </el-form-item>
-      
+
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -129,7 +144,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -287,6 +302,7 @@
 
 <script>
 import { listGoods, getGoods, delGoods, addGoods, updateGoods } from "@/api/shop/goods";
+import {listShop} from "@/api/shop/shop";
 
 export default {
   name: "Goods",
@@ -310,6 +326,7 @@ export default {
       goodsList: [],
       // ${subTable.functionName}表格数据
       sShopGoodsSkuList: [],
+      shopList:[],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -351,6 +368,13 @@ export default {
     };
   },
   created() {
+    console.log('url参数：',this.$route.query.shopType)
+    if(this.$route.query.shopType) {
+      this.queryParams.shopType = this.$route.query.shopType
+      listShop({type:this.queryParams.shopType}).then(response => {
+        this.shopList = response.rows;
+      });
+    }
     this.getList();
   },
   methods: {
