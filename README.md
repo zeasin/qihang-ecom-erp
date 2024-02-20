@@ -190,10 +190,6 @@ A[录入退款退货] -->B(仅退款)
 本软件采用`MIT LICENSE`协议授权，根据 MIT 许可证（MIT License）的规定，在软件及其所有副本中都必须包含版权声明和许可声明。
 
 
-💖 如果觉得有用记得点 Star⭐
-
-
-欢迎一起交流！
 
 
 
@@ -203,3 +199,12 @@ A[录入退款退货] -->B(仅退款)
 
 <img src="./db/weixinzhifu.jpg" width="300px" />
 <img src="./db/zhifubao.jpg" width="300px" />
+
+## 一起交流
+💖 如果觉得有用记得点 Star⭐
+
+
+欢迎一起交流！
+
+<img src="./db/qq.jpg" width="300px" />
+
