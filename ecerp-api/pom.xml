@@ -128,11 +128,11 @@
             <systemPath>${project.basedir}/libs/taobao/taobao-sdk-0.20200820.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>douyin</groupId>
+            <groupId>doudian</groupId>
             <artifactId>doudian-sdk-java</artifactId>
             <version>1.1.0-20240217120650</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/douyin/doudian-sdk-java-1.1.0-20240217120650.jar</systemPath>
+            <systemPath>${project.basedir}/libs/doudian/doudian-sdk-java-1.1.0-20240217120650.jar</systemPath>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>pinduoduo</groupId>-->
