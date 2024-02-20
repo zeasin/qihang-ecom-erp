@@ -76,10 +76,10 @@ public class AjaxOrderDouyinController {
         String appKey = shop.getAppkey();
         String appSercet = shop.getAppSercet();
         if(!StringUtils.hasText(appKey) || !StringUtils.hasText(appSercet)) return new ApiResult<>(EnumResultVo.Fail.getIndex(), "参数错误：请设置appkey和serecet");
-        appKey = "7005157746437834253";
-        appSercet="8104c8b8-9085-4a80-9248-629759b4f1a3";
-        String method = "order.list";
-         method = "order.searchList";
+//        appKey = "7005157746437834253";
+//        appSercet="8104c8b8-9085-4a80-9248-629759b4f1a3";
+//        String method = "order.list";
+//         method = "order.searchList";
         //设置appKey和appSecret，全局设置一次
         GlobalConfig.initAppKey(appKey);
         GlobalConfig.initAppSecret(appSercet);
@@ -91,20 +91,43 @@ public class AjaxOrderDouyinController {
         if(!accessToken.getCode().equals("10000")){
             return new ApiResult<>(EnumResultVo.Fail.getIndex(),accessToken.getMsg());
         }
+        int updCount =0;
+        int addCount =0;
+        int failCount = 0;
+
         OrderSearchListRequest orderReq = new OrderSearchListRequest();
         OrderSearchListParam orderParam = new OrderSearchListParam();
         orderParam.setPage(1L);
         orderParam.setSize(20L);
         orderParam.setOrderAsc(false);
+        orderParam.setCreateTimeStart(startTime);
         orderReq.setParam(orderParam);
         OrderSearchListResponse orderRes = null;
         try {
             orderRes = orderReq.execute(accessToken);
+            if(orderRes.getCode().equals("10000")){
+                if(orderRes.getData() == null || orderRes.getData().getTotal()  == 0) return new ApiResult<>(EnumResultVo.DataError.getIndex(),"无订单可以更新");
+
+                // 循环处理订单
+                for(var order:orderRes.getData().getShopOrderList()){
+//                    DcDouyinOrdersEntity douYinOrder= JsonUtil.strToObject(JSON.toJSONString(json),DcDouyinOrdersEntity.class);
+//                    var address = JsonUtil.strToObject(douYinOrder.getPostAddr(),DcDouyinAddressVo.class);
+//                    String postAddr=new StringBuilder(address.getProvince().getName()).append(address.getCity().getName()).append(address.getTown().getName()).append(address.getDetail()).toString();
+//                    douYinOrder.setPostAddr(postAddr);
+//
+//                    var result =  douyinOrderService.editDouYinOrder(douYinOrder);
+//                    if(result.getCode() == EnumResultVo.DataExist.getIndex()) updCount++;
+//                    else if(result.getCode() == EnumResultVo.Fail.getIndex()) failCount++;
+//                    else if(result.getCode() == EnumResultVo.SUCCESS.getIndex()) addCount++;
+                }
+            }else{
+                return new ApiResult<>(EnumResultVo.Fail.getIndex(),orderRes.getSubMsg());
+            }
         }catch (Exception e){
             return new ApiResult<>(EnumResultVo.Fail.getIndex(),e.getMessage());
         }
 
-        LinkedHashMap<String, Object> jsonMap =new LinkedHashMap<>();
+        /*LinkedHashMap<String, Object> jsonMap =new LinkedHashMap<>();
 //        jsonMap.put("end_time",DateUtil.dateToString(new Date(),"yyyy/MM/dd HH:mm:ss"));//截至时间
         jsonMap.put("end_time",DateUtil.unixTimeStampToDate2(endTime,"yyyy/MM/dd HH:mm:ss"));//截至时间
         jsonMap.put("is_desc","1");//设置了此字段即为desc (最近的在前), 不设置默认asc
@@ -163,7 +186,7 @@ public class AjaxOrderDouyinController {
             }
         } catch (Exception e) {
             return new ApiResult<>(EnumResultVo.Fail.getIndex(), "系统异常："+e.getMessage());
-        }
+        }*/
 
         ErpSalesPullCountResp resp = new ErpSalesPullCountResp();//返回结果
         resp.setStartTime(DateUtil.unixTimeStampToDate(startTime));

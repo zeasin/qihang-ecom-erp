@@ -42,3 +42,13 @@ export function delOrder(id) {
     method: 'delete'
   })
 }
+
+
+// 接口拉取淘宝订单
+export function pullOrder(query) {
+  return request({
+    url: '/pdd_api/order/pull_order',
+    method: 'get',
+    params: query
+  })
+}

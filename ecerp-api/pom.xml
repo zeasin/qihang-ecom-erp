@@ -134,13 +134,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/doudian/doudian-sdk-java-1.1.0-20240217120650.jar</systemPath>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>pinduoduo</groupId>-->
-<!--            <artifactId>pop-sdk-all</artifactId>-->
-<!--            <version>1.11.8</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${project.basedir}/libs/pinduoduo/pop-sdk-all-1.11.8.jar</systemPath>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>pinduoduo</groupId>
+            <artifactId>pop-sdk-all</artifactId>
+            <version>1.11.8</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/pinduoduo/pop-sdk-all-1.11.8.jar</systemPath>
+        </dependency>
 
     </dependencies>
 
