@@ -206,5 +206,5 @@ A[录入退款退货] -->B(仅退款)
 
 欢迎一起交流！
 
-<img src="./db/qq.jpg" width="300px" />
+<img src="./db/qq1.jpg" width="300px" />
 
