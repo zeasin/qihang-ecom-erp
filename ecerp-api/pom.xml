@@ -141,6 +141,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/pinduoduo/pop-sdk-all-1.11.8.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>xiaohongshu</groupId>
+            <artifactId>com.xiaohongshu.fls.openSdk</artifactId>
+            <version>1.0</version>
+            <scope> system </scope>
+            <systemPath>${pom.basedir}/libs/xiaohongshu/com.xiaohongshu.fls.openSdk-1.0.jar </systemPath>
+        </dependency>
 
     </dependencies>
 
