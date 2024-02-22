@@ -184,6 +184,7 @@ A[录入退款退货] -->B(仅退款)
 ### 3.3、启动前端 `ecerp-vue`
 + `npm install`
 + `npm run dev`
++ `npm run build:prod`
 + 访问web
   + 访问地址：`http://localhost`
   + 登录名：`admin`
