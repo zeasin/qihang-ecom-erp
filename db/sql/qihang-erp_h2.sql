@@ -41,278 +41,6 @@ CREATE TABLE `d_keyword`  (
 -- ----------------------------
 -- Records of d_keyword
 -- ----------------------------
-INSERT INTO `d_keyword` VALUES (1738567060109230081, 'TAOBAO', '无纺布袋子定做', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738567960718573570, 'TAOBAO', '主持人礼服男童', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738568107389190146, 'TAOBAO', '蜂蜜塑料瓶子', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738568536193859585, 'TAOBAO', '男童汉服古风帅气', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738568828918530050, 'TAOBAO', '夏季女装新款套装', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738569204317126657, 'TAOBAO', '新款儿童小白鞋', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738569657293570049, 'TAOBAO', '可盐可甜高级感套装', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738569753921945601, 'TAOBAO', '单肩背包热销榜', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738569833643081730, 'TAOBAO', '阳台瓷砖挑选攻略', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738570351845146625, 'PDD-YKD', '棉裤女冬季 外穿', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738570487673487362, 'PDD-YKD', '暖宝宝', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738570578874433537, 'PDD-YKD', '小米平板', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738570623115952129, 'PDD-YKD', '雪中飞羽绒服', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738570682977058817, 'PDD-YKD', '羽绒棉裤', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738570734327922689, 'PDD-YKD', '冬季裤子', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738570803739459586, 'PDD-YKD', '红色羽绒服', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738570861402750977, 'PDD-YKD', '大码棉服', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738570902716645377, 'PDD-YKD', '冬季棉服', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738570958991622145, 'PDD-YKD', '三轮车', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571037848731649, 'PDD-YKD', '裤子女秋冬款', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571089329618945, 'PDD-YKD', '毛呢半身裙', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571120145170433, 'PDD-YKD', '丝袜冬季加绒', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571157923266562, 'PDD-YKD', '加绒卫裤女', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571198259888129, 'PDD-YKD', '冬季羽绒服', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571273224683522, 'PDD-YKD', '马面裙套装', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571533766459393, 'PDD-PIFA', '取暖器', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571639311925249, 'PDD-PIFA', '暖风机', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571706345291777, 'PDD-PIFA', '手机', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571751639580674, 'PDD-PIFA', '火鸡面', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571817494347777, 'PDD-PIFA', '棉袄', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571866903248898, 'PDD-PIFA', '高跟鞋女', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571940941103106, 'PDD-PIFA', 'a4打印纸', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738571991859953665, 'PDD-PIFA', '女童加绒裤子', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738572065121861634, 'PDD-PIFA', '毛巾', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738572111301148674, 'PDD-PIFA', '钥匙扣', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738572165235703810, 'PDD-PIFA', '红色毛衣', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738572219950399490, 'PDD-PIFA', '小皮鞋', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738572253303504897, 'PDD-PIFA', '衣服', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738572372182663170, 'PDD-PIFA', '饭盒', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738572510770855938, 'PDD-PIFA', '零食大礼包', '', '2023-12-23', NULL);
-INSERT INTO `d_keyword` VALUES (1738838338909085698, 'PDD-PIFA', '圣诞礼物', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738838420039507969, 'PDD-PIFA', '打印机', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738838493179781121, 'PDD-PIFA', '线面', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738838681625665538, 'PDD-PIFA', '电池', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738839048497246209, 'PDD-PIFA', '马丁靴男', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738839815648030721, 'PDD-PIFA', '电磁炉', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738839864184516610, 'PDD-PIFA', '马甲', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738839950029336578, 'PDD-PIFA', '眉笔', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738840003649318914, 'PDD-PIFA', '棉袄男', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738840080308613121, 'PDD-PIFA', '口红', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738840131160354817, 'PDD-PIFA', '睡袍', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738840233304240129, 'PDD-PIFA', '书', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738840284722212866, 'PDD-PIFA', '灯', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738840370827079681, 'PDD-PIFA', '鲨鱼裤加绒', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738840498023542786, 'PDD-PIFA', '外套女秋冬款', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738840713900175362, 'PDD-YKD', '圣诞节小礼物', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738840778249187330, 'PDD-YKD', '热水袋', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738840824172621826, 'PDD-YKD', '黑丝袜', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738840878337863681, 'PDD-YKD', '棉服女棉服', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738840955106209794, 'PDD-YKD', '保暖内衣男', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738841008650694657, 'PDD-YKD', '皮裤女', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738841063877095426, 'PDD-YKD', '大码棉服', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738841123251662849, 'PDD-YKD', '加绒加厚女裤', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738841175424610305, 'PDD-YKD', '电动车', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738841242667692034, 'PDD-YKD', '裤子女秋冬款', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738841290604392450, 'PDD-YKD', '毛茸茸外套', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738841348297043970, 'PDD-YKD', '水貂绒女外套', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738841407046660098, 'PDD-YKD', '羽绒服内胆', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738841458401718273, 'PDD-YKD', '帽子男冬季', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738841527641288705, 'PDD-YKD', '贵气感外套', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1738841784303333377, 'PDD-YKD', '墨墨多多谜境冒险', '', '2023-12-24', NULL);
-INSERT INTO `d_keyword` VALUES (1739216869897158658, 'PDD-PIFA', '火鸡面', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739217118262870017, 'PDD-PIFA', '热水器', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739217596828762114, 'PDD-PIFA', '小零食', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739217661567844354, 'PDD-PIFA', '耳罩', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739217731407200258, 'PDD-PIFA', '男士冬天帽子', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739217816236998657, 'PDD-PIFA', '回力男鞋', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739217892527194114, 'PDD-PIFA', '毛毛鞋', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739217975817682946, 'PDD-PIFA', '自行车', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739218050149138434, 'PDD-PIFA', '加热鞋垫', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739218123419435010, 'PDD-PIFA', '收纳盒', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739218266059325442, 'PDD-PIFA', '棉鞋女', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739218312767094785, 'PDD-PIFA', '小说', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739218422183903233, 'PDD-PIFA', '冬季女鞋', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739218481709465601, 'PDD-PIFA', '防冻玻璃水', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739218572138659842, 'PDD-PIFA', '加绒棉鞋女', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739218997013266434, 'PDD-YKD', '羽绒服男', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739219189968027649, 'PDD-YKD', '取暖器', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220158583816194, 'PDD-YKD', '加热鼠标垫', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220232084799489, 'PDD-YKD', '耐克男鞋', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220289441906689, 'PDD-YKD', '小米平板6pro', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220346065010690, 'PDD-YKD', '棉裤女', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220395268390914, 'PDD-YKD', '玩具车', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220447898517506, 'PDD-YKD', '羊羔绒卫衣', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220504437735426, 'PDD-YKD', '棉花娃娃', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220561492852737, 'PDD-YKD', '马甲背心', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220617537142786, 'PDD-YKD', '加绒衬衫女', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220675166879746, 'PDD-YKD', '银狐绒卫衣', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220726463217665, 'PDD-YKD', '水貂绒毛衣', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220777918939137, 'PDD-YKD', '皮裙半身裙', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220832998539265, 'PDD-YKD', '秋冬套装裙', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739220885431533570, 'PDD-YKD', '白色打底衫', '', '2023-12-25', NULL);
-INSERT INTO `d_keyword` VALUES (1739573638792200194, 'PDD-YKD', 'switch', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739573699915792386, 'PDD-YKD', '油锯链条', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739573762167652354, 'PDD-YKD', '暖足贴', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739573819801583617, 'PDD-YKD', '黑丝袜', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739573874453364737, 'PDD-YKD', '叶罗丽卡牌', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739573940303937538, 'PDD-YKD', '冬季女装', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739574116254990337, 'PDD-YKD', '耳机蓝牙', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739574170193739778, 'PDD-YKD', '小米平板6pro', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739574222974861313, 'PDD-YKD', '阔腿裤', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739574280663318529, 'PDD-YKD', '护手霜', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739574341195513857, 'PDD-YKD', '一字肩毛衣', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739574413366902786, 'PDD-YKD', '保暖内衣男', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739574465615347714, 'PDD-YKD', '女士内衣', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739574518887202817, 'PDD-YKD', '打底衫女秋冬', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739574576110092290, 'PDD-YKD', '长款外套女', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739574630585712641, 'PDD-YKD', '银狐绒卫衣', '', '2023-12-26', NULL);
-INSERT INTO `d_keyword` VALUES (1739579584151019521, 'PDD-PIFA', '北面羽绒服', '', '2023-12-26', '2023-12-26 17:31:07.340000');
-INSERT INTO `d_keyword` VALUES (1739579585770020866, 'PDD-PIFA', '冰箱', '', '2023-12-26', '2023-12-26 17:31:07.731000');
-INSERT INTO `d_keyword` VALUES (1739579586227200001, 'PDD-PIFA', '茶几', '', '2023-12-26', '2023-12-26 17:31:07.838000');
-INSERT INTO `d_keyword` VALUES (1739579586680184833, 'PDD-PIFA', '奶粉', '', '2023-12-26', '2023-12-26 17:31:07.947000');
-INSERT INTO `d_keyword` VALUES (1739579587145752578, 'PDD-PIFA', '外套女冬季', '', '2023-12-26', '2023-12-26 17:31:08.057000');
-INSERT INTO `d_keyword` VALUES (1739579759787499521, 'PDD-PIFA', '洗衣机', '', '2023-12-26', '2023-12-26 17:31:49.218000');
-INSERT INTO `d_keyword` VALUES (1739579760223707138, 'PDD-PIFA', '打印机', '', '2023-12-26', '2023-12-26 17:31:49.323000');
-INSERT INTO `d_keyword` VALUES (1739579760655720450, 'PDD-PIFA', '门帘', '', '2023-12-26', '2023-12-26 17:31:49.425000');
-INSERT INTO `d_keyword` VALUES (1739579761087733761, 'PDD-PIFA', '保温杯', '', '2023-12-26', '2023-12-26 17:31:49.530000');
-INSERT INTO `d_keyword` VALUES (1739579761523941378, 'PDD-PIFA', '男士冬季外套', '', '2023-12-26', '2023-12-26 17:31:49.633000');
-INSERT INTO `d_keyword` VALUES (1739579923931586561, 'PDD-PIFA', '手机', '', '2023-12-26', '2023-12-26 17:32:28.354000');
-INSERT INTO `d_keyword` VALUES (1739579924371988482, 'PDD-PIFA', '帽子', '', '2023-12-26', '2023-12-26 17:32:28.458000');
-INSERT INTO `d_keyword` VALUES (1739579924799807489, 'PDD-PIFA', '围炉煮茶', '', '2023-12-26', '2023-12-26 17:32:28.562000');
-INSERT INTO `d_keyword` VALUES (1739579925256986626, 'PDD-PIFA', '山楂', '', '2023-12-26', '2023-12-26 17:32:28.670000');
-INSERT INTO `d_keyword` VALUES (1739579925688999938, 'PDD-PIFA', '玉米', '', '2023-12-26', '2023-12-26 17:32:28.773000');
-INSERT INTO `d_keyword` VALUES (1739580063606104066, 'PDD-PIFA', '菠萝蜜', '', '2023-12-26', '2023-12-26 17:33:01.654000');
-INSERT INTO `d_keyword` VALUES (1739580064054894594, 'PDD-PIFA', '暖手宝', '', '2023-12-26', '2023-12-26 17:33:01.761000');
-INSERT INTO `d_keyword` VALUES (1739580064499490817, 'PDD-PIFA', '线面', '', '2023-12-26', '2023-12-26 17:33:01.868000');
-INSERT INTO `d_keyword` VALUES (1739580064952475650, 'PDD-PIFA', '相机', '', '2023-12-26', '2023-12-26 17:33:01.976000');
-INSERT INTO `d_keyword` VALUES (1739580065397071874, 'PDD-PIFA', '无骨鸡爪', '', '2023-12-26', '2023-12-26 17:33:02.082000');
-INSERT INTO `d_keyword` VALUES (1739584224821202945, 'PDD-PIFA', '取暖器', '', '2023-12-26', '2023-12-26 17:49:33.762000');
-INSERT INTO `d_keyword` VALUES (1739584226696056833, 'PDD-PIFA', '手机壳', '', '2023-12-26', '2023-12-26 17:49:34.213000');
-INSERT INTO `d_keyword` VALUES (1739584227358756866, 'PDD-PIFA', '纸巾', '', '2023-12-26', '2023-12-26 17:49:34.371000');
-INSERT INTO `d_keyword` VALUES (1739584228000485378, 'PDD-PIFA', '芒果干', '', '2023-12-26', '2023-12-26 17:49:34.525000');
-INSERT INTO `d_keyword` VALUES (1739584228667379713, 'PDD-PIFA', '加绒卫衣女', '', '2023-12-26', '2023-12-26 17:49:34.683000');
-INSERT INTO `d_keyword` VALUES (1739584629949009921, 'PDD-PIFA', '猫粮', '', '2023-12-26', '2023-12-26 17:51:10.351000');
-INSERT INTO `d_keyword` VALUES (1739584631890972674, 'PDD-PIFA', '狗粮', '', '2023-12-26', '2023-12-26 17:51:10.820000');
-INSERT INTO `d_keyword` VALUES (1739584632587227137, 'PDD-PIFA', '猫砂', '', '2023-12-26', '2023-12-26 17:51:10.985000');
-INSERT INTO `d_keyword` VALUES (1739584633233149954, 'PDD-PIFA', '游戏机', '', '2023-12-26', '2023-12-26 17:51:11.140000');
-INSERT INTO `d_keyword` VALUES (1739584633908432898, 'PDD-PIFA', '充电宝', '', '2023-12-26', '2023-12-26 17:51:11.301000');
-INSERT INTO `d_keyword` VALUES (1739584858098176001, 'PDD-PIFA', '圣诞礼物', '', '2023-12-26', '2023-12-26 17:52:04.750000');
-INSERT INTO `d_keyword` VALUES (1739584859230638082, 'PDD-PIFA', '仓鼠', '', '2023-12-26', '2023-12-26 17:52:05.020000');
-INSERT INTO `d_keyword` VALUES (1739584859901726721, 'PDD-PIFA', '美瞳', '', '2023-12-26', '2023-12-26 17:52:05.181000');
-INSERT INTO `d_keyword` VALUES (1739584860593786881, 'PDD-PIFA', '军绿色大衣', '', '2023-12-26', '2023-12-26 17:52:05.345000');
-INSERT INTO `d_keyword` VALUES (1739584985730846721, 'PDD-PIFA', '鲜花', '', '2023-12-26', '2023-12-26 17:52:35.181000');
-INSERT INTO `d_keyword` VALUES (1739584986406129665, 'PDD-PIFA', '草莓', '', '2023-12-26', '2023-12-26 17:52:35.342000');
-INSERT INTO `d_keyword` VALUES (1739584987068829698, 'PDD-PIFA', '罩衣', '', '2023-12-26', '2023-12-26 17:52:35.501000');
-INSERT INTO `d_keyword` VALUES (1739584987739918338, 'PDD-PIFA', '鸡爪', '', '2023-12-26', '2023-12-26 17:52:35.660000');
-INSERT INTO `d_keyword` VALUES (1739584988406812673, 'PDD-PIFA', '笔', '', '2023-12-26', '2023-12-26 17:52:35.819000');
-INSERT INTO `d_keyword` VALUES (1739585105989931010, 'PDD-PIFA', '男士雪地靴', '', '2023-12-26', '2023-12-26 17:53:03.852000');
-INSERT INTO `d_keyword` VALUES (1739585106895900673, 'PDD-PIFA', '奶茶', '', '2023-12-26', '2023-12-26 17:53:04.067000');
-INSERT INTO `d_keyword` VALUES (1739585107550212098, 'PDD-PIFA', '蓝牙耳机', '', '2023-12-26', '2023-12-26 17:53:04.225000');
-INSERT INTO `d_keyword` VALUES (1739585108204523522, 'PDD-PIFA', '半身裙', '', '2023-12-26', '2023-12-26 17:53:04.379000');
-INSERT INTO `d_keyword` VALUES (1739585318532091905, 'PDD-PIFA', '鞋子', '', '2023-12-26', '2023-12-26 17:53:54.527000');
-INSERT INTO `d_keyword` VALUES (1739585319299649538, 'PDD-PIFA', '玩具', '', '2023-12-26', '2023-12-26 17:53:54.710000');
-INSERT INTO `d_keyword` VALUES (1739585494441201666, 'PDD-PIFA', '小零食', '', '2023-12-26', '2023-12-26 17:54:36.467000');
-INSERT INTO `d_keyword` VALUES (1739585495070347265, 'PDD-PIFA', '发热鞋垫', '', '2023-12-26', '2023-12-26 17:54:36.617000');
-INSERT INTO `d_keyword` VALUES (1739585495720464386, 'PDD-PIFA', '秋裤', '', '2023-12-26', '2023-12-26 17:54:36.772000');
-INSERT INTO `d_keyword` VALUES (1739585496357998594, 'PDD-PIFA', '茶具', '', '2023-12-26', '2023-12-26 17:54:36.923000');
-INSERT INTO `d_keyword` VALUES (1739585496995532801, 'PDD-PIFA', '微波炉', '', '2023-12-26', '2023-12-26 17:54:37.076000');
-INSERT INTO `d_keyword` VALUES (1739585625265737730, 'PDD-PIFA', '投影仪', '', '2023-12-26', '2023-12-26 17:55:07.668000');
-INSERT INTO `d_keyword` VALUES (1739585625949409281, 'PDD-PIFA', '耳罩', '', '2023-12-26', '2023-12-26 17:55:07.820000');
-INSERT INTO `d_keyword` VALUES (1739585626821824513, 'PDD-PIFA', '沙发垫', '', '2023-12-26', '2023-12-26 17:55:08.029000');
-INSERT INTO `d_keyword` VALUES (1739585627476135938, 'PDD-PIFA', '空气炸锅', '', '2023-12-26', '2023-12-26 17:55:08.184000');
-INSERT INTO `d_keyword` VALUES (1739585738713272321, 'PDD-PIFA', '马桶', '', '2023-12-26', '2023-12-26 17:55:34.706000');
-INSERT INTO `d_keyword` VALUES (1739585739355000834, 'PDD-PIFA', '零食', '', '2023-12-26', '2023-12-26 17:55:34.859000');
-INSERT INTO `d_keyword` VALUES (1739585739996729346, 'PDD-PIFA', '加绒裤子', '', '2023-12-26', '2023-12-26 17:55:35.012000');
-INSERT INTO `d_keyword` VALUES (1739585740642652161, 'PDD-PIFA', '圣诞树', '', '2023-12-26', '2023-12-26 17:55:35.166000');
-INSERT INTO `d_keyword` VALUES (1739585741301157890, 'PDD-PIFA', '鲨鱼裤', '', '2023-12-26', '2023-12-26 17:55:35.323000');
-INSERT INTO `d_keyword` VALUES (1739585881135058945, 'PDD-PIFA', '无人机', '', '2023-12-26', '2023-12-26 17:56:08.663000');
-INSERT INTO `d_keyword` VALUES (1739585881772593154, 'PDD-PIFA', '马甲', '', '2023-12-26', '2023-12-26 17:56:08.813000');
-INSERT INTO `d_keyword` VALUES (1739585882393350146, 'PDD-PIFA', '暖手袋', '', '2023-12-26', '2023-12-26 17:56:08.963000');
-INSERT INTO `d_keyword` VALUES (1739585883030884353, 'PDD-PIFA', '丙烯马克笔', '', '2023-12-26', '2023-12-26 17:56:09.115000');
-INSERT INTO `d_keyword` VALUES (1739585979663454209, 'PDD-PIFA', '椅子', '', '2023-12-26', '2023-12-26 17:56:32.153000');
-INSERT INTO `d_keyword` VALUES (1739585980334542850, 'PDD-PIFA', '假发', '', '2023-12-26', '2023-12-26 17:56:32.312000');
-INSERT INTO `d_keyword` VALUES (1739585980972077057, 'PDD-PIFA', '围裙', '', '2023-12-26', '2023-12-26 17:56:32.466000');
-INSERT INTO `d_keyword` VALUES (1739585981622194178, 'PDD-PIFA', '牛肉干', '', '2023-12-26', '2023-12-26 17:56:32.620000');
-INSERT INTO `d_keyword` VALUES (1739586121770668034, 'PDD-PIFA', '苹果手机', '', '2023-12-26', '2023-12-26 17:57:06.034000');
-INSERT INTO `d_keyword` VALUES (1739586122613723137, 'PDD-PIFA', '蜡瓶糖', '', '2023-12-26', '2023-12-26 17:57:06.236000');
-INSERT INTO `d_keyword` VALUES (1739586123272228865, 'PDD-PIFA', '酸奶', '', '2023-12-26', '2023-12-26 17:57:06.392000');
-INSERT INTO `d_keyword` VALUES (1739586123897180161, 'PDD-PIFA', '花棉袄女', '', '2023-12-26', '2023-12-26 17:57:06.542000');
-INSERT INTO `d_keyword` VALUES (1739586259750686721, 'PDD-PIFA', '车厘子', '', '2023-12-26', '2023-12-26 17:57:38.931000');
-INSERT INTO `d_keyword` VALUES (1739586261092864002, 'PDD-PIFA', '男士棉服', '', '2023-12-26', '2023-12-26 17:57:39.250000');
-INSERT INTO `d_keyword` VALUES (1739586354034446337, 'PDD-PIFA', '平板', '', '2023-12-26', '2023-12-26 17:58:01.410000');
-INSERT INTO `d_keyword` VALUES (1739586354911055874, 'PDD-PIFA', '睡衣', '', '2023-12-26', '2023-12-26 17:58:01.618000');
-INSERT INTO `d_keyword` VALUES (1739586355552784386, 'PDD-PIFA', '方便面', '', '2023-12-26', '2023-12-26 17:58:01.772000');
-INSERT INTO `d_keyword` VALUES (1739586527259201537, 'PDD-PIFA', '棉服男', '', '2023-12-26', '2023-12-26 17:58:42.709000');
-INSERT INTO `d_keyword` VALUES (1739586527905124353, 'PDD-PIFA', '女士打底衫', '', '2023-12-26', '2023-12-26 17:58:42.864000');
-INSERT INTO `d_keyword` VALUES (1739586688744099842, 'PDD-PIFA', '暖宝宝', '', '2023-12-26', '2023-12-26 17:59:21.212000');
-INSERT INTO `d_keyword` VALUES (1739586689364856834, 'PDD-PIFA', '沙发', '', '2023-12-26', '2023-12-26 17:59:21.360000');
-INSERT INTO `d_keyword` VALUES (1739586690010779649, 'PDD-PIFA', '黑色丝袜', '', '2023-12-26', '2023-12-26 17:59:21.514000');
-INSERT INTO `d_keyword` VALUES (1739586690849640450, 'PDD-PIFA', '老年人棉鞋', '', '2023-12-26', '2023-12-26 17:59:21.713000');
-INSERT INTO `d_keyword` VALUES (1739586779181682689, 'PDD-PIFA', '棉服', '', '2023-12-26', '2023-12-26 17:59:42.774000');
-INSERT INTO `d_keyword` VALUES (1739586914729005057, 'PDD-PIFA', '暖风机', '', '2023-12-26', '2023-12-26 18:00:15.090000');
-INSERT INTO `d_keyword` VALUES (1739586915588837378, 'PDD-PIFA', '自行车', '', '2023-12-26', '2023-12-26 18:00:15.296000');
-INSERT INTO `d_keyword` VALUES (1739586916461252609, 'PDD-PIFA', '戒指', '', '2023-12-26', '2023-12-26 18:00:15.502000');
-INSERT INTO `d_keyword` VALUES (1739586917149118465, 'PDD-PIFA', '冬季男鞋', '', '2023-12-26', '2023-12-26 18:00:15.667000');
-INSERT INTO `d_keyword` VALUES (1739587196737228802, 'PDD-PIFA', '红米k60', '', '2023-12-26', '2023-12-26 18:01:22.327000');
-INSERT INTO `d_keyword` VALUES (1739587197991325698, 'PDD-PIFA', '电视机', '', '2023-12-26', '2023-12-26 18:01:22.625000');
-INSERT INTO `d_keyword` VALUES (1739587198876323841, 'PDD-PIFA', '喇叭裤', '', '2023-12-26', '2023-12-26 18:01:22.836000');
-INSERT INTO `d_keyword` VALUES (1739587350336835585, 'PDD-PIFA', '乐高积木', '', '2023-12-26', '2023-12-26 18:01:58.947000');
-INSERT INTO `d_keyword` VALUES (1739587351196667905, 'PDD-PIFA', '瓜子', '', '2023-12-26', '2023-12-26 18:01:59.153000');
-INSERT INTO `d_keyword` VALUES (1739587351850979330, 'PDD-PIFA', '裤子', '', '2023-12-26', '2023-12-26 18:01:59.308000');
-INSERT INTO `d_keyword` VALUES (1739587483740868609, 'PDD-PIFA', '汉服', '', '2023-12-26', '2023-12-26 18:02:30.753000');
-INSERT INTO `d_keyword` VALUES (1739587484785250306, 'PDD-PIFA', '修正带', '', '2023-12-26', '2023-12-26 18:02:31.002000');
-INSERT INTO `d_keyword` VALUES (1739587887014809601, 'PDD-PIFA', '床', '', '2023-12-26', '2023-12-26 18:04:06.900000');
-INSERT INTO `d_keyword` VALUES (1739587924402835458, 'PDD-PIFA', '娃娃', '', '2023-12-26', '2023-12-26 18:04:15.815000');
-INSERT INTO `d_keyword` VALUES (1739587930442633217, 'PDD-PIFA', '电动车', '', '2023-12-26', '2023-12-26 18:04:17.254000');
-INSERT INTO `d_keyword` VALUES (1739587931440877569, 'PDD-PIFA', '鞋', '', '2023-12-26', '2023-12-26 18:04:17.493000');
-INSERT INTO `d_keyword` VALUES (1739591784961871874, 'PDD-PIFA', '笔记本电脑', '', '2023-12-26', '2023-12-26 18:19:36.244000');
-INSERT INTO `d_keyword` VALUES (1739591786345992193, 'PDD-PIFA', '打火机', '', '2023-12-26', '2023-12-26 18:19:36.575000');
-INSERT INTO `d_keyword` VALUES (1739591939995930625, 'PDD-PIFA', '围巾', '', '2023-12-26', '2023-12-26 18:20:13.207000');
-INSERT INTO `d_keyword` VALUES (1739591940717350914, 'PDD-PIFA', '手办', '', '2023-12-26', '2023-12-26 18:20:13.379000');
-INSERT INTO `d_keyword` VALUES (1739591941329719297, 'PDD-PIFA', '薯片', '', '2023-12-26', '2023-12-26 18:20:13.525000');
-INSERT INTO `d_keyword` VALUES (1739591941950476290, 'PDD-PIFA', '保暖内衣女', '', '2023-12-26', '2023-12-26 18:20:13.673000');
-INSERT INTO `d_keyword` VALUES (1739592092425326594, 'PDD-PIFA', '日历', '', '2023-12-26', '2023-12-26 18:20:49.550000');
-INSERT INTO `d_keyword` VALUES (1739592236403200002, 'PDD-PIFA', '羽绒服', '', '2023-12-26', '2023-12-26 18:21:23.877000');
-INSERT INTO `d_keyword` VALUES (1739592382939598850, 'PDD-PIFA', '华为手机', '', '2023-12-26', '2023-12-26 18:21:58.819000');
-INSERT INTO `d_keyword` VALUES (1739592383765876737, 'PDD-PIFA', '暖足贴', '', '2023-12-26', '2023-12-26 18:21:59.010000');
-INSERT INTO `d_keyword` VALUES (1739593608452313089, 'PDD-PIFA', '加热鞋垫', '', '2023-12-26', '2023-12-26 18:26:50.998000');
-INSERT INTO `d_keyword` VALUES (1739593791986667521, 'PDD-PIFA', '棉鞋', '', '2023-12-26', '2023-12-26 18:27:34.755000');
-INSERT INTO `d_keyword` VALUES (1739593967677673473, 'PDD-PIFA', '儿童棉裤', '', '2023-12-26', '2023-12-26 18:28:16.644000');
-INSERT INTO `d_keyword` VALUES (1739593968285847554, 'PDD-PIFA', '铅笔', '', '2023-12-26', '2023-12-26 18:28:16.790000');
-INSERT INTO `d_keyword` VALUES (1739593968898215938, 'PDD-PIFA', '儿童棉鞋', '', '2023-12-26', '2023-12-26 18:28:16.936000');
-INSERT INTO `d_keyword` VALUES (1739594079577509890, 'PDD-PIFA', '男鞋', '', '2023-12-26', '2023-12-26 18:28:43.323000');
-INSERT INTO `d_keyword` VALUES (1739594080789663745, 'PDD-PIFA', '女士棉裤', '', '2023-12-26', '2023-12-26 18:28:43.611000');
-INSERT INTO `d_keyword` VALUES (1739594203837960194, 'PDD-PIFA', '橙子', '', '2023-12-26', '2023-12-26 18:29:12.950000');
-INSERT INTO `d_keyword` VALUES (1739594310788517890, 'PDD-PIFA', '被子', '', '2023-12-26', '2023-12-26 18:29:38.449000');
-INSERT INTO `d_keyword` VALUES (1739594406259265538, 'PDD-PIFA', '儿童玩具', '', '2023-12-26', '2023-12-26 18:30:01.209000');
-INSERT INTO `d_keyword` VALUES (1739594555316441089, 'PDD-PIFA', '冬季女鞋', '', '2023-12-26', '2023-12-26 18:30:36.748000');
-INSERT INTO `d_keyword` VALUES (1739594556532789249, 'PDD-PIFA', '男士帽子', '', '2023-12-26', '2023-12-26 18:30:37.038000');
-INSERT INTO `d_keyword` VALUES (1739594708257542145, 'PDD-PIFA', '冬季帽子', '', '2023-12-26', '2023-12-26 18:31:13.212000');
-INSERT INTO `d_keyword` VALUES (1739594708899270657, 'PDD-PIFA', '眉笔', '', '2023-12-26', '2023-12-26 18:31:13.365000');
-INSERT INTO `d_keyword` VALUES (1739594709511639042, 'PDD-PIFA', '一次性碗', '', '2023-12-26', '2023-12-26 18:31:13.510000');
-INSERT INTO `d_keyword` VALUES (1739594856681377793, 'PDD-PIFA', '安静书', '', '2023-12-26', '2023-12-26 18:31:48.599000');
-INSERT INTO `d_keyword` VALUES (1739594857495072769, 'PDD-PIFA', '冬季棉服', '', '2023-12-26', '2023-12-26 18:31:48.793000');
-INSERT INTO `d_keyword` VALUES (1739595075447885826, 'PDD-PIFA', '暖宝宝贴', '', '2023-12-26', '2023-12-26 18:32:40.757000');
-INSERT INTO `d_keyword` VALUES (1739595076257386498, 'PDD-PIFA', '女士内衣', '', '2023-12-26', '2023-12-26 18:32:40.951000');
-INSERT INTO `d_keyword` VALUES (1739595076878143489, 'PDD-PIFA', '电煮锅', '', '2023-12-26', '2023-12-26 18:32:41.097000');
-INSERT INTO `d_keyword` VALUES (1739595203441266690, 'PDD-PIFA', '光腿神器', '', '2023-12-26', '2023-12-26 18:33:11.273000');
-INSERT INTO `d_keyword` VALUES (1739595383213330433, 'PDD-PIFA', '花', '', '2023-12-26', '2023-12-26 18:33:54.135000');
-INSERT INTO `d_keyword` VALUES (1739595383829893122, 'PDD-PIFA', '水龙头', '', '2023-12-26', '2023-12-26 18:33:54.281000');
-INSERT INTO `d_keyword` VALUES (1739608745888387074, 'PDD-PIFA', '雪地靴', '', '2023-12-26', '2023-12-26 19:27:00.040000');
-INSERT INTO `d_keyword` VALUES (1739608746857271297, 'PDD-PIFA', '懒人沙发', '', '2023-12-26', '2023-12-26 19:27:00.275000');
-INSERT INTO `d_keyword` VALUES (1739608893234286594, 'PDD-PIFA', '女鞋', '', '2023-12-26', '2023-12-26 19:27:35.173000');
-INSERT INTO `d_keyword` VALUES (1739608893917958145, 'PDD-PIFA', '香水', '', '2023-12-26', '2023-12-26 19:27:35.338000');
-INSERT INTO `d_keyword` VALUES (1739609007541653505, 'PDD-PIFA', '电暖炉', '', '2023-12-26', '2023-12-26 19:28:02.428000');
-INSERT INTO `d_keyword` VALUES (1739609008271462402, 'PDD-PIFA', '冬天手套', '', '2023-12-26', '2023-12-26 19:28:02.601000');
-INSERT INTO `d_keyword` VALUES (1739609008900608001, 'PDD-PIFA', '萝卜刀', '', '2023-12-26', '2023-12-26 19:28:02.752000');
-INSERT INTO `d_keyword` VALUES (1739609009596862465, 'PDD-PIFA', '男士羽绒服', '', '2023-12-26', '2023-12-26 19:28:02.000000');
-INSERT INTO `d_keyword` VALUES (1739609202656481282, 'PDD-PIFA', '棉裤', '', '2023-12-26', '2023-12-26 19:28:48.947000');
-INSERT INTO `d_keyword` VALUES (1739609203478564865, 'PDD-PIFA', '收纳箱', '', '2023-12-26', '2023-12-26 19:28:49.143000');
-INSERT INTO `d_keyword` VALUES (1739609501500641281, 'PDD-PIFA', '手套', '', '2023-12-26', '2023-12-26 19:30:00.196000');
-INSERT INTO `d_keyword` VALUES (1739609502108815361, 'PDD-PIFA', '高跟鞋', '', '2023-12-26', '2023-12-26 19:30:00.341000');
-INSERT INTO `d_keyword` VALUES (1739609502708600833, 'PDD-PIFA', '男士棉裤', '', '2023-12-26', '2023-12-26 19:30:00.485000');
-INSERT INTO `d_keyword` VALUES (1739609623785574401, 'PDD-PIFA', '一次性杯子', '', '2023-12-26', '2023-12-26 19:30:29.352000');
-INSERT INTO `d_keyword` VALUES (1739609771064365057, 'PDD-PIFA', '耐克男鞋', '', '2023-12-26', '2023-12-26 19:31:04.465000');
-INSERT INTO `d_keyword` VALUES (1739609771668344834, 'PDD-PIFA', '烤火炉', '', '2023-12-26', '2023-12-26 19:31:04.610000');
-INSERT INTO `d_keyword` VALUES (1739609772477845505, 'PDD-PIFA', '火鸡面', '', '2023-12-26', '2023-12-26 19:31:04.803000');
-INSERT INTO `d_keyword` VALUES (1739610499526889474, 'PDD-PIFA', '糖', '', '2023-12-26', '2023-12-26 19:33:58.143000');
-INSERT INTO `d_keyword` VALUES (1739610500319612929, 'PDD-PIFA', '灯', '', '2023-12-26', '2023-12-26 19:33:58.333000');
-INSERT INTO `d_keyword` VALUES (1739610679877767169, 'PDD-PIFA', '耳机', '', '2023-12-26', '2023-12-26 19:34:41.142000');
-INSERT INTO `d_keyword` VALUES (1739610680519495682, 'PDD-PIFA', '饮料', '', '2023-12-26', '2023-12-26 19:34:41.295000');
-INSERT INTO `d_keyword` VALUES (1739610681131864065, 'PDD-PIFA', '女童鞋子', '', '2023-12-26', '2023-12-26 19:34:41.443000');
 
 -- ----------------------------
 -- Table structure for d_market_info
@@ -8485,181 +8213,6 @@ INSERT INTO `sys_logininfor` VALUES (18, 'admin', '127.0.0.1', '内网IP', 'Chro
 INSERT INTO `sys_logininfor` VALUES (19, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2024-01-16 09:11:56');
 INSERT INTO `sys_logininfor` VALUES (20, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2024-01-16 13:42:46');
 
--- ----------------------------
--- Table structure for sys_menu
--- ----------------------------
-DROP TABLE IF EXISTS `sys_menu`;
-CREATE TABLE `sys_menu`  (
-  `menu_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
-  `menu_name` varchar(50)  NOT NULL COMMENT '菜单名称',
-  `parent_id` bigint(0) DEFAULT 0 COMMENT '父菜单ID',
-  `order_num` int(0) DEFAULT 0 COMMENT '显示顺序',
-  `path` varchar(200)  DEFAULT '' COMMENT '路由地址',
-  `component` varchar(255)  DEFAULT NULL COMMENT '组件路径',
-  `query` varchar(255)  DEFAULT NULL COMMENT '路由参数',
-  `is_frame` int(0) DEFAULT 1 COMMENT '是否为外链（0是 1否）',
-  `is_cache` int(0) DEFAULT 0 COMMENT '是否缓存（0缓存 1不缓存）',
-  `menu_type` char(1)  DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
-  `visible` char(1)  DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
-  `status` char(1)  DEFAULT '0' COMMENT '菜单状态（0正常 1停用）',
-  `perms` varchar(100)  DEFAULT NULL COMMENT '权限标识',
-  `icon` varchar(100)  DEFAULT '#' COMMENT '菜单图标',
-  `create_by` varchar(64)  DEFAULT '' COMMENT '创建者',
-  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64)  DEFAULT '' COMMENT '更新者',
-  `update_time` varchar(64)  DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500)  DEFAULT '' COMMENT '备注',
-  PRIMARY KEY (`menu_id`) 
-) 
-
--- ----------------------------
--- Records of sys_menu
--- ----------------------------
-INSERT INTO `sys_menu` VALUES (1, '系统管理', 0, 99, 'system', '', '', 1, 0, 'M', '0', '0', '', 'system', 'admin', '2023-12-27 15:00:27', 'admin', '2023-12-29 09:07:42.856856', '系统管理目录');
-INSERT INTO `sys_menu` VALUES (2, '系统监控', 0, 100, 'monitor', '', '', 1, 0, 'M', '0', '0', '', 'monitor', 'admin', '2023-12-27 15:00:27', 'admin', '2023-12-29 09:07:51.123192', '系统监控目录');
-INSERT INTO `sys_menu` VALUES (3, '系统工具', 0, 101, 'tool', '', '', 1, 0, 'M', '1', '0', '', 'tool', 'admin', '2023-12-27 15:00:27', 'admin', '2024-01-16 10:45:25', '系统工具目录');
-INSERT INTO `sys_menu` VALUES (4, '供应链管理', 0, 1, 'scm', '', '', 1, 0, 'M', '0', '0', '', 'server', 'admin', '2023-12-27 15:00:27', 'admin', '2024-01-06 23:55:21', '启航电商官网地址');
-INSERT INTO `sys_menu` VALUES (100, '用户管理', 1, 1, 'user', 'system/user/index', '', 1, 0, 'C', '0', '0', 'system:user:list', 'user', 'admin', '2023-12-27 15:00:27', '', '', '用户管理菜单');
-INSERT INTO `sys_menu` VALUES (101, '角色管理', 1, 2, 'role', 'system/role/index', '', 1, 0, 'C', '0', '0', 'system:role:list', 'peoples', 'admin', '2023-12-27 15:00:27', '', '', '角色管理菜单');
-INSERT INTO `sys_menu` VALUES (102, '菜单管理', 1, 3, 'menu', 'system/menu/index', '', 1, 0, 'C', '0', '0', 'system:menu:list', 'tree-table', 'admin', '2023-12-27 15:00:27', '', '', '菜单管理菜单');
-INSERT INTO `sys_menu` VALUES (103, '部门管理', 1, 4, 'dept', 'system/dept/index', '', 1, 0, 'C', '0', '0', 'system:dept:list', 'tree', 'admin', '2023-12-27 15:00:27', '', '', '部门管理菜单');
-INSERT INTO `sys_menu` VALUES (104, '岗位管理', 1, 5, 'post', 'system/post/index', '', 1, 0, 'C', '0', '0', 'system:post:list', 'post', 'admin', '2023-12-27 15:00:27', '', '', '岗位管理菜单');
-INSERT INTO `sys_menu` VALUES (105, '字典管理', 1, 6, 'dict', 'system/dict/index', '', 1, 0, 'C', '0', '0', 'system:dict:list', 'dict', 'admin', '2023-12-27 15:00:27', '', '', '字典管理菜单');
-INSERT INTO `sys_menu` VALUES (106, '参数设置', 1, 7, 'config', 'system/config/index', '', 1, 0, 'C', '0', '0', 'system:config:list', 'edit', 'admin', '2023-12-27 15:00:27', '', '', '参数设置菜单');
-INSERT INTO `sys_menu` VALUES (107, '通知公告', 1, 8, 'notice', 'system/notice/index', '', 1, 0, 'C', '0', '0', 'system:notice:list', 'message', 'admin', '2023-12-27 15:00:27', '', '', '通知公告菜单');
-INSERT INTO `sys_menu` VALUES (108, '日志管理', 1, 9, 'log', '', '', 1, 0, 'M', '0', '0', '', 'log', 'admin', '2023-12-27 15:00:27', '', '', '日志管理菜单');
-INSERT INTO `sys_menu` VALUES (109, '在线用户', 2, 1, 'online', 'monitor/online/index', '', 1, 0, 'C', '0', '0', 'monitor:online:list', 'online', 'admin', '2023-12-27 15:00:27', '', '', '在线用户菜单');
-INSERT INTO `sys_menu` VALUES (110, '定时任务', 2, 2, 'job', 'monitor/job/index', '', 1, 0, 'C', '0', '0', 'monitor:job:list', 'job', 'admin', '2023-12-27 15:00:27', '', '', '定时任务菜单');
-INSERT INTO `sys_menu` VALUES (111, '数据监控', 2, 3, 'druid', 'monitor/druid/index', '', 1, 0, 'C', '0', '0', 'monitor:druid:list', 'druid', 'admin', '2023-12-27 15:00:27', '', '', '数据监控菜单');
-INSERT INTO `sys_menu` VALUES (112, '服务监控', 2, 4, 'server', 'monitor/server/index', '', 1, 0, 'C', '0', '0', 'monitor:server:list', 'server', 'admin', '2023-12-27 15:00:27', '', '', '服务监控菜单');
-INSERT INTO `sys_menu` VALUES (113, '缓存监控', 2, 5, 'cache', 'monitor/cache/index', '', 1, 0, 'C', '0', '0', 'monitor:cache:list', 'redis', 'admin', '2023-12-27 15:00:27', '', '', '缓存监控菜单');
-INSERT INTO `sys_menu` VALUES (114, '缓存列表', 2, 6, 'cacheList', 'monitor/cache/list', '', 1, 0, 'C', '0', '0', 'monitor:cache:list', 'redis-list', 'admin', '2023-12-27 15:00:27', '', '', '缓存列表菜单');
-INSERT INTO `sys_menu` VALUES (115, '表单构建', 3, 1, 'build', 'tool/build/index', '', 1, 0, 'C', '0', '0', 'tool:build:list', 'build', 'admin', '2023-12-27 15:00:27', '', '', '表单构建菜单');
-INSERT INTO `sys_menu` VALUES (116, '代码生成', 3, 2, 'gen', 'tool/gen/index', '', 1, 0, 'C', '0', '0', 'tool:gen:list', 'code', 'admin', '2023-12-27 15:00:27', '', '', '代码生成菜单');
-INSERT INTO `sys_menu` VALUES (117, '系统接口', 3, 3, 'swagger', 'tool/swagger/index', '', 1, 0, 'C', '0', '0', 'tool:swagger:list', 'swagger', 'admin', '2023-12-27 15:00:27', '', '', '系统接口菜单');
-INSERT INTO `sys_menu` VALUES (500, '操作日志', 108, 1, 'operlog', 'monitor/operlog/index', '', 1, 0, 'C', '0', '0', 'monitor:operlog:list', 'form', 'admin', '2023-12-27 15:00:27', '', '', '操作日志菜单');
-INSERT INTO `sys_menu` VALUES (501, '登录日志', 108, 2, 'logininfor', 'monitor/logininfor/index', '', 1, 0, 'C', '0', '0', 'monitor:logininfor:list', 'logininfor', 'admin', '2023-12-27 15:00:27', '', '', '登录日志菜单');
-INSERT INTO `sys_menu` VALUES (1000, '用户查询', 100, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:user:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1001, '用户新增', 100, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:user:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1002, '用户修改', 100, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:user:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1003, '用户删除', 100, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:user:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1004, '用户导出', 100, 5, '', '', '', 1, 0, 'F', '0', '0', 'system:user:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1005, '用户导入', 100, 6, '', '', '', 1, 0, 'F', '0', '0', 'system:user:import', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1006, '重置密码', 100, 7, '', '', '', 1, 0, 'F', '0', '0', 'system:user:resetPwd', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1007, '角色查询', 101, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:role:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1008, '角色新增', 101, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:role:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1009, '角色修改', 101, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:role:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1010, '角色删除', 101, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:role:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1011, '角色导出', 101, 5, '', '', '', 1, 0, 'F', '0', '0', 'system:role:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1012, '菜单查询', 102, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:menu:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1013, '菜单新增', 102, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:menu:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1014, '菜单修改', 102, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:menu:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1015, '菜单删除', 102, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:menu:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1016, '部门查询', 103, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:dept:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1017, '部门新增', 103, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:dept:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1018, '部门修改', 103, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:dept:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1019, '部门删除', 103, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:dept:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1020, '岗位查询', 104, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:post:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1021, '岗位新增', 104, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:post:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1022, '岗位修改', 104, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:post:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1023, '岗位删除', 104, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:post:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1024, '岗位导出', 104, 5, '', '', '', 1, 0, 'F', '0', '0', 'system:post:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1025, '字典查询', 105, 1, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1026, '字典新增', 105, 2, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1027, '字典修改', 105, 3, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1028, '字典删除', 105, 4, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1029, '字典导出', 105, 5, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1030, '参数查询', 106, 1, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1031, '参数新增', 106, 2, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1032, '参数修改', 106, 3, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1033, '参数删除', 106, 4, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1034, '参数导出', 106, 5, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1035, '公告查询', 107, 1, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1036, '公告新增', 107, 2, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1037, '公告修改', 107, 3, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1038, '公告删除', 107, 4, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1039, '操作查询', 500, 1, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:operlog:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1040, '操作删除', 500, 2, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:operlog:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1041, '日志导出', 500, 3, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:operlog:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1042, '登录查询', 501, 1, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1043, '登录删除', 501, 2, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1044, '日志导出', 501, 3, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1045, '账户解锁', 501, 4, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:unlock', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1046, '在线查询', 109, 1, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:online:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1047, '批量强退', 109, 2, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:online:batchLogout', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1048, '单条强退', 109, 3, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:online:forceLogout', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1049, '任务查询', 110, 1, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1050, '任务新增', 110, 2, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1051, '任务修改', 110, 3, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1052, '任务删除', 110, 4, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1053, '状态修改', 110, 5, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:changeStatus', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1054, '任务导出', 110, 6, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1055, '生成查询', 116, 1, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1056, '生成修改', 116, 2, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1057, '生成删除', 116, 3, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1058, '导入代码', 116, 4, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:import', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1059, '预览代码', 116, 5, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:preview', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (1060, '生成代码', 116, 6, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:code', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
-INSERT INTO `sys_menu` VALUES (2000, '市场洞察', 0, 20, 'data', '', '', 1, 0, 'M', '0', '1', '', 'international', 'admin', '2023-12-22 16:20:02', 'admin', '2024-01-12 18:36:19', '');
-INSERT INTO `sys_menu` VALUES (2001, '热搜词', 2000, 1, 'keyword/hot_keyword_list', 'data/keyword/hot_keyword', '', 1, 0, 'C', '0', '0', 'data:keyword:list', 'dict', 'admin', '2023-12-22 16:22:59', 'admin', '2023-12-26 11:55:45', '');
-INSERT INTO `sys_menu` VALUES (2002, '推荐商品', 2000, 8, 'goods/goods_recommend', 'data/goods/recommend_list', '', 1, 0, 'C', '1', '0', 'data:goods:recommend', 'star', 'admin', '2023-12-25 16:57:48', 'admin', '2023-12-29 09:07:16.570167', '');
-INSERT INTO `sys_menu` VALUES (2003, '商品热卖榜', 2000, 9, 'goods/sale_hot_list', 'data/goods/sale_hot_list', '', 1, 0, 'C', '1', '0', 'data:goods:salehot', 'list', 'admin', '2023-12-25 17:08:24', 'admin', '2023-12-29 09:07:20.615237', '');
-INSERT INTO `sys_menu` VALUES (2004, '市场动态', 2000, 0, 'market_info', 'data/market/info', '', 1, 0, 'C', '1', '0', 'data:market:info', 'guide', 'admin', '2023-12-26 11:55:33', 'admin', '2023-12-29 09:07:09.697533', '');
-INSERT INTO `sys_menu` VALUES (2005, '供应商管理', 4, 9, 'supplier/list', 'scm/supplier/index', '', 1, 0, 'C', '0', '0', 'scm:supplier', 'qq', 'admin', '2023-12-29 09:14:02', 'admin', '2023-12-29 09:17:27.514466', '');
-INSERT INTO `sys_menu` VALUES (2006, '商品管理', 0, 9, 'goods', '', '', 1, 0, 'M', '0', '0', '', 'theme', 'admin', '2023-12-29 13:29:44', '', '', '');
-INSERT INTO `sys_menu` VALUES (2007, '商品管理', 2006, 1, 'goods_list', 'goods/index', '', 1, 0, 'C', '0', '0', 'goods:list', 'theme', 'admin', '2023-12-29 13:31:01', 'admin', '2023-12-29 15:02:40.869685', '');
-INSERT INTO `sys_menu` VALUES (2008, '商品分类', 2006, 88, 'goods_category', 'goods/category/index', '', 1, 0, 'C', '0', '0', 'goods:category', 'tree-table', 'admin', '2023-12-29 13:32:41', 'admin', '2023-12-29 15:02:22.220534', '');
-INSERT INTO `sys_menu` VALUES (2009, '品牌管理', 2006, 99, 'goods/brand', 'goods/brand/index', '', 1, 0, 'C', '0', '0', 'goods:brand', 'clipboard', 'admin', '2023-12-29 13:34:49', 'admin', '2023-12-29 13:58:43.724029', '');
-INSERT INTO `sys_menu` VALUES (2010, '采购订单管理', 4, 1, 'purchase/order', 'scm/purchase/order', '', 1, 0, 'C', '0', '0', 'scm:purchase:order', 'button', 'admin', '2023-12-29 16:35:55', 'admin', '2023-12-29 16:36:57.653118', '');
-INSERT INTO `sys_menu` VALUES (2011, '采购合同管理', 4, 2, 'purchase/contract', 'scm/purchase/contract', '', 1, 0, 'C', '0', '1', 'scm:purchase:contract', 'clipboard', 'admin', '2023-12-29 16:39:43', 'admin', '2023-12-30 18:07:58.363465', '');
-INSERT INTO `sys_menu` VALUES (2012, '采购物流管理', 4, 3, 'purchase/ship', 'scm/purchase/ship', '', 1, 0, 'C', '0', '0', 'scm:purchase:ship', 'component', 'admin', '2023-12-29 16:45:42', 'admin', '2023-12-30 20:48:47.282509', '');
-INSERT INTO `sys_menu` VALUES (2013, '采购费用管理', 4, 4, 'purchase/cost', 'scm/purchase/cost', '', 1, 0, 'C', '0', '1', 'scm:purchase:cost', 'checkbox', 'admin', '2023-12-29 16:47:07', 'admin', '2024-01-13 18:32:21', '');
-INSERT INTO `sys_menu` VALUES (2014, '销售管理', 0, 2, 'sale', '', '', 1, 0, 'M', '0', '0', '', 'shopping', 'admin', '2023-12-29 16:53:03', 'admin', '2024-01-03 14:06:38', '');
-INSERT INTO `sys_menu` VALUES (2015, '店铺管理', 2014, 10, 'shop', 'shop/index', '', 1, 0, 'C', '0', '0', 'shop:list', 'example', 'admin', '2023-12-29 16:54:02', 'admin', '2024-01-04 14:39:08', '');
-INSERT INTO `sys_menu` VALUES (2016, '店铺商品管理', 2014, 9, 'shop/goods', 'shop/goods', '', 1, 0, 'C', '0', '1', 'shop:goods', 'color', 'admin', '2023-12-29 17:02:42', 'admin', '2024-01-14 14:04:20', '');
-INSERT INTO `sys_menu` VALUES (2017, '店铺数据统计', 2014, 8, 'data', 'shop/data', '', 1, 0, 'C', '0', '1', 'shop:data', 'chart', 'admin', '2023-12-29 17:04:08', 'admin', '2023-12-31 19:04:58.785609', '');
-INSERT INTO `sys_menu` VALUES (2018, '账单管理', 0, 6, 'bill', '', '', 1, 0, 'M', '0', '0', '', 'money', 'admin', '2023-12-29 17:07:23', 'admin', '2024-01-13 18:30:29', '');
-INSERT INTO `sys_menu` VALUES (2019, '采购账单管理', 2018, 1, 'purchase', 'scm/purchase/cost', '', 1, 0, 'C', '0', '0', '', 'shopping', 'admin', '2023-12-29 17:09:32', 'admin', '2024-01-13 18:33:36', '');
-INSERT INTO `sys_menu` VALUES (2021, '创建采购订单', 4, 0, 'purchase/order/create', 'scm/purchase/order/create', '', 1, 0, 'C', '1', '0', '', 'edit', 'admin', '2023-12-29 21:23:45', 'admin', '2024-01-06 23:56:06', '');
-INSERT INTO `sys_menu` VALUES (2025, '采购订单详情', 4, 1, 'purchase/order/detail', 'scm/purchase/order/detail', '', 1, 0, 'C', '1', '0', '', 'button', 'admin', '2023-12-30 17:08:01', 'admin', '2023-12-30 17:09:38.154348', '');
-INSERT INTO `sys_menu` VALUES (2026, '库存管理', 0, 5, 'wms', '', '', 1, 0, 'M', '0', '0', '', 'stock1', 'admin', '2023-12-31 12:14:33', 'admin', '2024-01-14 15:10:51', '');
-INSERT INTO `sys_menu` VALUES (2027, '入库管理', 2026, 0, 'stock_in_entry/list', 'wms/stockInEntry', '', 1, 0, 'C', '0', '0', 'wms:stock_in_entry:list', 'stockin', 'admin', '2023-12-31 12:27:37', 'admin', '2024-01-14 15:12:48', '');
-INSERT INTO `sys_menu` VALUES (2028, '生成采购入库单', 4, 3, 'purchase/ship/create_stock_in_entry', 'scm/purchase/ship/create_stock_in_entry', '', 1, 0, 'C', '1', '0', '', 'button', 'admin', '2023-12-31 12:31:32', 'admin', '2023-12-31 12:37:39.956753', '');
-INSERT INTO `sys_menu` VALUES (2029, '店铺售后管理', 2053, 1, 'refund', '', '', 1, 0, 'M', '0', '0', '', 'clipboard', 'admin', '2023-12-31 17:29:03', 'admin', '2024-01-13 10:18:17', '');
-INSERT INTO `sys_menu` VALUES (2030, '手动创建订单', 2014, 1, 'order/create', 'sale/order/create', '', 1, 0, 'C', '0', '0', '', 'documentation', 'admin', '2023-12-31 20:01:22', 'admin', '2024-01-04 14:36:11', '');
-INSERT INTO `sys_menu` VALUES (2032, 'API拉取订单', 2014, 3, 'order/pull', 'shop/order/pull', '', 1, 0, 'M', '0', '1', '', 'upload', 'admin', '2023-12-31 20:04:12', 'admin', '2024-01-01 14:34:22.157829', '');
-INSERT INTO `sys_menu` VALUES (2033, '订单查询', 2014, 5, 'order/list', 'sale/order/index', '', 1, 0, 'C', '0', '0', '', 'list', 'admin', '2023-12-31 20:05:05', 'admin', '2024-01-04 14:37:58', '');
-INSERT INTO `sys_menu` VALUES (2034, '发货管理', 0, 3, 'ship', '', '', 1, 0, 'M', '0', '0', '', 'excel', 'admin', '2024-01-01 14:08:04', 'admin', '2024-01-03 14:07:29', '');
-INSERT INTO `sys_menu` VALUES (2035, '多多售后', 2029, 2, 'pdd', 'pdd/refund', '', 1, 0, 'C', '0', '0', '', 'cascader', 'admin', '2024-01-01 14:13:47', 'admin', '2024-01-13 10:28:36', '');
-INSERT INTO `sys_menu` VALUES (2036, '店铺订单管理', 2014, 2, 'order', '', '', 1, 0, 'M', '0', '0', '', 'excel', 'admin', '2024-01-01 14:14:42', 'admin', '2024-01-04 10:25:40', '');
-INSERT INTO `sys_menu` VALUES (2037, '多多订单', 2036, 2, 'pdd', 'pdd/order', '', 1, 0, 'C', '0', '0', '', 'button', 'admin', '2024-01-01 14:15:28', 'admin', '2024-01-05 18:45:37', '');
-INSERT INTO `sys_menu` VALUES (2038, '拼多多订单拉取', 2032, 0, 'pdd', '', '', 1, 0, 'C', '0', '0', '', 'bug', 'admin', '2024-01-01 14:20:19', '', '', '');
-INSERT INTO `sys_menu` VALUES (2039, '抖店订单', 2036, 3, 'dou', 'dou/order', '', 1, 0, 'C', '0', '0', '', 'cascader', 'admin', '2024-01-01 14:35:27', 'admin', '2024-01-05 18:45:29', '');
-INSERT INTO `sys_menu` VALUES (2040, '淘宝订单', 2036, 1, 'tao', 'tao/order', NULL, 1, 0, 'C', '0', '0', '', 'checkbox', 'admin', '2024-01-02 13:54:15', 'admin', '2024-01-05 17:43:20', '');
-INSERT INTO `sys_menu` VALUES (2041, '抖店售后', 2029, 3, 'dou', 'dou/refund', NULL, 1, 0, 'C', '0', '0', '', 'checkbox', 'admin', '2024-01-02 14:11:34', 'admin', '2024-01-13 10:28:26', '');
-INSERT INTO `sys_menu` VALUES (2042, '淘宝售后', 2029, 1, 'tao', 'tao/refund', NULL, 1, 0, 'C', '0', '0', '', 'edit', 'admin', '2024-01-02 14:11:56', 'admin', '2024-01-13 10:18:57', '');
-INSERT INTO `sys_menu` VALUES (2043, '小红书', 2036, 4, 'xhs', 'xhs/order', NULL, 1, 0, 'C', '0', '1', '', 'color', 'admin', '2024-01-02 18:53:14', 'admin', '2024-01-13 10:27:50', '');
-INSERT INTO `sys_menu` VALUES (2044, '小红书', 2029, 4, 'xhs', 'xhs/refund', NULL, 1, 0, 'C', '0', '1', '', 'cascader', 'admin', '2024-01-03 09:18:53', 'admin', '2024-01-13 10:31:52', '');
-INSERT INTO `sys_menu` VALUES (2046, '出库管理', 2026, 5, 'stockOut', 'wms/stockOutEntry', NULL, 1, 0, 'C', '0', '0', '', 'link', 'admin', '2024-01-03 11:00:53', 'admin', '2024-01-12 15:52:19', '');
-INSERT INTO `sys_menu` VALUES (2047, '库存查询', 2026, 6, 'goodsInventory', 'goods/goodsInventory', NULL, 1, 0, 'C', '0', '0', '', 'monitor', 'admin', '2024-01-03 11:01:14', 'admin', '2024-01-09 17:55:33', '');
-INSERT INTO `sys_menu` VALUES (2048, '库存盘点', 2026, 9, 'pan', NULL, NULL, 1, 0, 'C', '0', '1', '', 'bug', 'admin', '2024-01-03 11:01:43', 'admin', '2024-01-09 19:57:08', '');
-INSERT INTO `sys_menu` VALUES (2049, '打包发货', 2034, 3, 'shipping', 'wms/orderShipping/shipping', NULL, 1, 0, 'C', '0', '0', '', 'guide', 'admin', '2024-01-03 14:09:18', 'admin', '2024-01-10 09:21:26', '');
-INSERT INTO `sys_menu` VALUES (2051, '物流跟踪', 2034, 4, 'logistics', 'wms/orderShipping/logistics', NULL, 1, 0, 'C', '0', '0', '', 'email', 'admin', '2024-01-03 14:13:12', 'admin', '2024-01-12 17:03:49', '');
-INSERT INTO `sys_menu` VALUES (2052, '发货统计', 2034, 9, 'statistics', NULL, NULL, 1, 0, 'C', '0', '1', '', '404', 'admin', '2024-01-03 14:14:09', 'admin', '2024-01-12 08:59:52', '');
-INSERT INTO `sys_menu` VALUES (2053, '售后管理', 0, 4, 'saleafter', NULL, NULL, 1, 0, 'M', '0', '0', '', 'clipboard', 'admin', '2024-01-03 14:23:55', 'admin', '2024-01-12 19:47:33', '');
-INSERT INTO `sys_menu` VALUES (2054, '退换货处理', 2053, 3, 'returned', 'sale/returned', NULL, 1, 0, 'C', '0', '0', '', 'size', 'admin', '2024-01-03 14:24:36', 'admin', '2024-01-13 12:21:54', '');
-INSERT INTO `sys_menu` VALUES (2055, '客户管理', 0, 7, 'kefu', NULL, NULL, 1, 0, 'M', '0', '1', '', 'button', 'admin', '2024-01-03 14:27:59', 'admin', '2024-01-12 09:00:43', '');
-INSERT INTO `sys_menu` VALUES (2056, '客户管理', 2055, 0, '0', NULL, NULL, 1, 0, 'C', '0', '0', NULL, '404', 'admin', '2024-01-03 14:28:42', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (2057, '代发管理', 4, 5, 'supplier/agentShipping', 'scm/agentShipping', NULL, 1, 0, 'C', '0', '0', '', 'clipboard', 'admin', '2024-01-06 23:57:14', 'admin', '2024-01-09 10:10:44', '');
-INSERT INTO `sys_menu` VALUES (2058, '代发结算', 4, 6, 'daifajiesuan', NULL, NULL, 1, 0, 'C', '0', '1', '', 'documentation', 'admin', '2024-01-06 23:59:17', 'admin', '2024-01-12 08:58:52', '');
-INSERT INTO `sys_menu` VALUES (2059, '备货清单', 2034, 1, 'stocking', 'wms/orderShipping/stocking', '{\"status\":0}', 1, 0, 'C', '0', '0', '', 'component', 'admin', '2024-01-09 11:51:52', 'admin', '2024-01-11 19:59:40', '');
-INSERT INTO `sys_menu` VALUES (2060, '拣货出库', 2034, 2, 'stockout', 'wms/orderShipping/stockOut', NULL, 1, 0, 'C', '0', '0', '', 'bug', 'admin', '2024-01-09 13:39:00', 'admin', '2024-01-12 15:51:56', '');
-INSERT INTO `sys_menu` VALUES (2061, '库位管理', 2026, 99, 'stock_location', 'wms/location', NULL, 1, 0, 'C', '0', '0', '', 'education', 'admin', '2024-01-09 13:54:30', 'admin', '2024-01-09 14:50:33', '');
-INSERT INTO `sys_menu` VALUES (2062, '代发账单管理', 2018, 2, 'd', NULL, NULL, 1, 0, 'C', '0', '0', '', 'theme', 'admin', '2024-01-12 18:35:02', 'admin', '2024-01-16 15:29:08', '');
-INSERT INTO `sys_menu` VALUES (2063, '发货物流账单', 2018, 3, 'orderShipCost', 'bill/orderShipCost', NULL, 1, 0, 'C', '0', '0', '', 'guide', 'admin', '2024-01-12 18:35:31', 'admin', '2024-01-16 15:28:41', '');
-INSERT INTO `sys_menu` VALUES (2064, '店铺账单管理', 2018, 4, 's', NULL, NULL, 1, 0, 'M', '0', '1', '', 'example', 'admin', '2024-01-12 18:35:55', 'admin', '2024-01-16 15:28:47', '');
-INSERT INTO `sys_menu` VALUES (2066, '添加商品', 2006, 2, 'create', 'goods/create', NULL, 1, 0, 'C', '0', '0', NULL, 'component', 'admin', '2024-01-14 19:42:11', '', NULL, '');
-INSERT INTO `sys_menu` VALUES (2067, '商品规格查询', 2006, 3, 'spec_list', 'goods/spec', NULL, 1, 0, 'C', '0', '0', '', 'theme', 'admin', '2024-01-16 14:17:39', 'admin', '2024-01-16 14:18:10', '');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -9228,7 +8781,7 @@ CREATE TABLE `wms_stock_in_entry`  (
   `update_by` varchar(25)  DEFAULT NULL COMMENT '更新人',
   `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) 
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '入库单' ROW_FORMAT = Dynamic;
+) 
 
 -- ----------------------------
 -- Records of wms_stock_in_entry
@@ -9403,3 +8956,272 @@ CREATE TABLE `wms_stock_out_entry_item_detail`  (
 -- ----------------------------
 INSERT INTO `wms_stock_out_entry_item_detail` VALUES (4, 2, 8, 6, 7, 1, 20, 1, 'admin', '2024-01-16 14:52:43');
 INSERT INTO `wms_stock_out_entry_item_detail` VALUES (5, 3, 9, 6, 7, 1, 20, 1, 'admin', '2024-01-16 15:05:32');
+
+
+DROP TABLE IF EXISTS `wms_order_shipping`;
+CREATE TABLE `wms_order_shipping`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `shop_id` int(0) NOT NULL COMMENT '店铺ID',
+  `shop_type` int(0) NOT NULL COMMENT '店铺平台',
+  `order_num` varchar(50)   NOT NULL COMMENT '订单编号',
+  `erp_order_id` bigint(0) DEFAULT NULL COMMENT 'erp订单ID',
+  `erp_order_item_id` bigint(0) NOT NULL COMMENT 'erp子订单ID',
+  `order_date` datetime(0) NOT NULL COMMENT '订单日期',
+  `goods_id` bigint(0) NOT NULL DEFAULT 0 COMMENT 'erp系统商品id',
+  `spec_id` bigint(0) NOT NULL DEFAULT 0 COMMENT 'erp系统商品规格id',
+  `goods_title` varchar(100)    DEFAULT NULL COMMENT '商品标题',
+  `goods_img` varchar(300)    DEFAULT NULL COMMENT '商品图片',
+  `goods_num` varchar(35)    DEFAULT NULL COMMENT '商品编码',
+  `goods_spec` varchar(50)    DEFAULT NULL COMMENT '商品规格',
+  `spec_num` varchar(35)    DEFAULT NULL COMMENT '商品规格编码',
+  `quantity` int(0) NOT NULL COMMENT '商品数量',
+  `remark` varchar(255)   DEFAULT NULL COMMENT '说明',
+  `ship_company` varchar(20)   DEFAULT NULL COMMENT '物流公司',
+  `ship_no` varchar(50)   DEFAULT NULL COMMENT '物流单号',
+  `ship_cost` decimal(6, 0) DEFAULT NULL COMMENT '运费',
+  `ship_time` datetime(0) DEFAULT NULL COMMENT '发货时间',
+  `out_operator` varchar(25)   DEFAULT NULL COMMENT '出库人',
+  `out_position` varchar(25)   DEFAULT NULL COMMENT '出库仓位',
+  `out_time` datetime(0) DEFAULT NULL COMMENT '出库时间',
+  `status` int(0) DEFAULT NULL COMMENT '状态（0未处理1出库中2已出库3已发货）',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(50)   DEFAULT NULL COMMENT '创建人',
+  `update_by` varchar(20)   DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime(0) DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+)
+
+
+
+
+
+DROP TABLE IF EXISTS `wms_goods_bad_stock`;
+CREATE TABLE `wms_goods_bad_stock`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT,
+  `goodsId` int(0) NOT NULL COMMENT '商品id',
+  `specId` int(0) NOT NULL COMMENT '商品规格id',
+  `specNumber` varchar(25)  NOT NULL DEFAULT '' COMMENT '规格编码（唯一）',
+  `sourceId` varchar(50)  NOT NULL DEFAULT '' COMMENT '来源ID（type==1时 order_send_return主键id）',
+  `type` int(0) NOT NULL COMMENT '类型（1退货报损3待退还供应商）',
+  `locationId` int(0) NOT NULL DEFAULT 0 COMMENT '仓位',
+  `quantity` int(0) NOT NULL DEFAULT 0 COMMENT '数量',
+  `lossAmount` double NOT NULL DEFAULT 0 COMMENT '损失金额（最大成本）',
+  `isDelete` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0正常  1删除',
+  `result` varchar(500)  DEFAULT NULL COMMENT '处理结果',
+  `resultTime` datetime(0) DEFAULT NULL COMMENT '处理时间',
+  `reason` varchar(500)  DEFAULT NULL COMMENT '理由',
+  `status` tinyint(0) NOT NULL DEFAULT 0 COMMENT '是否处理0未处理1已处理',
+  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `modifyTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+  PRIMARY KEY (`id`) 
+) 
+
+DROP TABLE IF EXISTS `wms_goods_bad_stock_log`;
+CREATE TABLE `wms_goods_bad_stock_log`  (
+  `id` bigint(0) NOT NULL AUTO_INCREMENT,
+  `stockId` bigint(0) NOT NULL COMMENT '商品id',
+  `specId` int(0) NOT NULL COMMENT '商品规格id',
+  `locationId` int(0) NOT NULL COMMENT '所在仓位',
+  `type` int(0) NOT NULL COMMENT '类型1入库2出库',
+  `quantity` bigint(0) NOT NULL DEFAULT 0 COMMENT '数量',
+  `remark` varchar(50)  DEFAULT NULL COMMENT '备注',
+  `createTime` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`) 
+)
+
+
+
+-- ----------------------------
+-- Table structure for sys_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_menu`;
+CREATE TABLE `sys_menu`  (
+  `menu_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+  `menu_name` varchar(50)  NOT NULL COMMENT '菜单名称',
+  `parent_id` bigint(0) DEFAULT 0 COMMENT '父菜单ID',
+  `order_num` int(0) DEFAULT 0 COMMENT '显示顺序',
+  `path` varchar(200)  DEFAULT '' COMMENT '路由地址',
+  `component` varchar(255)  DEFAULT NULL COMMENT '组件路径',
+  `query` varchar(255)  DEFAULT NULL COMMENT '路由参数',
+  `is_frame` int(0) DEFAULT 1 COMMENT '是否为外链（0是 1否）',
+  `is_cache` int(0) DEFAULT 0 COMMENT '是否缓存（0缓存 1不缓存）',
+  `menu_type` char(1)  DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
+  `visible` char(1)  DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
+  `status` char(1)  DEFAULT '0' COMMENT '菜单状态（0正常 1停用）',
+  `perms` varchar(100)  DEFAULT NULL COMMENT '权限标识',
+  `icon` varchar(100)  DEFAULT '#' COMMENT '菜单图标',
+  `create_by` varchar(64)  DEFAULT '' COMMENT '创建者',
+  `create_time` datetime(0) DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(64)  DEFAULT '' COMMENT '更新者',
+  `update_time` varchar(64)  DEFAULT NULL COMMENT '更新时间',
+  `remark` varchar(500)  DEFAULT '' COMMENT '备注',
+  PRIMARY KEY (`menu_id`) 
+) 
+
+-- ----------------------------
+-- Records of sys_menu
+-- ----------------------------
+INSERT INTO `sys_menu` VALUES (1, '系统管理', 0, 99, 'system', '', '', 1, 0, 'M', '0', '0', '', 'system', 'admin', '2023-12-27 15:00:27', 'admin', '2024-02-20 19:40:08', '系统管理目录');
+INSERT INTO `sys_menu` VALUES (2, '系统监控', 0, 100, 'monitor', '', '', 1, 0, 'M', '1', '0', '', 'monitor', 'admin', '2023-12-27 15:00:27', 'admin', '2024-02-20 14:48:54', '系统监控目录');
+INSERT INTO `sys_menu` VALUES (3, '系统工具', 0, 101, 'tool', '', '', 1, 0, 'M', '1', '0', '', 'tool', 'admin', '2023-12-27 15:00:27', 'admin', '2024-01-16 10:45:25', '系统工具目录');
+INSERT INTO `sys_menu` VALUES (4, '采购管理', 0, 6, 'scm', '', '', 1, 0, 'M', '0', '0', '', 'server', 'admin', '2023-12-27 15:00:27', 'admin', '2024-02-21 09:46:19', '至简官网地址');
+INSERT INTO `sys_menu` VALUES (100, '用户管理', 1, 1, 'user', 'system/user/index', '', 1, 0, 'C', '0', '0', 'system:user:list', 'user', 'admin', '2023-12-27 15:00:27', '', '', '用户管理菜单');
+INSERT INTO `sys_menu` VALUES (101, '角色管理', 1, 2, 'role', 'system/role/index', '', 1, 0, 'C', '0', '0', 'system:role:list', 'peoples', 'admin', '2023-12-27 15:00:27', '', '', '角色管理菜单');
+INSERT INTO `sys_menu` VALUES (102, '菜单管理', 1, 3, 'menu', 'system/menu/index', '', 1, 0, 'C', '1', '0', 'system:menu:list', 'tree-table', 'admin', '2023-12-27 15:00:27', 'admin', '2024-02-20 19:40:18', '菜单管理菜单');
+INSERT INTO `sys_menu` VALUES (103, '部门管理', 1, 4, 'dept', 'system/dept/index', '', 1, 0, 'C', '0', '0', 'system:dept:list', 'tree', 'admin', '2023-12-27 15:00:27', '', '', '部门管理菜单');
+INSERT INTO `sys_menu` VALUES (104, '岗位管理', 1, 5, 'post', 'system/post/index', '', 1, 0, 'C', '0', '0', 'system:post:list', 'post', 'admin', '2023-12-27 15:00:27', '', '', '岗位管理菜单');
+INSERT INTO `sys_menu` VALUES (105, '字典管理', 1, 6, 'dict', 'system/dict/index', '', 1, 0, 'C', '1', '0', 'system:dict:list', 'dict', 'admin', '2023-12-27 15:00:27', 'admin', '2024-02-21 09:50:23', '字典管理菜单');
+INSERT INTO `sys_menu` VALUES (106, '参数设置', 1, 7, 'config', 'system/config/index', '', 1, 0, 'C', '1', '0', 'system:config:list', 'edit', 'admin', '2023-12-27 15:00:27', 'admin', '2024-02-21 09:50:36', '参数设置菜单');
+INSERT INTO `sys_menu` VALUES (107, '通知公告', 1, 8, 'notice', 'system/notice/index', '', 1, 0, 'C', '1', '0', 'system:notice:list', 'message', 'admin', '2023-12-27 15:00:27', 'admin', '2024-02-21 09:50:29', '通知公告菜单');
+INSERT INTO `sys_menu` VALUES (108, '日志管理', 1, 9, 'log', '', '', 1, 0, 'M', '0', '0', '', 'log', 'admin', '2023-12-27 15:00:27', '', '', '日志管理菜单');
+INSERT INTO `sys_menu` VALUES (109, '在线用户', 2, 1, 'online', 'monitor/online/index', '', 1, 0, 'C', '0', '0', 'monitor:online:list', 'online', 'admin', '2023-12-27 15:00:27', '', '', '在线用户菜单');
+INSERT INTO `sys_menu` VALUES (110, '定时任务', 2, 2, 'job', 'monitor/job/index', '', 1, 0, 'C', '0', '0', 'monitor:job:list', 'job', 'admin', '2023-12-27 15:00:27', '', '', '定时任务菜单');
+INSERT INTO `sys_menu` VALUES (111, '数据监控', 2, 3, 'druid', 'monitor/druid/index', '', 1, 0, 'C', '0', '0', 'monitor:druid:list', 'druid', 'admin', '2023-12-27 15:00:27', '', '', '数据监控菜单');
+INSERT INTO `sys_menu` VALUES (112, '服务监控', 2, 4, 'server', 'monitor/server/index', '', 1, 0, 'C', '0', '0', 'monitor:server:list', 'server', 'admin', '2023-12-27 15:00:27', '', '', '服务监控菜单');
+INSERT INTO `sys_menu` VALUES (113, '缓存监控', 2, 5, 'cache', 'monitor/cache/index', '', 1, 0, 'C', '0', '0', 'monitor:cache:list', 'redis', 'admin', '2023-12-27 15:00:27', '', '', '缓存监控菜单');
+INSERT INTO `sys_menu` VALUES (114, '缓存列表', 2, 6, 'cacheList', 'monitor/cache/list', '', 1, 0, 'C', '0', '0', 'monitor:cache:list', 'redis-list', 'admin', '2023-12-27 15:00:27', '', '', '缓存列表菜单');
+INSERT INTO `sys_menu` VALUES (115, '表单构建', 3, 1, 'build', 'tool/build/index', '', 1, 0, 'C', '0', '0', 'tool:build:list', 'build', 'admin', '2023-12-27 15:00:27', '', '', '表单构建菜单');
+INSERT INTO `sys_menu` VALUES (116, '代码生成', 3, 2, 'gen', 'tool/gen/index', '', 1, 0, 'C', '0', '0', 'tool:gen:list', 'code', 'admin', '2023-12-27 15:00:27', '', '', '代码生成菜单');
+INSERT INTO `sys_menu` VALUES (117, '系统接口', 3, 3, 'swagger', 'tool/swagger/index', '', 1, 0, 'C', '0', '0', 'tool:swagger:list', 'swagger', 'admin', '2023-12-27 15:00:27', '', '', '系统接口菜单');
+INSERT INTO `sys_menu` VALUES (500, '操作日志', 108, 1, 'operlog', 'monitor/operlog/index', '', 1, 0, 'C', '0', '0', 'monitor:operlog:list', 'form', 'admin', '2023-12-27 15:00:27', '', '', '操作日志菜单');
+INSERT INTO `sys_menu` VALUES (501, '登录日志', 108, 2, 'logininfor', 'monitor/logininfor/index', '', 1, 0, 'C', '0', '0', 'monitor:logininfor:list', 'logininfor', 'admin', '2023-12-27 15:00:27', '', '', '登录日志菜单');
+INSERT INTO `sys_menu` VALUES (1000, '用户查询', 100, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:user:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1001, '用户新增', 100, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:user:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1002, '用户修改', 100, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:user:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1003, '用户删除', 100, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:user:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1004, '用户导出', 100, 5, '', '', '', 1, 0, 'F', '0', '0', 'system:user:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1005, '用户导入', 100, 6, '', '', '', 1, 0, 'F', '0', '0', 'system:user:import', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1006, '重置密码', 100, 7, '', '', '', 1, 0, 'F', '0', '0', 'system:user:resetPwd', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1007, '角色查询', 101, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:role:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1008, '角色新增', 101, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:role:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1009, '角色修改', 101, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:role:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1010, '角色删除', 101, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:role:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1011, '角色导出', 101, 5, '', '', '', 1, 0, 'F', '0', '0', 'system:role:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1012, '菜单查询', 102, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:menu:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1013, '菜单新增', 102, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:menu:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1014, '菜单修改', 102, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:menu:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1015, '菜单删除', 102, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:menu:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1016, '部门查询', 103, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:dept:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1017, '部门新增', 103, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:dept:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1018, '部门修改', 103, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:dept:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1019, '部门删除', 103, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:dept:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1020, '岗位查询', 104, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:post:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1021, '岗位新增', 104, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:post:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1022, '岗位修改', 104, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:post:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1023, '岗位删除', 104, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:post:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1024, '岗位导出', 104, 5, '', '', '', 1, 0, 'F', '0', '0', 'system:post:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1025, '字典查询', 105, 1, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1026, '字典新增', 105, 2, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1027, '字典修改', 105, 3, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1028, '字典删除', 105, 4, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1029, '字典导出', 105, 5, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1030, '参数查询', 106, 1, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1031, '参数新增', 106, 2, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1032, '参数修改', 106, 3, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1033, '参数删除', 106, 4, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1034, '参数导出', 106, 5, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1035, '公告查询', 107, 1, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1036, '公告新增', 107, 2, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1037, '公告修改', 107, 3, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1038, '公告删除', 107, 4, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1039, '操作查询', 500, 1, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:operlog:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1040, '操作删除', 500, 2, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:operlog:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1041, '日志导出', 500, 3, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:operlog:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1042, '登录查询', 501, 1, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1043, '登录删除', 501, 2, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1044, '日志导出', 501, 3, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1045, '账户解锁', 501, 4, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:unlock', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1046, '在线查询', 109, 1, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:online:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1047, '批量强退', 109, 2, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:online:batchLogout', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1048, '单条强退', 109, 3, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:online:forceLogout', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1049, '任务查询', 110, 1, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1050, '任务新增', 110, 2, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:add', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1051, '任务修改', 110, 3, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1052, '任务删除', 110, 4, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1053, '状态修改', 110, 5, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:changeStatus', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1054, '任务导出', 110, 6, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:export', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1055, '生成查询', 116, 1, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:query', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1056, '生成修改', 116, 2, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:edit', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1057, '生成删除', 116, 3, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:remove', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1058, '导入代码', 116, 4, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:import', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1059, '预览代码', 116, 5, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:preview', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (1060, '生成代码', 116, 6, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:code', '#', 'admin', '2023-12-27 15:00:27', '', '', '');
+INSERT INTO `sys_menu` VALUES (2000, '市场洞察', 0, 20, 'data', '', '', 1, 0, 'M', '0', '1', '', 'international', 'admin', '2023-12-22 16:20:02', 'admin', '2024-01-12 18:36:19', '');
+INSERT INTO `sys_menu` VALUES (2001, '热搜词', 2000, 1, 'keyword/hot_keyword_list', 'data/keyword/hot_keyword', '', 1, 0, 'C', '0', '0', 'data:keyword:list', 'dict', 'admin', '2023-12-22 16:22:59', 'admin', '2023-12-26 11:55:45', '');
+INSERT INTO `sys_menu` VALUES (2002, '推荐商品', 2000, 8, 'goods/goods_recommend', 'data/goods/recommend_list', '', 1, 0, 'C', '1', '0', 'data:goods:recommend', 'star', 'admin', '2023-12-25 16:57:48', 'admin', '2023-12-29 09:07:16.570167', '');
+INSERT INTO `sys_menu` VALUES (2003, '商品热卖榜', 2000, 9, 'goods/sale_hot_list', 'data/goods/sale_hot_list', '', 1, 0, 'C', '1', '0', 'data:goods:salehot', 'list', 'admin', '2023-12-25 17:08:24', 'admin', '2023-12-29 09:07:20.615237', '');
+INSERT INTO `sys_menu` VALUES (2004, '市场动态', 2000, 0, 'market_info', 'data/market/info', '', 1, 0, 'C', '1', '0', 'data:market:info', 'guide', 'admin', '2023-12-26 11:55:33', 'admin', '2023-12-29 09:07:09.697533', '');
+INSERT INTO `sys_menu` VALUES (2005, '供应商管理', 4, 9, 'supplier/list', 'scm/supplier/index', '', 1, 0, 'C', '0', '0', 'scm:supplier', 'qq', 'admin', '2023-12-29 09:14:02', 'admin', '2023-12-29 09:17:27.514466', '');
+INSERT INTO `sys_menu` VALUES (2006, '商品管理', 0, 9, 'goods', '', '', 1, 0, 'M', '0', '0', '', 'theme', 'admin', '2023-12-29 13:29:44', '', '', '');
+INSERT INTO `sys_menu` VALUES (2007, '商品管理', 2006, 1, 'goods_list', 'goods/index', '', 1, 0, 'C', '0', '0', 'goods:list', 'theme', 'admin', '2023-12-29 13:31:01', 'admin', '2023-12-29 15:02:40.869685', '');
+INSERT INTO `sys_menu` VALUES (2008, '商品分类', 2006, 88, 'goods_category', 'goods/category/index', '', 1, 0, 'C', '0', '0', 'goods:category', 'tree-table', 'admin', '2023-12-29 13:32:41', 'admin', '2023-12-29 15:02:22.220534', '');
+INSERT INTO `sys_menu` VALUES (2009, '品牌管理', 2006, 99, 'goods/brand', 'goods/brand/index', '', 1, 0, 'C', '0', '0', 'goods:brand', 'clipboard', 'admin', '2023-12-29 13:34:49', 'admin', '2023-12-29 13:58:43.724029', '');
+INSERT INTO `sys_menu` VALUES (2010, '采购订单管理', 4, 1, 'purchase/order', 'scm/purchase/order', '', 1, 0, 'C', '0', '0', 'scm:purchase:order', 'button', 'admin', '2023-12-29 16:35:55', 'admin', '2023-12-29 16:36:57.653118', '');
+INSERT INTO `sys_menu` VALUES (2011, '采购合同管理', 4, 2, 'purchase/contract', 'scm/purchase/contract', '', 1, 0, 'C', '0', '1', 'scm:purchase:contract', 'clipboard', 'admin', '2023-12-29 16:39:43', 'admin', '2023-12-30 18:07:58.363465', '');
+INSERT INTO `sys_menu` VALUES (2012, '采购物流管理', 4, 3, 'purchase/ship', 'scm/purchase/ship', '', 1, 0, 'C', '0', '0', 'scm:purchase:ship', 'component', 'admin', '2023-12-29 16:45:42', 'admin', '2023-12-30 20:48:47.282509', '');
+INSERT INTO `sys_menu` VALUES (2013, '采购费用管理', 4, 4, 'purchase/cost', 'scm/purchase/cost', '', 1, 0, 'C', '0', '1', 'scm:purchase:cost', 'checkbox', 'admin', '2023-12-29 16:47:07', 'admin', '2024-01-13 18:32:21', '');
+INSERT INTO `sys_menu` VALUES (2014, '订单管理', 0, 2, 'sale', '', '', 1, 0, 'M', '0', '0', '', 'shopping', 'admin', '2023-12-29 16:53:03', 'admin', '2024-02-20 14:27:09', '');
+INSERT INTO `sys_menu` VALUES (2015, '店铺设置', 2084, 10, 'shop', 'shop/index', '', 1, 0, 'C', '0', '0', 'shop:list', 'example', 'admin', '2023-12-29 16:54:02', 'admin', '2024-02-20 14:45:26', '');
+INSERT INTO `sys_menu` VALUES (2016, '淘宝商品', 2087, 1, 'tao_goods', 'shop/goods', '{\"shopType\":4}', 1, 0, 'C', '0', '0', 'shop:goods', 'color', 'admin', '2023-12-29 17:02:42', 'admin', '2024-02-20 17:49:39', '');
+INSERT INTO `sys_menu` VALUES (2017, '店铺数据统计', 2084, 8, 'data', 'shop/data', '', 1, 0, 'C', '0', '1', 'shop:data', 'chart', 'admin', '2023-12-29 17:04:08', 'admin', '2024-02-20 14:46:11', '');
+INSERT INTO `sys_menu` VALUES (2018, '财务管理', 0, 7, 'fms', '', '', 1, 0, 'M', '0', '0', '', 'money', 'admin', '2023-12-29 17:07:23', 'admin', '2024-02-20 14:43:30', '');
+INSERT INTO `sys_menu` VALUES (2019, '采购账单管理', 2018, 1, 'purchase', 'scm/purchase/cost', '', 1, 0, 'C', '0', '1', '', 'shopping', 'admin', '2023-12-29 17:09:32', 'admin', '2024-01-28 11:22:15', '');
+INSERT INTO `sys_menu` VALUES (2021, '创建采购订单', 4, 0, 'purchase/order/create', 'scm/purchase/order/create', '', 1, 0, 'C', '1', '0', '', 'edit', 'admin', '2023-12-29 21:23:45', 'admin', '2024-01-06 23:56:06', '');
+INSERT INTO `sys_menu` VALUES (2025, '采购订单详情', 4, 1, 'purchase/order/detail', 'scm/purchase/order/detail', '', 1, 0, 'C', '1', '0', '', 'button', 'admin', '2023-12-30 17:08:01', 'admin', '2023-12-30 17:09:38.154348', '');
+INSERT INTO `sys_menu` VALUES (2026, '库存管理', 0, 8, 'wms', '', '', 1, 0, 'M', '0', '0', '', 'stock1', 'admin', '2023-12-31 12:14:33', 'admin', '2024-02-20 14:43:55', '');
+INSERT INTO `sys_menu` VALUES (2027, '入库管理', 2026, 0, 'stock_in_entry/list', 'wms/stockInEntry', '', 1, 0, 'C', '0', '0', 'wms:stock_in_entry:list', 'stockin', 'admin', '2023-12-31 12:27:37', 'admin', '2024-01-14 15:12:48', '');
+INSERT INTO `sys_menu` VALUES (2028, '生成采购入库单', 4, 3, 'purchase/ship/create_stock_in_entry', 'scm/purchase/ship/create_stock_in_entry', '', 1, 0, 'C', '1', '0', '', 'button', 'admin', '2023-12-31 12:31:32', 'admin', '2023-12-31 12:37:39.956753', '');
+INSERT INTO `sys_menu` VALUES (2029, '店铺售后管理', 2053, 1, 'refund', '', '', 1, 0, 'M', '0', '1', '', 'clipboard', 'admin', '2023-12-31 17:29:03', 'admin', '2024-02-20 14:35:12', '');
+INSERT INTO `sys_menu` VALUES (2030, '手动创建订单', 2014, 1, 'order/create', 'sale/order/create', '', 1, 0, 'C', '1', '0', '', 'documentation', 'admin', '2023-12-31 20:01:22', 'admin', '2024-02-20 14:31:43', '');
+INSERT INTO `sys_menu` VALUES (2032, 'API拉取订单', 2014, 3, 'order/pull', 'shop/order/pull', '', 1, 0, 'M', '0', '1', '', 'upload', 'admin', '2023-12-31 20:04:12', 'admin', '2024-01-01 14:34:22.157829', '');
+INSERT INTO `sys_menu` VALUES (2033, '订单查询', 2014, 0, 'order/list', 'sale/order/index', '', 1, 0, 'C', '0', '0', '', 'list', 'admin', '2023-12-31 20:05:05', 'admin', '2024-02-20 14:28:06', '');
+INSERT INTO `sys_menu` VALUES (2034, '发货管理', 0, 3, 'ship', '', '', 1, 0, 'M', '0', '0', '', 'excel', 'admin', '2024-01-01 14:08:04', 'admin', '2024-01-03 14:07:29', '');
+INSERT INTO `sys_menu` VALUES (2035, '拼多多售后', 2053, 2, 'pdd', 'pdd/refund', '', 1, 0, 'C', '0', '0', '', 'cascader', 'admin', '2024-01-01 14:13:47', 'admin', '2024-02-20 14:35:56', '');
+INSERT INTO `sys_menu` VALUES (2036, '店铺订单管理', 2014, 2, 'order', '', '', 1, 0, 'M', '0', '1', '', 'excel', 'admin', '2024-01-01 14:14:42', 'admin', '2024-02-20 14:30:33', '');
+INSERT INTO `sys_menu` VALUES (2037, '拼多多订单管理', 2014, 5, 'pdd', 'pdd/order', '', 1, 0, 'C', '0', '0', '', 'button', 'admin', '2024-01-01 14:15:28', 'admin', '2024-02-20 19:39:21', '');
+INSERT INTO `sys_menu` VALUES (2038, '拼多多订单拉取', 2032, 0, 'pdd', '', '', 1, 0, 'C', '0', '0', '', 'bug', 'admin', '2024-01-01 14:20:19', '', '', '');
+INSERT INTO `sys_menu` VALUES (2039, '抖店订单管理', 2014, 6, 'dou', 'dou/order', '', 1, 0, 'C', '0', '0', '', 'cascader', 'admin', '2024-01-01 14:35:27', 'admin', '2024-02-20 14:29:35', '');
+INSERT INTO `sys_menu` VALUES (2040, '淘宝订单管理', 2014, 4, 'tao', 'tao/order', NULL, 1, 0, 'C', '0', '0', '', 'checkbox', 'admin', '2024-01-02 13:54:15', 'admin', '2024-02-20 19:39:13', '');
+INSERT INTO `sys_menu` VALUES (2041, '抖店售后', 2053, 3, 'dou', 'dou/refund', NULL, 1, 0, 'C', '0', '0', '', 'checkbox', 'admin', '2024-01-02 14:11:34', 'admin', '2024-02-20 14:35:03', '');
+INSERT INTO `sys_menu` VALUES (2042, '淘宝售后', 2053, 1, 'tao', 'tao/refund', NULL, 1, 0, 'C', '0', '0', '', 'edit', 'admin', '2024-01-02 14:11:56', 'admin', '2024-02-20 14:34:44', '');
+INSERT INTO `sys_menu` VALUES (2043, '小红书', 2036, 4, 'xhs', 'xhs/order', NULL, 1, 0, 'C', '0', '1', '', 'color', 'admin', '2024-01-02 18:53:14', 'admin', '2024-01-13 10:27:50', '');
+INSERT INTO `sys_menu` VALUES (2044, '小红书', 2029, 4, 'xhs', 'xhs/refund', NULL, 1, 0, 'C', '0', '1', '', 'cascader', 'admin', '2024-01-03 09:18:53', 'admin', '2024-01-13 10:31:52', '');
+INSERT INTO `sys_menu` VALUES (2046, '出库管理', 2026, 5, 'stockOut', 'wms/stockOutEntry', NULL, 1, 0, 'C', '0', '0', '', 'link', 'admin', '2024-01-03 11:00:53', 'admin', '2024-01-12 15:52:19', '');
+INSERT INTO `sys_menu` VALUES (2047, '库存查询', 2026, 6, 'goodsInventory', 'goods/goodsInventory', NULL, 1, 0, 'C', '0', '0', '', 'monitor', 'admin', '2024-01-03 11:01:14', 'admin', '2024-01-09 17:55:33', '');
+INSERT INTO `sys_menu` VALUES (2048, '库存盘点', 2026, 9, 'pan', NULL, NULL, 1, 0, 'C', '0', '1', '', 'bug', 'admin', '2024-01-03 11:01:43', 'admin', '2024-01-09 19:57:08', '');
+INSERT INTO `sys_menu` VALUES (2049, '打包发货', 2088, 3, 'shipping', 'wms/orderShipping/shipping', NULL, 1, 0, 'C', '0', '0', '', 'guide', 'admin', '2024-01-03 14:09:18', 'admin', '2024-02-21 09:42:11', '');
+INSERT INTO `sys_menu` VALUES (2051, '物流跟踪', 2034, 4, 'logistics', 'wms/orderShipping/logistics', NULL, 1, 0, 'C', '0', '0', '', 'email', 'admin', '2024-01-03 14:13:12', 'admin', '2024-01-12 17:03:49', '');
+INSERT INTO `sys_menu` VALUES (2052, '发货统计', 2034, 9, 'statistics', NULL, NULL, 1, 0, 'C', '0', '1', '', '404', 'admin', '2024-01-03 14:14:09', 'admin', '2024-01-12 08:59:52', '');
+INSERT INTO `sys_menu` VALUES (2053, '售后管理', 0, 4, 'saleafter', NULL, NULL, 1, 0, 'M', '0', '0', '', 'clipboard', 'admin', '2024-01-03 14:23:55', 'admin', '2024-01-12 19:47:33', '');
+INSERT INTO `sys_menu` VALUES (2054, '退换货处理', 2053, 3, 'returned', 'sale/returned', NULL, 1, 0, 'C', '0', '0', '', 'size', 'admin', '2024-01-03 14:24:36', 'admin', '2024-01-13 12:21:54', '');
+INSERT INTO `sys_menu` VALUES (2055, '客户管理', 0, 7, 'kefu', NULL, NULL, 1, 0, 'M', '0', '1', '', 'button', 'admin', '2024-01-03 14:27:59', 'admin', '2024-01-12 09:00:43', '');
+INSERT INTO `sys_menu` VALUES (2056, '客户管理', 2055, 0, '0', NULL, NULL, 1, 0, 'C', '0', '0', NULL, '404', 'admin', '2024-01-03 14:28:42', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2057, '代发管理', 2089, 5, 'agentShipping', 'scm/agentShipping', NULL, 1, 0, 'C', '0', '0', '', 'clipboard', 'admin', '2024-01-06 23:57:14', 'admin', '2024-02-21 09:47:30', '');
+INSERT INTO `sys_menu` VALUES (2058, '代发结算', 4, 6, 'daifajiesuan', NULL, NULL, 1, 0, 'C', '0', '1', '', 'documentation', 'admin', '2024-01-06 23:59:17', 'admin', '2024-01-12 08:58:52', '');
+INSERT INTO `sys_menu` VALUES (2059, '备货清单', 2088, 1, 'stocking', 'wms/orderShipping/stocking', '{\"status\":0}', 1, 0, 'C', '0', '0', '', 'component', 'admin', '2024-01-09 11:51:52', 'admin', '2024-02-21 09:41:33', '');
+INSERT INTO `sys_menu` VALUES (2060, '拣货出库', 2088, 2, 'stockout', 'wms/orderShipping/stockOut', NULL, 1, 0, 'C', '0', '0', '', 'bug', 'admin', '2024-01-09 13:39:00', 'admin', '2024-02-21 09:42:01', '');
+INSERT INTO `sys_menu` VALUES (2061, '库位管理', 2026, 99, 'stock_location', 'wms/location', NULL, 1, 0, 'C', '0', '0', '', 'education', 'admin', '2024-01-09 13:54:30', 'admin', '2024-01-09 14:50:33', '');
+INSERT INTO `sys_menu` VALUES (2062, '代发账单', 2072, 3, 'agentShip', 'fms/payable/agentShip', NULL, 1, 0, 'C', '0', '0', '', 'theme', 'admin', '2024-01-12 18:35:02', 'admin', '2024-01-28 20:57:13', '');
+INSERT INTO `sys_menu` VALUES (2063, '物流费用', 2072, 3, 'shipFee', 'fms/payable/shipFee', NULL, 1, 0, 'C', '0', '0', '', 'guide', 'admin', '2024-01-12 18:35:31', 'admin', '2024-01-28 15:16:13', '');
+INSERT INTO `sys_menu` VALUES (2064, '店铺账单管理', 2018, 4, 's', NULL, NULL, 1, 0, 'M', '0', '1', '', 'example', 'admin', '2024-01-12 18:35:55', 'admin', '2024-01-16 15:28:47', '');
+INSERT INTO `sys_menu` VALUES (2066, '添加商品', 2006, 2, 'create', 'goods/create', NULL, 1, 0, 'C', '1', '0', '', 'component', 'admin', '2024-01-14 19:42:11', 'admin', '2024-02-20 20:00:25', '');
+INSERT INTO `sys_menu` VALUES (2067, '商品规格查询', 2006, 3, 'spec_list', 'goods/spec', NULL, 1, 0, 'C', '0', '0', '', 'theme', 'admin', '2024-01-16 14:17:39', 'admin', '2024-01-16 14:18:10', '');
+INSERT INTO `sys_menu` VALUES (2068, '应收管理', 2018, 1, 'receivable', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'example', 'admin', '2024-01-28 11:23:36', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2069, '订单收入', 2068, 1, 'order', 'fms/receivable/order', NULL, 1, 0, 'C', '0', '0', '', 'checkbox', 'admin', '2024-01-28 11:24:35', 'admin', '2024-01-28 14:48:11', '');
+INSERT INTO `sys_menu` VALUES (2070, '退款款项', 2068, 2, 'refund', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'bug', 'admin', '2024-01-28 11:26:55', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2071, '平台服务费', 2068, 3, 'service_fee', NULL, NULL, 1, 0, 'M', '0', '1', '', 'cascader', 'admin', '2024-01-28 11:28:03', 'admin', '2024-01-28 19:35:31', '');
+INSERT INTO `sys_menu` VALUES (2072, '应付管理', 2018, 2, 'payable', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'clipboard', 'admin', '2024-01-28 11:29:21', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2073, '采购应付', 2072, 1, 'purchase', 'fms/payable/purchase', NULL, 1, 0, 'C', '0', '0', '', 'component', 'admin', '2024-01-28 11:30:49', 'admin', '2024-01-28 11:55:53', '');
+INSERT INTO `sys_menu` VALUES (2074, '采购退货', 2072, 2, 'return', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'cascader', 'admin', '2024-01-28 11:32:21', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2075, '营销费用', 2072, 5, 'market_fee', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'cascader', 'admin', '2024-01-28 11:33:36', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2076, '其他费用', 2072, 6, 'other_fee', NULL, NULL, 1, 0, 'C', '0', '1', '', 'clipboard', 'admin', '2024-01-28 11:34:01', 'admin', '2024-01-28 19:49:00', '');
+INSERT INTO `sys_menu` VALUES (2077, '存货报表', 2018, 3, 'inventory_report', 'fms/inventoryReport', NULL, 1, 0, 'C', '0', '0', '', 'druid', 'admin', '2024-01-28 11:36:05', 'admin', '2024-01-28 14:49:01', '');
+INSERT INTO `sys_menu` VALUES (2078, '记账凭证管理', 2018, 9, 'voucher', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'edit', 'admin', '2024-02-02 15:33:36', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2079, '凭证查询', 2078, 1, 'list', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'edit', 'admin', '2024-02-02 15:34:21', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2080, '科目设置', 2078, 3, 'AccountSubject', NULL, NULL, 1, 0, 'C', '0', '0', NULL, 'color', 'admin', '2024-02-02 15:36:15', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2084, '店铺管理', 0, 5, 'shop', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'international', 'admin', '2024-02-20 14:41:21', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2085, '多多商品', 2087, 2, 'duoduo_goods', 'shop/goods', '{\"shopType\":5}', 1, 0, 'C', '0', '0', '', 'clipboard', 'admin', '2024-02-20 14:46:40', 'admin', '2024-02-20 18:00:14', '');
+INSERT INTO `sys_menu` VALUES (2086, '抖店商品', 2087, 3, 'doudian_goods', 'shop/goods', '{\"shopType\":6}', 1, 0, 'C', '0', '0', '', 'button', 'admin', '2024-02-20 14:47:24', 'admin', '2024-02-20 18:00:38', '');
+INSERT INTO `sys_menu` VALUES (2087, '店铺商品管理', 2084, 1, 'goods', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'job', 'admin', '2024-02-20 17:47:24', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2088, '仓库发货', 2034, 1, 'ck', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'clipboard', 'admin', '2024-02-21 09:41:18', '', NULL, '');
+INSERT INTO `sys_menu` VALUES (2089, '供应商代发', 2034, 2, 'df', NULL, NULL, 1, 0, 'M', '0', '0', '', 'bug', 'admin', '2024-02-21 09:43:55', 'admin', '2024-02-21 09:45:30', '');
